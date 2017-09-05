@@ -20,10 +20,13 @@ public class Main extends Application {
 
 	private final int x = 1280;
 	private final int y = 720;
+	private final int tileSize = 40;
+	private String event;
+	private String[] strings = {"Dot", "LargeDot", "Wall", "Empty" };
 
 	public void init(){
 
-		draw = new Draw(x,y);
+		draw = new Draw(x,y,tileSize);
 		con = new Controller(draw);
 	}
 	@Override
@@ -32,11 +35,12 @@ public class Main extends Application {
 			BorderPane root = new BorderPane();
 			root.getChildren().add(draw);
 
-
-
 			Scene scene = new Scene(root,x,y);
 			primaryStage.setScene(scene);
 			primaryStage.show();
+
+
+			handle();
 		} catch(Exception e) {
 			e.printStackTrace();
 		}
@@ -45,6 +49,7 @@ public class Main extends Application {
 	public void handle(){
 		draw.setOnMouseClicked(new EventHandler<MouseEvent>() {
 			public void handle(MouseEvent e){
+				con.draw(e, event);
 			}
 
 		});
