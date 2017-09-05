@@ -4,13 +4,23 @@ import java.awt.Point;
 
 import javafx.scene.input.MouseEvent;
 import modal.Draw;
+import modal.Map;
 
 public class Controller {
 	private Draw draw;
+	private Map map;
+
 	private String[] strings;
 
-	public Controller(Draw draw) {
+	public Controller(Draw draw, Map map, String[] strings) {
 		this.draw = draw;
+		this.map = map;
+		this.strings = strings;
+	}
+
+	public void beginning() {
+		draw.drawGrid();
+		draw.drawOuterBound();
 	}
 
 	public void draw(MouseEvent e, String s) {
@@ -30,18 +40,23 @@ public class Controller {
 				break;
 			}
 		}
-		Point point = new Point(mouseX,mouseY);
+		Point point = new Point(mouseX, mouseY);
+		System.out.println(point);
 		if (s.equals(strings[0])) {
 			draw.drawDot(point);
+			map.addToMap(point, strings[0]);
 
-		}else if(s.equals(strings[1])){
+		} else if (s.equals(strings[1])) {
 			draw.drawLargeDot(point);
+			map.addToMap(point, strings[1]);
 
-		}else if(s.equals(strings[2])){
+		} else if (s.equals(strings[2])) {
 			draw.drawWall(point);
+			map.addToMap(point, strings[2]);
 
-		}else if(s.equals(strings[3])){
+		} else if (s.equals(strings[3])) {
 			draw.clearTile(point);
+			map.addToMap(point, strings[3]);
 
 		}
 	}
