@@ -1,5 +1,6 @@
 package controller;
 
+import javafx.scene.input.MouseEvent;
 import modal.Draw;
 
 public class Controller {
@@ -9,4 +10,7 @@ public class Controller {
 		this.draw = draw;
 	}
 
+	public void draw(MouseEvent e){
+
+	}
 }
