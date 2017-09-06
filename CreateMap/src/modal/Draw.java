@@ -5,7 +5,6 @@ import java.awt.Point;
 import javafx.scene.canvas.Canvas;
 import javafx.scene.canvas.GraphicsContext;
 import javafx.scene.paint.Color;
-import javafx.scene.shape.LineTo;
 
 public class Draw extends Canvas {
 	private GraphicsContext gc;

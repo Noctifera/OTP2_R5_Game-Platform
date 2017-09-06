@@ -19,6 +19,8 @@ public class Controller {
 	}
 
 	public void beginning() {
+		map.initializeMap();
+		draw.clear();
 		draw.drawGrid();
 		draw.drawOuterBound();
 	}
@@ -59,5 +61,8 @@ public class Controller {
 			map.addToMap(point, strings[3]);
 
 		}
+	}
+	public void saveMap(String fileName){
+		map.SaveMapToFile(fileName+".txt");
 	}
 }
