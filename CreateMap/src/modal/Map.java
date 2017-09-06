@@ -1,6 +1,7 @@
 package modal;
 
 import java.awt.Point;
+import java.io.File;
 import java.io.FileInputStream;
 import java.io.FileNotFoundException;
 import java.io.FileOutputStream;
@@ -15,6 +16,7 @@ public class Map {
 	private int y;
 	private int tileSize;
 	private String[] strings;
+	File folder  = new File("C:\\users\\marku\\git\\PacMan\\PacMan\\Maps");
 
 	public Map(int x, int y, int tileSize, String[] strings){
 		this.x = x;
@@ -35,13 +37,28 @@ public class Map {
 
 	}
 	public void addToMap(Point point, String item){
+		if(map.get(point).equals(strings[3])){
 		map.put(point, item);
+		}
+	}
+	public void onlyOne(Point point, String item){
+		for(Point p: map.keySet()){
+			if(map.get(p).equals(item)){
+				map.replace(p, strings[3]);
+			}
+		}
+		addToMap(point, item);
+
 	}
 
 	public void SaveMapToFile(String fileName){
+		if(!fileName.contains(".txt")){
+			fileName = fileName+".txt";
+		}
+		File file  = new File(folder+"\\"+fileName);
 
 		try {
-			FileOutputStream fileOut = new FileOutputStream(fileName);
+			FileOutputStream fileOut = new FileOutputStream(file);
 			ObjectOutputStream dataOut = new ObjectOutputStream(fileOut);
 			dataOut.writeObject(map);
 			dataOut.close();
@@ -57,8 +74,11 @@ public class Map {
 	@SuppressWarnings("unchecked")
 	public void GetMapFromFile(String fileName){
 		HashMap<Point,String> map1 = new HashMap<Point,String>();
+
+		File file  = new File(folder+"\\"+fileName);
+
 		try {
-			FileInputStream fileIn = new FileInputStream(fileName);
+			FileInputStream fileIn = new FileInputStream(file);
 			ObjectInputStream objectIn = new ObjectInputStream(fileIn);
 			map1 = (HashMap<Point, String>) objectIn.readObject();
 			objectIn.close();
@@ -75,6 +95,10 @@ public class Map {
 		map.clear();
 		map.putAll(map1);
 
+	}
+	public File[] allFiles(){
+		File[] files = folder.listFiles();
+		return files;
 	}
 
 }

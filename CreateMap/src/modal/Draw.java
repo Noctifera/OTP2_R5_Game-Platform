@@ -15,15 +15,16 @@ public class Draw extends Canvas {
 		this.gc = this.getGraphicsContext2D();
 		this.tileSize = tileSize;
 	}
-	public void drawOuterBound(){
+
+	public void drawOuterBound() {
 		gc.setFill(Color.BLACK);
 		gc.moveTo(0, 0);
 		gc.lineTo(this.getWidth(), 0);
 
 		gc.moveTo(this.getWidth(), 0);
-		gc.lineTo(this.getWidth(),this.getHeight());
+		gc.lineTo(this.getWidth(), this.getHeight());
 
-		gc.moveTo(this.getWidth(),this.getHeight());
+		gc.moveTo(this.getWidth(), this.getHeight());
 		gc.lineTo(0, this.getHeight());
 
 		gc.moveTo(0, this.getHeight());
@@ -33,15 +34,15 @@ public class Draw extends Canvas {
 
 	}
 
-	public void drawGrid(){
+	public void drawGrid() {
 		gc.setFill(Color.BLACK);
-		for(int i= 0; i< this.getWidth();){
-		gc.moveTo(i, 0);
-	    gc.lineTo(i, this.getHeight());
+		for (int i = 0; i < this.getWidth();) {
+			gc.moveTo(i, 0);
+			gc.lineTo(i, this.getHeight());
 
-	    i = i + tileSize;
+			i = i + tileSize;
 		}
-		for(int i = 0; i< this.getHeight();){
+		for (int i = 0; i < this.getHeight();) {
 			gc.moveTo(0, i);
 			gc.lineTo(this.getWidth(), i);
 

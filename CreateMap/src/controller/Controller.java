@@ -1,6 +1,7 @@
 package controller;
 
 import java.awt.Point;
+import java.io.File;
 
 import javafx.scene.input.MouseEvent;
 import modal.Draw;
@@ -60,9 +61,23 @@ public class Controller {
 			draw.clearTile(point);
 			map.addToMap(point, strings[3]);
 
+		} else if(s.equals(strings[4])){
+			map.onlyOne(point, strings[4]);
+		} else if(s.equals(strings[5])){
+			map.onlyOne(point, strings[5]);
 		}
 	}
 	public void saveMap(String fileName){
-		map.SaveMapToFile(fileName+".txt");
+		map.SaveMapToFile(fileName);
+	}
+	public void getMap(String fileName){
+		map.GetMapFromFile(fileName);
+	}
+	public String[] readFiles(){
+		String[] fileNames = new String[map.allFiles().length];
+		for(int i = 0; i<map.allFiles().length;i++){
+			fileNames[i] = map.allFiles()[i].getName();
+		}
+		return fileNames;
 	}
 }
