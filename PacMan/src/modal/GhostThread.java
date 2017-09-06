@@ -1,6 +1,5 @@
 package modal;
 
-import javafx.application.Platform;
 
 public class GhostThread extends Thread {
 	Ghost gh;

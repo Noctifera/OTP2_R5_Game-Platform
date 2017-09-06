@@ -1,6 +1,7 @@
 package modal;
 
 import java.awt.Point;
+import java.lang.invoke.VolatileCallSite;
 import java.util.ArrayList;
 
 public class Ghost {
@@ -46,32 +47,27 @@ public class Ghost {
 
 	}
 
-	public ArrayList<Point> path (Point pos, Point target) {
+	public void path(Point pos, Point target) {
 		polku = new ArrayList<Point>();
 		double dX = target.getX() - pos.getX();
 		double dY = target.getY() - pos.getY();
 
-		for (double i = pos.getX(); i > target.getX();) {
-			for (double j = pos.getY(); j > target.getY();) {
-				polku.add(new Point((int)i,(int)j));
-				j = j + 40;
-			}
-			i = i + tileSize;
-		}
-		return polku;
+		System.out.println(polku.size());
 
 	}
 
 	public synchronized void update() {
 		double random = Math.random();
 		if (random <= 0.9) {
-			path(pos, randomPoint());
-		} else {
-			path(pos, player.getPos());
+			//path(pos, randomPoint());
+			pos = randomPoint();
+		} else{
+			// path(pos, player.getPos());
+			pos = player.getPos();
 		}
 	}
 
-	public Point position(){
+	public Point position() {
 		return pos;
 	}
 
