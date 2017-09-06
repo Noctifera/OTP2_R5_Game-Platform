@@ -1,7 +1,6 @@
 package modal;
 
 import java.awt.Point;
-import java.lang.invoke.VolatileCallSite;
 import java.util.ArrayList;
 
 public class Ghost {
@@ -49,8 +48,8 @@ public class Ghost {
 
 	public void path(Point pos, Point target) {
 		polku = new ArrayList<Point>();
-		double dX = target.getX() - pos.getX();
-		double dY = target.getY() - pos.getY();
+		//double dX = target.getX() - pos.getX();
+		//double dY = target.getY() - pos.getY();
 
 		System.out.println(polku.size());
 

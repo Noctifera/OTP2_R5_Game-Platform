@@ -9,13 +9,8 @@ import java.util.HashMap;
 
 public class Map implements Map_IF{
 	private HashMap<Point, String> map;
-	private HashMap<Point, String> map1;
-	private final Point gSize;
-	private final int blSize;
 
-	public Map(Point gSize,int blSize) {
-		this.gSize = gSize;
-		this.blSize = blSize;
+	public Map() {
 	}
 
 	public HashMap<Point, String> getMap() {
@@ -26,12 +21,13 @@ public class Map implements Map_IF{
 		this.map = map;
 	}
 
+	@SuppressWarnings("unchecked")
 	public void readMap(String tiedostonNimi) {
 		try {
 			FileInputStream file = new FileInputStream(tiedostonNimi);
 			ObjectInputStream dataIn = new ObjectInputStream(file);
 			try {
-				map = (HashMap) dataIn.readObject();
+				map = (HashMap<Point, String>) dataIn.readObject();
 				System.out.println(map);
 				dataIn.close();
 			} catch (ClassNotFoundException e) {

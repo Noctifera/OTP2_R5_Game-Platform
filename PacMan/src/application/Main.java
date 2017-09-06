@@ -36,7 +36,7 @@ public class Main extends Application implements Main_IF {
 	private Scene scene;
 
 	public void init() {
-		map = new Map(gSize, blSize);
+		map = new Map();
 		ml = new  MovementLogic(gSize, blSize,map,strings);
 		player = new Player(ppos,ml,map,blSize,strings);
 
