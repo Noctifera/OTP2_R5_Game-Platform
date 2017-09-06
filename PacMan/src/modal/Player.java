@@ -7,15 +7,13 @@ import javafx.scene.input.KeyEvent;
 public class Player extends Score {
 	private Point pos;
 	private MovementLogic ml;
-	private Map map;
 	private int blSize;
 	private String[] strings;
 
-	public Player(Point pos, MovementLogic ml,Map map, int blSize,String[] strings) {
+	public Player(Point pos, MovementLogic ml, int blSize,String[] strings) {
 		super(0);
 		this.pos = pos;
 		this.ml = ml;
-		this.map = map;
 		this.blSize = blSize;
 		this.strings = strings;
 	}
@@ -89,13 +87,11 @@ public class Player extends Score {
 
 	}
 	public void score(Point pos){
-		if(map.getMap().get(pos).equals(strings[0])){
-			map.getMap().replace(pos, strings[3]);
-			diamond();
+		if(ml.score(pos).equals(strings[0])){
+			dot();
 
-		}else if(map.getMap().get(pos).equals(strings[1])){
-			map.getMap().replace(pos, strings[3]);
-			bigDiamond();
+		}else if(ml.score(pos).equals(strings[1])){
+			LargeDot();
 		}
 		System.out.println(score);
 	}

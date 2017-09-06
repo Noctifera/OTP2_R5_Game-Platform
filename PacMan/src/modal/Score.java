@@ -14,11 +14,11 @@ public class Score {
 	public void setScore(int score) {
 		this.score = score;
 	}
-	public void diamond(){
+	public void dot(){
 		score = score +10;
 
 	}
-	public void bigDiamond(){
+	public void LargeDot(){
 		score = score + 20;
 	}
 	public void ghost(){

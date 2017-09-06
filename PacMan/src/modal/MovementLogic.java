@@ -40,6 +40,18 @@ public class MovementLogic implements MovementLogic_IF {
 		}
 		return onko;
 	}
+	public String score(Point pos){
+		String apu = null;
+		if(map.getMap().get(pos).equals(strings[0])){
+			map.getMap().replace(pos, strings[3]);
+			apu = strings[0];
+
+		}else if(map.getMap().get(pos).equals(strings[1])){
+			map.getMap().replace(pos, strings[3]);
+			apu = strings[1];
+		}
+		return apu;
+	}
 
 
 

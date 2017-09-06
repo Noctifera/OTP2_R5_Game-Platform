@@ -1,6 +1,7 @@
 package modal;
 
 import java.awt.Point;
+import java.io.File;
 import java.io.FileInputStream;
 import java.io.FileNotFoundException;
 import java.io.IOException;
@@ -23,9 +24,10 @@ public class Map implements Map_IF{
 
 	@SuppressWarnings("unchecked")
 	public void readMap(String tiedostonNimi) {
+		File file = new File("Maps\\"+tiedostonNimi);
 		try {
-			FileInputStream file = new FileInputStream(tiedostonNimi);
-			ObjectInputStream dataIn = new ObjectInputStream(file);
+			FileInputStream fileIn = new FileInputStream(file);
+			ObjectInputStream dataIn = new ObjectInputStream(fileIn);
 			try {
 				map = (HashMap<Point, String>) dataIn.readObject();
 				System.out.println(map);
@@ -39,7 +41,14 @@ public class Map implements Map_IF{
 		} catch (IOException e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
+		} catch(NullPointerException e){
+			e.printStackTrace();
 		}
+	}
+	public File[] allFiles(){
+		File folder  = new File("Maps\\");
+		File[] files = folder.listFiles();
+		return files;
 	}
 
 }

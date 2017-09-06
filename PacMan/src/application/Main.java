@@ -38,7 +38,7 @@ public class Main extends Application implements Main_IF {
 	public void init() {
 		map = new Map();
 		ml = new  MovementLogic(gSize, blSize,map,strings);
-		player = new Player(ppos,ml,map,blSize,strings);
+		player = new Player(ppos,ml,blSize,strings);
 
 		draw = new Draw((int) gSize.getX(), (int) gSize.getY(), gc1, blSize, player,map,ghlist,strings);
 		pms = new DrawThread(draw);
