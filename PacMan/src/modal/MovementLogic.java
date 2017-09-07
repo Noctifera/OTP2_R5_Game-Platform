@@ -8,7 +8,7 @@ public class MovementLogic implements MovementLogic_IF {
 	private int blSize;
 	private String[] strings;
 
-	public MovementLogic(Point gSize, int blSize, Map map,String[] strings) {
+	public MovementLogic(Point gSize, int blSize, Map map, String[] strings) {
 		this.gSize = gSize;
 		this.blSize = blSize;
 		this.map = map;
@@ -35,24 +35,23 @@ public class MovementLogic implements MovementLogic_IF {
 	public boolean posibleMove(Point pos) {
 		// TODO Auto-generated method stub
 		boolean onko = false;
-		if(map.getMap().get(pos)!= strings[2]){
+		if (!map.getMap().get(pos).equals(strings[2])) {
 			onko = true;
 		}
+		//System.out.println(onko);
 		return onko;
 	}
-	public String score(Point pos){
-		String apu = null;
-		if(map.getMap().get(pos).equals(strings[0])){
+
+	public String score(Point pos) {
+		String apu = strings[3];
+		if (map.getMap().get(pos).equals(strings[0])) {
 			map.getMap().replace(pos, strings[3]);
 			apu = strings[0];
 
-		}else if(map.getMap().get(pos).equals(strings[1])){
+		} else if (map.getMap().get(pos).equals(strings[1])) {
 			map.getMap().replace(pos, strings[3]);
 			apu = strings[1];
 		}
 		return apu;
 	}
-
-
-
 }

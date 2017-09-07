@@ -31,7 +31,7 @@ public class Player extends Score {
 		Point newpos;
 
 		switch (event.getCode()) {
-		case UP:
+		case W:
 			// miinus laatikon korkeus
 			double up = pos.getY() - blSize;
 			newpos = new Point((int) pos.getX(), (int) up);
@@ -43,7 +43,7 @@ public class Player extends Score {
 				score(newpos);
 			}
 			break;
-		case DOWN:
+		case S:
 			// plus laatikon korkeus
 			double down = pos.getY() + blSize;
 			newpos = new Point((int) pos.getX(), (int) down);
@@ -54,7 +54,7 @@ public class Player extends Score {
 				score(newpos);
 			}
 			break;
-		case LEFT:
+		case A:
 			// miinus laatikon leveys
 			double left = pos.getX() - blSize;
 			newpos = new Point((int) left, (int) pos.getY());
@@ -65,7 +65,7 @@ public class Player extends Score {
 				score(newpos);
 			}
 			break;
-		case RIGHT:
+		case D:
 			// plus laatikon leveys
 			double right = pos.getX() + blSize;
 			newpos = new Point((int) right, (int) pos.getY());

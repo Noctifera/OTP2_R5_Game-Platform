@@ -9,7 +9,7 @@ import java.io.ObjectInputStream;
 import java.util.HashMap;
 
 public class Map implements Map_IF{
-	private HashMap<Point, String> map;
+	private HashMap<Point, String> map = new HashMap<>();
 	private File folder = new File("Maps");
 
 	public Map() {
@@ -25,13 +25,14 @@ public class Map implements Map_IF{
 
 	@SuppressWarnings("unchecked")
 	public void readMap(String tiedostonNimi) {
+		HashMap<Point, String> map1 = new HashMap<>();
 		File file = new File(folder+"\\"+tiedostonNimi);
 		try {
 			FileInputStream fileIn = new FileInputStream(file);
 			ObjectInputStream dataIn = new ObjectInputStream(fileIn);
 			try {
-				map = (HashMap<Point, String>) dataIn.readObject();
-				System.out.println(map);
+				map1 = (HashMap<Point, String>) dataIn.readObject();
+				System.out.println(map1);
 				dataIn.close();
 			} catch (ClassNotFoundException e) {
 				// TODO Auto-generated catch block
@@ -45,6 +46,8 @@ public class Map implements Map_IF{
 		} catch(NullPointerException e){
 			e.printStackTrace();
 		}
+		map.clear();
+		map.putAll(map1);
 	}
 	public File[] allFiles(){
 		File[] files = folder.listFiles();

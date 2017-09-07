@@ -13,6 +13,7 @@ import javafx.stage.Stage;
 import javafx.stage.WindowEvent;
 import javafx.scene.Scene;
 import javafx.scene.canvas.GraphicsContext;
+import javafx.scene.control.ChoiceBox;
 import javafx.scene.control.ListView;
 import javafx.scene.layout.BorderPane;
 import javafx.scene.layout.GridPane;
@@ -28,14 +29,14 @@ public class Main extends Application implements Main_IF {
 	private Player player;
 	private MovementLogic ml;
 
-	private ListView<String> files = new ListView<>();
+	ListView<String> files = new ListView<>();
 	private GraphicsContext gc1;
 	private Point ppos = new Point(80, 80);
 	private Point gpos = new Point(1000,700);
 	private final int blSize = 40;
 	private final Point gSize = new Point(1280, 720);
 	private BorderPane root;
-	private String[] strings = {"Dot", "LargeDot", "Wall", "Empty" };
+	private String[] strings = {"Dot", "LargeDot", "Wall", "Empty","PlayerSpawn", "GhostHouse"  };
 	private int ghostAmount = 4;
 	private Ghost[] ghlist = new Ghost[ghostAmount];
 	private GhostThread[] ghtlist = new GhostThread[ghostAmount];
@@ -56,7 +57,7 @@ public class Main extends Application implements Main_IF {
 	public void start(Stage primaryStage) {
 		root = new BorderPane();
 
-		root.setRight(rightVerticalBox());
+		//root.setRight(rightVerticalBox());
 		scene = new Scene(root, (int) gSize.getX() + 260, (int) gSize.getY());
 
 		primaryStage.setScene(scene);
