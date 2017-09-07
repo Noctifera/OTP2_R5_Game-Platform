@@ -1,7 +1,6 @@
 package controller;
 
 import java.awt.Point;
-import java.io.File;
 
 import javafx.scene.input.MouseEvent;
 import modal.Draw;
@@ -44,39 +43,41 @@ public class Controller {
 			}
 		}
 		Point point = new Point(mouseX, mouseY);
-		System.out.println(point);
-		if (s.equals(strings[0])) {
-			draw.drawDot(point);
-			map.addToMap(point, strings[0]);
-
-		} else if (s.equals(strings[1])) {
-			draw.drawLargeDot(point);
-			map.addToMap(point, strings[1]);
-
-		} else if (s.equals(strings[2])) {
-			draw.drawWall(point);
-			map.addToMap(point, strings[2]);
-
-		} else if (s.equals(strings[3])) {
-			draw.clearTile(point);
-			map.addToMap(point, strings[3]);
-
-		} else if(s.equals(strings[4])){
-			map.onlyOne(point, strings[4]);
-		} else if(s.equals(strings[5])){
-			map.onlyOne(point, strings[5]);
+		//System.out.println(point);
+		if (s.equals(strings[4]) || s.equals(strings[5])) {
+			map.onlyOne(point, s);
 		}
+		map.addToMap(point, s);
+		draw.drawFullMap();
 	}
-	public void saveMap(String fileName){
-		map.SaveMapToFile(fileName);
+
+	public void saveMap(String fileName) {
+		if (!fileName.equals("")) {
+			if (map.mapContains().equals("")) {
+				map.SaveMapToFile(fileName);
+			}else{
+				System.out.println("Missing items:"+map.mapContains());
+			}
+		} else {
+			System.out.println("No File Name");
+		}
+
 	}
-	public void getMap(String fileName){
+
+	public void getMap(String fileName) {
 		map.GetMapFromFile(fileName);
+		draw.clear();
+		draw.drawGrid();
+		draw.drawFullMap();
 	}
-	public String[] readFiles(){
+
+	public String[] readFiles() {
 		String[] fileNames = new String[map.allFiles().length];
-		for(int i = 0; i<map.allFiles().length;i++){
+		for (int i = 0; i < map.allFiles().length; i++) {
 			fileNames[i] = map.allFiles()[i].getName();
+		}
+		for (String s : fileNames) {
+			System.out.println(s);
 		}
 		return fileNames;
 	}

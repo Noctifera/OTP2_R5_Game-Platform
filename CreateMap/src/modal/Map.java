@@ -36,10 +36,12 @@ public class Map {
 		}
 
 	}
+
 	public void addToMap(Point point, String item){
-		if(map.get(point).equals(strings[3])){
 		map.put(point, item);
-		}
+	}
+	public HashMap<Point, String> getMap() {
+		return map;
 	}
 	public void onlyOne(Point point, String item){
 		for(Point p: map.keySet()){
@@ -47,10 +49,17 @@ public class Map {
 				map.replace(p, strings[3]);
 			}
 		}
-		addToMap(point, item);
-
 	}
-
+	public String mapContains(){
+		String apu = "";
+		for(int i = 0; i<strings.length; i++){
+			if(!map.containsValue(strings[i])){
+				String tmp = strings[i]+", ";
+				apu = apu+tmp;
+			}
+		}
+		return apu;
+	}
 	public void SaveMapToFile(String fileName){
 		if(!fileName.contains(".txt")){
 			fileName = fileName+".txt";
@@ -97,8 +106,7 @@ public class Map {
 
 	}
 	public File[] allFiles(){
-		File[] files = folder.listFiles();
-		return files;
+		return folder.listFiles();
 	}
 
 }

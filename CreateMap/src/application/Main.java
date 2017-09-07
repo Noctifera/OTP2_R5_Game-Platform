@@ -1,7 +1,5 @@
 package application;
 
-import java.io.File;
-
 import controller.Controller;
 import javafx.application.Application;
 import javafx.beans.value.ChangeListener;
@@ -29,18 +27,18 @@ public class Main extends Application {
 	Map map;
 
 	Button save;
-	Button getMap;
 	TextField name;
+	ListView<String> files = new ListView<>();;
 
 	private final int x = 1280;
 	private final int y = 720;
 	private final int tileSize = 40;
 	private String event;
-	private String[] strings = { "Dot", "LargeDot", "Wall", "Empty", "PlayerSpawn", "GhostSpawn" };
+	private String[] strings = { "Dot", "LargeDot", "Wall", "Empty", "PlayerSpawn", "GhostHouse" };
 
 	public void init() {
 		map = new Map(x, y, tileSize, strings);
-		draw = new Draw(x, y, tileSize);
+		draw = new Draw(x, y, tileSize,map,strings);
 		con = new Controller(draw, map, strings);
 	}
 
@@ -75,6 +73,7 @@ public class Main extends Application {
 			public void handle(ActionEvent event) {
 				// TODO Auto-generated method stub
 				con.saveMap(name.getText());
+				files.setItems(FXCollections.observableArrayList(con.readFiles()));
 			}
 		});
 
@@ -97,7 +96,6 @@ public class Main extends Application {
 		cb.setValue(strings[0]);
 		gd.add(cb,0,0);
 
-		ListView<String> files = new ListView<>();
 		files.setItems(FXCollections.observableArrayList(con.readFiles()));
 		files.getSelectionModel().selectedItemProperty().addListener(new ChangeListener<String>() {
 
@@ -105,7 +103,7 @@ public class Main extends Application {
 			public void changed(ObservableValue<? extends String> observable, String oldValue, String newValue) {
 				// TODO Auto-generated method stub
 				con.getMap(newValue);
-				System.out.println(newValue);
+				//System.out.println(newValue);
 			}
 
 		});
@@ -127,9 +125,6 @@ public class Main extends Application {
 
 		name = new TextField();
 		gd.add(name, 1, 0);
-
-		getMap = new Button("Get Map");
-		gd.add(getMap, 0, 1);
 
 		HBox hb = new HBox(gd);
 		return hb;
