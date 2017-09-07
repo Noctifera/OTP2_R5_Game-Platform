@@ -16,8 +16,8 @@ public class Map {
 	private int y;
 	private int tileSize;
 	private String[] strings;
-	File folder  = new File("C:\\users\\marku\\git\\PacMan\\PacMan\\Maps");
-
+//	File folder  = new File("/Users/Hanne/git/Game-Platform/PacMan/Maps");
+	
 	public Map(int x, int y, int tileSize, String[] strings){
 		this.x = x;
 		this.y = y;

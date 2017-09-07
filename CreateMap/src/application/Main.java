@@ -30,8 +30,8 @@ public class Main extends Application {
 	TextField name;
 	ListView<String> files = new ListView<>();;
 
-	private final int x = 1280;
-	private final int y = 720;
+	private final int x = 720;
+	private final int y = 480;
 	private final int tileSize = 40;
 	private String event;
 	private String[] strings = { "Dot", "LargeDot", "Wall", "Empty", "PlayerSpawn", "GhostHouse" };
