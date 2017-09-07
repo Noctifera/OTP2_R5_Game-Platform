@@ -10,6 +10,7 @@ import java.util.HashMap;
 
 public class Map implements Map_IF{
 	private HashMap<Point, String> map;
+	private File folder = new File("Maps");
 
 	public Map() {
 	}
@@ -24,7 +25,7 @@ public class Map implements Map_IF{
 
 	@SuppressWarnings("unchecked")
 	public void readMap(String tiedostonNimi) {
-		File file = new File("Maps\\"+tiedostonNimi);
+		File file = new File(folder+"\\"+tiedostonNimi);
 		try {
 			FileInputStream fileIn = new FileInputStream(file);
 			ObjectInputStream dataIn = new ObjectInputStream(fileIn);
@@ -46,7 +47,6 @@ public class Map implements Map_IF{
 		}
 	}
 	public File[] allFiles(){
-		File folder  = new File("Maps\\");
 		File[] files = folder.listFiles();
 		return files;
 	}
