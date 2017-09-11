@@ -12,8 +12,6 @@ import javafx.event.EventHandler;
 import javafx.stage.Stage;
 import javafx.stage.WindowEvent;
 import javafx.scene.Scene;
-import javafx.scene.canvas.GraphicsContext;
-import javafx.scene.control.ChoiceBox;
 import javafx.scene.control.ListView;
 import javafx.scene.layout.BorderPane;
 import javafx.scene.layout.GridPane;
@@ -30,25 +28,22 @@ public class Main extends Application implements Main_IF {
 	private MovementLogic ml;
 
 	ListView<String> files = new ListView<>();
-	private GraphicsContext gc1;
-	private Point ppos = new Point(80, 80);
-	private Point gpos = new Point(1000,700);
 	private final int blSize = 40;
-	private final Point gSize = new Point(1280, 720);
+	private final Point gSize = new Point(720, 480);
 	private BorderPane root;
 	private String[] strings = {"Dot", "LargeDot", "Wall", "Empty","PlayerSpawn", "GhostHouse"  };
 	private int ghostAmount = 4;
+	private int life = 3;
 	private Ghost[] ghlist = new Ghost[ghostAmount];
 	private GhostThread[] ghtlist = new GhostThread[ghostAmount];
 
 	private Scene scene;
 
 	public void init() {
-		map = new Map();
+		map = new Map(strings);
 		ml = new  MovementLogic(gSize, blSize,map,strings);
-		player = new Player(ppos,ml,blSize,strings);
-
-		draw = new Draw((int) gSize.getX(), (int) gSize.getY(), gc1, blSize, player,map,ghlist,strings);
+		player = new Player(ml,blSize,strings,life);
+		draw = new Draw((int) gSize.getX(), (int) gSize.getY(), blSize, player,map,ghlist,strings);
 		pms = new DrawThread(draw);
 		con = new Controller(player,map);
 
@@ -58,7 +53,7 @@ public class Main extends Application implements Main_IF {
 		root = new BorderPane();
 
 		//root.setRight(rightVerticalBox());
-		scene = new Scene(root, (int) gSize.getX() + 260, (int) gSize.getY());
+		scene = new Scene(root, (int) gSize.getX(), (int) gSize.getY());
 
 		primaryStage.setScene(scene);
 		primaryStage.show();
@@ -72,19 +67,21 @@ public class Main extends Application implements Main_IF {
 
 			}
 		});
+
+		con.start();
 		CanvasSetuUp();
 		handle();
-		con.start();
-		pms.start();
 		inisGhost();
+		pms.start();
+
 
 
 
 	}
 	public void inisGhost(){
 		for(int i = 0; i<ghtlist.length; i++){
-			ghlist[i] = new Ghost(gpos,ml,gSize,blSize,player);
-			ghtlist[i] = new GhostThread(ghlist[i]);
+			ghlist[i] = new Ghost(ml,gSize,blSize,player);
+			ghtlist[i] = new GhostThread(ghlist[i],ml);
 
 		}
 		for (GhostThread ghost : ghtlist) {

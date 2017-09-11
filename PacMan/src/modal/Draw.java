@@ -16,7 +16,7 @@ public class Draw extends Canvas implements Draw_IF {
 	private int size;
 	private String[] strings;
 
-	public Draw(int x, int y, GraphicsContext gc, int size, Player player, Map map,Ghost[] gh,String[] strings) {
+	public Draw(int x, int y, int size, Player player, Map map,Ghost[] gh,String[] strings) {
 		super(x, y);
 		this.gc = this.getGraphicsContext2D();
 		this.size = size;
@@ -35,7 +35,12 @@ public class Draw extends Canvas implements Draw_IF {
 
 	public void move() {
 		gc.setFill(Color.ORANGE);
+
+		try{
 		gc.fillOval(player.getPos().getX(), player.getPos().getY(), size, size);
+		}catch(NullPointerException e){
+			player.setPos(map.getPlayerSpawn());
+		}
 	}
 
 	public void clear() {

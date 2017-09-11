@@ -4,14 +4,14 @@ import javafx.application.Platform;
 
 public class DrawThread extends Thread {
 	Draw pm;
-	private volatile boolean lopeta = false;
+	private volatile boolean supress =  false;
 
 	public DrawThread(Draw pm) {
 		this.pm = pm;
 	}
 
 	public void run() {
-		while (!lopeta) {
+		while (!supress) {
 			Platform.runLater(new Runnable() {
 
 				@Override
@@ -31,6 +31,9 @@ public class DrawThread extends Thread {
 			}
 
 		}
+	}
+	public void supress(){
+		supress = true;
 	}
 
 }

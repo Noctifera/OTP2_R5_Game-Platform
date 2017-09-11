@@ -7,12 +7,16 @@ import java.io.FileNotFoundException;
 import java.io.IOException;
 import java.io.ObjectInputStream;
 import java.util.HashMap;
+import java.util.Map.Entry;
 
-public class Map implements Map_IF{
+public class Map implements Map_IF {
 	private HashMap<Point, String> map = new HashMap<>();
 	private File folder = new File("Maps");
+	private String[] strings;
 
-	public Map() {
+
+	public Map(String[] strings) {
+		this.strings = strings;
 	}
 
 	public HashMap<Point, String> getMap() {
@@ -23,10 +27,38 @@ public class Map implements Map_IF{
 		this.map = map;
 	}
 
+	public Point getPlayerSpawn() {
+		Point spawn = null;
+
+		for (Entry<Point, String> e : map.entrySet()) {
+			//System.out.println(e.getKey());
+			//System.out.println(e.getValue());
+			if (map.get(e.getKey()).equals(strings[4])) {
+				spawn = e.getKey();
+			}
+		}
+		return spawn;
+
+	}
+
+	public Point getGhostHouse() {
+		Point house = null;
+		for (Entry<Point, String> e : map.entrySet()) {
+			if (map.get(e.getKey()).equals(strings[5])) {
+				house = e.getKey();
+			}
+
+		}
+		return house;
+	}
+	public String entry(Point pos){
+		return map.get(pos);
+	}
+
 	@SuppressWarnings("unchecked")
 	public void readMap(String tiedostonNimi) {
 		HashMap<Point, String> map1 = new HashMap<>();
-		File file = new File(folder+"\\"+tiedostonNimi);
+		File file = new File(folder + "\\" + tiedostonNimi);
 		try {
 			FileInputStream fileIn = new FileInputStream(file);
 			ObjectInputStream dataIn = new ObjectInputStream(fileIn);
@@ -43,13 +75,17 @@ public class Map implements Map_IF{
 		} catch (IOException e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
-		} catch(NullPointerException e){
+		} catch (NullPointerException e) {
 			e.printStackTrace();
 		}
+		//System.out.println(getPlayerSpawn());
+		//System.out.println(getGhostHouse());
 		map.clear();
 		map.putAll(map1);
+
 	}
-	public File[] allFiles(){
+
+	public File[] allFiles() {
 		File[] files = folder.listFiles();
 		return files;
 	}

@@ -13,7 +13,7 @@ public class Controller implements Controller_IF {
 	}
 
 	public void start() {
-		map.readMap("Testmap.txt");
+		map.readMap("Level1-fixed.txt");
 	}
 
 	@Override

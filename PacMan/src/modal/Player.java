@@ -9,13 +9,14 @@ public class Player extends Score {
 	private MovementLogic ml;
 	private int blSize;
 	private String[] strings;
+	private int life;
 
-	public Player(Point pos, MovementLogic ml, int blSize,String[] strings) {
+	public Player(MovementLogic ml, int blSize,String[] strings, int life) {
 		super(0);
-		this.pos = pos;
 		this.ml = ml;
 		this.blSize = blSize;
 		this.strings = strings;
+		this.life = life;
 	}
 
 	public Point getPos() {
@@ -28,7 +29,8 @@ public class Player extends Score {
 
 	public void move(KeyEvent event) {
 		// TODO Auto-generated method stub
-		Point newpos;
+
+		Point newpos = pos;
 
 		switch (event.getCode()) {
 		case W:
@@ -36,9 +38,10 @@ public class Player extends Score {
 			double up = pos.getY() - blSize;
 			newpos = new Point((int) pos.getX(), (int) up);
 			//System.out.println(newpos);
+
 			newpos = ml.yli(newpos);
 			//System.out.println(newpos);
-			if (ml.posibleMove(newpos)) {
+			if (ml.avoidWall(newpos)) {
 				pos = newpos;
 				score(newpos);
 			}
@@ -49,7 +52,7 @@ public class Player extends Score {
 			newpos = new Point((int) pos.getX(), (int) down);
 			newpos = ml.yli(newpos);
 			// System.out.println(newpos);
-			if (ml.posibleMove(newpos)) {
+			if (ml.avoidWall(newpos)) {
 				pos = newpos;
 				score(newpos);
 			}
@@ -60,7 +63,7 @@ public class Player extends Score {
 			newpos = new Point((int) left, (int) pos.getY());
 			newpos = ml.yli(newpos);
 			// System.out.println(newpos);
-			if (ml.posibleMove(newpos)) {
+			if (ml.avoidWall(newpos)) {
 				pos = newpos;
 				score(newpos);
 			}
@@ -71,7 +74,7 @@ public class Player extends Score {
 			newpos = new Point((int) right, (int) pos.getY());
 			newpos = ml.yli(newpos);
 			// System.out.println(newpos);
-			if (ml.posibleMove(newpos)) {
+			if (ml.avoidWall(newpos)) {
 				pos = newpos;
 				score(newpos);
 			}
@@ -79,7 +82,7 @@ public class Player extends Score {
 		case ESCAPE:
 			System.exit(0);
 		default:
-			System.out.println("use arrow keys");
+			System.out.println("use WASD keys");
 			newpos = null;
 			break;
 		}
@@ -94,5 +97,12 @@ public class Player extends Score {
 			LargeDot();
 		}
 		System.out.println(score);
+	}
+	public void getEaten(){
+		life--;
+	}
+
+	public int getLife() {
+		return life;
 	}
 }

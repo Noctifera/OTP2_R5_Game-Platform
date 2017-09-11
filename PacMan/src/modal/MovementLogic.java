@@ -14,6 +14,12 @@ public class MovementLogic implements MovementLogic_IF {
 		this.map = map;
 		this.strings = strings;
 	}
+	public Point ghostHouse(){
+		return map.getGhostHouse();
+	}
+	public Point playerSpawn(){
+		return map.getPlayerSpawn();
+	}
 
 	public Point yli(Point newpos) {
 		Point piste = newpos;
@@ -32,14 +38,16 @@ public class MovementLogic implements MovementLogic_IF {
 		return piste;
 	}
 
-	public boolean posibleMove(Point pos) {
+	public boolean avoidWall(Point pos) {
 		// TODO Auto-generated method stub
-		boolean onko = false;
 		if (!map.getMap().get(pos).equals(strings[2])) {
-			onko = true;
+			//System.out.println("ml.pm: "+pos);
+			//System.out.println("ml.pm: "+map.getMap().get(pos));
+			return true;
+		}else{
+			return false;
 		}
 		//System.out.println(onko);
-		return onko;
 	}
 
 	public String score(Point pos) {
