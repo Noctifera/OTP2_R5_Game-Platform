@@ -68,11 +68,17 @@ public class PacMan_gui extends Application implements PacMan_gui_IF {
 			}
 		});
 
-		con.start();
-		inisGhost();
-		CanvasSetuUp();
-		handle();
-		pms.start();
+		//con.start();
+		//inisGhost();
+		//CanvasSetuUp();
+		//handle();
+		//pms.start();
+		try {
+			HighScore.selectFromDatabase();
+		} catch (Exception e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
 
 
 

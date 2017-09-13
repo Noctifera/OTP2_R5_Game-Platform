@@ -5,20 +5,20 @@ import java.sql.DriverManager;
 import java.sql.ResultSet;
 import java.time.LocalDate;
 
-public class HighScore {	
-	
+public class HighScore {
+
 	/*
 	 	java.util.Date date = new java.util.Date();
-		
+
 		java.text.SimpleDateFormat time = new java.text.SimpleDateFormat("yyyy-MM-dd");
 
 		String currentTime = time.format(date);
 	*/
-	
+
 
 	public static Connection getConnection() throws Exception {
 
-		try{		
+		try{
 		  String driver = "com.mysql.jdbc.Driver";
 		  //database osoite
 		  String connectionUrl = "jdbc:mysql://localhost:2280/highscores";
@@ -35,11 +35,11 @@ public class HighScore {
 		} catch(Exception e){
 		System.out.println("Error: "+ e);
 		}
-		
+
 		return null;
 
 		}
-	
+
 	public static void post(int score, String playername, String date) throws Exception {
 		Connection conn = null;
 		try {
@@ -52,17 +52,17 @@ public class HighScore {
 		}
 		conn.close();
 	}
-	
+
 	public static void selectFromDatabase() throws Exception {
 		Connection conn = null;
 				try {
 			conn = getConnection();
-			
+
 			java.sql.Statement select = conn.createStatement();
-			String sql = "SELECT score, playername, submission_date ORDER BY score DESC FROM pacmanHighscore";
+			String sql = "SELECT score, playername, submission_date FROM pacmanHighscore";
 			ResultSet resultset = select.executeQuery(sql);
-			
-			while(resultset.next()){		       
+
+			while(resultset.next()){
 		         int score  = resultset.getInt("score");
 		         String name = resultset.getString("playername");
 		         String date = resultset.getString("submission_date");
@@ -74,13 +74,13 @@ public class HighScore {
 		         System.out.print(", Date: " + date);
 		         System.out.println(" ");
 		      }
-			
-			
+
+
 		}catch(Exception e){
-			System.out.println("Error: "+ e);	
+			System.out.println("Error: "+ e);
 		}
 		conn.close();
 	}
 
-	
+
 }
