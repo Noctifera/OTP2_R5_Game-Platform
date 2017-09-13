@@ -1,16 +1,19 @@
 package modal;
 
 import java.awt.Point;
+import java.nio.file.Path;
+import java.util.ArrayList;
+import java.util.HashMap;
 
-public class Ghost {
+public class Ghost implements Ghost_IF {
 	private MovementLogic ml;
 	private Player player;
 
-	private Point[] polku = new Point[5];
 	private Point pos;
 	private Point gSize;
 	private int tileSize;
-	private int size;
+	private int size = 1;
+	private ArrayList<Point> path = new ArrayList<>();
 
 	public Ghost(MovementLogic ml, Point gSize, int tileSize, Player player) {
 		this.ml = ml;
@@ -19,158 +22,208 @@ public class Ghost {
 		this.player = player;
 	}
 
+	public Point up(Point point) {
+		return new Point((int) point.getX(), (int) point.getY() - tileSize);
+	}
+
+	public Point down(Point point) {
+		return new Point((int) point.getX(), (int) point.getY() + tileSize);
+	}
+
+	public Point left(Point point) {
+		return new Point((int) point.getX() - tileSize, (int) point.getY());
+	}
+
+	public Point right(Point point) {
+		return new Point((int) point.getX() + tileSize, (int) point.getY());
+
+	}
+
 	public Point randomPoint() {
 		Point point;
 		int randX = (int) (Math.random() * gSize.getX() - tileSize);
 		while (randX % tileSize != 0) {
 			randX = (int) (Math.random() * gSize.getX() - tileSize);
-			if (randX % tileSize == 0) {
-				break;
-			}
 		}
 		int randY = (int) (Math.random() * gSize.getY() - tileSize);
 		while (randY % tileSize != 0) {
 			randY = (int) (Math.random() * gSize.getY() - tileSize);
-			if (randY % tileSize == 0) {
-				break;
-			}
 		}
 		point = new Point(randX, randY);
 		if (ml.avoidWall(point)) {
-			System.out.println("rand: " + point);
+			// System.out.println("rand: " + point);
 			return point;
 		} else {
 			return randomPoint();
 		}
-		// System.out.println(randX+", "+randY);
+		// System.out.println(randX+", "+randY)
 
 	}
 
-	public Point left(Point pos) {
-		// minus tile width
-		Point newpoint = new Point((int) pos.getX() - tileSize, (int) pos.getY());
-		//newpoint = ml.yli(newpoint);
-		if (ml.avoidWall(newpoint)) {
-			return newpoint;
-		} else {
-			return pos;
-		}
+	public ArrayList<Point> nodes() {
+		ArrayList<Point> possibleSpaces = ml.freeSpaces();
+		ArrayList<Point> node = new ArrayList<>();
+		for (int i = 0; i < gSize.getY();) {
+			for (int j = 0; j < gSize.getX();) {
+				int possible = 0;
+				Point point = new Point(j, i);
+				if (possibleSpaces.contains(point)) {
+					if (possibleSpaces.contains(up(point)) && !node.contains(up(point))) {
+						possible++;
+					}
+					if (possibleSpaces.contains(down(point)) && !node.contains(down(point))) {
+						possible++;
+					}
+					if (possibleSpaces.contains(left(point)) && !node.contains(left(point))) {
+						possible++;
+					}
+					if (possibleSpaces.contains(right(point)) && !node.contains(right(point))) {
+						possible++;
 
-	}
-
-	public Point up(Point pos) {
-		// minus tile height
-		Point newpoint = new Point((int) pos.getX(), (int) pos.getY() - tileSize);
-		//newpoint = ml.yli(newpoint);
-		if (ml.avoidWall(newpoint)) {
-			return ml.yli(newpoint);
-		} else {
-			return pos;
-		}
-	}
-
-	public Point right(Point pos) {
-		// add tile width
-		Point newpoint = new Point((int) pos.getX() + tileSize, (int) pos.getY());
-		//newpoint = ml.yli(newpoint);
-		if (ml.avoidWall(newpoint)) {
-			return newpoint;
-		} else {
-			return pos;
-		}
-	}
-
-	public Point down(Point pos) {
-		// add tile height
-		Point newpoint = new Point((int) pos.getX(), (int) pos.getY() + tileSize);
-		//newpoint = ml.yli(newpoint);
-		if (ml.avoidWall(newpoint)) {
-			return newpoint;
-		} else
-			return pos;
-	}
-
-	public Point nextPoint(Point pos, Point target) {
-		double dX = target.getX() - pos.getX();
-		// System.out.println(dX);
-		double dY = target.getY() - pos.getY();
-		// System.out.println(dY);
-		double posY = pos.getY();
-		double posX = pos.getX();
-		size = 1;
-		if (dX < 0) {
-			// left
-			posX = left(new Point((int)posX, (int)posY)).getX();
-
-			if(posX == pos.getX()){
-				posX = right(new Point((int)posX,(int)posY)).getX();
+					}
+				}
+				if (possible > 1) {
+					node.add(point);
+				}
+				j = j + tileSize;
 			}
-
+			i = i + tileSize;
 		}
-		if (dX > 0) {
-			// right
-			posX = right(new Point((int)posX, (int)posY)).getX();
 
-			if(posX == pos.getX()){
-				posX = left(new Point((int)posX,(int)posY)).getX();
-			}
-
-		}
-		if (dY < 0) {
-			// up
-			posY = up(new Point((int)posX, (int)posY)).getY();
-
-			if(posY == pos.getY()){
-				posY = down(new Point((int)posX,(int)posY)).getY();
-			}
-
-		}
-		if (dY > 0) {
-			// down
-			posY = down(new Point((int)posX, (int)posY)).getY();
-
-			if(posY == pos.getY()){
-				posY = up(new Point((int)posX,(int)posY)).getY();
-			}
-
-		}
-		return new Point((int) posX, (int) posY);
+		return node;
 
 	}
 
-	public synchronized void update() {
-		if (polku[0] != null && size < polku.length) {
-			pos = polku[size];
+	public ArrayList<Point> path(Point target, ArrayList<Point> list) {
+		//int dX = (int) (target.getX() - list.get(list.size() - 1).getX());
+		//int dY = (int) (target.getY() - list.get(list.size() - 1).getY());
+
+		//boolean suppress = false;
+		ArrayList<Point> possibleSpaces = ml.freeSpaces();
+		int possible = 0;
+		String string = "";
+		// ylös
+		//if (possibleSpaces.contains(up(list.get(list.size() - 1))) && !list.contains(up(list.get(list.size() - 1)))) {
+		if(possibleSpaces.contains(up(list.get(list.size() - 1))) && !list.contains(up(list.get(list.size() - 1)))){
+		//	System.out.println("possible up");
+			possible++;
+			string = string + " up";
+		//	System.out.println("string" + string);
+		}
+		// alas
+		//if (possibleSpaces.contains(down(list.get(list.size() - 1))) && !list.contains(down(list.get(list.size() - 1)))) {
+		if(possibleSpaces.contains(down(list.get(list.size() - 1)))&& !list.contains(down(list.get(list.size() - 1)))){
+		//	System.out.println("possible down");
+			possible++;
+			string = string + " down";
+		//	System.out.println("string" + string);
+		}
+		// vasemalle
+		//if (possibleSpaces.contains(left(list.get(list.size() - 1))) && !list.contains(left(list.get(list.size() - 1)))) {
+		if(possibleSpaces.contains(left(list.get(list.size() - 1)))&& !list.contains(left(list.get(list.size() - 1)))){
+		//	System.out.println("possible left");
+			possible++;
+			string = string + " left";
+		//	System.out.println("string" + string);
+		}
+		// oikealle
+		//if (possibleSpaces.contains(right(list.get(list.size() - 1))) && !list.contains(right(list.get(list.size() - 1)))) {
+		if(possibleSpaces.contains(right(list.get(list.size() - 1)))&& !list.contains(right(list.get(list.size() - 1)))){
+		//	System.out.println("possible right");
+			possible++;
+			string = string + " right";
+		//	System.out.println("string" + string);
+		}
+
+		if (possible == 1) {
+			if (string.contains("up")) {
+			//	System.out.println("one up");
+				list.add(up(list.get(list.size() - 1)));
+
+			}
+			if (string.contains("down")) {
+			//	System.out.println("one down");
+				list.add(down(list.get(list.size() - 1)));
+
+			}
+			if (string.contains("left")) {
+			//	System.out.println("one left");
+				list.add(left(list.get(list.size() - 1)));
+			}
+			if (string.contains("right")) {
+			//	System.out.println("one right");
+				list.add(right(list.get(list.size() - 1)));
+			}
+			return path(target, list);
+
+		} else if (possible > 1) {
+			double random = Math.random();
+			if (string.contains("up") && random <= 0.25) {
+				System.out.println("multiple up");
+				ArrayList<Point> up = new ArrayList<>();
+				up.addAll(list);
+				up.add(new Point(up(list.get(list.size() - 1))));
+				return path(target, up);
+
+			}
+			if (string.contains("down")&& (0.25 < random && random <= 0.5 )) {
+				System.out.println("multiple down");
+				ArrayList<Point> down = new ArrayList<>();
+				down.addAll(list);
+				down.add(new Point(down(list.get(list.size() - 1))));
+				return path(target, down);
+
+			}
+			if (string.contains("left") && (random > 0.5 && 0.75>=random)) {
+				System.out.println("multiple left");
+				ArrayList<Point> left = new ArrayList<>();
+				left.addAll(list);
+				left.add(new Point(left(list.get(list.size() - 1))));
+				return path(target, left);
+
+			}
+			if (string.contains("right") && (random <=1 && random >0.75)) {
+				System.out.println("multiple right");
+				ArrayList<Point> right = new ArrayList<>();
+				right.addAll(list);
+				right.add(new Point(right(right.get(right.size() - 1))));
+				return path(target, right);
+			}
+		}
+		System.out.println("target:" + target + " , " + "position: " + list.get(list.size() - 1));
+		// System.out.println("path: " + list.toString());
+		return list;
+
+	}
+
+	public void update() throws NullPointerException {
+		if (path != null && size < path.size()) {
+			System.out.println("moving");
+			setPos(path.get(size));
+			System.out.println("pos: "+pos);
+			System.out.println("full pat: "+path.toString());
+			System.out.println("Spos: "+path.get(size));
 			size++;
 		}
-		else {
-			double random = Math.random();
-			if (random <= 0.9) {
-				Point rand = randomPoint();
-				for (int i = 0; i < polku.length; i++) {
-					if (i == 0) {
-						polku[i] = nextPoint(pos, rand);
-					} else {
-						polku[i] = nextPoint(polku[i - 1], rand);
-					}
-				}
+		double rand = Math.random();
+		ArrayList<Point> list = new ArrayList<>();
+		// System.out.println(pos);
+		list.add(pos);
+		//path.addAll(list);
 
-				// pos = randomPoint();
-			} else {
-				Point p = player.getPos();
-				for(int i = 0; i<polku.length; i++){
-					if(i == 0){
-						polku[i] = nextPoint(pos,p);
-					}else{
-						polku[i] = nextPoint(polku[i-1], p);
-					}
-
-				}
-
-				// pos = player.getPos();
-			}
-			size = 0;
+		// pos = ml.ghostHouse();
+		if (rand <= 0.9) {
+			Point randpoint = randomPoint();
+			// .out.println(nodes().toString());
+			// System.out.println(nodes().size());
+			path = path(randpoint, list);
+			size = 1;
+		} else {
+			Point point = player.getPos();
+			path = path(point, list);
+			size = 1;
 		}
+
 	}
 
 	public Point getPos() {

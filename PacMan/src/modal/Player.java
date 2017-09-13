@@ -4,7 +4,7 @@ import java.awt.Point;
 
 import javafx.scene.input.KeyEvent;
 
-public class Player extends Score {
+public class Player extends Score implements Player_IF {
 	private Point pos;
 	private MovementLogic ml;
 	private int blSize;
@@ -29,7 +29,6 @@ public class Player extends Score {
 
 	public void move(KeyEvent event) {
 		// TODO Auto-generated method stub
-
 		Point newpos = pos;
 
 		switch (event.getCode()) {
@@ -87,9 +86,10 @@ public class Player extends Score {
 			break;
 		}
 		// pm.move();
+		System.out.println("player postition: "+pos);
 
 	}
-	public void score(Point pos){
+	public int score(Point pos){
 		if(ml.score(pos).equals(strings[0])){
 			dot();
 
@@ -97,6 +97,7 @@ public class Player extends Score {
 			LargeDot();
 		}
 		System.out.println(score);
+		return score;
 	}
 	public void getEaten(){
 		life--;

@@ -74,24 +74,24 @@ public class Draw extends Canvas implements Draw_IF {
 	}
 
 	public void draw() {
-		Point point;
-		for (int i = 0; i < this.getHeight();) {
-			for (int j = 0; j < this.getWidth();) {
-				point = new Point(j, i);
-				if (map.getMap().get(point).equals(strings[2])) {
-					drawWall(point);
+		int free = 0;
+		for(int i = 0; i<this.getHeight();){
+			for(int j = 0; j<this.getWidth();){
+				if(map.getMap().get(new Point(j,i)).equals(strings[0])){
+					drawDot(new Point(j,i));
+					free++;
+				}if(map.getMap().get(new Point(j,i)).equals(strings[1])){
+					drawLargeDot(new Point(j,i));
+					free++;
+				}if(map.getMap().get(new Point(j,i)).equals(strings[2])){
+					drawWall(new Point(j,i));
 				}
-				if (map.getMap().get(point).equals(strings[0])) {
-					drawDot(point);
-				}
-				if (map.getMap().get(point).equals(strings[1])) {
-					drawLargeDot(point);
-				}
-				j = j + size;
+				j = j +40;
 			}
-			i = i + size;
-
+			i = i +40;
 		}
+		//System.out.println(free);
+
 	}
 
 }

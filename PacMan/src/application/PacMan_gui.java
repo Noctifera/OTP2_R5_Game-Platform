@@ -18,7 +18,7 @@ import javafx.scene.layout.GridPane;
 import javafx.scene.layout.VBox;
 import javafx.scene.input.KeyEvent;
 
-public class Main extends Application implements Main_IF {
+public class PacMan_gui extends Application implements PacMan_gui_IF {
 
 	private Controller con;
 	private Draw draw;
@@ -28,7 +28,7 @@ public class Main extends Application implements Main_IF {
 	private MovementLogic ml;
 
 	ListView<String> files = new ListView<>();
-	private final int blSize = 40;
+	private final int tileSize = 40;
 	private final Point gSize = new Point(720, 480);
 	private BorderPane root;
 	private String[] strings = {"Dot", "LargeDot", "Wall", "Empty","PlayerSpawn", "GhostHouse"  };
@@ -41,9 +41,9 @@ public class Main extends Application implements Main_IF {
 
 	public void init() {
 		map = new Map(strings);
-		ml = new  MovementLogic(gSize, blSize,map,strings);
-		player = new Player(ml,blSize,strings,life);
-		draw = new Draw((int) gSize.getX(), (int) gSize.getY(), blSize, player,map,ghlist,strings);
+		ml = new  MovementLogic(gSize, tileSize,map,strings);
+		player = new Player(ml,tileSize,strings,life);
+		draw = new Draw((int) gSize.getX(), (int) gSize.getY(), tileSize, player,map,ghlist,strings);
 		pms = new DrawThread(draw);
 		con = new Controller(player,map);
 
@@ -69,9 +69,9 @@ public class Main extends Application implements Main_IF {
 		});
 
 		con.start();
+		inisGhost();
 		CanvasSetuUp();
 		handle();
-		inisGhost();
 		pms.start();
 
 
@@ -80,7 +80,7 @@ public class Main extends Application implements Main_IF {
 	}
 	public void inisGhost(){
 		for(int i = 0; i<ghtlist.length; i++){
-			ghlist[i] = new Ghost(ml,gSize,blSize,player);
+			ghlist[i] = new Ghost(ml,gSize,tileSize,player);
 			ghtlist[i] = new GhostThread(ghlist[i],ml);
 
 		}

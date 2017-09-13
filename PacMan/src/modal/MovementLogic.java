@@ -1,6 +1,10 @@
 package modal;
 
 import java.awt.Point;
+import java.io.IOException;
+import java.util.ArrayList;
+import java.util.HashMap;
+import java.util.Map.Entry;
 
 public class MovementLogic implements MovementLogic_IF {
 	private Point gSize;
@@ -14,10 +18,12 @@ public class MovementLogic implements MovementLogic_IF {
 		this.map = map;
 		this.strings = strings;
 	}
-	public Point ghostHouse(){
+
+	public Point ghostHouse() {
 		return map.getGhostHouse();
 	}
-	public Point playerSpawn(){
+
+	public Point playerSpawn() {
 		return map.getPlayerSpawn();
 	}
 
@@ -41,13 +47,23 @@ public class MovementLogic implements MovementLogic_IF {
 	public boolean avoidWall(Point pos) {
 		// TODO Auto-generated method stub
 		if (!map.getMap().get(pos).equals(strings[2])) {
-			//System.out.println("ml.pm: "+pos);
-			//System.out.println("ml.pm: "+map.getMap().get(pos));
+			// System.out.println("ml.pm: "+pos);
+			// System.out.println("ml.pm: "+map.getMap().get(pos));
 			return true;
-		}else{
+		} else {
 			return false;
 		}
-		//System.out.println(onko);
+		// System.out.println(onko);
+	}
+
+	public ArrayList<Point> freeSpaces() {
+		ArrayList<Point> points = new ArrayList<>();
+		for (Entry<Point, String> e : map.getMap().entrySet()) {
+			if (!map.getMap().get(e.getKey()).equals(strings[2])) {
+				points.add(e.getKey());
+			}
+		}
+		return points;
 	}
 
 	public String score(Point pos) {

@@ -6,6 +6,7 @@ import java.io.FileInputStream;
 import java.io.FileNotFoundException;
 import java.io.IOException;
 import java.io.ObjectInputStream;
+import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.Map.Entry;
 
@@ -21,10 +22,6 @@ public class Map implements Map_IF {
 
 	public HashMap<Point, String> getMap() {
 		return map;
-	}
-
-	public void setMap(HashMap<Point, String> map) {
-		this.map = map;
 	}
 
 	public Point getPlayerSpawn() {
@@ -50,9 +47,6 @@ public class Map implements Map_IF {
 
 		}
 		return house;
-	}
-	public String entry(Point pos){
-		return map.get(pos);
 	}
 
 	@SuppressWarnings("unchecked")
@@ -84,10 +78,55 @@ public class Map implements Map_IF {
 		map.putAll(map1);
 
 	}
+	public ArrayList<Point> getWalls(){
+		ArrayList<Point> walls = new ArrayList<>();
+		for (Entry<Point, String> e : map.entrySet()) {
+			if(map.get(e.getKey()).equals(strings[2])){
+				walls.add(e.getKey());
+			}
+		}
 
-	public File[] allFiles() {
+
+		return walls;
+	}
+
+	public ArrayList<Point> getDots(){
+		ArrayList<Point> dots = new ArrayList<>();
+		for (Entry<Point, String> e : map.entrySet()) {
+			if(map.get(e.getKey()).equals(strings[0])){
+				dots.add(e.getKey());
+			}
+		}
+
+
+		return dots;
+	}
+	public ArrayList<Point> getLargeDots(){
+		ArrayList<Point> dots = new ArrayList<>();
+		for (Entry<Point, String> e : map.entrySet()) {
+			if(map.get(e.getKey()).equals(strings[1])){
+				dots.add(e.getKey());
+			}
+		}
+
+
+		return dots;
+	}
+
+	public String[] allFiles() {
 		File[] files = folder.listFiles();
-		return files;
+
+		String[] fileNames = new String[files.length];
+
+		for (int i = 0; i < files.length; i++) {
+			fileNames[i] = files[i].getName();
+		}
+		for (String s : fileNames) {
+			System.out.println(s);
+		}
+
+
+		return fileNames;
 	}
 
 }
