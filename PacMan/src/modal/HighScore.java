@@ -4,6 +4,8 @@ import java.sql.Connection;
 import java.sql.DriverManager;
 import java.sql.ResultSet;
 import java.time.LocalDate;
+import java.util.ArrayList;
+import java.util.List;
 
 public class HighScore {
 
@@ -14,7 +16,23 @@ public class HighScore {
 
 		String currentTime = time.format(date);
 	*/
+	
+	List<Integer> scores = new ArrayList<>();
+	List<String> names = new ArrayList<>();
+	List<String> dates = new ArrayList<>();
 
+
+	public List<Integer> getScores() {
+		return scores;
+	}
+
+	public List<String> getNames() {
+		return names;
+	}
+
+	public List<String> getDates() {
+		return dates;
+	}
 
 	public Connection getConnection() throws Exception {
 
@@ -66,6 +84,11 @@ public class HighScore {
 		         int score  = resultset.getInt("score");
 		         String name = resultset.getString("playername");
 		         String date = resultset.getString("submission_date");
+		         
+		         //adding data to lists
+		         scores.add(score);
+		         names.add(name);
+		         dates.add(date);
 
 
 		         //Display values
