@@ -43,6 +43,8 @@ public class PacMan_gui extends Application implements PacMan_gui_IF {
 
 	private Scene scene;
 	TextField lives;
+	
+	TextField highscores;
 
 	public void init() {
 		hs = new HighScore();
