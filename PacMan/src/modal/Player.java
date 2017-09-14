@@ -95,6 +95,7 @@ public class Player extends Score implements Player_IF {
 			dot();
 
 		}if(ml.score(pos).equals(strings[1])){
+			
 			LargeDot();
 			//vulnerable = "active";
 		}

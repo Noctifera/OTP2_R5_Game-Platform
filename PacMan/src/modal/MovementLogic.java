@@ -76,7 +76,7 @@ public class MovementLogic implements MovementLogic_IF {
 			map.getMap().replace(pos, strings[3]);
 			apu = strings[1];
 		}
-		System.out.println(apu);
+		//System.out.println(apu);
 		return apu;
 	}
 }
