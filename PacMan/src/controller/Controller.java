@@ -23,6 +23,8 @@ public class Controller implements Controller_IF {
 	@Override
 	public void move(KeyEvent event) {
 		player.move(event);
+		setScore();
+		System.out.println(player.getVulnerable());
 	}
 	public String[] readFiles() {
 		return map.allFiles();
@@ -43,7 +45,7 @@ public class Controller implements Controller_IF {
 		pMG.setLives(player.getLife());
 	}
 	public void setScore() {
-		
+		pMG.setScore(player.getScore());
 	}
 	public void setHighScore(int score,String playername,String date) {
 		try {

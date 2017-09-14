@@ -6,12 +6,10 @@ import javafx.application.Platform;
 public class DrawThread extends Thread {
 	private Draw pm;
 	private Player player;
-	private Controller con;
 
-	public DrawThread(Draw pm,Player player,Controller con) {
+	public DrawThread(Draw pm,Player player) {
 		this.player = player;
 		this.pm = pm;
-		this.con = con;
 	}
 
 	public void run() {

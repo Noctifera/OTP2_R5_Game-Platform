@@ -10,6 +10,7 @@ public class Player extends Score implements Player_IF {
 	private int blSize;
 	private String[] strings;
 	private int life;
+	private String vulnerable = "deactive";
 
 	public Player(MovementLogic ml, int blSize,String[] strings, int life) {
 		super(0);
@@ -89,16 +90,23 @@ public class Player extends Score implements Player_IF {
 		System.out.println("player postition: "+pos);
 
 	}
-	public int score(Point pos){
+	public void score(Point pos){
 		if(ml.score(pos).equals(strings[0])){
 			dot();
 
-		}else if(ml.score(pos).equals(strings[1])){
+		}if(ml.score(pos).equals(strings[1])){
 			LargeDot();
+			//vulnerable = "active";
 		}
-		System.out.println(score);
-		return score;
 	}
+	public String getVulnerable() {
+		return vulnerable;
+	}
+
+	public void setVulnerable(String vulnerable) {
+		this.vulnerable = vulnerable;
+	}
+
 	public void getEaten(){
 		life--;
 	}

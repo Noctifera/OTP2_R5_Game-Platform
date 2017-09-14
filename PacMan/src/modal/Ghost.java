@@ -13,6 +13,7 @@ public class Ghost implements Ghost_IF {
 	private int tileSize;
 	private int size = 1;
 	private ArrayList<Point> path = new ArrayList<>();
+	private String vulnerable;
 
 	public Ghost(MovementLogic ml, Point gSize, int tileSize, Player player) {
 		this.ml = ml;

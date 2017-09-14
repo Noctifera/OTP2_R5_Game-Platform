@@ -20,7 +20,7 @@ public class GhostThread extends Thread {
 			}
 
 			try {
-				Thread.sleep(600);
+				Thread.sleep(400);
 			} catch (InterruptedException e) {
 				// TODO Auto-generated catch block
 				e.printStackTrace();
