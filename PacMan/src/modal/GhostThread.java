@@ -1,6 +1,5 @@
 package modal;
 
-
 public class GhostThread extends Thread {
 	Ghost gh;
 	MovementLogic ml;
@@ -11,14 +10,14 @@ public class GhostThread extends Thread {
 		this.gh = gh;
 		this.ml = ml;
 	}
-	public void run(){
-		while(!supress){
-			try{
-			gh.update();
-			}catch(NullPointerException e){
+
+	public void run() {
+		while (!supress) {
+			try {
+				gh.update();
+			} catch (NullPointerException e) {
 				gh.setPos(ml.ghostHouse());
 			}
-
 
 			try {
 				Thread.sleep(600);
@@ -27,9 +26,6 @@ public class GhostThread extends Thread {
 				e.printStackTrace();
 			}
 
-
 		}
 	}
-
-
 }

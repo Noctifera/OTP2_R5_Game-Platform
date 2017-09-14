@@ -16,7 +16,7 @@ public class HighScore {
 	*/
 
 
-	public static Connection getConnection() throws Exception {
+	public Connection getConnection() throws Exception {
 
 		try{
 		  String driver = "com.mysql.jdbc.Driver";
@@ -40,7 +40,7 @@ public class HighScore {
 
 		}
 
-	public static void post(int score, String playername, String date) throws Exception {
+	public void post(int score, String playername, String date) throws Exception {
 		Connection conn = null;
 		try {
 		   conn = getConnection();
@@ -53,7 +53,7 @@ public class HighScore {
 		conn.close();
 	}
 
-	public static void selectFromDatabase() throws Exception {
+	public void selectFromDatabase() throws Exception {
 		Connection conn = null;
 				try {
 			conn = getConnection();

@@ -13,9 +13,12 @@ import javafx.stage.Stage;
 import javafx.stage.WindowEvent;
 import javafx.scene.Scene;
 import javafx.scene.control.ListView;
+import javafx.scene.control.TextField;
 import javafx.scene.layout.BorderPane;
 import javafx.scene.layout.GridPane;
+import javafx.scene.layout.HBox;
 import javafx.scene.layout.VBox;
+import javafx.scene.text.Text;
 import javafx.scene.input.KeyEvent;
 
 public class PacMan_gui extends Application implements PacMan_gui_IF {
@@ -26,6 +29,7 @@ public class PacMan_gui extends Application implements PacMan_gui_IF {
 	private DrawThread pms;
 	private Player player;
 	private MovementLogic ml;
+	private HighScore hs;
 
 	ListView<String> files = new ListView<>();
 	private final int tileSize = 40;
@@ -38,22 +42,24 @@ public class PacMan_gui extends Application implements PacMan_gui_IF {
 	private GhostThread[] ghtlist = new GhostThread[ghostAmount];
 
 	private Scene scene;
+	TextField lives;
 
 	public void init() {
+		hs = new HighScore();
 		map = new Map(strings);
 		ml = new  MovementLogic(gSize, tileSize,map,strings);
 		player = new Player(ml,tileSize,strings,life);
-		draw = new Draw((int) gSize.getX(), (int) gSize.getY(), tileSize, player,map,ghlist,strings);
-		pms = new DrawThread(draw);
-		con = new Controller(player,map);
+		draw = new Draw((int) gSize.getX(), (int) gSize.getY(), tileSize, player,map,ghlist,strings,ghtlist);
+		con = new Controller(player,map,hs,this);
+		pms = new DrawThread(draw,player,con);
+		
 
 	}
 
 	public void start(Stage primaryStage) {
 		root = new BorderPane();
-
-		//root.setRight(rightVerticalBox());
-		scene = new Scene(root, (int) gSize.getX(), (int) gSize.getY());
+		
+		scene = new Scene(root, (int) gSize.getX(), (int) gSize.getY()+200);
 
 		primaryStage.setScene(scene);
 		primaryStage.show();
@@ -67,18 +73,13 @@ public class PacMan_gui extends Application implements PacMan_gui_IF {
 
 			}
 		});
-
-		//con.start();
-		//inisGhost();
-		//CanvasSetuUp();
-		//handle();
-		//pms.start();
-		try {
-			HighScore.selectFromDatabase();
-		} catch (Exception e) {
-			// TODO Auto-generated catch block
-			e.printStackTrace();
-		}
+		//topHorizonatalBox();
+		//rightVerticalBox();
+		combine();
+		con.start();
+		inisGhost();
+		handle();
+		pms.start();
 
 
 
@@ -103,10 +104,36 @@ public class PacMan_gui extends Application implements PacMan_gui_IF {
 			}
 		});
 	}
-	public void CanvasSetuUp(){
-		root.getChildren().add(draw);
-
+	public void combine() {
+		GridPane gd = new GridPane();
+		gd.add(topHorizonatalBox(), 0, 0);
+		gd.add(draw, 0, 1);
+		root.getChildren().add(gd);
 	}
+	
+	public HBox topHorizonatalBox() {
+		GridPane gd = new GridPane();
+		
+		Text life = new Text();
+		life.setText("Lives left: ");
+		
+		lives = new TextField();
+		lives.setMaxWidth(20);
+		lives.setEditable(false);
+		lives.setMouseTransparent(true);
+		lives.setFocusTraversable(false);
+		
+		gd.add(life,0,0);
+		gd.add(lives, 1, 0);
+		
+		
+		
+		
+		
+		HBox hb= new HBox(gd);
+		return hb;
+	}
+	
 	public VBox rightVerticalBox(){
 		GridPane gd = new GridPane();
 
@@ -124,8 +151,14 @@ public class PacMan_gui extends Application implements PacMan_gui_IF {
 
 		gd.add(files,0,1);
 		VBox vb = new VBox(gd);
-
 		return vb;
+		
+	}
+	public void setScore() {
+		
+	}
+	public void setLives(int livs) {
+		lives.setText(""+livs);
 	}
 	public static void main(String[] args) {
 		launch(args);

@@ -1,17 +1,27 @@
 package modal;
 
+import controller.Controller;
 import javafx.application.Platform;
 
 public class DrawThread extends Thread {
-	Draw pm;
-	private volatile boolean supress =  false;
+	private Draw pm;
+	private Player player;
+	private Controller con;
 
-	public DrawThread(Draw pm) {
+	public DrawThread(Draw pm,Player player,Controller con) {
+		this.player = player;
 		this.pm = pm;
+		this.con = con;
 	}
 
 	public void run() {
-		while (!supress) {
+		while (player.getLife() >0 && !pm.collectAllDots()) {
+			try {
+			pm.eat();
+			}catch(NullPointerException e) {
+				player.setPos(pm.getPlayerSpawn());
+			}
+			//con.setLives();
 			Platform.runLater(new Runnable() {
 
 				@Override
@@ -31,9 +41,6 @@ public class DrawThread extends Thread {
 			}
 
 		}
-	}
-	public void supress(){
-		supress = true;
 	}
 
 }
