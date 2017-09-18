@@ -1,8 +1,11 @@
 package modal;
 
+import java.awt.Point;
+import java.util.ArrayList;
+
 public class GhostThread extends Thread {
-	Ghost gh;
-	MovementLogic ml;
+	private Ghost gh;
+	private MovementLogic ml;
 
 	private volatile boolean supress = false;
 
@@ -12,9 +15,15 @@ public class GhostThread extends Thread {
 	}
 
 	public void run() {
+		boolean apu = false;
 		while (!supress) {
+			//if(path)
+			
+			
+			
 			try {
 				gh.update();
+				
 			} catch (NullPointerException e) {
 				gh.setPos(ml.ghostHouse());
 			}

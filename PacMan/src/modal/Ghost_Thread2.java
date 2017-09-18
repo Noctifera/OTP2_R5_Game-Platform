@@ -16,7 +16,7 @@ public class Ghost_Thread2 extends Thread {
 
 	public void run() {
 		
-		//gh.testPath(target, list);
+		gh.testPath(target, list);
 		
 	}
 
