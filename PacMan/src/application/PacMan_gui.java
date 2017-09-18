@@ -1,6 +1,9 @@
  package application;
 
+import javafx.scene.control.Label;
 import java.awt.Point;
+import java.util.ArrayList;
+import java.util.List;
 
 import controller.*;
 import modal.*;
@@ -9,6 +12,7 @@ import javafx.beans.value.ChangeListener;
 import javafx.beans.value.ObservableValue;
 import javafx.collections.FXCollections;
 import javafx.event.EventHandler;
+import javafx.geometry.Insets;
 import javafx.stage.Stage;
 import javafx.stage.WindowEvent;
 import javafx.scene.Scene;
@@ -85,8 +89,6 @@ public class PacMan_gui extends Application implements PacMan_gui_IF {
 		dt.start();
 
 
-
-
 	}
 	public void inisGhost(){
 		for(int i = 0; i<ghtlist.length; i++){
@@ -96,6 +98,44 @@ public class PacMan_gui extends Application implements PacMan_gui_IF {
 		}
 		for (GhostThread ghost : ghtlist) {
 			ghost.start();
+		}
+	}
+	
+	public HBox bottomDataPane() {
+		con.gethighScore();
+		BorderPane bottomPane = new BorderPane();
+		
+		
+		GridPane gridCenter = new GridPane();
+		gridCenter.setPadding(new Insets(0, 20, 0,20));
+		GridPane gridLeft = new GridPane();
+		GridPane gridRight = new GridPane();
+		
+		bottomPane.setCenter(gridCenter);
+		bottomPane.setLeft(gridLeft);
+		bottomPane.setRight(gridRight);
+
+		listLooper(gridLeft, con.presentScore(), "Score");
+		listLooper(gridCenter, con.presentName(), "Name");
+		listLooper(gridRight, con.presentDate(), "Date");
+		
+		HBox hbox = new HBox(bottomPane);
+		return hbox;
+	}
+	
+	
+	public void listLooper(GridPane grid, ArrayList<String> list, String text) {
+		
+		//datarivien title: esim highscore, name, date
+		Label title = new Label(text);
+		grid.add(title, 0, 0);
+		
+		for (int i = 0; i < list.size(); i++) {
+			String labelText = list.get(i);
+			Label insertedText = new Label(labelText);
+			
+	
+			grid.add(insertedText, 0, i + 1);
 		}
 	}
 
@@ -112,6 +152,7 @@ public class PacMan_gui extends Application implements PacMan_gui_IF {
 		gd.add(topHorizonatalBox(), 0, 0);
 		gd.add(draw, 0, 1);
 		root.getChildren().add(gd);
+		gd.add(bottomDataPane(), 0, 2);
 	}
 	
 	public HBox topHorizonatalBox() {
