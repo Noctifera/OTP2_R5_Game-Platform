@@ -40,7 +40,7 @@ public class PacMan_gui extends Application implements PacMan_gui_IF {
 	private final Point gSize = new Point(720, 480);
 	private BorderPane root;
 	private String[] strings = {"Dot", "LargeDot", "Wall", "Empty","PlayerSpawn", "GhostHouse"  };
-	private int ghostAmount = 1;
+	private int ghostAmount = 4;
 	private int life = 3;
 	private Ghost[] ghlist = new Ghost[ghostAmount];
 	private GhostThread[] ghtlist = new GhostThread[ghostAmount];

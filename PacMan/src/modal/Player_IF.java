@@ -2,14 +2,14 @@ package modal;
 
 import java.awt.Point;
 
-import javafx.scene.input.KeyEvent;
+import javafx.scene.input.KeyCode;
 
 public interface Player_IF {
 	public Point getPos(); // paluttaa pleyer:in posen;
 
 	public void setPos(Point pos); // asetetaan playerin pose;
 
-	public void move(KeyEvent event); // "WASD" napeilla liikuminen ruudun verran
+	public void move(KeyCode event); // "WASD" napeilla liikuminen ruudun verran
 
 	public void score(Point pos); // katotaan mitä pisteessä on ja paljonko pisteitä siitä saadaan palautetaan yhteis arvo
 
