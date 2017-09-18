@@ -63,7 +63,7 @@ public class PlayerMove {
 		
 	}
 	@Test
-	public void DontMoveUp() {
+	public void dontMoveUp() {
 		map.readMap("impossbleMove.txt");
 		player.setPos(map.getPlayerSpawn());
 		KeyCode up = KeyCode.W;
@@ -72,7 +72,7 @@ public class PlayerMove {
 		
 	}
 	@Test
-	public void DontMoveDown() {
+	public void dontMoveDown() {
 		map.readMap("impossbleMove.txt");
 		player.setPos(map.getPlayerSpawn());
 		KeyCode down = KeyCode.S;
@@ -81,7 +81,7 @@ public class PlayerMove {
 		
 	}
 	@Test
-	public void DontMoveLeft() {
+	public void dontMoveLeft() {
 		map.readMap("impossbleMove.txt");
 		player.setPos(map.getPlayerSpawn());
 		KeyCode left = KeyCode.A;
@@ -90,12 +90,47 @@ public class PlayerMove {
 		
 	}
 	@Test
-	public void DontMoveRight() {
+	public void dontMoveRight() {
 		map.readMap("impossbleMove.txt");
 		player.setPos(map.getPlayerSpawn());
 		KeyCode right = KeyCode.D;
 		player.move(right);
 		assertEquals(map.getPlayerSpawn(), player.getPos());
+		
+	}
+	@Test
+	public void overleft() {
+		map.readMap("impossbleMove.txt");
+		player.setPos(new Point(0,0));
+		KeyCode left = KeyCode.A;
+		player.move(left);
+		assertEquals(new Point(720-40,0), player.getPos());
+	}
+	@Test
+	public void overRight() {
+		map.readMap("impossbleMove.txt");
+		player.setPos(new Point(720-40,0));
+		KeyCode right = KeyCode.D;
+		player.move(right);
+		assertEquals(new Point(00,0), player.getPos());
+		
+	}
+	@Test
+	public void overTop() {
+		map.readMap("impossbleMove.txt");
+		player.setPos(new Point(0,0));
+		KeyCode up = KeyCode.W;
+		player.move(up);
+		assertEquals(new Point(0,440), player.getPos());
+		
+	}
+	@Test
+	public void overBottom() {
+		map.readMap("impossbleMove.txt");
+		player.setPos(new Point(0,440));
+		KeyCode down = KeyCode.S;
+		player.move(down);
+		assertEquals(new Point(0,0), player.getPos());
 		
 	}
 	
