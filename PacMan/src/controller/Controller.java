@@ -1,6 +1,7 @@
 package controller;
 
 import application.PacMan_gui;
+import javafx.scene.input.KeyCode;
 import javafx.scene.input.KeyEvent;
 import modal.*;
 
@@ -22,7 +23,8 @@ public class Controller implements Controller_IF {
 
 	@Override
 	public void move(KeyEvent event) {
-		player.move(event);
+		KeyCode e = event.getCode();
+		player.move(e);
 		setScore();
 		System.out.println(player.getVulnerable());
 	}

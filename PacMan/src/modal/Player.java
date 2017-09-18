@@ -2,6 +2,7 @@ package modal;
 
 import java.awt.Point;
 
+import javafx.scene.input.KeyCode;
 import javafx.scene.input.KeyEvent;
 
 public class Player extends Score implements Player_IF {
@@ -28,12 +29,13 @@ public class Player extends Score implements Player_IF {
 		this.pos = pos;
 	}
 
-	public void move(KeyEvent event) {
+	public void move(KeyCode event) {
 		// TODO Auto-generated method stub
 		Point newpos = pos;
 
-		switch (event.getCode()) {
+		switch (event) {
 		case W:
+			//ylös
 			// miinus laatikon korkeus
 			double up = pos.getY() - blSize;
 			newpos = new Point((int) pos.getX(), (int) up);
@@ -47,6 +49,7 @@ public class Player extends Score implements Player_IF {
 			}
 			break;
 		case S:
+			//alas
 			// plus laatikon korkeus
 			double down = pos.getY() + blSize;
 			newpos = new Point((int) pos.getX(), (int) down);
@@ -59,6 +62,7 @@ public class Player extends Score implements Player_IF {
 			break;
 		case A:
 			// miinus laatikon leveys
+			//vasemalle
 			double left = pos.getX() - blSize;
 			newpos = new Point((int) left, (int) pos.getY());
 			newpos = ml.yli(newpos);
@@ -69,6 +73,7 @@ public class Player extends Score implements Player_IF {
 			}
 			break;
 		case D:
+			//oikealle
 			// plus laatikon leveys
 			double right = pos.getX() + blSize;
 			newpos = new Point((int) right, (int) pos.getY());
@@ -80,6 +85,7 @@ public class Player extends Score implements Player_IF {
 			}
 			break;
 		case ESCAPE:
+			//lopetetaan
 			System.exit(0);
 		default:
 			System.out.println("use WASD keys");
