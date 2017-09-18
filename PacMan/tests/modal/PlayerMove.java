@@ -15,13 +15,15 @@ public class PlayerMove {
 	private static MovementLogic ml;
 	private static Map map;
 	private static Player player;
+	private static Point gSize;
+	private static int blSize;
 	
 	@BeforeClass
 	public static void start() {
 		System.out.println("before test");
-		Point gSize = new Point(720, 480);
+		gSize = new Point(720, 480);
 		String[] strings = {"Dot", "LargeDot", "Wall", "Empty","PlayerSpawn", "GhostHouse"  };
-		int blSize = 40;
+		blSize = 40;
 		map = new Map(strings);
 		ml = new MovementLogic(gSize, blSize, map, strings);
 		player = new Player(ml, blSize, strings, 0);
@@ -33,7 +35,7 @@ public class PlayerMove {
 		player.setPos(map.getPlayerSpawn());
 		KeyCode up = KeyCode.W;
 		player.move(up);
-		assertEquals(new Point((int)map.getPlayerSpawn().getX(), (int)map.getPlayerSpawn().getY()-40), player.getPos());
+		assertEquals(new Point((int)map.getPlayerSpawn().getX(), (int)map.getPlayerSpawn().getY()-blSize), player.getPos());
 	}
 	@Test
 	public void moveLeft() {
@@ -41,7 +43,7 @@ public class PlayerMove {
 		player.setPos(map.getPlayerSpawn());
 		KeyCode left = KeyCode.A;
 		player.move(left);
-		assertEquals(new Point((int)map.getPlayerSpawn().getX()-40, (int)map.getPlayerSpawn().getY()), player.getPos());
+		assertEquals(new Point((int)map.getPlayerSpawn().getX()-blSize, (int)map.getPlayerSpawn().getY()), player.getPos());
 		
 	}
 	@Test
@@ -50,7 +52,7 @@ public class PlayerMove {
 		player.setPos(map.getPlayerSpawn());
 		KeyCode right = KeyCode.D;
 		player.move(right);
-		assertEquals(new Point((int)map.getPlayerSpawn().getX()+40, (int)map.getPlayerSpawn().getY()), player.getPos());
+		assertEquals(new Point((int)map.getPlayerSpawn().getX()+blSize, (int)map.getPlayerSpawn().getY()), player.getPos());
 		
 	}
 	@Test
@@ -59,7 +61,7 @@ public class PlayerMove {
 		player.setPos(map.getPlayerSpawn());
 		KeyCode down = KeyCode.S;
 		player.move(down);
-		assertEquals(new Point((int)map.getPlayerSpawn().getX(), (int)map.getPlayerSpawn().getY()+40), player.getPos());
+		assertEquals(new Point((int)map.getPlayerSpawn().getX(), (int)map.getPlayerSpawn().getY()+blSize), player.getPos());
 		
 	}
 	@Test
@@ -104,15 +106,15 @@ public class PlayerMove {
 		player.setPos(new Point(0,0));
 		KeyCode left = KeyCode.A;
 		player.move(left);
-		assertEquals(new Point(720-40,0), player.getPos());
+		assertEquals(new Point((int)gSize.getX()-blSize, 0), player.getPos());
 	}
 	@Test
 	public void overRight() {
 		map.readMap("impossbleMove.txt");
-		player.setPos(new Point(720-40,0));
+		player.setPos(new Point((int)gSize.getX()-blSize,0));
 		KeyCode right = KeyCode.D;
 		player.move(right);
-		assertEquals(new Point(00,0), player.getPos());
+		assertEquals(new Point(0,0), player.getPos());
 		
 	}
 	@Test
@@ -121,13 +123,13 @@ public class PlayerMove {
 		player.setPos(new Point(0,0));
 		KeyCode up = KeyCode.W;
 		player.move(up);
-		assertEquals(new Point(0,440), player.getPos());
+		assertEquals(new Point(0, (int)gSize.getY()-blSize), player.getPos());
 		
 	}
 	@Test
 	public void overBottom() {
 		map.readMap("impossbleMove.txt");
-		player.setPos(new Point(0,440));
+		player.setPos(new Point(0,(int)gSize.getY()-blSize));
 		KeyCode down = KeyCode.S;
 		player.move(down);
 		assertEquals(new Point(0,0), player.getPos());
