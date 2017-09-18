@@ -3,7 +3,6 @@ package modal;
 import java.awt.Point;
 
 import javafx.scene.input.KeyCode;
-import javafx.scene.input.KeyEvent;
 
 public class Player extends Score implements Player_IF {
 	private Point pos;

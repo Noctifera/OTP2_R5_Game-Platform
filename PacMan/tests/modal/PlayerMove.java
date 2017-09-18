@@ -1,5 +1,7 @@
 package modal;
 
+import static org.junit.Assert.*;
+
 import java.awt.Point;
 
 import org.junit.BeforeClass;
@@ -31,6 +33,70 @@ public class PlayerMove {
 		player.setPos(map.getPlayerSpawn());
 		KeyCode up = KeyCode.W;
 		player.move(up);
+		assertEquals(new Point((int)map.getPlayerSpawn().getX(), (int)map.getPlayerSpawn().getY()-40), player.getPos());
+	}
+	@Test
+	public void moveLeft() {
+		map.readMap("map.txt");
+		player.setPos(map.getPlayerSpawn());
+		KeyCode left = KeyCode.A;
+		player.move(left);
+		assertEquals(new Point((int)map.getPlayerSpawn().getX()-40, (int)map.getPlayerSpawn().getY()), player.getPos());
+		
+	}
+	@Test
+	public void moveRight() {
+		map.readMap("map.txt");
+		player.setPos(map.getPlayerSpawn());
+		KeyCode right = KeyCode.D;
+		player.move(right);
+		assertEquals(new Point((int)map.getPlayerSpawn().getX()+40, (int)map.getPlayerSpawn().getY()), player.getPos());
+		
+	}
+	@Test
+	public void moveDown() {
+		map.readMap("map.txt");
+		player.setPos(map.getPlayerSpawn());
+		KeyCode down = KeyCode.S;
+		player.move(down);
+		assertEquals(new Point((int)map.getPlayerSpawn().getX(), (int)map.getPlayerSpawn().getY()+40), player.getPos());
+		
+	}
+	@Test
+	public void DontMoveUp() {
+		map.readMap("impossbleMove.txt");
+		player.setPos(map.getPlayerSpawn());
+		KeyCode up = KeyCode.W;
+		player.move(up);
+		assertEquals(map.getPlayerSpawn(), player.getPos());
+		
+	}
+	@Test
+	public void DontMoveDown() {
+		map.readMap("impossbleMove.txt");
+		player.setPos(map.getPlayerSpawn());
+		KeyCode down = KeyCode.S;
+		player.move(down);
+		assertEquals(map.getPlayerSpawn(), player.getPos());
+		
+	}
+	@Test
+	public void DontMoveLeft() {
+		map.readMap("impossbleMove.txt");
+		player.setPos(map.getPlayerSpawn());
+		KeyCode left = KeyCode.A;
+		player.move(left);
+		assertEquals(map.getPlayerSpawn(), player.getPos());
+		
+	}
+	@Test
+	public void DontMoveRight() {
+		map.readMap("impossbleMove.txt");
+		player.setPos(map.getPlayerSpawn());
+		KeyCode right = KeyCode.D;
+		player.move(right);
+		assertEquals(map.getPlayerSpawn(), player.getPos());
+		
 	}
 	
 
