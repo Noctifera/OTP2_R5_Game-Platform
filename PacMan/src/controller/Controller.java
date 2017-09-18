@@ -1,5 +1,8 @@
 package controller;
 
+import java.util.ArrayList;
+import java.util.List;
+
 import application.PacMan_gui;
 import javafx.scene.input.KeyCode;
 import javafx.scene.input.KeyEvent;
@@ -15,6 +18,7 @@ public class Controller implements Controller_IF {
 		this.map = map;
 		this.player = player;
 		this.pMG = pMG;
+		this.hs = hs;
 	}
 
 	public void start() {
@@ -56,5 +60,17 @@ public class Controller implements Controller_IF {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
 		}
+	}
+	
+	public ArrayList<String> presentScore() {
+		return hs.getScore();
+	}
+	
+	public ArrayList<String> presentName() {
+		return hs.getName();
+	}
+	
+	public ArrayList<String> presentDate() {
+		return hs.getDate();
 	}
 }
