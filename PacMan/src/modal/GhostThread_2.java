@@ -32,5 +32,6 @@ public class GhostThread_2 extends Thread {
 	public void suppress() {
 		suppress = true;
 	}
+	
 
 }
