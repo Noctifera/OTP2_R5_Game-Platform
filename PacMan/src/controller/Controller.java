@@ -1,7 +1,6 @@
 package controller;
 
 import java.util.ArrayList;
-import java.util.List;
 
 import application.PacMan_gui;
 import javafx.scene.input.KeyCode;

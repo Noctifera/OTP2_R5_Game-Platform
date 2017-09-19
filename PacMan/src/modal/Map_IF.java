@@ -1,11 +1,9 @@
 package modal;
 
 import java.awt.Point;
-import java.io.File;
 import java.util.HashMap;
 
 public interface Map_IF {
-	public HashMap<Point, String> getMap(); //palauttaa HashMap Kartan
 
 	public Point getPlayerSpawn(); //etsitään kartasta playerin spawn piste ja palautetaan se;
 

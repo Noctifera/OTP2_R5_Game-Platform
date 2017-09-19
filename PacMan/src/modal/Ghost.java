@@ -3,8 +3,6 @@ package modal;
 import java.awt.Point;
 import java.util.ArrayList;
 
-import javafx.scene.control.Tab;
-
 public class Ghost implements Ghost_IF {
 	private MovementLogic ml;
 	private Player player;
@@ -14,7 +12,7 @@ public class Ghost implements Ghost_IF {
 	private int tileSize;
 	private int size = 1;
 	private ArrayList<Point> path = new ArrayList<>();
-	private String vulnerable;
+	//private String vulnerable;
 
 	public Ghost(MovementLogic ml, Point gSize, int tileSize, Player player) {
 		this.ml = ml;
@@ -40,6 +38,10 @@ public class Ghost implements Ghost_IF {
 
 	}
 
+	public int getSize() {
+		return size;
+	}
+
 	public Point randomPoint() {
 		Point point;
 		int randX = (int) (Math.random() * gSize.getX() - tileSize);
@@ -62,7 +64,7 @@ public class Ghost implements Ghost_IF {
 	}
 
 	public ArrayList<Point> nodes() {
-		ArrayList<Point> possibleSpaces = ml.freeSpaces();
+		ArrayList<Point> possibleSpaces = ml.freespaces();
 		ArrayList<Point> node = new ArrayList<>();
 		for (int i = 0; i < gSize.getY();) {
 			for (int j = 0; j < gSize.getX();) {
@@ -95,12 +97,12 @@ public class Ghost implements Ghost_IF {
 
 	}
 
-	public synchronized ArrayList<Point> path(Point target, ArrayList<Point> list) {
+	public  ArrayList<Point> path(Point target, ArrayList<Point> list) {
 		int dX = (int) (target.getX() - list.get(list.size() - 1).getX());
 		int dY = (int) (target.getY() - list.get(list.size() - 1).getY());
 
 		// boolean suppress = false;
-		ArrayList<Point> possibleSpaces = ml.freeSpaces();
+		ArrayList<Point> possibleSpaces = ml.freespaces();
 		int possible = 0;
 		String string = "";
 		// ylös
@@ -238,5 +240,7 @@ public class Ghost implements Ghost_IF {
 	public void setPos(Point pos) {
 		this.pos = pos;
 	}
-
+	public Point ghostHouse() {
+		return ml.ghostHouse();
+	}
 }

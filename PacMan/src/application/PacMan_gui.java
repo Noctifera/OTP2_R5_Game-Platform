@@ -3,7 +3,6 @@
 import javafx.scene.control.Label;
 import java.awt.Point;
 import java.util.ArrayList;
-import java.util.List;
 
 import controller.*;
 import modal.*;
@@ -17,7 +16,6 @@ import javafx.stage.Stage;
 import javafx.stage.WindowEvent;
 import javafx.scene.Scene;
 import javafx.scene.control.ListView;
-import javafx.scene.control.TextField;
 import javafx.scene.layout.BorderPane;
 import javafx.scene.layout.GridPane;
 import javafx.scene.layout.HBox;
@@ -52,11 +50,11 @@ public class PacMan_gui extends Application implements PacMan_gui_IF {
 	public void init() {
 		hs = new HighScore();
 		map = new Map(strings);
-		ml = new  MovementLogic(gSize, tileSize,map,strings);
-		player = new Player(ml,tileSize,strings,life);
+		ml = new  MovementLogic(gSize, tileSize,map);
+		player = new Player(ml,tileSize,life);
 		con = new Controller(player,map,hs,this);
-		draw = new Draw((int) gSize.getX(), (int) gSize.getY(), tileSize, player,map,ghlist,strings,ghtlist,con);
-		dt = new DrawThread(draw,player);
+		draw = new Draw((int) gSize.getX(), (int) gSize.getY(), tileSize, player,ghlist,strings,ghtlist,con,map);
+		dt = new DrawThread(draw);
 		
 		
 		

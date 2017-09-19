@@ -89,6 +89,15 @@ public class Map implements Map_IF {
 
 		return walls;
 	}
+	public ArrayList<Point> freeSpaces() {
+		ArrayList<Point> points = new ArrayList<>();
+		for (Entry<Point, String> e : map.entrySet()) {
+			if (!map.get(e.getKey()).equals(strings[2])) {
+				points.add(e.getKey());
+			}
+		}
+		return points;
+	}
 
 	public ArrayList<Point> getDots(){
 		ArrayList<Point> dots = new ArrayList<>();
@@ -124,9 +133,9 @@ public class Map implements Map_IF {
 		for (String s : fileNames) {
 			System.out.println(s);
 		}
-
-
 		return fileNames;
 	}
-
+	public void remove(Point pos) {
+		map.replace(pos, strings[3]);
+	}
 }

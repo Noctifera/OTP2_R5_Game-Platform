@@ -1,23 +1,20 @@
 package modal;
 
-import controller.Controller;
 import javafx.application.Platform;
 
 public class DrawThread extends Thread {
-	private Draw pm;
-	private Player player;
+	private Draw draw;
 
-	public DrawThread(Draw pm,Player player) {
-		this.player = player;
-		this.pm = pm;
+	public DrawThread(Draw draw) {
+		this.draw = draw;
 	}
 
 	public void run() {
-		while (player.getLife() >0 && !pm.collectAllDots()) {
+		while (draw.keepPlaying()) {
 			try {
-			pm.eat();
+			draw.eat();
 			}catch(NullPointerException e) {
-				player.setPos(pm.getPlayerSpawn());
+				draw.playerPos();
 			}
 			//con.setLives();
 			Platform.runLater(new Runnable() {
@@ -26,7 +23,7 @@ public class DrawThread extends Thread {
 				public void run() {
 					// TODO Auto-generated method stub
 					// pm.clear();
-					pm.update();
+					draw.update();
 				}
 
 			});

@@ -1,22 +1,17 @@
 package modal;
 
 import java.awt.Point;
-import java.io.IOException;
 import java.util.ArrayList;
-import java.util.HashMap;
-import java.util.Map.Entry;
 
 public class MovementLogic implements MovementLogic_IF {
 	private Point gSize;
 	private Map map;
 	private int blSize;
-	private String[] strings;
 
-	public MovementLogic(Point gSize, int blSize, Map map, String[] strings) {
+	public MovementLogic(Point gSize, int blSize, Map map) {
 		this.gSize = gSize;
 		this.blSize = blSize;
 		this.map = map;
-		this.strings = strings;
 	}
 
 	public Point ghostHouse() {
@@ -45,8 +40,9 @@ public class MovementLogic implements MovementLogic_IF {
 	}
 
 	public boolean avoidWall(Point pos) {
+		ArrayList<Point> points = map.freeSpaces();
 		// TODO Auto-generated method stub
-		if (!map.getMap().get(pos).equals(strings[2])) {
+		if (points.contains(pos)) {
 			// System.out.println("ml.pm: "+pos);
 			// System.out.println("ml.pm: "+map.getMap().get(pos));
 			return true;
@@ -55,28 +51,28 @@ public class MovementLogic implements MovementLogic_IF {
 		}
 		// System.out.println(onko);
 	}
-
-	public ArrayList<Point> freeSpaces() {
-		ArrayList<Point> points = new ArrayList<>();
-		for (Entry<Point, String> e : map.getMap().entrySet()) {
-			if (!map.getMap().get(e.getKey()).equals(strings[2])) {
-				points.add(e.getKey());
-			}
+	public void score(Point pos) {
+		ArrayList<Point> dots = dots();
+		ArrayList<Point> largedots = largeDots();
+		if(dots.contains(pos)) {
+			map.remove(pos);
+		}else if(largedots.contains(pos)) {
+			map.remove(pos);
+			
 		}
-		return points;
+		
 	}
-
-	public String score(Point pos) {
-		String apu = strings[3];
-		if (map.getMap().get(pos).equals(strings[0])) {
-			map.getMap().replace(pos, strings[3]);
-			apu = strings[0];
-
-		}if (map.getMap().get(pos).equals(strings[1])) {
-			map.getMap().replace(pos, strings[3]);
-			apu = strings[1];
-		}
-		//System.out.println(apu);
-		return apu;
+	
+	public ArrayList<Point> dots(){
+		return map.getDots();
+	}
+	public ArrayList<Point> largeDots(){
+		return map.getLargeDots();
+	}
+	public ArrayList<Point> walls(){
+		return map.getWalls();
+	}
+	public ArrayList<Point> freespaces(){
+		return map.freeSpaces();
 	}
 }

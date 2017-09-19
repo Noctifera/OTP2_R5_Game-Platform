@@ -19,21 +19,19 @@ public class GhostThread extends Thread {
 			// TODO Auto-generated catch block
 			e1.printStackTrace();
 		}
+		gh.insPath();
 		while (!supress) {
-			gh.insPath();
-			
-			while (gh.getPath().get(gh.getPath().size() - 1) != gh.getPos()) {
+
+			while (gh.getPath() != null && gh.getPath().size() > gh.getSize()) {
 				gh.update();
 				//System.out.println("update");
 				try {
-					Thread.sleep(300);
+					Thread.sleep(400);
 				} catch (InterruptedException e) {
 					// TODO Auto-generated catch block
 					e.printStackTrace();
 				}
 			}
-			gh.getPath().clear();
-
 		}
 		try {
 			Thread.sleep(500);

@@ -25,8 +25,8 @@ public class PlayerMove {
 		String[] strings = {"Dot", "LargeDot", "Wall", "Empty","PlayerSpawn", "GhostHouse"  };
 		blSize = 40;
 		map = new Map(strings);
-		ml = new MovementLogic(gSize, blSize, map, strings);
-		player = new Player(ml, blSize, strings, 0);
+		ml = new MovementLogic(gSize, blSize, map);
+		player = new Player(ml, blSize, 0);
 		
 	}
 	@Test
