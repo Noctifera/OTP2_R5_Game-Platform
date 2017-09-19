@@ -34,9 +34,12 @@ public class Player extends Score implements Player_IF {
 
 		switch (event) {
 		case W:
+			double up = pos.getY() - blSize;
+			newpos = new Point((int) pos.getX(), (int) up);
+			while(ml.avoidWall(newpos)) {
 			//ylös
 			// miinus laatikon korkeus
-			double up = pos.getY() - blSize;
+			up = pos.getY() - blSize;
 			newpos = new Point((int) pos.getX(), (int) up);
 			//System.out.println(newpos);
 
@@ -46,6 +49,7 @@ public class Player extends Score implements Player_IF {
 				pos = newpos;
 				score(newpos);
 			}
+		}
 			break;
 		case S:
 			//alas

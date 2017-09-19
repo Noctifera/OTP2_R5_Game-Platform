@@ -1,8 +1,5 @@
 package modal;
 
-import java.awt.Point;
-import java.util.ArrayList;
-
 public class GhostThread extends Thread {
 	private Ghost gh;
 	private MovementLogic ml;
@@ -15,26 +12,34 @@ public class GhostThread extends Thread {
 	}
 
 	public void run() {
-		boolean apu = false;
+		gh.setPos(ml.ghostHouse());
+		try {
+			Thread.sleep(10);
+		} catch (InterruptedException e1) {
+			// TODO Auto-generated catch block
+			e1.printStackTrace();
+		}
 		while (!supress) {
-			//if(path)
+			gh.insPath();
 			
-			
-			
-			try {
+			while (gh.getPath().get(gh.getPath().size() - 1) != gh.getPos()) {
 				gh.update();
-				
-			} catch (NullPointerException e) {
-				gh.setPos(ml.ghostHouse());
+				//System.out.println("update");
+				try {
+					Thread.sleep(300);
+				} catch (InterruptedException e) {
+					// TODO Auto-generated catch block
+					e.printStackTrace();
+				}
 			}
+			gh.getPath().clear();
 
-			try {
-				Thread.sleep(400);
-			} catch (InterruptedException e) {
-				// TODO Auto-generated catch block
-				e.printStackTrace();
-			}
-
+		}
+		try {
+			Thread.sleep(500);
+		} catch (InterruptedException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
 		}
 	}
 }
