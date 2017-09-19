@@ -6,13 +6,14 @@ import java.util.ArrayList;
 public class Ghost implements Ghost_IF {
 	private MovementLogic ml;
 	private Player player;
+	private GhostThread_2 gh2;
 
 	private Point pos;
 	private Point gSize;
 	private int tileSize;
 	private int size = 1;
 	private ArrayList<Point> path = new ArrayList<>();
-	//private String vulnerable;
+	// private String vulnerable;
 
 	public Ghost(MovementLogic ml, Point gSize, int tileSize, Player player) {
 		this.ml = ml;
@@ -97,7 +98,122 @@ public class Ghost implements Ghost_IF {
 
 	}
 
-	public  ArrayList<Point> path(Point target, ArrayList<Point> list) {
+	public synchronized void testPath(Point target, ArrayList<Point> list) {
+		//int dX = (int) (target.getX() - list.get(list.size() - 1).getX());
+		//int dY = (int) (target.getY() - list.get(list.size() - 1).getY());
+
+		// boolean suppress = false;
+		ArrayList<Point> possibleSpaces = ml.freespaces();
+		int possible = 0;
+		String string = "";
+		// ylös
+		if (possibleSpaces.contains(up(list.get(list.size() - 1))) && !list.contains(up(list.get(list.size() - 1)))) {
+			// System.out.println("possible up");
+			possible++;
+			string = string + " up"; //
+			// System.out.println("string" + string);
+		} // alas
+		if (possibleSpaces.contains(down(list.get(list.size() - 1)))
+				&& !list.contains(down(list.get(list.size() - 1)))) {
+			// System.out.println("possible down");
+			possible++;
+			string = string + " down";
+			// System.out.println("string" + string);
+		} // vasemalle
+		if (possibleSpaces.contains(left(list.get(list.size() - 1)))
+				&& !list.contains(left(list.get(list.size() - 1)))) {
+			// System.out.println("possible left");
+			possible++;
+			string = string + " left";
+			// System.out.println("string" + string);
+		} // oikealle
+		if (possibleSpaces.contains(right(list.get(list.size() - 1)))
+				&& !list.contains(right(list.get(list.size() - 1)))) {
+			// System.out.println("possible right");
+			possible++;
+			string = string + " right";
+			// System.out.println("string" + string);
+		}
+
+		if (possible == 1) {
+			if (string.contains("up")) {
+				// System.out.println("one up");
+				list.add(up(list.get(list.size() - 1)));
+
+			}
+			if (string.contains("down")) {
+				// System.out.println("one down");
+				list.add(down(list.get(list.size() - 1)));
+
+			}
+			if (string.contains("left")) {
+				// System.out.println("one left");
+				list.add(left(list.get(list.size() - 1)));
+			}
+			if (string.contains("right")) {
+				// System.out.println("one right");
+				list.add(right(list.get(list.size() - 1)));
+			}
+			testPath(target, list);
+
+		} else if (possible > 1) {
+			if (string.contains("up")) {
+				// System.out.println("multiple up");
+				ArrayList<Point> up = new ArrayList<>();
+				up.addAll(list);
+				up.add(new Point(up(list.get(list.size() - 1))));
+
+					gh2 = new GhostThread_2(this, target, up);
+					gh2.start();
+
+			}
+			if (string.contains("down")) {
+				// System.out.println("multiple down");
+				ArrayList<Point> down = new ArrayList<>();
+				down.addAll(list);
+				down.add(new Point(down(list.get(list.size() - 1))));
+
+					gh2 = new GhostThread_2(this, target, down);
+					gh2.start();
+
+			}
+			if (string.contains("left")) {
+				// System.out.println("multiple left");
+				ArrayList<Point> left = new ArrayList<>();
+				left.addAll(list);
+				left.add(new Point(left(list.get(list.size() - 1))));
+					gh2 = new GhostThread_2(this, target, left);
+					gh2.start();
+
+			}
+			if (string.contains("right")) {
+				// System.out.println("multiple right");
+				ArrayList<Point> right = new ArrayList<>();
+				right.addAll(list);
+				right.add(new Point(right(right.get(right.size() - 1))));
+				
+					gh2 = new GhostThread_2(this, target, right);
+					gh2.start();
+			}
+
+		}
+
+		System.out.println("target:" + target + " , " + "position: " + list.get(list.size() - 1));
+		System.out.println("path: " + list.toString());
+		if (target.equals(list.get(list.size() - 1))) {
+			gh2 = new GhostThread_2(this, target, list);
+			gh2.suppress();
+			System.out.println("path found");
+			System.out.println("target:" + target + " , " + "position: " + list.get(list.size() - 1));
+			System.out.println("path: " + list.toString());
+			path = list;
+			//System.exit(0);
+			
+
+		}
+	}
+
+	public ArrayList<Point> path(Point target, ArrayList<Point> list) {
 		int dX = (int) (target.getX() - list.get(list.size() - 1).getX());
 		int dY = (int) (target.getY() - list.get(list.size() - 1).getY());
 
@@ -107,25 +223,28 @@ public class Ghost implements Ghost_IF {
 		String string = "";
 		// ylös
 		if (possibleSpaces.contains(up(list.get(list.size() - 1))) && !list.contains(up(list.get(list.size() - 1)))) {
-			//System.out.println("possible up");
+			// System.out.println("possible up");
 			possible++;
 			string = string + " up"; //
-			//System.out.println("string" + string);
+			// System.out.println("string" + string);
 		} // alas
-		if (possibleSpaces.contains(down(list.get(list.size() - 1))) && !list.contains(down(list.get(list.size() - 1)))) {
-			//System.out.println("possible down");
+		if (possibleSpaces.contains(down(list.get(list.size() - 1)))
+				&& !list.contains(down(list.get(list.size() - 1)))) {
+			// System.out.println("possible down");
 			possible++;
 			string = string + " down";
 			// System.out.println("string" + string);
 		} // vasemalle
-		if (possibleSpaces.contains(left(list.get(list.size() - 1))) && !list.contains(left(list.get(list.size() - 1)))) {
-			//System.out.println("possible left");
+		if (possibleSpaces.contains(left(list.get(list.size() - 1)))
+				&& !list.contains(left(list.get(list.size() - 1)))) {
+			// System.out.println("possible left");
 			possible++;
 			string = string + " left";
 			// System.out.println("string" + string);
 		} // oikealle
-		if (possibleSpaces.contains(right(list.get(list.size() - 1))) && !list.contains(right(list.get(list.size() - 1)))) {
-			//System.out.println("possible right");
+		if (possibleSpaces.contains(right(list.get(list.size() - 1)))
+				&& !list.contains(right(list.get(list.size() - 1)))) {
+			// System.out.println("possible right");
 			possible++;
 			string = string + " right";
 			// System.out.println("string" + string);
@@ -133,7 +252,7 @@ public class Ghost implements Ghost_IF {
 
 		if (possible == 1) {
 			if (string.contains("up")) {
-				//System.out.println("one up");
+				// System.out.println("one up");
 				list.add(up(list.get(list.size() - 1)));
 
 			}
@@ -154,7 +273,7 @@ public class Ghost implements Ghost_IF {
 
 		} else if (possible > 1) {
 			if (string.contains("up") && dY < 0) {
-				//System.out.println("multiple up");
+				// System.out.println("multiple up");
 				ArrayList<Point> up = new ArrayList<>();
 				up.addAll(list);
 				up.add(new Point(up(list.get(list.size() - 1))));
@@ -162,23 +281,23 @@ public class Ghost implements Ghost_IF {
 
 			}
 			if (string.contains("down") && dY > 0) {
-				//System.out.println("multiple down");
+				// System.out.println("multiple down");
 				ArrayList<Point> down = new ArrayList<>();
 				down.addAll(list);
 				down.add(new Point(down(list.get(list.size() - 1))));
 				return path(target, down);
 
 			}
-			if (string.contains("left") && dX < 0) { 
-				//System.out.println("multiple left");
+			if (string.contains("left") && dX < 0) {
+				// System.out.println("multiple left");
 				ArrayList<Point> left = new ArrayList<>();
 				left.addAll(list);
 				left.add(new Point(left(list.get(list.size() - 1))));
 				return path(target, left);
 
 			}
-			if (string.contains("right") && dX > 0) { 
-				//System.out.println("multiple right");
+			if (string.contains("right") && dX > 0) {
+				// System.out.println("multiple right");
 				ArrayList<Point> right = new ArrayList<>();
 				right.addAll(list);
 				right.add(new Point(right(right.get(right.size() - 1))));
@@ -216,14 +335,14 @@ public class Ghost implements Ghost_IF {
 			Point randpoint = randomPoint();
 			// .out.println(nodes().toString());
 			// System.out.println(nodes().size());
-			path = path(randpoint, list);
-			// testPath(randpoint, list);
+			// path = path(randpoint, list);
+			testPath(randpoint, list);
 			// System.out.println(randpoint);
 			size = 1;
 		} else {
 			Point point = player.getPos();
-			path = path(point, list);
-			// testPath(point, list);
+			// path = path(point, list);
+			testPath(point, list);
 			size = 1;
 		}
 
@@ -240,6 +359,7 @@ public class Ghost implements Ghost_IF {
 	public void setPos(Point pos) {
 		this.pos = pos;
 	}
+
 	public Point ghostHouse() {
 		return ml.ghostHouse();
 	}

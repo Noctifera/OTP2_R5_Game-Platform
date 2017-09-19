@@ -38,7 +38,7 @@ public class PacMan_gui extends Application implements PacMan_gui_IF {
 	private final Point gSize = new Point(720, 480);
 	private BorderPane root;
 	private String[] strings = {"Dot", "LargeDot", "Wall", "Empty","PlayerSpawn", "GhostHouse"  };
-	private int ghostAmount = 4;
+	private int ghostAmount = 1;
 	private int life = 3;
 	private Ghost[] ghlist = new Ghost[ghostAmount];
 	private GhostThread[] ghtlist = new GhostThread[ghostAmount];
@@ -150,7 +150,7 @@ public class PacMan_gui extends Application implements PacMan_gui_IF {
 		gd.add(topHorizonatalBox(), 0, 0);
 		gd.add(draw, 0, 1);
 		root.getChildren().add(gd);
-	//	gd.add(bottomDataPane(), 0, 2);
+		gd.add(bottomDataPane(), 0, 2);
 	}
 	
 	public HBox topHorizonatalBox() {
