@@ -10,12 +10,9 @@ public class DrawThread extends Thread {
 	}
 
 	public void run() {
+		draw.playerPos();
 		while (draw.keepPlaying()) {
-			try {
-			draw.eat();
-			}catch(NullPointerException e) {
-				draw.playerPos();
-			}
+			//draw.eat();
 			//con.setLives();
 			Platform.runLater(new Runnable() {
 

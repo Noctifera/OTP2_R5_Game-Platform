@@ -19,12 +19,17 @@ public class GhostThread extends Thread {
 			// TODO Auto-generated catch block
 			e1.printStackTrace();
 		}
-		gh.insPath();
+		try {
+			gh.insPath();
+		} catch (InterruptedException e1) {
+			// TODO Auto-generated catch block
+			e1.printStackTrace();
+		}
 		while (!supress) {
 
 			while (gh.getPath() != null && gh.getPath().size() > gh.getSize()) {
 				gh.update();
-				//System.out.println("update");
+				// System.out.println("update");
 				try {
 					Thread.sleep(400);
 				} catch (InterruptedException e) {
@@ -32,6 +37,19 @@ public class GhostThread extends Thread {
 					e.printStackTrace();
 				}
 			}
+
+			if (gh.getPath().size() > 0) {
+				if (gh.getPath().get(gh.getPath().size() - 1).equals(gh.getPos())) {
+					try {
+						gh.insPath();
+					} catch (InterruptedException e) {
+						// TODO Auto-generated catch block
+						e.printStackTrace();
+					}
+				}
+			}
+			
+
 		}
 		try {
 			Thread.sleep(500);
