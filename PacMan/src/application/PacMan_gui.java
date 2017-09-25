@@ -49,7 +49,7 @@ public class PacMan_gui extends Application implements PacMan_gui_IF {
 
 	public void init() {
 		hs = new HighScore();
-		map = new Map(strings);
+		map = new Map(strings, gSize, tileSize);
 		ml = new  MovementLogic(gSize, tileSize,map);
 		player = new Player(ml,tileSize,life);
 		con = new Controller(player,map,hs,this);
@@ -150,7 +150,7 @@ public class PacMan_gui extends Application implements PacMan_gui_IF {
 		gd.add(topHorizonatalBox(), 0, 0);
 		gd.add(draw, 0, 1);
 		root.getChildren().add(gd);
-		gd.add(bottomDataPane(), 0, 2);
+		//gd.add(bottomDataPane(), 0, 2);
 	}
 	
 	public HBox topHorizonatalBox() {

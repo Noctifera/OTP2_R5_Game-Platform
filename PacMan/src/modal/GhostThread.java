@@ -37,7 +37,7 @@ public class GhostThread extends Thread {
 					e.printStackTrace();
 				}
 			}
-
+			/*
 			if (gh.getPath().size() > 0) {
 				if (gh.getPath().get(gh.getPath().size() - 1).equals(gh.getPos())) {
 					try {
@@ -48,6 +48,7 @@ public class GhostThread extends Thread {
 					}
 				}
 			}
+			*/
 			
 
 		}

@@ -2,6 +2,8 @@ package modal;
 
 import static org.junit.Assert.*;
 
+import java.awt.Point;
+
 import org.junit.BeforeClass;
 import org.junit.Test;
 
@@ -10,7 +12,10 @@ public class MapTest {
 	final static  String[] strings = {"Dot", "LargeDot", "Wall", "Empty","PlayerSpawn", "GhostHouse"};
 	@BeforeClass
 	public static void start() {
-		map = new Map(strings);
+		Point gSize = new Point(720, 480);
+		int blSize = 40;
+		
+		map = new Map(strings,gSize, blSize);
 		map.readMap("Level1-fixed.txt");
 		
 	}

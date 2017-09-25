@@ -14,10 +14,13 @@ public class Map implements Map_IF {
 	private HashMap<Point, String> map = new HashMap<>();
 	private File folder = new File("Maps");
 	private String[] strings;
+	private Point gSize;
+	private int tileSize;
 
-
-	public Map(String[] strings) {
+	public Map(String[] strings, Point gSize, int tileSize) {
 		this.strings = strings;
+		this.gSize = gSize;
+		this.tileSize = tileSize;
 	}
 
 	public HashMap<Point, String> getMap() {
@@ -28,8 +31,8 @@ public class Map implements Map_IF {
 		Point spawn = null;
 
 		for (Entry<Point, String> e : map.entrySet()) {
-			//System.out.println(e.getKey());
-			//System.out.println(e.getValue());
+			// System.out.println(e.getKey());
+			// System.out.println(e.getValue());
 			if (map.get(e.getKey()).equals(strings[4])) {
 				spawn = e.getKey();
 			}
@@ -72,52 +75,57 @@ public class Map implements Map_IF {
 		} catch (NullPointerException e) {
 			e.printStackTrace();
 		}
-		//System.out.println(getPlayerSpawn());
-		//System.out.println(getGhostHouse());
+		// System.out.println(getPlayerSpawn());
+		// System.out.println(getGhostHouse());
 		map.clear();
 		map.putAll(map1);
 
 	}
-	public ArrayList<Point> getWalls(){
+
+	public ArrayList<Point> getWalls() {
 		ArrayList<Point> walls = new ArrayList<>();
 		for (Entry<Point, String> e : map.entrySet()) {
-			if(map.get(e.getKey()).equals(strings[2])){
+			if (map.get(e.getKey()).equals(strings[2])) {
 				walls.add(e.getKey());
 			}
 		}
 
-
 		return walls;
 	}
+
 	public ArrayList<Point> freeSpaces() {
 		ArrayList<Point> points = new ArrayList<>();
-		for (Entry<Point, String> e : map.entrySet()) {
-			if (!map.get(e.getKey()).equals(strings[2])) {
-				points.add(e.getKey());
+		for (int i = 0; i < gSize.getY();) {
+			for (int j = 0; j < gSize.getX();) {
+				if (!map.get(new Point(j,i)).equals(strings[2])) {
+					points.add(new Point(j,i));
+				}
+				j = j + tileSize;
 			}
+			i = i + tileSize;
 		}
+
 		return points;
 	}
 
-	public ArrayList<Point> getDots(){
+	public ArrayList<Point> getDots() {
 		ArrayList<Point> dots = new ArrayList<>();
 		for (Entry<Point, String> e : map.entrySet()) {
-			if(map.get(e.getKey()).equals(strings[0])){
+			if (map.get(e.getKey()).equals(strings[0])) {
 				dots.add(e.getKey());
 			}
 		}
-
 
 		return dots;
 	}
-	public ArrayList<Point> getLargeDots(){
+
+	public ArrayList<Point> getLargeDots() {
 		ArrayList<Point> dots = new ArrayList<>();
 		for (Entry<Point, String> e : map.entrySet()) {
-			if(map.get(e.getKey()).equals(strings[1])){
+			if (map.get(e.getKey()).equals(strings[1])) {
 				dots.add(e.getKey());
 			}
 		}
-
 
 		return dots;
 	}
@@ -135,6 +143,7 @@ public class Map implements Map_IF {
 		}
 		return fileNames;
 	}
+
 	public void remove(Point pos) {
 		map.replace(pos, strings[3]);
 	}
