@@ -33,6 +33,7 @@ public class ScoreTest {
 	@Test
 	public void testDot() {
 		map.readMap("scoretest.txt");
+		map.setDots();
 		player.setPos(map.getPlayerSpawn());
 		KeyCode right = KeyCode.D;
 		player.move(right);
@@ -44,6 +45,7 @@ public class ScoreTest {
 	@Test
 	public void testLargeDot() {
 		map.readMap("scoretest.txt");
+		map.setLargeDots();
 		player.setPos(map.getPlayerSpawn());
 		KeyCode right = KeyCode.D;
 		player.move(right);
