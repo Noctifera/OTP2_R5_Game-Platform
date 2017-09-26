@@ -51,17 +51,6 @@ public class MovementLogic implements MovementLogic_IF {
 		}
 		// System.out.println(onko);
 	}
-	public void score(Point pos) {
-		ArrayList<Point> dots = dots();
-		ArrayList<Point> largedots = largeDots();
-		if(dots.contains(pos)) {
-			map.remove(pos);
-		}else if(largedots.contains(pos)) {
-			map.remove(pos);
-			
-		}
-		
-	}
 	
 	public ArrayList<Point> dots(){
 		return map.getDots();

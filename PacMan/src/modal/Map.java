@@ -16,6 +16,8 @@ public class Map implements Map_IF {
 	private String[] strings;
 	private Point gSize;
 	private int tileSize;
+	private ArrayList<Point> dots = new ArrayList<>();
+	private ArrayList<Point> largedots = new ArrayList<>();
 
 	public Map(String[] strings, Point gSize, int tileSize) {
 		this.strings = strings;
@@ -55,7 +57,7 @@ public class Map implements Map_IF {
 	@SuppressWarnings("unchecked")
 	public void readMap(String tiedostonNimi) {
 		HashMap<Point, String> map1 = new HashMap<>();
-		File file = new File(folder + "\\" + tiedostonNimi);
+		File file = new File(folder + "/" + tiedostonNimi);
 		try {
 			FileInputStream fileIn = new FileInputStream(file);
 			ObjectInputStream dataIn = new ObjectInputStream(fileIn);
@@ -108,26 +110,28 @@ public class Map implements Map_IF {
 		return points;
 	}
 
-	public ArrayList<Point> getDots() {
-		ArrayList<Point> dots = new ArrayList<>();
+	public void setDots() {
 		for (Entry<Point, String> e : map.entrySet()) {
 			if (map.get(e.getKey()).equals(strings[0])) {
 				dots.add(e.getKey());
 			}
 		}
-
+	}
+	
+	public ArrayList<Point> getDots() {
 		return dots;
 	}
 
-	public ArrayList<Point> getLargeDots() {
-		ArrayList<Point> dots = new ArrayList<>();
+	public void setLargeDots() {
 		for (Entry<Point, String> e : map.entrySet()) {
 			if (map.get(e.getKey()).equals(strings[1])) {
-				dots.add(e.getKey());
+				largedots.add(e.getKey());
 			}
 		}
-
-		return dots;
+	}
+	
+	public ArrayList<Point> getLargeDots() {
+		return largedots;
 	}
 
 	public String[] allFiles() {
@@ -144,7 +148,4 @@ public class Map implements Map_IF {
 		return fileNames;
 	}
 
-	public void remove(Point pos) {
-		map.replace(pos, strings[3]);
-	}
 }

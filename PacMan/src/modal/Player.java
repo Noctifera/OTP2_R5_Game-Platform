@@ -97,7 +97,15 @@ public class Player extends Score implements Player_IF {
 	}
 
 	public void score(Point pos) {
-		
+		if ((ml.dots()).contains(pos)) {			
+			dot();
+			(ml.dots()).remove(pos);
+		}
+		if (ml.largeDots().contains(pos)) {
+			LargeDot();
+			if(pos != null) ml.largeDots().remove(pos);
+		}
+
 	}
 
 	public String getVulnerable() {

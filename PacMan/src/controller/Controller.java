@@ -22,6 +22,8 @@ public class Controller implements Controller_IF {
 
 	public void start() {
 		map.readMap("Level1-fixed.txt");
+		map.setDots();
+		map.setLargeDots();
 	}
 
 	@Override
