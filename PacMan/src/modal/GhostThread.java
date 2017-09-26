@@ -1,8 +1,12 @@
 package modal;
 
+import java.awt.Point;
+import java.util.ArrayList;
+
 public class GhostThread extends Thread {
 	private Ghost gh;
 	private MovementLogic ml;
+	private ArrayList<Point> path = new ArrayList<Point>();
 
 	private volatile boolean supress = false;
 
@@ -19,44 +23,36 @@ public class GhostThread extends Thread {
 			// TODO Auto-generated catch block
 			e1.printStackTrace();
 		}
-		try {
-			gh.insPath();
-		} catch (InterruptedException e1) {
-			// TODO Auto-generated catch block
-			e1.printStackTrace();
-		}
+		path.addAll(gh.insPath());
+		int reader = 0;
 		while (!supress) {
+			
+			while (reader < path.size()) {
 
-			while (gh.getPath() != null && gh.getPath().size() > gh.getSize()) {
-				gh.update();
-				// System.out.println("update");
+				gh.setPos(path.get(reader));
+				reader++;
+
 				try {
-					Thread.sleep(400);
+					Thread.sleep(500);
 				} catch (InterruptedException e) {
 					// TODO Auto-generated catch block
 					e.printStackTrace();
 				}
 			}
-			/*
-			if (gh.getPath().size() > 0) {
-				if (gh.getPath().get(gh.getPath().size() - 1).equals(gh.getPos())) {
-					try {
-						gh.insPath();
-					} catch (InterruptedException e) {
-						// TODO Auto-generated catch block
-						e.printStackTrace();
-					}
-				}
+			if(reader > 0) {
+				reader = 0;
+				path.clear();
+				path.addAll(gh.insPath());
 			}
-			*/
+			try {
+				Thread.sleep(10);
+			} catch (InterruptedException e) {
+				// TODO Auto-generated catch block
+				e.printStackTrace();
+			}
 			
+		}
 
-		}
-		try {
-			Thread.sleep(500);
-		} catch (InterruptedException e) {
-			// TODO Auto-generated catch block
-			e.printStackTrace();
-		}
 	}
+
 }
