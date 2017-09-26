@@ -77,7 +77,7 @@ public class GhostTest {
 		assertEquals(37, test.size());
 	}
 	
-	//@Test
+	@Test
 	public void testGhostImpossibleMovement() {
 		map.readMap("impossbleMove.txt");
 		ArrayList<Point> testPath = new ArrayList<>();
