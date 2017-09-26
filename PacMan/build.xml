@@ -100,15 +100,6 @@
             <classpath refid="PacMan.classpath"/>
         </junit>
     </target>
-    <target name="TestSuite (1)">
-        <mkdir dir="${junit.output.dir}"/>
-        <junit fork="yes" printsummary="withOutAndErr">
-            <formatter type="xml"/>
-            <test name="modal.TestSuite" todir="${junit.output.dir}"/>
-            <jvmarg line="-ea"/>
-            <classpath refid="PacMan.classpath"/>
-        </junit>
-    </target>
     <target name="junitreport">
         <junitreport todir="${junit.output.dir}">
             <fileset dir="${junit.output.dir}">
