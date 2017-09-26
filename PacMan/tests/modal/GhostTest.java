@@ -37,13 +37,47 @@ public class GhostTest {
 	public void testGhostMovement() {
 		map.readMap("Level1-fixed.txt");
 		ArrayList<Point> testPath = new ArrayList<>();
-		Point SPoint = new Point(680, 440);
+		Point SPoint = new Point(640, 200);
 		testPath.add(SPoint);
-		Point TPoint = new Point(680, 240);
+		Point TPoint = new Point(640, 400);
 		ArrayList<Point> test = gh.path(TPoint, testPath);
-		
 		assertEquals(TPoint, test.get(test.size()-1));			
-	}		
+	}
+	
+	@Test
+	public void testPathSize() {
+		map.readMap("Level1-fixed.txt");
+		ArrayList<Point> testPath = new ArrayList<>();
+		Point SPoint = new Point(640, 200);
+		testPath.add(SPoint);
+		Point TPoint = new Point(640, 400);
+		ArrayList<Point> test = gh.path(TPoint, testPath);
+		assertEquals(6, test.size());
+	}
+	
+	@Test
+	public void testGhostMovementLong() {
+		map.readMap("testMovementLong.txt");
+		ArrayList<Point> testPath = new ArrayList<>();
+		Point SPoint = new Point(40, 40);
+		testPath.add(SPoint);
+		Point TPoint = new Point(640, 400);
+		ArrayList<Point> test = gh.path(TPoint, testPath);
+		assertEquals(TPoint, test.get(test.size()-1));
+	}
+	
+	@Test
+	public void testPathSizeLong() {
+		map.readMap("testMovementLong.txt");
+		ArrayList<Point> testPath = new ArrayList<>();
+		Point SPoint = new Point(40, 40);
+		testPath.add(SPoint);
+		Point TPoint = new Point(640, 400);
+		ArrayList<Point> test = gh.path(TPoint, testPath);
+		assertEquals(37, test.size());
+	}
+	
+
 	
 	
 	
