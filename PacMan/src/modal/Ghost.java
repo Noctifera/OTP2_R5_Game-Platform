@@ -67,7 +67,7 @@ public class Ghost extends Ghost_2 implements Ghost_IF {
 				possible++;
 
 			}
-			if (possible >= 2) {
+			if (possible >= 1) {
 				node.add(point);
 			}
 
@@ -102,6 +102,71 @@ public class Ghost extends Ghost_2 implements Ghost_IF {
 			// System.out.println("string" + string);
 		}
 		return multipleMove(string, last, target, xlist, ylist, list);
+	}
+	public void aStar(Point start, Point goal) {
+		
+		ArrayList<Point> openSet = ml.freespaces();
+		ArrayList<Node> closedSet = new ArrayList<>();
+		
+		
+		 closedSet.add(new Node(start,0,Integer.MAX_VALUE));
+		 openSet.remove(start);
+		Point current = start;
+		while(!openSet.isEmpty()) {
+			if(current.equals(goal)) {
+				//path found
+				retrunPath();
+				break;
+			}
+			if(openSet.contains(up(current))){
+				double gScore = Math.abs(current.getY()- up(current).getY());
+				double fScore = Math.abs((goal.getX() - up(current).getX()))+ Math.abs((goal.getY() - up(current).getY()));
+				
+				closedSet.add(new Node(up(current), gScore,fScore));
+				openSet.remove(up(current));
+			}
+			if(openSet.contains(right(current))) {
+				double gScore = Math.abs(current.getX()- right(current).getX());
+				double fScore = Math.abs((goal.getX() - right(current).getX()))+ Math.abs((goal.getY() - right(current).getY()));
+				
+				closedSet.add(new Node(right(current), gScore,fScore));
+				openSet.remove(right(current));
+			}
+			if(openSet.contains(down(current))) {
+				double gScore = Math.abs(current.getY()- down(current).getY());
+				double fScore = Math.abs((goal.getX() - down(current).getX()))+ Math.abs((goal.getY() - down(current).getY()));
+				closedSet.add(new Node(down(current), gScore,fScore));
+				openSet.remove(down(current));
+				
+			}
+			if(openSet.contains(left(current))) {
+				double gScore = Math.abs(current.getX()- left(current).getX());
+				double fScore = Math.abs((goal.getX() - left(current).getX()))+ Math.abs((goal.getY() - left(current).getY()));
+				
+				closedSet.add(new Node(left(current), gScore,fScore));
+				openSet.remove(left(current));
+				
+			}
+			int k = 0 ;
+			for(int i = 0; i<closedSet.size(); i++) {
+				if(closedSet.get(i).getHscore()< closedSet.get(k).getHscore() ) {
+					k = i;
+				}
+			}
+			
+			
+			
+			
+			
+			
+			
+			
+		}
+		
+	}
+	public ArrayList<Point> retrunPath(){
+		System.out.println("path found");
+		return null;
 	}
 	
 	
