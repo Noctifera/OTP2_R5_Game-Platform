@@ -1,0 +1,138 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<testsuite errors="0" failures="0" hostname="LAPTOP-BNRK150D" name="modal.MapTest" skipped="0" tests="7" time="0.17" timestamp="2017-09-26T13:44:35">
+  <properties>
+    <property name="java.vendor" value="Oracle Corporation" />
+    <property name="env.USERDOMAIN_ROAMINGPROFILE" value="LAPTOP-BNRK150D" />
+    <property name="sun.java.launcher" value="SUN_STANDARD" />
+    <property name="eclipse.pdebuild.templates" value="C:\eclipse\java-oxygen\eclipse\..\..\..\Users\marku\.p2\pool\plugins\org.eclipse.pde.build_3.9.300.v20170515-0912\templates" />
+    <property name="sun.management.compiler" value="HotSpot 64-Bit Tiered Compilers" />
+    <property name="env.PROMPT" value="$P$G" />
+    <property name="env.EV3_HOME" value="C:\Program Files\leJOS EV3" />
+    <property name="os.name" value="Windows 10" />
+    <property name="sun.boot.class.path" value="C:\Program Files\Java\jre1.8.0_144\lib\resources.jar;C:\Program Files\Java\jre1.8.0_144\lib\rt.jar;C:\Program Files\Java\jre1.8.0_144\lib\sunrsasign.jar;C:\Program Files\Java\jre1.8.0_144\lib\jsse.jar;C:\Program Files\Java\jre1.8.0_144\lib\jce.jar;C:\Program Files\Java\jre1.8.0_144\lib\charsets.jar;C:\Program Files\Java\jre1.8.0_144\lib\jfr.jar;C:\Program Files\Java\jre1.8.0_144\classes" />
+    <property name="env.COMPUTERNAME" value="LAPTOP-BNRK150D" />
+    <property name="env.CommonProgramW6432" value="C:\Program Files\Common Files" />
+    <property name="env.ALLUSERSPROFILE" value="C:\ProgramData" />
+    <property name="sun.desktop" value="windows" />
+    <property name="java.vm.specification.vendor" value="Oracle Corporation" />
+    <property name="ant.home" value="C:\Users\marku\.p2\pool\plugins\org.apache.ant_1.10.1.v20170504-0840" />
+    <property name="java.runtime.version" value="1.8.0_144-b01" />
+    <property name="env.HOMEPATH" value="\Users\marku" />
+    <property name="user.name" value="marku" />
+    <property name="env.LEJOS_EV3_JAVA_HOME" value="C:\Program Files\Java\jdk1.8.0_112" />
+    <property name="user.language" value="fi" />
+    <property name="sun.boot.library.path" value="C:\Program Files\Java\jre1.8.0_144\bin" />
+    <property name="ant.project.default-target" value="build" />
+    <property name="ant.project.name" value="PacMan" />
+    <property name="java.version" value="1.8.0_144" />
+    <property name="env.PROCESSOR_IDENTIFIER" value="Intel64 Family 6 Model 61 Stepping 4, GenuineIntel" />
+    <property name="user.timezone" value="" />
+    <property name="env.TEMP" value="C:\Users\marku\AppData\Local\Temp" />
+    <property name="sun.arch.data.model" value="64" />
+    <property name="java.endorsed.dirs" value="C:\Program Files\Java\jre1.8.0_144\lib\endorsed" />
+    <property name="sun.cpu.isalist" value="amd64" />
+    <property name="env.HOMEDRIVE" value="C:" />
+    <property name="sun.jnu.encoding" value="Cp1252" />
+    <property name="file.encoding.pkg" value="sun.io" />
+    <property name="env.VS110COMNTOOLS" value="C:\Program Files (x86)\Microsoft Visual Studio 11.0\Common7\Tools\" />
+    <property name="ECLIPSE_HOME" value="../../../../../eclipse/java-oxygen/eclipse/" />
+    <property name="file.separator" value="\" />
+    <property name="java.specification.name" value="Java Platform API Specification" />
+    <property name="java.class.version" value="52.0" />
+    <property name="user.country" value="FI" />
+    <property name="java.home" value="C:\Program Files\Java\jre1.8.0_144" />
+    <property name="env.PSModulePath" value="C:\WINDOWS\system32\WindowsPowerShell\v1.0\Modules\" />
+    <property name="env.APPDATA" value="C:\Users\marku\AppData\Roaming" />
+    <property name="env.PUBLIC" value="C:\Users\Public" />
+    <property name="java.vm.info" value="mixed mode" />
+    <property name="env.ComSpec" value="C:\WINDOWS\system32\cmd.exe" />
+    <property name="env.OS" value="Windows_NT" />
+    <property name="env.CommonProgramFiles" value="C:\Program Files\Common Files" />
+    <property name="ev3.home" value="C:\Program Files\leJOS EV3" />
+    <property name="ant.file" value="C:\Users\marku\git\Game-Platform\PacMan\build.xml" />
+    <property name="os.version" value="10.0" />
+    <property name="env.ProgramW6432" value="C:\Program Files" />
+    <property name="env.configsetroot" value="C:\WINDOWS\ConfigSetRoot" />
+    <property name="ant.file.PacMan" value="C:\Users\marku\git\Game-Platform\PacMan\build.xml" />
+    <property name="path.separator" value=";" />
+    <property name="java.vm.version" value="25.144-b01" />
+    <property name="user.variant" value="" />
+    <property name="env.USERPROFILE" value="C:\Users\marku" />
+    <property name="ant.library.dir" value="C:\Users\marku\.p2\pool\plugins\org.apache.ant_1.10.1.v20170504-0840\lib" />
+    <property name="junit.output.dir" value="junit" />
+    <property name="java.awt.printerjob" value="sun.awt.windows.WPrinterJob" />
+    <property name="env.TMP" value="C:\Users\marku\AppData\Local\Temp" />
+    <property name="env.FPS_BROWSER_USER_PROFILE_STRING" value="Default" />
+    <property name="sun.io.unicode.encoding" value="UnicodeLittle" />
+    <property name="awt.toolkit" value="sun.awt.windows.WToolkit" />
+    <property name="user.script" value="" />
+    <property name="eclipse.pdebuild.scripts" value="C:\eclipse\java-oxygen\eclipse\..\..\..\Users\marku\.p2\pool\plugins\org.eclipse.pde.build_3.9.300.v20170515-0912\scripts" />
+    <property name="user.home" value="C:\Users\marku" />
+    <property name="target" value="1.8" />
+    <property name="env.ProgramData" value="C:\ProgramData" />
+    <property name="env.VS140COMNTOOLS" value="C:\Program Files (x86)\Microsoft Visual Studio 14.0\Common7\Tools\" />
+    <property name="env.SESSIONNAME" value="Console" />
+    <property name="env.ProgramFiles(x86)" value="C:\Program Files (x86)" />
+    <property name="java.specification.vendor" value="Oracle Corporation" />
+    <property name="java.vendor.url" value="http://java.oracle.com/" />
+    <property name="env.NUMBER_OF_PROCESSORS" value="4" />
+    <property name="java.library.path" value="C:\Program Files\Java\jre1.8.0_144\bin;C:\WINDOWS\Sun\Java\bin;C:\WINDOWS\system32;C:\WINDOWS;C:/Program Files/Java/jre1.8.0_144/bin/server;C:/Program Files/Java/jre1.8.0_144/bin;C:/Program Files/Java/jre1.8.0_144/lib/amd64;C:\ProgramData\Oracle\Java\javapath;C:\Program Files (x86)\Lenovo\FusionEngine;C:\WINDOWS\system32;C:\WINDOWS;C:\WINDOWS\System32\Wbem;C:\WINDOWS\System32\WindowsPowerShell\v1.0\;C:\Program Files (x86)\Skype\Phone\;C:\Program Files\Microsoft SQL Server\130\Tools\Binn\;C:\Program Files (x86)\nodejs\;C:\Program Files (x86)\GtkSharp\2.12\bin;C:\Program Files\Microsoft\Web Platform Installer\;C:\Program Files\dotnet\;C:\Program Files (x86)\Xoreax\IncrediBuild;C:\Program Files\leJOS EV3\bin;C:\Program Files\Git\cmd;C:\Program Files\PuTTY\;;C:\Users\marku\AppData\Roaming\npm;C:\Users\marku\AppData\Local\Microsoft\WindowsApps;C:\Users\marku\Desktop;;." />
+    <property name="java.vm.vendor" value="Oracle Corporation" />
+    <property name="java.runtime.name" value="Java(TM) SE Runtime Environment" />
+    <property name="ant.version" value="Apache Ant(TM) version 1.10.1 compiled on February 2 2017" />
+    <property name="java.class.path" value="C:\Users\marku\git\Game-Platform\PacMan\bin;C:\Users\marku\.p2\pool\plugins\org.eclipse.fx.ide.css.jfx8_3.0.0.201705220750.jar;C:\Users\marku\git\Game-Platform\PacMan\mysql-connector-java-5.1.44\mysql-connector-java-5.1.44\mysql-connector-java-5.1.44-bin.jar;C:\Users\marku\.p2\pool\plugins\org.junit_4.12.0.v201504281640\junit.jar;C:\Users\marku\.p2\pool\plugins\org.hamcrest.core_1.3.0.v201303031735.jar;C:\Users\marku\Downloads\junit-4.12.jar;C:\Users\marku\.p2\pool\plugins\org.apache.ant_1.10.1.v20170504-0840\lib\ant-launcher.jar;C:\Users\marku\.p2\pool\plugins\org.apache.ant_1.10.1.v20170504-0840\lib\ant.jar;C:\Users\marku\.p2\pool\plugins\org.apache.ant_1.10.1.v20170504-0840\lib\ant-junit.jar;C:\Users\marku\.p2\pool\plugins\org.apache.ant_1.10.1.v20170504-0840\lib\ant-junit4.jar" />
+    <property name="sun.java.command" value="org.apache.tools.ant.taskdefs.optional.junit.JUnitTestRunner modal.MapTest skipNonTests=false filtertrace=true haltOnError=false haltOnFailure=false formatter=org.apache.tools.ant.taskdefs.optional.junit.OutErrSummaryJUnitResultFormatter showoutput=false outputtoformatters=true logfailedtests=true threadid=0 logtestlistenerevents=false formatter=org.apache.tools.ant.taskdefs.optional.junit.XMLJUnitResultFormatter,C:\Users\marku\git\Game-Platform\PacMan\junit\TEST-modal.MapTest.xml crashfile=C:\Users\marku\git\Game-Platform\PacMan\junitvmwatcher2834844335688067319.properties propsfile=C:\Users\marku\git\Game-Platform\PacMan\junit459075589599052695.properties" />
+    <property name="java.vm.specification.name" value="Java Virtual Machine Specification" />
+    <property name="env.windir" value="C:\WINDOWS" />
+    <property name="env.LOGONSERVER" value="\\LAPTOP-BNRK150D" />
+    <property name="env.PROCESSOR_ARCHITECTURE" value="AMD64" />
+    <property name="java.vm.specification.version" value="1.8" />
+    <property name="sun.os.patch.level" value="" />
+    <property name="sun.cpu.endian" value="little" />
+    <property name="debuglevel" value="source,lines,vars" />
+    <property name="env.OneDrive" value="C:\Users\marku\OneDrive" />
+    <property name="env.ProgramFiles" value="C:\Program Files" />
+    <property name="env.ANT_HOME" value="C:\Users\marku\.p2\pool\plugins\org.apache.ant_1.10.1.v20170504-0840" />
+    <property name="env.PROCESSOR_REVISION" value="3d04" />
+    <property name="eclipse.pdebuild.home" value="C:\eclipse\java-oxygen\eclipse\..\..\..\Users\marku\.p2\pool\plugins\org.eclipse.pde.build_3.9.300.v20170515-0912\." />
+    <property name="java.io.tmpdir" value="C:\Users\marku\AppData\Local\Temp\" />
+    <property name="env.CommonProgramFiles(x86)" value="C:\Program Files (x86)\Common Files" />
+    <property name="env.VS120COMNTOOLS" value="C:\Program Files (x86)\Microsoft Visual Studio 12.0\Common7\Tools\" />
+    <property name="ant.file.type.PacMan" value="file" />
+    <property name="java.vendor.url.bug" value="http://bugreport.sun.com/bugreport/" />
+    <property name="env.SystemRoot" value="C:\WINDOWS" />
+    <property name="env.FPS_BROWSER_APP_PROFILE_STRING" value="Internet Explorer" />
+    <property name="java.awt.graphicsenv" value="sun.awt.Win32GraphicsEnvironment" />
+    <property name="os.arch" value="amd64" />
+    <property name="java.ext.dirs" value="C:\Program Files\Java\jre1.8.0_144\lib\ext;C:\WINDOWS\Sun\Java\lib\ext" />
+    <property name="env.LOCALAPPDATA" value="C:\Users\marku\AppData\Local" />
+    <property name="user.dir" value="C:\Users\marku\git\Game-Platform\PacMan" />
+    <property name="line.separator" value="&#xd;&#xa;" />
+    <property name="java.vm.name" value="Java HotSpot(TM) 64-Bit Server VM" />
+    <property name="env.PATHEXT" value=".COM;.EXE;.BAT;.CMD;.VBS;.VBE;.JS;.JSE;.WSF;.WSH;.MSC" />
+    <property name="env.PT7HOME" value="C:\Program Files\Cisco Packet Tracer 7.0" />
+    <property name="env.Path" value="C:/Program Files/Java/jre1.8.0_144/bin/server;C:/Program Files/Java/jre1.8.0_144/bin;C:/Program Files/Java/jre1.8.0_144/lib/amd64;C:\ProgramData\Oracle\Java\javapath;C:\Program Files (x86)\Lenovo\FusionEngine;C:\WINDOWS\system32;C:\WINDOWS;C:\WINDOWS\System32\Wbem;C:\WINDOWS\System32\WindowsPowerShell\v1.0\;C:\Program Files (x86)\Skype\Phone\;C:\Program Files\Microsoft SQL Server\130\Tools\Binn\;C:\Program Files (x86)\nodejs\;C:\Program Files (x86)\GtkSharp\2.12\bin;C:\Program Files\Microsoft\Web Platform Installer\;C:\Program Files\dotnet\;C:\Program Files (x86)\Xoreax\IncrediBuild;C:\Program Files\leJOS EV3\bin;C:\Program Files\Git\cmd;C:\Program Files\PuTTY\;;C:\Users\marku\AppData\Roaming\npm;C:\Users\marku\AppData\Local\Microsoft\WindowsApps;C:\Users\marku\Desktop;" />
+    <property name="basedir" value="C:\Users\marku\git\Game-Platform\PacMan" />
+    <property name="ant.java.version" value="1.8" />
+    <property name="ant.core.lib" value="C:\Users\marku\.p2\pool\plugins\org.apache.ant_1.10.1.v20170504-0840\lib\ant.jar" />
+    <property name="env.USERNAME" value="marku" />
+    <property name="source" value="1.8" />
+    <property name="env.SystemDrive" value="C:" />
+    <property name="file.encoding" value="Cp1252" />
+    <property name="env.USERDOMAIN" value="LAPTOP-BNRK150D" />
+    <property name="java.specification.version" value="1.8" />
+    <property name="ant.project.invoked-targets" value="build,tests,junitreport" />
+    <property name="env.PROCESSOR_LEVEL" value="6" />
+    <property name="env.VBOX_MSI_INSTALL_PATH" value="C:\Program Files\Oracle\VirtualBox\" />
+  </properties>
+  <testcase classname="modal.MapTest" name="Largedot" time="0.001" />
+  <testcase classname="modal.MapTest" name="dot" time="0.0" />
+  <testcase classname="modal.MapTest" name="wall" time="0.0" />
+  <testcase classname="modal.MapTest" name="empty" time="0.001" />
+  <testcase classname="modal.MapTest" name="ghostHouse" time="0.0" />
+  <testcase classname="modal.MapTest" name="playerSpawn" time="0.001" />
+  <testcase classname="modal.MapTest" name="readMap" time="0.0" />
+  <system-out><![CDATA[{java.awt.Point[x=0,y=0]=Wall, java.awt.Point[x=120,y=360]=Wall, java.awt.Point[x=0,y=320]=Wall, java.awt.Point[x=80,y=360]=Wall, java.awt.Point[x=0,y=160]=Wall, java.awt.Point[x=40,y=360]=Dot, java.awt.Point[x=400,y=360]=Wall, java.awt.Point[x=440,y=360]=Dot, java.awt.Point[x=680,y=400]=Wall, java.awt.Point[x=640,y=400]=Dot, java.awt.Point[x=600,y=400]=Dot, java.awt.Point[x=560,y=400]=LargeDot, java.awt.Point[x=480,y=360]=Wall, java.awt.Point[x=520,y=400]=Dot, java.awt.Point[x=280,y=360]=Dot, java.awt.Point[x=0,y=80]=Wall, java.awt.Point[x=320,y=360]=Wall, java.awt.Point[x=360,y=360]=Wall, java.awt.Point[x=200,y=360]=Wall, java.awt.Point[x=680,y=200]=Wall, java.awt.Point[x=640,y=200]=Dot, java.awt.Point[x=600,y=200]=Dot, java.awt.Point[x=560,y=200]=Dot, java.awt.Point[x=240,y=360]=Wall, java.awt.Point[x=520,y=200]=Dot, java.awt.Point[x=0,y=40]=Wall, java.awt.Point[x=160,y=360]=Dot, java.awt.Point[x=120,y=160]=Dot, java.awt.Point[x=240,y=80]=Wall, java.awt.Point[x=480,y=40]=Dot, java.awt.Point[x=40,y=0]=Wall, java.awt.Point[x=200,y=80]=Wall, java.awt.Point[x=400,y=40]=Dot, java.awt.Point[x=440,y=40]=Dot, java.awt.Point[x=40,y=320]=LargeDot, java.awt.Point[x=80,y=160]=Wall, java.awt.Point[x=160,y=80]=Wall, java.awt.Point[x=320,y=40]=Dot, java.awt.Point[x=360,y=40]=Dot, java.awt.Point[x=280,y=40]=Dot, java.awt.Point[x=120,y=320]=Wall, java.awt.Point[x=240,y=40]=Dot, java.awt.Point[x=480,y=80]=Wall, java.awt.Point[x=80,y=0]=Wall, java.awt.Point[x=200,y=40]=Dot, java.awt.Point[x=400,y=80]=Wall, java.awt.Point[x=440,y=80]=Wall, java.awt.Point[x=40,y=160]=Wall, java.awt.Point[x=80,y=320]=Wall, java.awt.Point[x=160,y=40]=Dot, java.awt.Point[x=320,y=80]=Wall, java.awt.Point[x=0,y=360]=Wall, java.awt.Point[x=360,y=80]=Dot, java.awt.Point[x=280,y=80]=Dot, java.awt.Point[x=120,y=0]=Wall, java.awt.Point[x=120,y=40]=Dot, java.awt.Point[x=240,y=320]=Dot, java.awt.Point[x=480,y=160]=Wall, java.awt.Point[x=160,y=0]=Wall, java.awt.Point[x=200,y=320]=Wall, java.awt.Point[x=400,y=160]=Dot, java.awt.Point[x=440,y=160]=Wall, java.awt.Point[x=40,y=80]=Dot, java.awt.Point[x=80,y=40]=Dot, java.awt.Point[x=160,y=320]=Dot, java.awt.Point[x=320,y=160]=Empty, java.awt.Point[x=200,y=0]=Wall, java.awt.Point[x=360,y=160]=Wall, java.awt.Point[x=280,y=160]=Wall, java.awt.Point[x=240,y=0]=Wall, java.awt.Point[x=640,y=440]=Wall, java.awt.Point[x=280,y=0]=Wall, java.awt.Point[x=680,y=440]=Wall, java.awt.Point[x=120,y=80]=Dot, java.awt.Point[x=240,y=160]=Dot, java.awt.Point[x=480,y=320]=Dot, java.awt.Point[x=320,y=0]=Empty, java.awt.Point[x=520,y=440]=Wall, java.awt.Point[x=200,y=160]=Wall, java.awt.Point[x=400,y=320]=Dot, java.awt.Point[x=560,y=440]=Wall, java.awt.Point[x=360,y=0]=Wall, java.awt.Point[x=600,y=440]=Wall, java.awt.Point[x=440,y=320]=Wall, java.awt.Point[x=40,y=40]=Dot, java.awt.Point[x=80,y=80]=Wall, java.awt.Point[x=160,y=160]=Wall, java.awt.Point[x=320,y=320]=Dot, java.awt.Point[x=400,y=0]=Wall, java.awt.Point[x=360,y=320]=Dot, java.awt.Point[x=440,y=0]=Wall, java.awt.Point[x=280,y=320]=Dot, java.awt.Point[x=480,y=0]=Wall, java.awt.Point[x=320,y=440]=Empty, java.awt.Point[x=520,y=0]=Wall, java.awt.Point[x=560,y=0]=Wall, java.awt.Point[x=360,y=440]=Wall, java.awt.Point[x=600,y=0]=Wall, java.awt.Point[x=640,y=0]=Wall, java.awt.Point[x=280,y=440]=Wall, java.awt.Point[x=680,y=0]=Wall, java.awt.Point[x=640,y=320]=Dot, java.awt.Point[x=680,y=320]=Wall, java.awt.Point[x=480,y=440]=Wall, java.awt.Point[x=520,y=320]=Dot, java.awt.Point[x=400,y=440]=Wall, java.awt.Point[x=560,y=320]=Dot, java.awt.Point[x=600,y=320]=Wall, java.awt.Point[x=440,y=440]=Wall, java.awt.Point[x=160,y=440]=Wall, java.awt.Point[x=640,y=160]=Wall, java.awt.Point[x=680,y=160]=Wall, java.awt.Point[x=240,y=440]=Wall, java.awt.Point[x=520,y=160]=Dot, java.awt.Point[x=200,y=440]=Wall, java.awt.Point[x=560,y=160]=Wall, java.awt.Point[x=600,y=160]=Wall, java.awt.Point[x=80,y=440]=Wall, java.awt.Point[x=0,y=400]=Wall, java.awt.Point[x=640,y=80]=Dot, java.awt.Point[x=680,y=80]=Wall, java.awt.Point[x=120,y=440]=Wall, java.awt.Point[x=520,y=80]=Dot, java.awt.Point[x=560,y=80]=Wall, java.awt.Point[x=600,y=80]=Wall, java.awt.Point[x=40,y=440]=Wall, java.awt.Point[x=0,y=200]=Wall, java.awt.Point[x=640,y=40]=LargeDot, java.awt.Point[x=680,y=40]=Wall, java.awt.Point[x=520,y=40]=Dot, java.awt.Point[x=560,y=40]=Dot, java.awt.Point[x=600,y=40]=Dot, java.awt.Point[x=360,y=200]=Wall, java.awt.Point[x=160,y=400]=Dot, java.awt.Point[x=320,y=200]=Wall, java.awt.Point[x=280,y=200]=Wall, java.awt.Point[x=240,y=400]=Dot, java.awt.Point[x=480,y=200]=Dot, java.awt.Point[x=440,y=200]=Dot, java.awt.Point[x=200,y=400]=Dot, java.awt.Point[x=400,y=200]=Dot, java.awt.Point[x=360,y=400]=Dot, java.awt.Point[x=160,y=200]=Dot, java.awt.Point[x=320,y=400]=Dot, java.awt.Point[x=280,y=400]=Dot, java.awt.Point[x=560,y=360]=Wall, java.awt.Point[x=240,y=200]=Dot, java.awt.Point[x=480,y=400]=Dot, java.awt.Point[x=520,y=360]=Dot, java.awt.Point[x=600,y=360]=Wall, java.awt.Point[x=440,y=400]=Dot, java.awt.Point[x=680,y=360]=Wall, java.awt.Point[x=640,y=360]=Dot, java.awt.Point[x=200,y=200]=Dot, java.awt.Point[x=400,y=400]=Dot, java.awt.Point[x=40,y=400]=Dot, java.awt.Point[x=80,y=200]=Dot, java.awt.Point[x=120,y=200]=Dot, java.awt.Point[x=40,y=200]=Dot, java.awt.Point[x=80,y=400]=Dot, java.awt.Point[x=0,y=440]=Wall, java.awt.Point[x=120,y=400]=Dot, java.awt.Point[x=80,y=240]=Wall, java.awt.Point[x=160,y=120]=Wall, java.awt.Point[x=200,y=120]=Dot, java.awt.Point[x=120,y=240]=Wall, java.awt.Point[x=240,y=120]=Dot, java.awt.Point[x=280,y=120]=Dot, java.awt.Point[x=360,y=120]=Dot, java.awt.Point[x=40,y=240]=Dot, java.awt.Point[x=320,y=120]=GhostHouse, java.awt.Point[x=440,y=120]=Dot, java.awt.Point[x=400,y=120]=Dot, java.awt.Point[x=480,y=120]=Wall, java.awt.Point[x=280,y=240]=Dot, java.awt.Point[x=360,y=240]=Dot, java.awt.Point[x=40,y=120]=LargeDot, java.awt.Point[x=320,y=240]=PlayerSpawn, java.awt.Point[x=440,y=240]=Wall, java.awt.Point[x=400,y=240]=Dot, java.awt.Point[x=480,y=240]=Wall, java.awt.Point[x=80,y=120]=Dot, java.awt.Point[x=160,y=240]=Wall, java.awt.Point[x=640,y=280]=Dot, java.awt.Point[x=200,y=240]=Wall, java.awt.Point[x=680,y=280]=Wall, java.awt.Point[x=120,y=120]=Dot, java.awt.Point[x=240,y=240]=Dot, java.awt.Point[x=600,y=280]=Dot, java.awt.Point[x=520,y=280]=Wall, java.awt.Point[x=560,y=280]=Dot, java.awt.Point[x=0,y=240]=Empty, java.awt.Point[x=0,y=120]=Wall, java.awt.Point[x=0,y=280]=Wall, java.awt.Point[x=480,y=280]=Dot, java.awt.Point[x=440,y=280]=Dot, java.awt.Point[x=400,y=280]=Dot, java.awt.Point[x=360,y=280]=Wall, java.awt.Point[x=320,y=280]=Wall, java.awt.Point[x=280,y=280]=Wall, java.awt.Point[x=240,y=280]=Dot, java.awt.Point[x=600,y=240]=Wall, java.awt.Point[x=520,y=240]=Wall, java.awt.Point[x=560,y=240]=Wall, java.awt.Point[x=640,y=240]=Dot, java.awt.Point[x=200,y=280]=Dot, java.awt.Point[x=680,y=240]=Empty, java.awt.Point[x=160,y=280]=Dot, java.awt.Point[x=120,y=280]=Dot, java.awt.Point[x=600,y=120]=Dot, java.awt.Point[x=520,y=120]=Dot, java.awt.Point[x=560,y=120]=Dot, java.awt.Point[x=640,y=120]=Dot, java.awt.Point[x=680,y=120]=Wall, java.awt.Point[x=80,y=280]=Dot, java.awt.Point[x=40,y=280]=Dot}
+]]></system-out>
+  <system-err><![CDATA[]]></system-err>
+</testsuite>
