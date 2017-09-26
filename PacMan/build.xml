@@ -5,13 +5,13 @@
               directory with the processing instruction <?eclipse.ant.import?>
               as the first entry and export the buildfile again. --><project basedir="." default="build" name="PacMan">
     <property environment="env"/>
-    <property name="ECLIPSE_HOME" value="../../../../../eclipse/java-oxygen/eclipse/"/>
+    <property name="ECLIPSE_HOME" value="../../../eclipse/java-neon/eclipse/"/>
     <property name="junit.output.dir" value="junit"/>
     <property name="debuglevel" value="source,lines,vars"/>
     <property name="target" value="1.8"/>
     <property name="source" value="1.8"/>
     <path id="JavaFX SDK.libraryclasspath">
-        <pathelement location="../../../.p2/pool/plugins/org.eclipse.fx.ide.css.jfx8_3.0.0.201705220750.jar"/>
+        <pathelement location="../../../.p2/pool/plugins/org.eclipse.fx.ide.css.jfx8_2.4.0.201605112122.jar"/>
     </path>
     <path id="JUnit 4.libraryclasspath">
         <pathelement location="../../../.p2/pool/plugins/org.junit_4.12.0.v201504281640/junit.jar"/>
@@ -27,11 +27,15 @@
         <mkdir dir="bin"/>
         <copy includeemptydirs="false" todir="bin">
             <fileset dir="src">
+                <exclude name="**/*.launch"/>
+                <exclude name="**/*.xtend"/>
                 <exclude name="**/*.java"/>
             </fileset>
         </copy>
         <copy includeemptydirs="false" todir="bin">
             <fileset dir="tests">
+                <exclude name="**/*.launch"/>
+                <exclude name="**/*.xtend"/>
                 <exclude name="**/*.java"/>
             </fileset>
         </copy>
@@ -64,15 +68,6 @@
         <property name="build.compiler" value="org.eclipse.jdt.core.JDTCompilerAdapter"/>
         <antcall target="build"/>
     </target>
-    <target name="MapTest">
-        <mkdir dir="${junit.output.dir}"/>
-        <junit fork="yes" printsummary="withOutAndErr">
-            <formatter type="xml"/>
-            <test name="modal.MapTest" todir="${junit.output.dir}"/>
-            <jvmarg line="-ea"/>
-            <classpath refid="PacMan.classpath"/>
-        </junit>
-    </target>
     <target name="PacMan_gui">
         <java classname="application.PacMan_gui" failonerror="true" fork="yes">
             <classpath refid="PacMan.classpath"/>
@@ -87,22 +82,20 @@
             <classpath refid="PacMan.classpath"/>
         </junit>
     </target>
-    <target name="PacMan">
+    <target name="ScoreTest">
         <mkdir dir="${junit.output.dir}"/>
         <junit fork="yes" printsummary="withOutAndErr">
             <formatter type="xml"/>
-            <test name="modal.MapTest" todir="${junit.output.dir}"/>
-            <test name="modal.PlayerMove" todir="${junit.output.dir}"/>
-            <test name="modal.TestSuite" todir="${junit.output.dir}"/>
+            <test name="modal.ScoreTest" todir="${junit.output.dir}"/>
             <jvmarg line="-ea"/>
             <classpath refid="PacMan.classpath"/>
         </junit>
     </target>
-    <target name="TestSuite (1)">
+    <target name="GhostTest">
         <mkdir dir="${junit.output.dir}"/>
         <junit fork="yes" printsummary="withOutAndErr">
             <formatter type="xml"/>
-            <test name="modal.TestSuite" todir="${junit.output.dir}"/>
+            <test name="modal.GhostTest" todir="${junit.output.dir}"/>
             <jvmarg line="-ea"/>
             <classpath refid="PacMan.classpath"/>
         </junit>

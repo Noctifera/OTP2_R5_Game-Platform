@@ -77,6 +77,17 @@ public class GhostTest {
 		assertEquals(37, test.size());
 	}
 	
+	@Test
+	public void testGhostImpossibleMovement() {
+		map.readMap("impossbleMove.txt");
+		ArrayList<Point> testPath = new ArrayList<>();
+		Point SPoint = new Point(map.getGhostHouse());
+		testPath.add(SPoint);
+		Point TPoint = new Point(640, 400);
+		ArrayList<Point> test = gh.path(TPoint, testPath);
+		assertEquals(StackOverflowError.class, gh.path(TPoint, test));
+	}
+	
 
 	
 	
