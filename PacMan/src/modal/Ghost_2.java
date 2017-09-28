@@ -28,6 +28,19 @@ public class Ghost_2 {
 		return new Point((int) point.getX() + tileSize, (int) point.getY());
 
 	}
+	public Point upRight(Point point) {
+		return new Point((int)point.getX() + tileSize,(int) point.getY() - tileSize);
+	}
+	public Point upLeft(Point point) {
+		return new Point((int)point.getX() - tileSize,(int) point.getY() - tileSize);
+	}
+	public Point downRight(Point point) {
+		return new Point((int)point.getX() + tileSize,(int) point.getY() + tileSize);
+	}
+	public Point downLeft(Point point) {
+		return new Point((int)point.getX() - tileSize,(int) point.getY() + tileSize);
+		
+	}
 
 	public boolean nodesUP(ArrayList<Point> ylist, Point last) {
 		boolean check = false;

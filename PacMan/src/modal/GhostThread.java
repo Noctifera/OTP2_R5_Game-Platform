@@ -23,6 +23,7 @@ public class GhostThread extends Thread {
 			// TODO Auto-generated catch block
 			e1.printStackTrace();
 		}
+		//gh.runAstar();
 		path.addAll(gh.insPath());
 		int reader = 0;
 		while (!supress) {
@@ -39,11 +40,13 @@ public class GhostThread extends Thread {
 					e.printStackTrace();
 				}
 			}
+			
 			if(reader > 0) {
 				reader = 0;
 				path.clear();
 				path.addAll(gh.insPath());
 			}
+			
 			try {
 				Thread.sleep(10);
 			} catch (InterruptedException e) {

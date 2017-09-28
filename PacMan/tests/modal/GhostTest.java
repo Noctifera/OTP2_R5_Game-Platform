@@ -36,56 +36,52 @@ public class GhostTest {
 	@Test
 	public void testGhostMovement() {
 		map.readMap("Level1-fixed.txt");
-		ArrayList<Point> testPath = new ArrayList<>();
+		
 		Point SPoint = new Point(640, 200);
-		testPath.add(SPoint);
 		Point TPoint = new Point(640, 400);
-		ArrayList<Point> test = gh.path(TPoint, testPath);
+		ArrayList<Point> test = gh.path(SPoint,TPoint);
 		assertEquals(TPoint, test.get(test.size()-1));			
 	}
 	
 	@Test
 	public void testPathSize() {
 		map.readMap("Level1-fixed.txt");
-		ArrayList<Point> testPath = new ArrayList<>();
+		
 		Point SPoint = new Point(640, 200);
-		testPath.add(SPoint);
 		Point TPoint = new Point(640, 400);
-		ArrayList<Point> test = gh.path(TPoint, testPath);
+		ArrayList<Point> test = gh.path(SPoint,TPoint);
 		assertEquals(6, test.size());
 	}
 	
 	@Test
 	public void testGhostMovementLong() {
 		map.readMap("testMovementLong.txt");
-		ArrayList<Point> testPath = new ArrayList<>();
+
+		
 		Point SPoint = new Point(40, 40);
-		testPath.add(SPoint);
 		Point TPoint = new Point(640, 400);
-		ArrayList<Point> test = gh.path(TPoint, testPath);
+		ArrayList<Point> test = gh.path(SPoint,TPoint);
 		assertEquals(TPoint, test.get(test.size()-1));
 	}
 	
 	@Test
 	public void testPathSizeLong() {
 		map.readMap("testMovementLong.txt");
-		ArrayList<Point> testPath = new ArrayList<>();
+
 		Point SPoint = new Point(40, 40);
-		testPath.add(SPoint);
 		Point TPoint = new Point(640, 400);
-		ArrayList<Point> test = gh.path(TPoint, testPath);
+		ArrayList<Point> test = gh.path(SPoint,TPoint);
 		assertEquals(37, test.size());
 	}
 	
 	@Test
 	public void testGhostImpossibleMovement() {
 		map.readMap("impossbleMove.txt");
-		ArrayList<Point> testPath = new ArrayList<>();
+
 		Point SPoint = new Point(map.getGhostHouse());
-		testPath.add(SPoint);
 		Point TPoint = new Point(640, 400);
-		ArrayList<Point> test = gh.path(TPoint, testPath);
-		assertEquals(StackOverflowError.class, gh.path(TPoint, test));
+		ArrayList<Point> test = gh.path(SPoint,TPoint);
+		assertEquals(null, test);
 	}
 	
 
