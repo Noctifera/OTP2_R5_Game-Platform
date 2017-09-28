@@ -7,8 +7,6 @@ import org.junit.BeforeClass;
 import static org.junit.Assert.*;
 import org.junit.Test;
 
-import controller.Controller;
-import javafx.scene.Scene;
 import javafx.scene.input.KeyCode;
 import modal.Map;
 import modal.MovementLogic;
