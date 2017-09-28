@@ -1,5 +1,9 @@
 package modal;
 
+import java.awt.Point;
+import java.util.ArrayList;
+
+import controller.Controller;
 import javafx.event.EventHandler;
 import javafx.scene.Scene;
 import javafx.scene.input.KeyCode;
@@ -7,15 +11,21 @@ import javafx.scene.input.KeyEvent;
 
 public class PlayerThread extends Thread {
 	private Player player;
-	private Scene scene;
+	private Controller con;
 	
-	private volatile boolean supress = false;
+	private Scene scene;
 
-	public PlayerThread(Player player, Scene scene) {
+	private ArrayList<Point> path = new ArrayList<>();
+
+	private volatile boolean supress = false;
+	int reader = 0;
+
+	public PlayerThread(Player player, Controller con,Scene scene) {
 		this.player = player;
 		this.scene = scene;
+		this.con = con;
 	}
-	
+
 	public void run() {
 		handle();
 		player.setPos(player.playerSpawn());
@@ -25,22 +35,37 @@ public class PlayerThread extends Thread {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
 		}
-		while(!supress) {
-			
+		reader = 0;
+		while (!supress) {
+			if (reader < path.size()) {
+				player.setPos(path.get(reader));
+				player.score(path.get(reader));
+				reader++;
+				con.setLives();
+				con.setScore();
+				try {
+					Thread.sleep(600);
+				} catch (InterruptedException e) {
+					// TODO Auto-generated catch block
+					e.printStackTrace();
+				}
+			}
 		}
 	}
+
 	public void supress() {
 		supress = true;
 	}
+
 	public void handle() {
 		scene.setOnKeyPressed(new EventHandler<KeyEvent>() {
 			public void handle(KeyEvent event) {
 				// liikkuminen
 				KeyCode code = event.getCode();
-				player.move(code);
+				path = player.move(code);
+				reader = 0;
 			}
 		});
 	}
-	
 
 }

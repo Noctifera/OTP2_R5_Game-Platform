@@ -25,29 +25,43 @@ public class Player extends Score implements Player_IF {
 		this.pos = pos;
 	}
 
-	public void move(KeyCode event) {
+	public ArrayList<Point> move(KeyCode event) {
 		
 		ArrayList<Point> list = new ArrayList<>();
 		switch (event) {
 		case W:
 			//ylös
+			
 			Point up = ml.up(pos);
 			up = ml.yli(up);
-			
-			if (ml.freespaces().contains(up)) {
-				pos = up;
-				score(up);
+			while(ml.freespaces().contains(up)) {
+				list.add(up);
+				
+				up = ml.up(list.get(list.size()-1));
+				up = ml.yli(up);
+				
+				if(list.contains(up)) {
+					break;
+				}
+				
 			}
-			
 			break;
 		case S:
 			// alas
 			Point down = ml.down(pos);
 			down = ml.yli(down);
 
-			if (ml.freespaces().contains(down)) {
-				pos = down;
-				score(down);
+			while(ml.freespaces().contains(down)) {
+				list.add(down);
+				
+				down = ml.down(list.get(list.size()-1));
+				down = ml.yli(down);
+				
+				if(list.contains(down)) {
+					break;
+				}
+				
+				
 			}
 			break;
 		case A:
@@ -55,9 +69,16 @@ public class Player extends Score implements Player_IF {
 			Point left = ml.left(pos);
 			left = ml.yli(left);
 			
-			if (ml.freespaces().contains(left)) {
-				pos = left;
-				score(left);
+			while(ml.freespaces().contains(left)) {
+				list.add(left);
+				
+				left = ml.left(list.get(list.size()-1));
+				left = ml.yli(left);
+				
+				if(list.contains(left)) {
+					break;
+				}
+				
 			}
 			break;
 		case D:
@@ -65,9 +86,16 @@ public class Player extends Score implements Player_IF {
 			Point right = ml.right(pos);
 			right = ml.yli(right);
 
-			if (ml.freespaces().contains(right)) {
-				pos = right;
-				score(right);
+			while(ml.freespaces().contains(right)) {
+				list.add(right);
+				
+				right = ml.right(list.get(list.size()-1));
+				right = ml.yli(right);
+
+				if(list.contains(right)) {
+					break;
+				}
+				
 			}
 			break;
 		case ESCAPE:
@@ -77,6 +105,7 @@ public class Player extends Score implements Player_IF {
 			System.out.println("use WASD keys");
 			break;
 		}
+		return list;
 
 	}
 	public void score(Point pos) {
@@ -88,6 +117,7 @@ public class Player extends Score implements Player_IF {
 			LargeDot();
 			if(pos != null) ml.largeDots().remove(pos);
 		}
+		
 
 	}
 	public String getVulnerable() {

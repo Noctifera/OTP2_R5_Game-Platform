@@ -21,5 +21,9 @@ public class Score {
 		score = score +100;
 	}
 
+	public void setScore(int score) {
+		this.score = score;
+	}
+
 
 }

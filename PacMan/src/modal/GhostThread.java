@@ -20,9 +20,9 @@ public class GhostThread extends Thread {
 		} catch (InterruptedException e1) {
 			e1.printStackTrace();
 		}
+		path.addAll(gh.insPath());
+		int reader = 0;
 		while (!supress) {
-			path.addAll(gh.insPath());
-			int reader = 0;
 			
 			while (reader < path.size()) {
 

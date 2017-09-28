@@ -85,7 +85,7 @@ public class PacMan_gui extends Application implements PacMan_gui_IF {
 		for (GhostThread ghost : ghtlist) {
 			ghost.start();
 		}
-		pt = new PlayerThread(player, scene);
+		pt = new PlayerThread(player, con,scene);
 		pt.start();
 		dt.start();
 	}

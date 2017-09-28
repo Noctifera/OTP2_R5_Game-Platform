@@ -141,6 +141,15 @@
             <classpath refid="PacMan.classpath"/>
         </junit>
     </target>
+    <target name="ScoreTest">
+        <mkdir dir="${junit.output.dir}"/>
+        <junit fork="yes" printsummary="withOutAndErr">
+            <formatter type="xml"/>
+            <test name="modal.ScoreTest" todir="${junit.output.dir}"/>
+            <jvmarg line="-ea"/>
+            <classpath refid="PacMan.classpath"/>
+        </junit>
+    </target>
     <target name="junitreport">
         <junitreport todir="${junit.output.dir}">
             <fileset dir="${junit.output.dir}">
