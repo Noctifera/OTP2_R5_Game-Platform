@@ -67,4 +67,25 @@ public class MovementLogic implements MovementLogic_IF {
 	public ArrayList<Point> freespaces(){
 		return map.freeSpaces();
 	}
+	public Point randomPoint() {
+		Point point;
+		int randX = (int) (Math.random() * gSize.getX() - blSize);
+		while (randX % blSize != 0) {
+			randX = (int) (Math.random() * gSize.getX() - blSize);
+		}
+		int randY = (int) (Math.random() * gSize.getY() - blSize);
+		while (randY % blSize != 0) {
+			randY = (int) (Math.random() * gSize.getY() - blSize);
+		}
+		point = new Point(randX, randY);
+		// if (ml.avoidWall(point)) {
+		if (freespaces().contains(point)) {
+			// System.out.println("rand: " + point);
+			return point;
+		} else {
+			return randomPoint();
+		}
+		// System.out.println(randX+", "+randY)
+
+	}
 }

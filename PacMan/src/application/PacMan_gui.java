@@ -2,7 +2,6 @@
 
 import javafx.scene.control.Label;
 import java.awt.Point;
-import java.lang.reflect.InvocationTargetException;
 import java.util.ArrayList;
 
 import controller.*;
@@ -49,7 +48,6 @@ public class PacMan_gui extends Application implements PacMan_gui_IF {
 		ml = new  MovementLogic(gSize, tileSize,map);
 		player = new Player(ml,life);
 		con = new Controller(player,map,hs,this);
-		
 		draw = new Draw((int) gSize.getX(), (int) gSize.getY(), tileSize, player,ghlist,map);
 		
 	}
@@ -79,7 +77,7 @@ public class PacMan_gui extends Application implements PacMan_gui_IF {
 		playerthread.start();
 		
 		for(int i = 0; i<ghtlist.length; i++){
-			ghlist[i] = new Ghost(ml,gSize,tileSize,player);
+			ghlist[i] = new Ghost(ml,player);
 			ghtlist[i] = new GhostThread(ghlist[i]);
 
 		}

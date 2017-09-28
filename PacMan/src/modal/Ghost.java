@@ -8,39 +8,15 @@ public class Ghost implements Ghost_IF {
 	private Player player;
 
 	private Point pos;
-	private Point gSize;
-	private int tileSize;
 
 	// private String vulnerable;
 
-	public Ghost(MovementLogic ml, Point gSize, int tileSize, Player player) {
+	public Ghost(MovementLogic ml, Player player) {
 		this.ml = ml;
-		this.gSize = gSize;
-		this.tileSize = tileSize;
 		this.player = player;
 	}
 	
-	public Point randomPoint() {
-		Point point;
-		int randX = (int) (Math.random() * gSize.getX() - tileSize);
-		while (randX % tileSize != 0) {
-			randX = (int) (Math.random() * gSize.getX() - tileSize);
-		}
-		int randY = (int) (Math.random() * gSize.getY() - tileSize);
-		while (randY % tileSize != 0) {
-			randY = (int) (Math.random() * gSize.getY() - tileSize);
-		}
-		point = new Point(randX, randY);
-		// if (ml.avoidWall(point)) {
-		if (ml.freespaces().contains(point)) {
-			// System.out.println("rand: " + point);
-			return point;
-		} else {
-			return randomPoint();
-		}
-		// System.out.println(randX+", "+randY)
 
-	}
 	
 	public ArrayList<Point> path(Point start, Point goal) {
 
@@ -195,7 +171,7 @@ public class Ghost implements Ghost_IF {
 		list.add(pos);
 
 		if (rand <= 0.9) {
-			Point randpoint = randomPoint();
+			Point randpoint = ml.randomPoint();
 			return path(pos, randpoint);
 
 		} else {

@@ -27,7 +27,7 @@ public class GhostTest {
 		map = new Map(strings, gSize, blSize);
 		ml = new MovementLogic(gSize, blSize, map);
 		player = new Player(ml, 0);
-		gh = new Ghost(ml, gSize, blSize, player);
+		gh = new Ghost(ml, player);
 		
 	}
 	
