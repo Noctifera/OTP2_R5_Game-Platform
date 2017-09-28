@@ -3,11 +3,9 @@ package modal;
 import java.awt.Point;
 import java.util.ArrayList;
 
-import org.junit.Assert;
 import org.junit.BeforeClass;
 import static org.junit.Assert.*;
 import org.junit.Test;
-import javafx.scene.input.KeyCode;
 import modal.Map;
 import modal.MovementLogic;
 	
@@ -28,7 +26,7 @@ public class GhostTest {
 		blSize = 40;
 		map = new Map(strings, gSize, blSize);
 		ml = new MovementLogic(gSize, blSize, map);
-		player = new Player(ml, blSize, 0);
+		player = new Player(ml, 0);
 		gh = new Ghost(ml, gSize, blSize, player);
 		
 	}

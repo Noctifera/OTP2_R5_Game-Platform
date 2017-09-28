@@ -3,7 +3,7 @@ package modal;
 import java.awt.Point;
 import java.util.ArrayList;
 
-public class Ghost extends Ghost_2 implements Ghost_IF {
+public class Ghost implements Ghost_IF {
 	private MovementLogic ml;
 	private Player player;
 
@@ -14,12 +14,12 @@ public class Ghost extends Ghost_2 implements Ghost_IF {
 	// private String vulnerable;
 
 	public Ghost(MovementLogic ml, Point gSize, int tileSize, Player player) {
-		super(tileSize, ml);
 		this.ml = ml;
 		this.gSize = gSize;
 		this.tileSize = tileSize;
 		this.player = player;
 	}
+	
 	public Point randomPoint() {
 		Point point;
 		int randX = (int) (Math.random() * gSize.getX() - tileSize);
@@ -41,6 +41,7 @@ public class Ghost extends Ghost_2 implements Ghost_IF {
 		// System.out.println(randX+", "+randY)
 
 	}
+	
 	public ArrayList<Point> path(Point start, Point goal) {
 
 		ArrayList<Node> closedSet = new ArrayList<>();
@@ -53,16 +54,16 @@ public class Ghost extends Ghost_2 implements Ghost_IF {
 			closedSet.add(current);
 			openSet.remove(current);
 
-			System.out.println("pos: " + current.getId() + " goal: " + goal);
+			//System.out.println("pos: " + current.getId() + " goal: " + goal);
 			if (current.getId().equals(goal)) {
 				// path found
 				return retrunPath(current);
 			}
 			ArrayList<Node> nei = neighbors(current, goal, start, closedSet);
 			for (Node n : nei) {
-				System.out.println("all n: " + n);
+				//.out.println("all n: " + n);
 				if (!openSet.contains(n)) {
-					System.out.println("add n: " + n);
+					//System.out.println("add n: " + n);
 					openSet.add(n);
 				}
 			}
@@ -76,71 +77,71 @@ public class Ghost extends Ghost_2 implements Ghost_IF {
 		ArrayList<Node> list = new ArrayList<>();
 		ArrayList<Point> set = ml.freespaces();
 
-		Point upPoint = up(current.getId());
-		Point rightPoint = right(current.getId());
-		Point downPoint = down(current.getId());
-		Point leftPoint = left(current.getId());
+		Point upPoint = ml.up(current.getId());
+		Point rightPoint = ml.right(current.getId());
+		Point downPoint = ml.down(current.getId());
+		Point leftPoint = ml.left(current.getId());
 
 		if (set.contains(upPoint)) {
-			System.out.println("up");
+			//System.out.println("up");
 
-			System.out.println("fScore");
+			//System.out.println("fScore");
 			int fScore = fScore(goal, upPoint);
-			System.out.println("gScore");
+			//System.out.println("gScore");
 			int gScore = fScore(start, upPoint);
 
 			Node up = new Node(upPoint, current,gScore,fScore);
 			if (!closedSet.contains(up)) {
 				list.add(up);
-				System.out.println("Up: " + up.toString());
+				//System.out.println("Up: " + up.toString());
 			}
 
 		}
 		if (set.contains(rightPoint)) {
-			System.out.println("right");
+			//System.out.println("right");
 
-			System.out.println("fScore");
+			//System.out.println("fScore");
 			int fScore = fScore(goal, rightPoint);
-			System.out.println("gScore");
+			//System.out.println("gScore");
 			int gScore = fScore(start, rightPoint);
 
 			Node right = new Node(rightPoint,current, gScore, fScore);
 
 			if (!closedSet.contains(right)) {
 				list.add(right);
-				System.out.println("Right: " + right.toString());
+				//System.out.println("Right: " + right.toString());
 			}
 
 		}
 		if (set.contains(downPoint)) {
-			System.out.println("down");
+			//System.out.println("down");
 
-			System.out.println("fScore");
+			//System.out.println("fScore");
 			int fScore = fScore(goal, downPoint);
-			System.out.println("gScore");
+			//System.out.println("gScore");
 			int gScore = fScore(start, downPoint);
 
 			Node down = new Node(downPoint,current, gScore, fScore);
 
 			if (!closedSet.contains(down)) {
 				list.add(down);
-				System.out.println("Down: " + down.toString());
+				//System.out.println("Down: " + down.toString());
 			}
 
 		}
 		if (set.contains(leftPoint)) {
-			System.out.println("left");
+			//System.out.println("left");
 
-			System.out.println("fScore");
+			//System.out.println("fScore");
 			int fScore = fScore(goal, leftPoint);
-			System.out.println("gScore");
+			//System.out.println("gScore");
 			int gScore = fScore(start, leftPoint);
 
 			Node left = new Node(leftPoint,current, gScore, fScore);
 
 			if (!closedSet.contains(left)) {
 				list.add(left);
-				System.out.println("left: " + left.toString());
+				//System.out.println("left: " + left.toString());
 			}
 
 		}
@@ -149,20 +150,17 @@ public class Ghost extends Ghost_2 implements Ghost_IF {
 
 	public Node lowestHcost(ArrayList<Node> list) {
 		Node cheapest = list.get(0);
-		int i = 0;
 		for (Node n : list) {
 
-			System.out.println("[" + i + "]n: " + n);
 			if (n.getCombinedCost() < cheapest.getCombinedCost()) {
 				cheapest = n;
 			}
-			i++;
 		}
 		return cheapest;
 	}
 
 	public ArrayList<Point> retrunPath(Node current) {
-		System.out.println("path found");
+		//System.out.println("path found");
 		ArrayList<Point> wrongList = new ArrayList<>();
 		ArrayList<Point> path = new ArrayList<>();
 		Node api = current;
@@ -179,8 +177,8 @@ public class Ghost extends Ghost_2 implements Ghost_IF {
 	public int fScore(Point goal, Point point) {
 		double dX = Math.abs(goal.getX() - point.getX());
 		double dY = Math.abs(goal.getY() - point.getY());
-		System.out.println("dX: " + dX);
-		System.out.println("dY: " + dY);
+	//	System.out.println("dX: " + dX);
+		//System.out.println("dY: " + dY);
 		int fScore;
 		if (dX > 0 && dY > 0) {
 			fScore = (int) Math.sqrt(Math.pow(dX, 2) + Math.pow(dY, 2));

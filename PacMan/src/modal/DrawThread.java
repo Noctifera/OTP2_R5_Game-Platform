@@ -5,21 +5,18 @@ import javafx.application.Platform;
 public class DrawThread extends Thread {
 	private Draw draw;
 
+	private volatile boolean supress = false;
+
 	public DrawThread(Draw draw) {
 		this.draw = draw;
 	}
 
 	public void run() {
-		draw.playerPos();
-		while (draw.keepPlaying()) {
-			//draw.eat();
-			//con.setLives();
+		while (!supress) {
 			Platform.runLater(new Runnable() {
 
 				@Override
 				public void run() {
-					// TODO Auto-generated method stub
-					// pm.clear();
 					draw.update();
 				}
 
@@ -28,11 +25,14 @@ public class DrawThread extends Thread {
 			try {
 				sleep(1);
 			} catch (InterruptedException e) {
-				// TODO Auto-generated catch block
 				e.printStackTrace();
 			}
 
 		}
+	}
+
+	public void supress() {
+		supress = true;
 	}
 
 }

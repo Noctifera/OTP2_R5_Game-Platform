@@ -33,12 +33,11 @@ public class Controller implements Controller_IF {
 		setScore();
 		System.out.println(player.getVulnerable());
 	}
-	public String[] readFiles() {
-		return map.allFiles();
-	}
+	
 	public void getMap(String fileName) {
 		map.readMap(fileName);
 	}
+	
 	public void gethighScore() {
 		try {
 			hs.selectFromDatabase();

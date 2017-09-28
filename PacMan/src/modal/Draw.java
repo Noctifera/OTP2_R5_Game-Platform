@@ -3,7 +3,6 @@ package modal;
 import java.awt.Point;
 import java.util.ArrayList;
 
-import controller.Controller;
 import javafx.scene.canvas.Canvas;
 import javafx.scene.canvas.GraphicsContext;
 import javafx.scene.paint.Color;
@@ -12,65 +11,32 @@ public class Draw extends Canvas implements Draw_IF {
 
 	private Player player;
 	private Ghost[] gh;
-	//private GhostThread[] ght;
-	private Controller con;
+
 	private Map map;
 
 	private GraphicsContext gc;
-	private int size;
-	//private String[] strings;
+	private int tileSize;
 
-	public Draw(int x, int y, int size, Player player, Ghost[] gh, String[] strings, GhostThread[] ght,Controller con,Map map) {
+
+	public Draw(int x, int y, int tileSize, Player player, Ghost[] gh,Map map) {
 		super(x, y);
 		this.gc = this.getGraphicsContext2D();
-		this.size = size;
+		this.tileSize = tileSize;
 		this.player = player;
 		this.gh = gh;
-	//	this.strings = strings;
-		//this.ght = ght;
-		this.con = con;
 		this.map = map;
 	}
 
 	public void update() {
 		clear();
-		move();
 		draw();
+		move();
 		drawGhost();
 	}
 
-	public void eat() {
-		// System.out.println("eat");
-		for (int i = 0; i < gh.length; i++) {
-			// System.out.println("player pos: "+player.getPos()+" ghostPos:
-			// "+gh[i].getPos());
-			if (player.getPos().equals(gh[i].getPos()) && player.getVulnerable().equals("deactive")) {
-				player.getEaten();
-				con.setLives();
-				player.setPos(player.playerSpawn());
-				
-				for (int j = 0; j < gh.length; j++) {
-					gh[j].setPos(gh[j].ghostHouse());
-				}
-				
-			}else if(player.getPos().equals(gh[i].getPos()) && player.getVulnerable().equals("active")) {
-				for (int j = 0; j < gh.length; j++) {
-					gh[j].setPos(gh[j].ghostHouse());
-				}
-				player.ghost();
-			}
-		}
-	}
-	public boolean keepPlaying() {
-		boolean check = false;
-		if(player.getLife() >0 && !collectAllDots()) {
-			check = true;
-		}
-		return check;
-	}
 	public void move() {
 		gc.setFill(Color.ORANGE);
-		gc.fillOval(player.getPos().getX()+5, player.getPos().getY()+5, size-10, size-10);
+		gc.fillOval(player.getPos().getX()+5, player.getPos().getY()+5, tileSize-10, tileSize-10);
 	}
 
 	public void clear() {
@@ -80,37 +46,27 @@ public class Draw extends Canvas implements Draw_IF {
 
 	public void drawWall(Point point) {
 		gc.setFill(Color.BLUE);
-		gc.fillRect(point.getX()+1, point.getY()+1, size-2, size-2);
+		gc.fillRect(point.getX()+1, point.getY()+1, tileSize-2, tileSize-2);
 	}
 
 	public void drawDot(Point pos) {
 		gc.setFill(Color.WHITE);
-		int block = size / 4;
+		int block = tileSize / 4;
 		gc.fillOval(pos.getX() + block + block / 2, pos.getY() + block + block / 2, block, block);
 	}
 
 	public void drawLargeDot(Point pos) {
 		gc.setFill(Color.WHITE);
-		int block = size / 2;
+		int block = tileSize / 2;
 		gc.fillOval(pos.getX() + block / 2, pos.getY() + block / 2, block, block);
 	}
 
 	public void drawGhost() {
 		for (int i = 0; i < gh.length; i++) {
 			gc.setFill(Color.RED);
-			gc.fillRect(gh[i].getPos().getX()+5, gh[i].getPos().getY()+5, size-10, size-10);
+			gc.fillRect(gh[i].getPos().getX()+5, gh[i].getPos().getY()+5, tileSize-10, tileSize-10);
 		}
 	}
-
-	public boolean collectAllDots() {
-		boolean check = false;
-		if (map.getDots().size() == 0 && map.getLargeDots().size() == 0) {
-			check = true;
-
-		}
-		return check;
-	}
-
 	public void draw() {
 		ArrayList<Point> walls = map.getWalls();
 		ArrayList<Point> dots = map.getDots();
@@ -134,9 +90,6 @@ public class Draw extends Canvas implements Draw_IF {
 			i = i + 40;
 		}
 
-	}
-	public void playerPos() {
-		player.setPos(player.playerSpawn());
 	}
 
 }

@@ -5,28 +5,24 @@ import java.util.ArrayList;
 
 public class GhostThread extends Thread {
 	private Ghost gh;
-	private MovementLogic ml;
 	private ArrayList<Point> path = new ArrayList<Point>();
 
 	private volatile boolean supress = false;
 
-	public GhostThread(Ghost gh, MovementLogic ml) {
+	public GhostThread(Ghost gh) {
 		this.gh = gh;
-		this.ml = ml;
 	}
 
 	public void run() {
-		gh.setPos(ml.ghostHouse());
+		gh.setPos(gh.ghostHouse());
 		try {
 			Thread.sleep(10);
 		} catch (InterruptedException e1) {
-			// TODO Auto-generated catch block
 			e1.printStackTrace();
 		}
-		//gh.runAstar();
-		path.addAll(gh.insPath());
-		int reader = 0;
 		while (!supress) {
+			path.addAll(gh.insPath());
+			int reader = 0;
 			
 			while (reader < path.size()) {
 
@@ -36,7 +32,6 @@ public class GhostThread extends Thread {
 				try {
 					Thread.sleep(500);
 				} catch (InterruptedException e) {
-					// TODO Auto-generated catch block
 					e.printStackTrace();
 				}
 			}
@@ -50,7 +45,6 @@ public class GhostThread extends Thread {
 			try {
 				Thread.sleep(10);
 			} catch (InterruptedException e) {
-				// TODO Auto-generated catch block
 				e.printStackTrace();
 			}
 			

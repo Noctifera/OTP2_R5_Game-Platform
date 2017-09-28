@@ -21,6 +21,22 @@ public class MovementLogic implements MovementLogic_IF {
 	public Point playerSpawn() {
 		return map.getPlayerSpawn();
 	}
+	public Point up(Point point) {
+		return new Point((int) point.getX(), (int) point.getY() - blSize);
+	}
+
+	public Point down(Point point) {
+		return new Point((int) point.getX(), (int) point.getY() + blSize);
+	}
+
+	public Point left(Point point) {
+		return new Point((int) point.getX() - blSize, (int) point.getY());
+	}
+
+	public Point right(Point point) {
+		return new Point((int) point.getX() + blSize, (int) point.getY());
+
+	}
 
 	public Point yli(Point newpos) {
 		Point piste = newpos;
@@ -37,19 +53,6 @@ public class MovementLogic implements MovementLogic_IF {
 			piste.setLocation(newpos.getX(), gSize.getY() - blSize);
 		} // yläreuna
 		return piste;
-	}
-
-	public boolean avoidWall(Point pos) {
-		ArrayList<Point> points = map.freeSpaces();
-		// TODO Auto-generated method stub
-		if (points.contains(pos)) {
-			// System.out.println("ml.pm: "+pos);
-			// System.out.println("ml.pm: "+map.getMap().get(pos));
-			return true;
-		} else {
-			return false;
-		}
-		// System.out.println(onko);
 	}
 	
 	public ArrayList<Point> dots(){

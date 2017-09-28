@@ -1,4 +1,4 @@
- package modal;
+package modal;
 
 import java.awt.Point;
 import java.io.File;
@@ -59,26 +59,15 @@ public class Map implements Map_IF {
 		HashMap<Point, String> map1 = new HashMap<>();
 		File file = new File(folder + "/" + tiedostonNimi);
 		try {
+			
 			FileInputStream fileIn = new FileInputStream(file);
 			ObjectInputStream dataIn = new ObjectInputStream(fileIn);
-			try {
-				map1 = (HashMap<Point, String>) dataIn.readObject();
-				System.out.println(map1);
-				dataIn.close();
-			} catch (ClassNotFoundException e) {
-				// TODO Auto-generated catch block
-				e.printStackTrace();
-			}
-		} catch (FileNotFoundException e) {
-			e.printStackTrace();
-		} catch (IOException e) {
-			// TODO Auto-generated catch block
-			e.printStackTrace();
-		} catch (NullPointerException e) {
+			map1 = (HashMap<Point, String>) dataIn.readObject();
+			dataIn.close();
+			
+		} catch (Exception e) {
 			e.printStackTrace();
 		}
-		// System.out.println(getPlayerSpawn());
-		// System.out.println(getGhostHouse());
 		map.clear();
 		map.putAll(map1);
 
@@ -99,8 +88,8 @@ public class Map implements Map_IF {
 		ArrayList<Point> points = new ArrayList<>();
 		for (int i = 0; i < gSize.getY();) {
 			for (int j = 0; j < gSize.getX();) {
-				if (!map.get(new Point(j,i)).equals(strings[2])) {
-					points.add(new Point(j,i));
+				if (!map.get(new Point(j, i)).equals(strings[2])) {
+					points.add(new Point(j, i));
 				}
 				j = j + tileSize;
 			}
@@ -117,7 +106,7 @@ public class Map implements Map_IF {
 			}
 		}
 	}
-	
+
 	public ArrayList<Point> getDots() {
 		return dots;
 	}
@@ -129,23 +118,9 @@ public class Map implements Map_IF {
 			}
 		}
 	}
-	
+
 	public ArrayList<Point> getLargeDots() {
 		return largedots;
-	}
-
-	public String[] allFiles() {
-		File[] files = folder.listFiles();
-
-		String[] fileNames = new String[files.length];
-
-		for (int i = 0; i < files.length; i++) {
-			fileNames[i] = files[i].getName();
-		}
-		for (String s : fileNames) {
-			System.out.println(s);
-		}
-		return fileNames;
 	}
 
 }
