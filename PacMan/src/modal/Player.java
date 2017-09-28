@@ -45,7 +45,7 @@ public class Player extends Score implements Player_IF {
 				}
 				
 			}
-			break;
+			return list;
 		case S:
 			// alas
 			Point down = ml.down(pos);
@@ -63,7 +63,7 @@ public class Player extends Score implements Player_IF {
 				
 				
 			}
-			break;
+			return list;
 		case A:
 			// vasemalle
 			Point left = ml.left(pos);
@@ -97,7 +97,7 @@ public class Player extends Score implements Player_IF {
 				}
 				
 			}
-			break;
+			return list;
 		case ESCAPE:
 			// lopetetaan
 			System.exit(0);

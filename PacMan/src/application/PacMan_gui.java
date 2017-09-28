@@ -2,6 +2,7 @@
 
 import javafx.scene.control.Label;
 import java.awt.Point;
+import java.lang.reflect.InvocationTargetException;
 import java.util.ArrayList;
 
 import controller.*;
@@ -16,7 +17,6 @@ import javafx.scene.layout.BorderPane;
 import javafx.scene.layout.GridPane;
 import javafx.scene.layout.HBox;
 import javafx.scene.text.Text;
-import javafx.scene.input.KeyEvent;
 
 public class PacMan_gui extends Application implements PacMan_gui_IF {
 
@@ -27,7 +27,8 @@ public class PacMan_gui extends Application implements PacMan_gui_IF {
 	private Player player;
 	private MovementLogic ml;
 	private HighScore hs;
-	private PlayerThread pt;
+	private PlayerThread playerthread;
+	private GameThread gamethread;
 
 	private final int tileSize = 40;
 	private final Point gSize = new Point(720, 480);
@@ -48,12 +49,9 @@ public class PacMan_gui extends Application implements PacMan_gui_IF {
 		ml = new  MovementLogic(gSize, tileSize,map);
 		player = new Player(ml,life);
 		con = new Controller(player,map,hs,this);
+		
 		draw = new Draw((int) gSize.getX(), (int) gSize.getY(), tileSize, player,ghlist,map);
-		dt = new DrawThread(draw);
 		
-		
-		
-
 	}
 
 	public void start(Stage primaryStage) {
@@ -77,6 +75,9 @@ public class PacMan_gui extends Application implements PacMan_gui_IF {
 		inisThread();
 	}
 	public void inisThread(){
+		playerthread = new PlayerThread(player, con,scene);
+		playerthread.start();
+		
 		for(int i = 0; i<ghtlist.length; i++){
 			ghlist[i] = new Ghost(ml,gSize,tileSize,player);
 			ghtlist[i] = new GhostThread(ghlist[i]);
@@ -85,9 +86,13 @@ public class PacMan_gui extends Application implements PacMan_gui_IF {
 		for (GhostThread ghost : ghtlist) {
 			ghost.start();
 		}
-		pt = new PlayerThread(player, con,scene);
-		pt.start();
+		
+		dt = new DrawThread(draw);
 		dt.start();
+		
+		gamethread = new GameThread(player, playerthread, ghlist, ghtlist,dt);
+		gamethread.start();
+		
 	}
 	
 	public HBox bottomDataPane() {

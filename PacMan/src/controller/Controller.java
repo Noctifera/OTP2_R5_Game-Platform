@@ -30,7 +30,6 @@ public class Controller implements Controller_IF {
 	public void move(KeyEvent event) {
 		KeyCode e = event.getCode();
 		player.move(e);
-		setScore();
 		System.out.println(player.getVulnerable());
 	}
 	

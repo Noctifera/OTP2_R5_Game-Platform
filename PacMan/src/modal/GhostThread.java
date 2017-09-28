@@ -8,6 +8,8 @@ public class GhostThread extends Thread {
 	private ArrayList<Point> path = new ArrayList<Point>();
 
 	private volatile boolean supress = false;
+	
+	private int reader;
 
 	public GhostThread(Ghost gh) {
 		this.gh = gh;
@@ -21,7 +23,7 @@ public class GhostThread extends Thread {
 			e1.printStackTrace();
 		}
 		path.addAll(gh.insPath());
-		int reader = 0;
+		reader = 0;
 		while (!supress) {
 			
 			while (reader < path.size()) {
@@ -30,7 +32,7 @@ public class GhostThread extends Thread {
 				reader++;
 
 				try {
-					Thread.sleep(500);
+					Thread.sleep(300);
 				} catch (InterruptedException e) {
 					e.printStackTrace();
 				}
@@ -50,6 +52,14 @@ public class GhostThread extends Thread {
 			
 		}
 
+	}
+	public void supress() {
+		supress = true;
+	}
+	public void returnToHouse() {
+		reader = 0;
+		path.clear();
+		path.addAll(gh.path(gh.getPos(), gh.ghostHouse()));
 	}
 
 }

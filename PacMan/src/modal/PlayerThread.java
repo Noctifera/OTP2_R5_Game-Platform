@@ -27,8 +27,8 @@ public class PlayerThread extends Thread {
 	}
 
 	public void run() {
-		handle();
 		player.setPos(player.playerSpawn());
+		handle();
 		try {
 			Thread.sleep(10);
 		} catch (InterruptedException e) {
@@ -44,7 +44,7 @@ public class PlayerThread extends Thread {
 				con.setLives();
 				con.setScore();
 				try {
-					Thread.sleep(600);
+					Thread.sleep(400);
 				} catch (InterruptedException e) {
 					// TODO Auto-generated catch block
 					e.printStackTrace();
@@ -66,6 +66,12 @@ public class PlayerThread extends Thread {
 				reader = 0;
 			}
 		});
+	}
+	public void retrunTospawn() {
+		reader = 0;
+		ArrayList<Point> a = new ArrayList<>();
+		a.add(player.playerSpawn());
+		path = a;
 	}
 
 }
