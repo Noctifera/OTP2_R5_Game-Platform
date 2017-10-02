@@ -17,17 +17,23 @@ public class GhostTest {
 	private static Point gSize;
 	private static int blSize;
 	private static Ghost gh;
+	private static HighScore hs;
+	private static FileIn fileIn;
+	private static FileOut fileOut;
 	
 	@BeforeClass
 	public static void start() {
+		fileIn = new FileIn();
+		fileOut = new FileOut();
+		hs = new HighScore();
 		System.out.println("before test");
 		gSize = new Point(720, 480);
 		String[] strings = {"Dot", "LargeDot", "Wall", "Empty","PlayerSpawn", "GhostHouse"  };
 		blSize = 40;
 		map = new Map(strings, gSize, blSize);
 		ml = new MovementLogic(gSize, blSize, map);
-		player = new Player(ml, 0);
-		gh = new Ghost(ml, player);
+		player = new Player(ml,hs, 0);
+		gh = new Ghost(ml, player, fileOut,fileIn);
 		
 	}
 	

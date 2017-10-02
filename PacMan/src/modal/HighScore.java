@@ -3,6 +3,7 @@ package modal;
 import java.sql.Connection;
 import java.sql.DriverManager;
 import java.sql.ResultSet;
+import java.sql.SQLException;
 import java.util.ArrayList;
 
 public class HighScore {
@@ -56,7 +57,7 @@ public class HighScore {
 
 		}
 
-	public void post(int score, String playername, String date) throws Exception {
+	public void post(int score, String playername, String date){
 		Connection conn = null;
 		try {
 		   conn = getConnection();
@@ -66,10 +67,15 @@ public class HighScore {
 		} catch(Exception e) {
 			System.out.println("Error: "+ e);
 		}
-		conn.close();
+		try {
+			conn.close();
+		} catch (SQLException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
 	}
 
-	public void selectFromDatabase() throws Exception {
+	public void selectFromDatabase() {
 		Connection conn = null;
 				try {
 			conn = getConnection();
@@ -95,7 +101,12 @@ public class HighScore {
 		}catch(Exception e){
 			System.out.println("Error: "+ e);
 		}
-		conn.close();
+		try {
+			conn.close();
+		} catch (SQLException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
 	}
 
 

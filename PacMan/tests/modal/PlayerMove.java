@@ -18,6 +18,7 @@ public class PlayerMove {
 	private static Player player;
 	private static Point gSize;
 	private static int blSize;
+	private static HighScore hs;
 	
 	@BeforeClass
 	public static void start() {
@@ -27,7 +28,7 @@ public class PlayerMove {
 		blSize = 40;
 		map = new Map(strings,gSize,blSize);
 		ml = new MovementLogic(gSize, blSize, map);
-		player = new Player(ml, 0);
+		player = new Player(ml,hs, 0);
 		
 	}
 	@Test

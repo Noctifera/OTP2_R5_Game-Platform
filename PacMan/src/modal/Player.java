@@ -6,14 +6,17 @@ import java.util.ArrayList;
 import javafx.scene.input.KeyCode;
 
 public class Player extends Score implements Player_IF {
-	private Point pos;
 	private MovementLogic ml;
+	private HighScore hs;
+
+	private Point pos;
 	private int life;
 	private String vulnerable = "deactive";
 
-	public Player(MovementLogic ml, int life) {
+	public Player(MovementLogic ml, HighScore hs, int life) {
 		super(0);
 		this.ml = ml;
+		this.hs = hs;
 		this.life = life;
 	}
 
@@ -26,24 +29,24 @@ public class Player extends Score implements Player_IF {
 	}
 
 	public ArrayList<Point> move(KeyCode event) {
-		
+
 		ArrayList<Point> list = new ArrayList<>();
 		switch (event) {
 		case W:
-			//ylös
-			
+			// ylös
+
 			Point up = ml.up(pos);
 			up = ml.yli(up);
-			while(ml.freespaces().contains(up)) {
+			while (ml.freespaces().contains(up)) {
 				list.add(up);
-				
-				up = ml.up(list.get(list.size()-1));
+
+				up = ml.up(list.get(list.size() - 1));
 				up = ml.yli(up);
-				
-				if(list.contains(up)) {
+
+				if (list.contains(up)) {
 					break;
 				}
-				
+
 			}
 			return list;
 		case S:
@@ -51,34 +54,33 @@ public class Player extends Score implements Player_IF {
 			Point down = ml.down(pos);
 			down = ml.yli(down);
 
-			while(ml.freespaces().contains(down)) {
+			while (ml.freespaces().contains(down)) {
 				list.add(down);
-				
-				down = ml.down(list.get(list.size()-1));
+
+				down = ml.down(list.get(list.size() - 1));
 				down = ml.yli(down);
-				
-				if(list.contains(down)) {
+
+				if (list.contains(down)) {
 					break;
 				}
-				
-				
+
 			}
 			return list;
 		case A:
 			// vasemalle
 			Point left = ml.left(pos);
 			left = ml.yli(left);
-			
-			while(ml.freespaces().contains(left)) {
+
+			while (ml.freespaces().contains(left)) {
 				list.add(left);
-				
-				left = ml.left(list.get(list.size()-1));
+
+				left = ml.left(list.get(list.size() - 1));
 				left = ml.yli(left);
-				
-				if(list.contains(left)) {
+
+				if (list.contains(left)) {
 					break;
 				}
-				
+
 			}
 			break;
 		case D:
@@ -86,16 +88,16 @@ public class Player extends Score implements Player_IF {
 			Point right = ml.right(pos);
 			right = ml.yli(right);
 
-			while(ml.freespaces().contains(right)) {
+			while (ml.freespaces().contains(right)) {
 				list.add(right);
-				
-				right = ml.right(list.get(list.size()-1));
+
+				right = ml.right(list.get(list.size() - 1));
 				right = ml.yli(right);
 
-				if(list.contains(right)) {
+				if (list.contains(right)) {
 					break;
 				}
-				
+
 			}
 			return list;
 		case ESCAPE:
@@ -108,18 +110,20 @@ public class Player extends Score implements Player_IF {
 		return list;
 
 	}
+
 	public void score(Point pos) {
-		if ((ml.dots()).contains(pos)) {			
+		if ((ml.dots()).contains(pos)) {
 			dot();
 			(ml.dots()).remove(pos);
 		}
 		if (ml.largeDots().contains(pos)) {
 			LargeDot();
-			if(pos != null) ml.largeDots().remove(pos);
+			if (pos != null)
+				ml.largeDots().remove(pos);
 		}
-		
 
 	}
+
 	public String getVulnerable() {
 		return vulnerable;
 	}
@@ -139,5 +143,24 @@ public class Player extends Score implements Player_IF {
 	public Point playerSpawn() {
 		return ml.playerSpawn();
 	}
+
+	public void gethighScore() {
+		hs.selectFromDatabase();
+	}
+
+	public void setHighScore(int score, String playername, String date) {
+		hs.post(score, playername, date);
+	}
+	public ArrayList<String> presentScore() {
+		return hs.getScore();
+	}
 	
+	public ArrayList<String> presentName() {
+		return hs.getName();
+	}
+	
+	public ArrayList<String> presentDate() {
+		return hs.getDate();
+	}
+
 }

@@ -6,14 +6,18 @@ import java.util.ArrayList;
 public class Ghost implements Ghost_IF {
 	private MovementLogic ml;
 	private Player player;
+	private FileOut fileOut;
+	private FileIn fileIn;
 
 	private Point pos;
 
 	// private String vulnerable;
 
-	public Ghost(MovementLogic ml, Player player) {
+	public Ghost(MovementLogic ml, Player player,FileOut fileOut,FileIn fileIn) {
 		this.ml = ml;
 		this.player = player;
+		this.fileOut = fileOut;
+		this.fileIn = fileIn;
 	}
 	
 
@@ -26,6 +30,8 @@ public class Ghost implements Ghost_IF {
 		openSet.add(new Node(start,null, 0, Integer.MAX_VALUE));
 		Node current;
 		while (!openSet.isEmpty()) {
+			
+			
 			current = lowestHcost(openSet);
 			closedSet.add(current);
 			openSet.remove(current);
@@ -33,9 +39,12 @@ public class Ghost implements Ghost_IF {
 			//System.out.println("pos: " + current.getId() + " goal: " + goal);
 			if (current.getId().equals(goal)) {
 				// path found
-				return retrunPath(current);
+				ArrayList<Point >path = retrunPath(current);
+				fileOut.GhostPathToFile("path", path);
+				return path;
 			}
 			ArrayList<Node> nei = neighbors(current, goal, start, closedSet);
+			current.setNeighbors(nei);
 			for (Node n : nei) {
 				//.out.println("all n: " + n);
 				if (!openSet.contains(n)) {
@@ -43,6 +52,7 @@ public class Ghost implements Ghost_IF {
 					openSet.add(n);
 				}
 			}
+			
 
 		}
 		return null; // no path
@@ -165,12 +175,14 @@ public class Ghost implements Ghost_IF {
 	}
 
 	public ArrayList<Point> insPath() {
+		fileIn.ghostPathFromFile("path");
 
 		double rand = Math.random();
 		ArrayList<Point> list = new ArrayList<>();
 		list.add(pos);
 
 		if (rand <= 0.9) {
+			
 			Point randpoint = ml.randomPoint();
 			return path(pos, randpoint);
 

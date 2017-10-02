@@ -28,6 +28,8 @@ public class PacMan_gui extends Application implements PacMan_gui_IF {
 	private HighScore hs;
 	private PlayerThread playerthread;
 	private GameThread gamethread;
+	private FileOut fileOut;
+	private FileIn fileIn;
 
 	private final int tileSize = 40;
 	private final Point gSize = new Point(720, 480);
@@ -44,9 +46,11 @@ public class PacMan_gui extends Application implements PacMan_gui_IF {
 
 	public void init() {
 		hs = new HighScore();
+		fileIn = new FileIn();
+		fileOut = new FileOut();
 		map = new Map(strings, gSize, tileSize);
 		ml = new  MovementLogic(gSize, tileSize,map);
-		player = new Player(ml,life);
+		player = new Player(ml,hs,life);
 		con = new Controller(player,map,hs,this);
 		draw = new Draw((int) gSize.getX(), (int) gSize.getY(), tileSize, player,ghlist,map);
 		
@@ -77,7 +81,7 @@ public class PacMan_gui extends Application implements PacMan_gui_IF {
 		playerthread.start();
 		
 		for(int i = 0; i<ghtlist.length; i++){
-			ghlist[i] = new Ghost(ml,player);
+			ghlist[i] = new Ghost(ml,player,fileOut,fileIn);
 			ghtlist[i] = new GhostThread(ghlist[i]);
 
 		}
