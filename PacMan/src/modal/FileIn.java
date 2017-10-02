@@ -1,37 +1,68 @@
 package modal;
 
+import java.awt.Point;
 import java.io.BufferedReader;
 import java.io.File;
-import java.io.FileInputStream;
-import java.io.InputStream;
-import java.io.InputStreamReader;
-import java.io.ObjectInputStream;
+import java.io.FileReader;
 import java.util.ArrayList;
-
-import com.mysql.fabric.xmlrpc.base.Array;
-import com.sun.javafx.scene.paint.GradientUtils.Point;
 
 public class FileIn {
 	private File folder = new File("SomeFiles");
 
-	public void ghostPathFromFile(String fileName) {
-		File file = new File(folder + "/" + fileName + ".txt");
-		
+	public ArrayList<ArrayList<Point>> ghostPathFromFile(String fileName) {
+		File file = new File(folder + "/" + fileName + "String.txt");
+		ArrayList<ArrayList<Point>> paths = new ArrayList<>();
+
 		String line;
 		try {
-		
-		InputStream fis = new FileInputStream(file);
-		ObjectInputStream ois = new ObjectInputStream(fis);
-		BufferedReader br = new BufferedReader(ois);
-		
-		while ((line = br.readLine()) != null) {
-			ArrayList<Point> path = new ArrayList<>();
-			path.add(line);
-		}
-		br.close();
-		}catch(Exception e) {
+
+			FileReader fr = new FileReader(file);
+			BufferedReader br = new BufferedReader(fr);
+
+			while ((line = br.readLine()) != null) {
+				ArrayList<Point> p = new ArrayList<>();
+				//System.out.println(line);
+				String[] strings = line.split("[^0-9]+");
+				//System.out.println("length: "+strings.length);
+				int x = 0;
+				int y = 0;
+				for (int i = 1; i < strings.length; i++) {
+					//System.out.println(strings[i]);
+					
+					
+					switch (i % 2) {
+					case 0:
+						x = Integer.parseInt(strings[i]);
+						break;
+					case 1:
+						y = Integer.parseInt(strings[i]);
+						break;
+					default:
+						System.out.println("virhe");
+					}
+					if(x > 0 && y > 0) {
+						Point point = new Point(x, y);
+						//System.out.println("point: "+point);
+						p.add(point);
+						x = 0;
+						y = 0;
+					}
+
+					
+				}
+				
+				paths.add(p);
+
+			}
+			br.close();
+			System.out.println(paths.size());
+			System.out.println(paths);
+			
+			
+		} catch (Exception e) {
 			e.printStackTrace();
 		}
+		return paths;
 	}
 
 }
