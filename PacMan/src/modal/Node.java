@@ -9,12 +9,6 @@ public class Node {
 	private int costFromStart; // cost from start
 	private int costToTarget; // cost to target
 	private int combinedCost; // combined cost of both
-	private ArrayList<Node> neighbors = new ArrayList<>();
-	
-
-	public void setNeighbors(ArrayList<Node> neighbors) {
-		this.neighbors = neighbors;
-	}
 
 	public Node(Point id, Node prev, int costFromStart, int costToTarget) {
 		this.id = id;
@@ -54,7 +48,7 @@ public class Node {
 
 	public String toString() {
 		return "Node [id=" + id + ", prev=" + prev + ", costFromStart=" + costFromStart + ", costToTarget="
-				+ costToTarget + ", combinedCost=" + combinedCost + ", neighbors=" + neighbors + "]";
+				+ costToTarget + ", combinedCost=" + combinedCost + "]";
 	}
 
 	@Override

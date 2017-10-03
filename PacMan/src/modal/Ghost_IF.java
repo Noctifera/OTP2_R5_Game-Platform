@@ -3,16 +3,19 @@ package modal;
 import java.awt.Point;
 import java.util.ArrayList;
 
+import javafx.scene.paint.Color;
+
 public interface Ghost_IF {
 	
 	public ArrayList<Point> insPath(); // palauttaa polun jota liikutaan
 	
-	public ArrayList<Point> path(Point start, Point goal); // etsii kuljettavan reittin palautta sen inisPathille jos polkua ei ole palauttaa nullin
+	public Point getPos(); // palauttaa haamun sen hetkisen sijainnin
 	
-	public ArrayList<Node> neighbors(Node current, Point goal, Point start, ArrayList<Node> closedSet);// pathin kaytt‰m‰ funktio joka kattoo mahdolliset viereiset nodet
+	public Color getColor(); // palautetaan javafx v‰ri haamun nimen perusteella
 	
-	public ArrayList<Point> retrunPath(Node current); //pathin k‰ytt‰m‰ funktio joka palauttaa valmiin polun
+	public String getGhost(); // palauttaa hamun nimen
 	
-	public int fScore(Point goal, Point point); //neighborsin k‰ytt‰m‰ funktio joka laskee matkaa
-
+	public void setPos(Point pos); // s‰ikeell‰ p‰ivitet‰‰n haamun sijaintia
+	
+	public Point ghostHouse(); //palautetaan Ghosthousin sijainti;
 }

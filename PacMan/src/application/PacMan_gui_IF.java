@@ -8,8 +8,6 @@ import javafx.scene.layout.HBox;
 public interface PacMan_gui_IF {
 	public void init(); // alustetaan oliot
 	
-	public void inisThread(); //alustetaan kaikki saikeet
-	
 	public HBox bottomDataPane(); //tietokannan ulos tulo
 	
 	public void listLooper(GridPane grid, ArrayList<String> list, String text); //bottomDataPane käyttämä funktio

@@ -12,15 +12,16 @@ import javafx.scene.input.KeyEvent;
 public class PlayerThread extends Thread {
 	private Player player;
 	private Controller con;
-	
+
 	private Scene scene;
 
 	private ArrayList<Point> path = new ArrayList<>();
 
 	private volatile boolean supress = false;
-	int reader = 0;
+	private int reader = 0;
+	private int wait = 0;
 
-	public PlayerThread(Player player, Controller con,Scene scene) {
+	public PlayerThread(Player player, Controller con, Scene scene) {
 		this.player = player;
 		this.scene = scene;
 		this.con = con;
@@ -44,17 +45,25 @@ public class PlayerThread extends Thread {
 				con.setLives();
 				con.setScore();
 				try {
-					Thread.sleep(400);
+					Thread.sleep(450);
+					if (wait == 1)
+						saty();
 				} catch (InterruptedException e) {
 					// TODO Auto-generated catch block
 					e.printStackTrace();
 				}
+
 			}
 		}
 	}
 
 	public void supress() {
 		supress = true;
+	}
+
+	public void saty() throws InterruptedException {
+		Thread.sleep(500);
+		wait = 0;
 	}
 
 	public void handle() {
@@ -67,11 +76,13 @@ public class PlayerThread extends Thread {
 			}
 		});
 	}
+
 	public void retrunTospawn() {
 		reader = 0;
-		ArrayList<Point> a = new ArrayList<>();
-		a.add(player.playerSpawn());
-		path = a;
+		path.clear();
+		player.setPos(player.playerSpawn());
+		wait = 1;
+
 	}
 
 }

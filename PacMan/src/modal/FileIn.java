@@ -55,8 +55,6 @@ public class FileIn {
 
 			}
 			br.close();
-			System.out.println(paths.size());
-			System.out.println(paths);
 			
 			
 		} catch (Exception e) {

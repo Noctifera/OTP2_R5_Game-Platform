@@ -10,6 +10,7 @@ public class GhostThread extends Thread {
 	private volatile boolean supress = false;
 	
 	private int reader;
+	private int wait = 0;
 
 	public GhostThread(Ghost gh) {
 		this.gh = gh;
@@ -32,7 +33,8 @@ public class GhostThread extends Thread {
 				reader++;
 
 				try {
-					Thread.sleep(300);
+					Thread.sleep(400);
+					if (wait ==1) house();
 				} catch (InterruptedException e) {
 					e.printStackTrace();
 				}
@@ -53,13 +55,20 @@ public class GhostThread extends Thread {
 		}
 
 	}
+	public void house() throws InterruptedException {
+		Thread.sleep(3000);
+		wait = 0;
+	}
 	public void supress() {
 		supress = true;
 	}
 	public void returnToHouse() {
 		reader = 0;
 		path.clear();
-		path.addAll(gh.path(gh.getPos(), gh.ghostHouse()));
+		gh.setPos(gh.ghostHouse());
+		wait = 1;
+		path.addAll(gh.insPath());
+		
 	}
 
 }

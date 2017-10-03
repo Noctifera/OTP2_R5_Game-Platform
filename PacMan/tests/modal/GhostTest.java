@@ -28,12 +28,13 @@ public class GhostTest {
 		hs = new HighScore();
 		System.out.println("before test");
 		gSize = new Point(720, 480);
-		String[] strings = {"Dot", "LargeDot", "Wall", "Empty","PlayerSpawn", "GhostHouse"  };
+		String[] strings = {"Dot", "LargeDot", "Wall", "Empty","PlayerSpawn", "GhostHouse" };
+		String[] ghosts = {"Blinky","Speedy","Bashful","Pokey"};
 		blSize = 40;
 		map = new Map(strings, gSize, blSize);
 		ml = new MovementLogic(gSize, blSize, map);
 		player = new Player(ml,hs, 0);
-		gh = new Ghost(ml, player, fileOut,fileIn);
+		gh = new Ghost(ml, player, fileOut,fileIn,ghosts[0]);
 		
 	}
 	

@@ -3,8 +3,7 @@ package controller;
 import java.util.ArrayList;
 
 import application.PacMan_gui;
-import javafx.scene.input.KeyCode;
-import javafx.scene.input.KeyEvent;
+import javafx.scene.Scene;
 import modal.*;
 
 public class Controller implements Controller_IF {
@@ -18,18 +17,15 @@ public class Controller implements Controller_IF {
 		this.pMG = pMG;
 	}
 
-	public void start() {
+	public void start(Scene scene, Draw draw, Ghost[] ghlist) {
 		map.readMap("Level1-fixed.txt");
 		map.setDots();
 		map.setLargeDots();
+		
+		GameThread gamethread = new GameThread(player,this,scene,draw,ghlist);
+		gamethread.start();
 	}
-
-	public void move(KeyEvent event) {
-		KeyCode e = event.getCode();
-		player.move(e);
-		System.out.println(player.getVulnerable());
-	}
-
+	
 	public void getMap(String fileName) {
 		map.readMap(fileName);
 	}
