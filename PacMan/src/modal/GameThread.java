@@ -13,13 +13,15 @@ public class GameThread extends Thread {
 	private int ghostAmount = 4;
 	private Ghost[] ghlist;
 	private GhostThread[] ghtlist = new GhostThread[ghostAmount];
+	private HighScorePost hsp;
 
-	public GameThread(Player p, Controller con, Scene scene, Draw draw, Ghost[] ghlist) {
+	public GameThread(Player p, Controller con, Scene scene, Draw draw, Ghost[] ghlist, HighScorePost hsp) {
 		this.p = p;
 		this.con = con;
 		this.scene = scene;
 		this.draw = draw;
 		this.ghlist = ghlist;
+		this.hsp = hsp;
 	}
 
 	public void run() {
@@ -62,6 +64,7 @@ public class GameThread extends Thread {
 			}
 		}
 		suppress();
+		hsp.window();
 	}
 
 	public boolean play() {
