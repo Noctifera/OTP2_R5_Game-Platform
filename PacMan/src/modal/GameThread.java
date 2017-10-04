@@ -13,31 +13,41 @@ public class GameThread extends Thread {
 	private int ghostAmount = 4;
 	private Ghost[] ghlist;
 	private GhostThread[] ghtlist = new GhostThread[ghostAmount];
+	private Sounds sounds;
 
-	public GameThread(Player p, Controller con, Scene scene, Draw draw, Ghost[] ghlist) {
+	public GameThread(Player p, Controller con, Scene scene, Draw draw, Ghost[] ghlist,Sounds sounds) {
 		this.p = p;
 		this.con = con;
 		this.scene = scene;
 		this.draw = draw;
 		this.ghlist = ghlist;
+		this.sounds = sounds;
 	}
 
 	public void run() {
-		playerthread = new PlayerThread(p, con, scene);
-		playerthread.start();
+		p.setPos(p.playerSpawn());
 		for (Ghost g : ghlist) {
 			g.setPos(g.ghostHouse());
 		}
 
 		dt = new DrawThread(draw);
 		dt.start();
+		
+		try {
+			Thread.sleep(4400);
+		} catch (InterruptedException e2) {
+			// TODO Auto-generated catch block
+			e2.printStackTrace();
+		}
 
+		playerthread = new PlayerThread(p, con, scene);
+		playerthread.start();
 		for (int i = 0; i < ghtlist.length; i++) {
 			ghtlist[i] = new GhostThread(ghlist[i]);
 
 		}
 		for (GhostThread ghost : ghtlist) {
-			ghost.start();
+			//ghost.start();
 
 			try {
 				Thread.sleep(1000);
@@ -86,11 +96,13 @@ public class GameThread extends Thread {
 		int i = 0;
 		while (i < ghlist.length) {
 			if (ghlist[i].getPos().equals(p.getPos())) {
+				sounds.playSound(sounds.getDeath());
 				for (int j = 0; j < ghlist.length; j++) {
 					ghtlist[j].returnToHouse();
 				}
 				p.getEaten();
 				playerthread.retrunTospawn();
+				
 				break;
 
 			}

@@ -36,7 +36,7 @@ public class Ghost extends PathFinder implements Ghost_IF {
 		ArrayList<ArrayList<Point>> paths = new ArrayList<>();
 		try {
 			paths = fileIn.ghostPathFromFile("path");
-			System.out.println("All paths: "+paths);
+			//System.out.println("All paths: "+paths);
 		} catch (NullPointerException e) {
 			e.printStackTrace();
 			return moveRandom();

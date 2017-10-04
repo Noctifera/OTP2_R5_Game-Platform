@@ -19,6 +19,7 @@ public class ScoreTest {
 	private static Point gSize;
 	private static int blSize;
 	private static HighScore hs;
+	private static Sounds sounds;
 
 	@BeforeClass
 	public static void start() {
@@ -28,7 +29,7 @@ public class ScoreTest {
 		blSize = 40;
 		map = new Map(strings, gSize, blSize);
 		ml = new MovementLogic(gSize, blSize, map);
-		player = new Player(ml, hs, 0);
+		player = new Player(ml, hs, 0, sounds);
 
 	}
 

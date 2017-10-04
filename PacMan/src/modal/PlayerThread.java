@@ -40,12 +40,13 @@ public class PlayerThread extends Thread {
 		while (!supress) {
 			if (reader < path.size()) {
 				player.setPos(path.get(reader));
+				System.out.println("player pos: " + player.getPos());
 				player.score(path.get(reader));
 				reader++;
 				con.setLives();
 				con.setScore();
 				try {
-					Thread.sleep(450);
+					Thread.sleep(300);
 					if (wait == 1)
 						saty();
 				} catch (InterruptedException e) {
@@ -71,8 +72,15 @@ public class PlayerThread extends Thread {
 			public void handle(KeyEvent event) {
 				// liikkuminen
 				KeyCode code = event.getCode();
-				path = player.move(code);
-				reader = 0;
+				ArrayList<Point> p = player.move(code);
+				if (p.size() > 0) {
+					path.clear();
+					reader = 0;
+					path = p;
+					System.out.println("path: "+path);
+					
+				}
+
 			}
 		});
 	}

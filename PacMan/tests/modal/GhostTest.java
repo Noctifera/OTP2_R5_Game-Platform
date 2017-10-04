@@ -20,6 +20,7 @@ public class GhostTest {
 	private static HighScore hs;
 	private static FileIn fileIn;
 	private static FileOut fileOut;
+	private static Sounds sounds;
 	
 	@BeforeClass
 	public static void start() {
@@ -33,7 +34,7 @@ public class GhostTest {
 		blSize = 40;
 		map = new Map(strings, gSize, blSize);
 		ml = new MovementLogic(gSize, blSize, map);
-		player = new Player(ml,hs, 0);
+		player = new Player(ml,hs, 0,sounds);
 		gh = new Ghost(ml, player, fileOut,fileIn,ghosts[0]);
 		
 	}

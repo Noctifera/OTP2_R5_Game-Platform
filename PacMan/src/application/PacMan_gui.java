@@ -25,6 +25,7 @@ public class PacMan_gui extends Application implements PacMan_gui_IF {
 	private Player player;
 	private MovementLogic ml;
 	private HighScore hs;
+	private Sounds sounds;
 	
 	private FileOut fileOut;
 	private FileIn fileIn;
@@ -43,13 +44,14 @@ public class PacMan_gui extends Application implements PacMan_gui_IF {
 	private Text scores;
 
 	public void init() {
+		sounds = new Sounds();
 		hs = new HighScore();
 		fileIn = new FileIn();
 		fileOut = new FileOut();
 		map = new Map(strings, gSize, tileSize);
 		ml = new MovementLogic(gSize, tileSize, map);
-		player = new Player(ml, hs, life);
-		con = new Controller(player, map, hs, this);
+		player = new Player(ml, hs, life, sounds);
+		con = new Controller(player, map, hs, this, sounds);
 		draw = new Draw((int) gSize.getX(), (int) gSize.getY(), tileSize, player, ghlist, map);
 		
 		for (int i = 0; i < ghostAmount; i++) {

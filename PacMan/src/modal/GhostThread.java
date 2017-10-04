@@ -33,7 +33,7 @@ public class GhostThread extends Thread {
 				reader++;
 
 				try {
-					Thread.sleep(400);
+					Thread.sleep(250);
 					if (wait ==1) house();
 				} catch (InterruptedException e) {
 					e.printStackTrace();

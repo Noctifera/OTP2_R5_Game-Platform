@@ -12,12 +12,14 @@ public class Player extends Score implements Player_IF {
 	private Point pos;
 	private int life;
 	private String vulnerable = "deactive";
+	private Sounds sounds;
 
-	public Player(MovementLogic ml, HighScore hs, int life) {
+	public Player(MovementLogic ml, HighScore hs, int life,Sounds sounds) {
 		super(0);
 		this.ml = ml;
 		this.hs = hs;
 		this.life = life;
+		this.sounds = sounds;
 	}
 
 	public Point getPos() {
@@ -82,7 +84,7 @@ public class Player extends Score implements Player_IF {
 				}
 
 			}
-			break;
+			return list;
 		case D:
 			// oikealle
 			Point right = ml.right(pos);
@@ -107,16 +109,19 @@ public class Player extends Score implements Player_IF {
 			System.out.println("use WASD keys");
 			break;
 		}
+		list.add(pos);
 		return list;
 
 	}
 
 	public void score(Point pos) {
 		if ((ml.dots()).contains(pos)) {
+			sounds.playSound(sounds.getDot());
 			dot();
 			(ml.dots()).remove(pos);
 		}
-		if (ml.largeDots().contains(pos)) {
+		else if (ml.largeDots().contains(pos)) {
+			sounds.playSound(sounds.getLargeDot());
 			LargeDot();
 			if (pos != null)
 				ml.largeDots().remove(pos);
