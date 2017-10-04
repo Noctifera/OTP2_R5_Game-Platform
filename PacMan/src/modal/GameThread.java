@@ -14,14 +14,17 @@ public class GameThread extends Thread {
 	private Ghost[] ghlist;
 	private GhostThread[] ghtlist = new GhostThread[ghostAmount];
 	private Sounds sounds;
+	private HighScorePost hsp;
 
-	public GameThread(Player p, Controller con, Scene scene, Draw draw, Ghost[] ghlist,Sounds sounds) {
+	public GameThread(Player p, Controller con, Scene scene, Draw draw, Ghost[] ghlist, Sounds sounds,
+			HighScorePost hsp) {
 		this.p = p;
 		this.con = con;
 		this.scene = scene;
 		this.draw = draw;
 		this.ghlist = ghlist;
 		this.sounds = sounds;
+		this.hsp = hsp;
 	}
 
 	public void run() {
@@ -32,7 +35,7 @@ public class GameThread extends Thread {
 
 		dt = new DrawThread(draw);
 		dt.start();
-		
+
 		try {
 			Thread.sleep(4400);
 		} catch (InterruptedException e2) {
@@ -47,7 +50,7 @@ public class GameThread extends Thread {
 
 		}
 		for (GhostThread ghost : ghtlist) {
-			//ghost.start();
+			// ghost.start();
 
 			try {
 				Thread.sleep(1000);
@@ -72,6 +75,7 @@ public class GameThread extends Thread {
 			}
 		}
 		suppress();
+		hsp.window();
 	}
 
 	public boolean play() {
@@ -92,7 +96,7 @@ public class GameThread extends Thread {
 		dt.supress();
 	}
 
-	public void looselife() throws InterruptedException{
+	public void looselife() throws InterruptedException {
 		int i = 0;
 		while (i < ghlist.length) {
 			if (ghlist[i].getPos().equals(p.getPos())) {
@@ -102,7 +106,7 @@ public class GameThread extends Thread {
 				}
 				p.getEaten();
 				playerthread.retrunTospawn();
-				
+
 				break;
 
 			}

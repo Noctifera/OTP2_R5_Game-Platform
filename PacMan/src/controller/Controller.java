@@ -19,14 +19,13 @@ public class Controller implements Controller_IF {
 		this.sounds = sounds;
 	}
 
-	public void start(Scene scene, Draw draw, Ghost[] ghlist) {
+	public void start(Scene scene, Draw draw, Ghost[] ghlist, HighScorePost hsp) {
 		map.readMap("Level1-fixed.txt");
 		map.setDots();
 		map.setLargeDots();
 		sounds.playSound(sounds.getBeginning());
 		
-		
-		GameThread gamethread = new GameThread(player,this,scene,draw,ghlist,sounds);
+		GameThread gamethread = new GameThread(player,this,scene,draw,ghlist,sounds,hsp);
 		gamethread.start();
 	}
 	

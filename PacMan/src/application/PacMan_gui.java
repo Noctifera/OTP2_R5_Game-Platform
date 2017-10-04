@@ -26,6 +26,7 @@ public class PacMan_gui extends Application implements PacMan_gui_IF {
 	private MovementLogic ml;
 	private HighScore hs;
 	private Sounds sounds;
+	private HighScorePost hsp;
 	
 	private FileOut fileOut;
 	private FileIn fileIn;
@@ -53,6 +54,7 @@ public class PacMan_gui extends Application implements PacMan_gui_IF {
 		player = new Player(ml, hs, life, sounds);
 		con = new Controller(player, map, hs, this, sounds);
 		draw = new Draw((int) gSize.getX(), (int) gSize.getY(), tileSize, player, ghlist, map);
+		hsp = new HighScorePost(player, hs);
 		
 		for (int i = 0; i < ghostAmount; i++) {
 			ghlist[i] = new Ghost(ml, player, fileOut, fileIn,ghosts[i]);
@@ -76,7 +78,7 @@ public class PacMan_gui extends Application implements PacMan_gui_IF {
 
 			}
 		});
-		con.start(scene,draw,ghlist);
+		con.start(scene,draw,ghlist,hsp);
 		combine();
 		
 		
@@ -122,7 +124,7 @@ public class PacMan_gui extends Application implements PacMan_gui_IF {
 		gd.add(topHorizonatalBox(), 0, 0);
 		gd.add(draw, 0, 1);
 		root.getChildren().add(gd);
-		// gd.add(bottomDataPane(), 0, 2);
+		gd.add(bottomDataPane(), 0, 2);
 	}
 
 	public HBox topHorizonatalBox() {
