@@ -1,6 +1,8 @@
 package modal;
 
 import java.sql.Connection;
+import java.sql.Date;
+
 import org.junit.AfterClass;
 import org.junit.BeforeClass;
 import org.junit.Test;
@@ -12,7 +14,6 @@ public class DatabaseTest {
 	@BeforeClass
 	public static void start() {
 		hs = new HighScore();
-		
 	}
 
 	@Test
@@ -23,7 +24,7 @@ public class DatabaseTest {
 	@Test
 	public void postToDataBase() {
 
-		hs.post(10, "matto", "10.06.1993", "scoreTest");
+		hs.post(10, "matto", hs.currentDate(), "scoreTest");
 
 	}
 
