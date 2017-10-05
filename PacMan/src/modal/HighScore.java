@@ -57,12 +57,12 @@ public class HighScore {
 
 		}
 
-	public void post(int score, String playername, String date){
+	public void post(int score, String playername, String date, String databasename){
 		Connection conn = null;
 		try {
 		   conn = getConnection();
 
-		  java.sql.PreparedStatement query = conn.prepareStatement("INSERT INTO pacmanHighscore (score, playername, submission_date) VALUES('"+ score + "', '"+ playername +"', '"+date+"')");
+		  java.sql.PreparedStatement query = conn.prepareStatement("INSERT INTO "+ databasename +" (score, playername, submission_date) VALUES('"+ score + "', '"+ playername +"', '"+date+"')");
 		  query.executeUpdate();
 		} catch(Exception e) {
 			System.out.println("Error: "+ e);
@@ -75,13 +75,13 @@ public class HighScore {
 		}
 	}
 
-	public void selectFromDatabase() {
+	public void selectFromDatabase(String databasename) {
 		Connection conn = null;
 				try {
 			conn = getConnection();
 
 			java.sql.Statement select = conn.createStatement();
-			String sql = "SELECT score, playername, submission_date FROM pacmanHighscore ORDER BY score DESC";
+			String sql = "SELECT score, playername, submission_date FROM "+ databasename +" ORDER BY score DESC";
 			ResultSet resultset = select.executeQuery(sql);
 
 			while(resultset.next()){

@@ -150,11 +150,11 @@ public class Player extends Score implements Player_IF {
 	}
 
 	public void gethighScore() {
-		hs.selectFromDatabase();
+		hs.selectFromDatabase("pacmanHighscore");
 	}
 
 	public void setHighScore(int score, String playername, String date) {
-		hs.post(score, playername, date);
+		hs.post(score, playername, date, "pacmanHighscore");
 	}
 	public ArrayList<String> presentScore() {
 		return hs.getScore();

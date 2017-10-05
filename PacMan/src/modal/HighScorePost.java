@@ -41,7 +41,7 @@ public class HighScorePost extends JFrame {
 				if (input.length() > 0) {
 					System.out.println("postattiin nimi: " + input + ", paivamaara: " + currentDate() + " ja pisteet: "
 							+ pl.getScore());
-					hs.post(pl.getScore(), input, currentDate());
+					hs.post(pl.getScore(), input, currentDate(), "pacmanHighscore");
 				}
 			}
 		});
@@ -55,7 +55,7 @@ public class HighScorePost extends JFrame {
 				if (input.length() > 0) {
 					System.out.println("postattiin nimi: " + input + ", paivamaara: " + currentDate() + " ja pisteet: "
 							+ pl.getScore());
-					hs.post(pl.getScore(), input, currentDate());
+					hs.post(pl.getScore(), input, currentDate(), "pacmanHighscore");
 				}
 			}
 		});
