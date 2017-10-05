@@ -122,10 +122,14 @@ public class Player extends Score implements Player_IF {
 		}
 		else if (ml.largeDots().contains(pos)) {
 			sounds.playSound(sounds.getLargeDot());
-			LargeDot();
+			LargeDot();			
+			vulnerable = "active";
+			
 			if (pos != null)
 				ml.largeDots().remove(pos);
 		}
+		
+
 
 	}
 

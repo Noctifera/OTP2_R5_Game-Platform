@@ -17,8 +17,8 @@ public class GameThread extends Thread {
 	private GhostThread[] ghtlist = new GhostThread[ghostAmount];
 	private Sounds sounds;
 	private HighScorePost hsp;
-	
-	private String vulnerable = "deactive";
+
+	private int deactiveCount = 0;
 
 	public GameThread(Player p, Controller con, Scene scene, Draw draw, Ghost[] ghlist, Sounds sounds,
 			HighScorePost hsp) {
@@ -65,23 +65,23 @@ public class GameThread extends Thread {
 		}
 
 		while (play()) {
-			try {
+		
 				looselife();
-				vulnerable();
-			} catch (InterruptedException e1) {
-				// TODO Auto-generated catch block
-				e1.printStackTrace();
-			}
+				if (p.getVulnerable() == "active") {
+					vulnerable();
+				}
+				
 
+			 
 			try {
-				Thread.sleep(1);
+				Thread.sleep(10);
 			} catch (InterruptedException e) {
 				e.printStackTrace();
 			}
 		}
 		suppress();
 		hsp.window();
-		
+
 	}
 
 	public boolean play() {
@@ -92,8 +92,15 @@ public class GameThread extends Thread {
 		}
 		return apu;
 	}
+
 	public void vulnerable() {
 		System.out.println(p.getVulnerable());
+		deactiveCount++;
+		if (deactiveCount == 1000) {
+			p.setVulnerable("deactive");
+			deactiveCount = 0;
+		}
+		
 	}
 
 	public void suppress() {
@@ -105,24 +112,38 @@ public class GameThread extends Thread {
 		dt.supress();
 	}
 
-	public void looselife() throws InterruptedException {
+	public void looselife() {
 		int i = 0;
 		while (i < ghlist.length) {
 			
-			if (ghlist[i].getPos().equals(p.getPos()) && p.getVulnerable().equals("deactive")) {
-				sounds.playSound(sounds.getDeath());
-				for (int j = 0; j < ghlist.length; j++) {
-					ghtlist[j].returnToHouse();
-				}
-				p.getEaten();
-				playerthread.retrunTospawn();
+			switch (p.getVulnerable()) {
+			case "deactive":			
+				if (ghlist[i].getPos().equals(p.getPos())) {
+					sounds.playSound(sounds.getDeath());
+					for (int j = 0; j < ghlist.length; j++) {
+						ghtlist[j].returnToHouse();
+					}
+					p.getEaten();
+					playerthread.retrunTospawn();
 
+					break;
+				}				
+							
+			case "active":
+				
+				if(ghlist[i].getPos().equals(p.getPos())) {
+					sounds.playSound(sounds.getEatghost());
+					ghtlist[i].returnToHouse();
+					p.ghost();
+				}
+				
 				break;
 
+			default:
+				break;
 			}
+			
 			i++;
+			}
 		}
-
-	}
-
 }
