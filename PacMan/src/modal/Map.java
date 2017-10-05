@@ -31,8 +31,6 @@ public class Map implements Map_IF {
 		Point spawn = null;
 
 		for (Entry<Point, String> e : map.entrySet()) {
-			// System.out.println(e.getKey());
-			// System.out.println(e.getValue());
 			if (map.get(e.getKey()).equals(strings[4])) {
 				spawn = e.getKey();
 			}
@@ -55,7 +53,7 @@ public class Map implements Map_IF {
 	@SuppressWarnings("unchecked")
 	public void readMap(String tiedostonNimi) {
 		HashMap<Point, String> map1 = new HashMap<>();
-		File file = new File(folder + "/" + tiedostonNimi);
+		File file = new File(folder + "//" + tiedostonNimi);
 		try {
 			
 			FileInputStream fileIn = new FileInputStream(file);

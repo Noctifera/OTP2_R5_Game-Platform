@@ -94,7 +94,7 @@ public class GameThread extends Thread {
 	}
 
 	public void vulnerable() {
-		System.out.println(p.getVulnerable());
+		//System.out.println(p.getVulnerable());
 		deactiveCount++;
 		if (deactiveCount == 1000) {
 			p.setVulnerable("deactive");

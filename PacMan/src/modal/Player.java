@@ -132,6 +132,12 @@ public class Player extends Score implements Player_IF {
 
 
 	}
+	public ArrayList<Point> allDots(){
+		return ml.dots();
+	}
+	public ArrayList<Point> allLargeDots(){
+		return ml.largeDots();
+	}
 
 	public String getVulnerable() {
 		return vulnerable;

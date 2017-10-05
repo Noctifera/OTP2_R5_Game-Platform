@@ -22,6 +22,8 @@ public class Ghost extends PathFinder implements Ghost_IF {
 	}
 
 	public ArrayList<Point> insPath() {
+		
+		if(player.getVulnerable().equals("deactive")) {
 
 		double rand = Math.random();
 
@@ -40,7 +42,11 @@ public class Ghost extends PathFinder implements Ghost_IF {
 			} else {
 				return path(pos, point);
 			}
+		}
 
+		}else {
+			Point randpoint = ml.randomPoint();
+			return path(pos, randpoint);
 		}
 
 	}
