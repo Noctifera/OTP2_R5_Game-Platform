@@ -30,12 +30,6 @@ public class DatabaseTest {
 
 	@AfterClass
 	public static void clearTable() {
-		try {
-			java.sql.PreparedStatement query = conn.prepareStatement("TRUNCATE TABLE scoreTest");
-			query.executeUpdate();
-		} catch (Exception e) {
-			System.out.println("Error: " + e);
-		}
+		hs.clearTable();
 	}
-
 }
