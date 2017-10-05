@@ -38,13 +38,13 @@ public class PlayerThread extends Thread {
 		}
 		reader = 0;
 		while (!supress) {
+			con.setLives();
+			con.setScore();
 			if (reader < path.size()) {
 				player.setPos(path.get(reader));
 				//System.out.println("player pos: " + player.getPos());
 				player.score(path.get(reader));
 				reader++;
-				con.setLives();
-				con.setScore();
 				try {
 					Thread.sleep(300);
 					if (wait == 1)

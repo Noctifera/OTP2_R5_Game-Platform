@@ -12,7 +12,7 @@ public class Ghost extends PathFinder implements Ghost_IF {
 
 	private Point pos;
 	private String ghost;
-	// private String vulnerable;
+	private String vulnerable = "deactive";
 
 	public Ghost(MovementLogic ml, Player player, FileOut fileOut, FileIn fileIn, String ghost) {
 		super(fileOut, ml);
@@ -70,14 +70,16 @@ public class Ghost extends PathFinder implements Ghost_IF {
 	}
 
 	public Color getColor() {
-		if (ghost == "Blinky") {
+		if (ghost == "Blinky" && vulnerable.equals("deactive")) {
 			return Color.RED;
-		} else if (ghost == "Speedy") {
+		} else if (ghost == "Speedy" && vulnerable.equals("deactive")) {
 			return Color.PINK;
-		} else if (ghost == "Bashful") {
+		} else if (ghost == "Bashful" && vulnerable.equals("deactive")) {
 			return Color.AQUAMARINE;
-		} else {
+		} else if(ghost.equals("Pokey") && vulnerable.equals("deactive")) {
 			return Color.GOLD;
+		}else {
+			return Color.BLUEVIOLET;
 		}
 	}
 

@@ -1,5 +1,7 @@
 package modal;
 
+import java.awt.Point;
+
 import controller.Controller;
 import javafx.scene.Scene;
 
@@ -15,6 +17,8 @@ public class GameThread extends Thread {
 	private GhostThread[] ghtlist = new GhostThread[ghostAmount];
 	private Sounds sounds;
 	private HighScorePost hsp;
+	
+	private String vulnerable = "deactive";
 
 	public GameThread(Player p, Controller con, Scene scene, Draw draw, Ghost[] ghlist, Sounds sounds,
 			HighScorePost hsp) {
@@ -59,33 +63,37 @@ public class GameThread extends Thread {
 				e.printStackTrace();
 			}
 		}
-/*
+
 		while (play()) {
 			try {
 				looselife();
+				vulnerable();
 			} catch (InterruptedException e1) {
 				// TODO Auto-generated catch block
 				e1.printStackTrace();
 			}
 
 			try {
-				Thread.sleep(100);
+				Thread.sleep(1);
 			} catch (InterruptedException e) {
 				e.printStackTrace();
 			}
 		}
 		suppress();
 		hsp.window();
-		*/
+		
 	}
 
 	public boolean play() {
 		boolean apu = false;
-		if (p.getLife() >= 0) {
+		if (p.getLife() > 0) {
 			// System.out.println(p.getLife());
 			apu = true;
 		}
 		return apu;
+	}
+	public void vulnerable() {
+		System.out.println(p.getVulnerable());
 	}
 
 	public void suppress() {
@@ -100,7 +108,8 @@ public class GameThread extends Thread {
 	public void looselife() throws InterruptedException {
 		int i = 0;
 		while (i < ghlist.length) {
-			if (ghlist[i].getPos().equals(p.getPos())) {
+			
+			if (ghlist[i].getPos().equals(p.getPos()) && p.getVulnerable().equals("deactive")) {
 				sounds.playSound(sounds.getDeath());
 				for (int j = 0; j < ghlist.length; j++) {
 					ghtlist[j].returnToHouse();
