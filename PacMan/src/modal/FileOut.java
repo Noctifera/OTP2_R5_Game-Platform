@@ -1,5 +1,6 @@
 package modal;
 
+import java.awt.Point;
 import java.io.File;
 import java.io.FileWriter;
 import java.io.IOException;
@@ -12,7 +13,7 @@ public class FileOut {
 
 	}
 
-	public void GhostPathToFile(String fileName, ArrayList<Node> path) {
+	public void GhostPathToFile(String fileName, ArrayList<Point> path) {
 		File file = new File(folder + "/" + fileName + "String.txt");
 
 		try {

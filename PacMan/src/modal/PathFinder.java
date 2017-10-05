@@ -9,17 +9,16 @@ public class PathFinder {
 	private MovementLogic ml;
 
 	public PathFinder(FileOut fileOut, MovementLogic ml) {
-		super();
 		this.fileOut = fileOut;
 		this.ml = ml;
 	}
 
-	public ArrayList<Node> path(Node start, Node goal) {
+	public ArrayList<Point> path(Point start, Point goal) {
 
 		ArrayList<Node> closedSet = new ArrayList<>();
 		ArrayList<Node> openSet = new ArrayList<>();
 
-		Node current = new Node(start.getId(), null, 0, Integer.MAX_VALUE);
+		Node current = new Node(start, null, 0, Integer.MAX_VALUE);
 		openSet.add(current);
 		while (!openSet.isEmpty()) {
 
@@ -28,9 +27,9 @@ public class PathFinder {
 			openSet.remove(current);
 
 			// System.out.println("pos: " + current.getId() + " goal: " + goal);
-			if (current.getId().equals(goal.getId())) {
+			if (current.getId().equals(goal)) {
 				// path found
-				ArrayList<Node> path = retrunPath(current);
+				ArrayList<Point> path = retrunPath(current);
 				fileOut.GhostPathToFile("path", path);
 				return path;
 			}
@@ -49,7 +48,7 @@ public class PathFinder {
 
 	}
 
-	public ArrayList<Node> neighbors(Node current, Node goal, Node start, ArrayList<Node> closedSet) {
+	public ArrayList<Node> neighbors(Node current, Point goal, Point start, ArrayList<Node> closedSet) {
 		ArrayList<Node> list = new ArrayList<>();
 
 		for (Point p : ml.moves(current.getId())) {
@@ -83,23 +82,23 @@ public class PathFinder {
 		return cheapest;
 	}
 
-	public ArrayList<Node> retrunPath(Node current) {
+	public ArrayList<Point> retrunPath(Node current) {
 		ArrayList<Node> wrongList = new ArrayList<>();
-		ArrayList<Node> path = new ArrayList<>();
+		ArrayList<Point> path = new ArrayList<>();
 		Node api = current;
 		while (api != null) {
 			wrongList.add(api);
 			api = api.getPrev();
 		}
 		for (int i = wrongList.size() - 1; i >= 0; i--) {
-			path.add(wrongList.get(i));
+			path.add(wrongList.get(i).getId());
 		}
 		return path;
 	}
 
-	public int fromGoalScore(Node goal, Point point) {
-		double dX = Math.abs(goal.getId().getX() - point.getX());
-		double dY = Math.abs(goal.getId().getY() - point.getY());
+	public int fromGoalScore(Point goal, Point point) {
+		double dX = Math.abs(goal.getX() - point.getX());
+		double dY = Math.abs(goal.getY() - point.getY());
 
 		int fromGoalScore;
 		if (dX > 0 && dY > 0) {

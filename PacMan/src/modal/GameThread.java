@@ -30,7 +30,7 @@ public class GameThread extends Thread {
 	public void run() {
 		p.setPos(p.playerSpawn());
 		for (Ghost g : ghlist) {
-			g.setPos(new Node(g.ghostHouse()));
+			g.setPos((g.ghostHouse()));
 		}
 
 		dt = new DrawThread(draw);
@@ -59,7 +59,7 @@ public class GameThread extends Thread {
 				e.printStackTrace();
 			}
 		}
-
+/*
 		while (play()) {
 			try {
 				looselife();
@@ -76,6 +76,7 @@ public class GameThread extends Thread {
 		}
 		suppress();
 		hsp.window();
+		*/
 	}
 
 	public boolean play() {
@@ -99,7 +100,7 @@ public class GameThread extends Thread {
 	public void looselife() throws InterruptedException {
 		int i = 0;
 		while (i < ghlist.length) {
-			if (ghlist[i].getPos().getId().equals(p.getPos())) {
+			if (ghlist[i].getPos().equals(p.getPos())) {
 				sounds.playSound(sounds.getDeath());
 				for (int j = 0; j < ghlist.length; j++) {
 					ghtlist[j].returnToHouse();

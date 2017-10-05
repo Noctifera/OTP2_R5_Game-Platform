@@ -1,10 +1,11 @@
 package modal;
 
+import java.awt.Point;
 import java.util.ArrayList;
 
 public class GhostThread extends Thread {
 	private Ghost gh;
-	private ArrayList<Node> path = new ArrayList<>();
+	private ArrayList<Point> path = new ArrayList<>();
 	//private Node next;
 
 	private volatile boolean supress = false;
@@ -17,7 +18,7 @@ public class GhostThread extends Thread {
 	}
 
 	public void run() {
-		gh.setPos(new Node(gh.ghostHouse()));
+		gh.setPos(gh.ghostHouse());
 		try {
 			Thread.sleep(10);
 		} catch (InterruptedException e1) {
@@ -61,6 +62,7 @@ public class GhostThread extends Thread {
 	public void house() throws InterruptedException {
 		Thread.sleep(3000);
 		wait = 0;
+		path.addAll(gh.insPath());
 	}
 	public void supress() {
 		supress = true;
@@ -68,10 +70,8 @@ public class GhostThread extends Thread {
 	public void returnToHouse() {
 		reader = 0;
 		path.clear();
-		gh.setPos(new Node(gh.ghostHouse()));
+		gh.setPos(gh.ghostHouse());
 		wait = 1;
-		path.addAll(gh.insPath());
-		
 	}
 
 }

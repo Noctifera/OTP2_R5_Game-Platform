@@ -9,9 +9,9 @@ import java.util.ArrayList;
 public class FileIn {
 	private File folder = new File("SomeFiles");
 
-	public ArrayList<ArrayList<Node>> ghostPathFromFile(String fileName) {
+	public ArrayList<ArrayList<Point>> ghostPathFromFile(String fileName) {
 		File file = new File(folder + "/" + fileName + "String.txt");
-		ArrayList<ArrayList<Node>> paths = new ArrayList<>();
+		ArrayList<ArrayList<Point>> paths = new ArrayList<>();
 
 		String line;
 		try {
@@ -20,7 +20,7 @@ public class FileIn {
 			BufferedReader br = new BufferedReader(fr);
 
 			while ((line = br.readLine()) != null) {
-				ArrayList<Node> p = new ArrayList<>();
+				ArrayList<Point> p = new ArrayList<>();
 				//System.out.println(line);
 				String[] strings = line.split("[^0-9]+");
 				//System.out.println("length: "+strings.length);
@@ -41,9 +41,7 @@ public class FileIn {
 						System.out.println("virhe");
 					}
 					if(x > 0 && y > 0) {
-						Node point = new Node(new Point(x, y));
-						//System.out.println("point: "+point);
-						p.add(point);
+						p.add(new Point(x, y));
 						x = 0;
 						y = 0;
 					}
