@@ -10,7 +10,7 @@ public class Ghost extends PathFinder implements Ghost_IF {
 	private Player player;
 	private FileIn fileIn;
 
-	private Point pos;
+	private Node pos;
 	private String ghost;
 	// private String vulnerable;
 
@@ -23,19 +23,20 @@ public class Ghost extends PathFinder implements Ghost_IF {
 	}
 
 
-	public ArrayList<Point> insPath() {
-
+	public ArrayList<Node> insPath() {
+		
 		double rand = Math.random();
 
-		if (rand <= 0.49) {
-			Point randpoint = ml.randomPoint();
+		if (rand <= 0.1) {
+			Node randpoint = new Node(ml.randomPoint());
 			if (pathFromFile(randpoint) != null) {
 				return pathFromFile(randpoint);
 			} else {
 				return path(pos, randpoint);
 			}
 		} else {
-			Point point = player.getPos();
+			
+			Node point = new Node(player.getPos());
 			if (pathFromFile(point) != null) {
 				return pathFromFile(point);
 			} else {
@@ -45,18 +46,26 @@ public class Ghost extends PathFinder implements Ghost_IF {
 		}
 
 	}
+	public Node moveOne(Node goal) {
+		ArrayList<Node>list = new ArrayList<>();
+		
+		for(Point p: ml.moves(pos.getId())) {
+			if(ml.freespaces().contains(p)) {
+				Node node = new Node(p,new Node(pos.getId()),fromStartScore(new Node(ml.ghostHouse())),fromGoalScore(goal, p));
+				list.add(node);
+			}
+		}
+		return lowestHcost(list);
+	}
 
-	public ArrayList<Point> pathFromFile(Point target) {
-		System.out.println("in");
-		ArrayList<ArrayList<Point>> paths = new ArrayList<>();
+	public ArrayList<Node> pathFromFile(Node target) {
+		ArrayList<ArrayList<Node>> paths = new ArrayList<>();
 		try {
 			paths = fileIn.ghostPathFromFile("path");
 
-			for (ArrayList<Point> p : paths) {
+			for (ArrayList<Node> p : paths) {
 				
-				if (p.get(0).equals(pos) && p.get(p.size() - 1).equals(target)) {
-					System.out.println("from file");
-					System.out.println("path: " + p);
+				if (p.get(0).getId().equals(pos.getId()) && p.get(p.size() - 1).getId().equals(target.getId())) {
 					return p;
 				}
 			}
@@ -68,7 +77,7 @@ public class Ghost extends PathFinder implements Ghost_IF {
 		return null;
 	}
 
-	public Point getPos() {
+	public Node getPos() {
 		return pos;
 	}
 
@@ -88,7 +97,7 @@ public class Ghost extends PathFinder implements Ghost_IF {
 		return ghost;
 	}
 
-	public void setPos(Point pos) {
+	public void setPos(Node pos) {
 		this.pos = pos;
 	}
 

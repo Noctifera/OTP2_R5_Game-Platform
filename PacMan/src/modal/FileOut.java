@@ -1,11 +1,8 @@
 package modal;
 
-import java.awt.Point;
 import java.io.File;
-import java.io.FileOutputStream;
 import java.io.FileWriter;
 import java.io.IOException;
-import java.io.ObjectOutputStream;
 import java.util.ArrayList;
 
 public class FileOut {
@@ -15,29 +12,17 @@ public class FileOut {
 
 	}
 
-	public void GhostPathToFile(String fileName, ArrayList<Point> path) {
+	public void GhostPathToFile(String fileName, ArrayList<Node> path) {
 		File file = new File(folder + "/" + fileName + "String.txt");
 
 		try {
 			FileWriter fw = new FileWriter(file, true);
 
-			fw.write(path.toString()+"\n");
+			fw.write(path.toString() + "\n");
 			fw.flush();
 			fw.close();
 		} catch (IOException e) {
 			// TODO Auto-generated catch block
-			e.printStackTrace();
-		}
-		File file1 = new File(folder + "/" + fileName + "Object.txt");
-
-		try {
-			
-			FileOutputStream ops = new FileOutputStream(file1, true);
-			ObjectOutputStream oos = new ObjectOutputStream(ops);
-			oos.writeObject(path);
-			oos.flush();
-			oos.close();
-		} catch (IOException e) {
 			e.printStackTrace();
 		}
 

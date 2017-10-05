@@ -4,7 +4,7 @@ import java.awt.Point;
 import java.util.ArrayList;
 
 public class PathFinder {
-	
+
 	private FileOut fileOut;
 	private MovementLogic ml;
 
@@ -14,13 +14,13 @@ public class PathFinder {
 		this.ml = ml;
 	}
 
-	public ArrayList<Point> path(Point start, Point goal) {
+	public ArrayList<Node> path(Node start, Node goal) {
 
 		ArrayList<Node> closedSet = new ArrayList<>();
 		ArrayList<Node> openSet = new ArrayList<>();
 
-		openSet.add(new Node(start, null, 0, Integer.MAX_VALUE));
-		Node current;
+		Node current = new Node(start.getId(), null, 0, Integer.MAX_VALUE);
+		openSet.add(current);
 		while (!openSet.isEmpty()) {
 
 			current = lowestHcost(openSet);
@@ -28,9 +28,9 @@ public class PathFinder {
 			openSet.remove(current);
 
 			// System.out.println("pos: " + current.getId() + " goal: " + goal);
-			if (current.getId().equals(goal)) {
+			if (current.getId().equals(goal.getId())) {
 				// path found
-				ArrayList<Point> path = retrunPath(current);
+				ArrayList<Node> path = retrunPath(current);
 				fileOut.GhostPathToFile("path", path);
 				return path;
 			}
@@ -49,78 +49,26 @@ public class PathFinder {
 
 	}
 
-	public ArrayList<Node> neighbors(Node current, Point goal, Point start, ArrayList<Node> closedSet) {
+	public ArrayList<Node> neighbors(Node current, Node goal, Node start, ArrayList<Node> closedSet) {
 		ArrayList<Node> list = new ArrayList<>();
-		ArrayList<Point> set = ml.freespaces();
 
-		Point upPoint = ml.up(current.getId());
-		Point rightPoint = ml.right(current.getId());
-		Point downPoint = ml.down(current.getId());
-		Point leftPoint = ml.left(current.getId());
+		for (Point p : ml.moves(current.getId())) {
 
-		if (set.contains(upPoint)) {
-			// System.out.println("up");
+			if (ml.freespaces().contains(p)) {
 
-			// System.out.println("fromGoalScore");
-			int fromGoalScore = fromGoalScore(goal, upPoint);
-			// System.out.println("gScore");
-			int fromStartScore = fromStartScore(current);
+				int fromGoalScore = fromGoalScore(goal, p);
+				int fromStartScore = fromStartScore(current);
+				Node node = new Node(p, current, fromStartScore, fromGoalScore);
 
-			Node up = new Node(upPoint, current, fromStartScore, fromGoalScore);
-			if (!closedSet.contains(up)) {
-				list.add(up);
-				// System.out.println("Up: " + up.toString());
+				if (!closedSet.contains(node)) {
+
+					list.add(node);
+
+				}
+
 			}
-
 		}
-		if (set.contains(rightPoint)) {
-			// System.out.println("right");
 
-			// System.out.println("fromGoalScore");
-			int fromGoalScore = fromGoalScore(goal, rightPoint);
-			// System.out.println("gScore");
-			int fromStartScore = fromStartScore(current);
-
-			Node right = new Node(rightPoint, current, fromStartScore, fromGoalScore);
-
-			if (!closedSet.contains(right)) {
-				list.add(right);
-				// System.out.println("Right: " + right.toString());
-			}
-
-		}
-		if (set.contains(downPoint)) {
-			// System.out.println("down");
-
-			// System.out.println("fromGoalScore");
-			int fromGoalScore = fromGoalScore(goal, downPoint);
-			// System.out.println("gScore");
-			int fromStartScore = fromStartScore(current);
-
-			Node down = new Node(downPoint, current, fromStartScore, fromGoalScore);
-
-			if (!closedSet.contains(down)) {
-				list.add(down);
-				// System.out.println("Down: " + down.toString());
-			}
-
-		}
-		if (set.contains(leftPoint)) {
-			// System.out.println("left");
-
-			// System.out.println("fromGoalScore");
-			int fromGoalScore = fromGoalScore(goal, leftPoint);
-			// System.out.println("gScore");
-			int fromStartScore = fromStartScore(current);
-
-			Node left = new Node(leftPoint, current, fromStartScore, fromGoalScore);
-
-			if (!closedSet.contains(left)) {
-				list.add(left);
-				// System.out.println("left: " + left.toString());
-			}
-
-		}
 		return list;
 	}
 
@@ -135,13 +83,12 @@ public class PathFinder {
 		return cheapest;
 	}
 
-	public ArrayList<Point> retrunPath(Node current) {
-		// System.out.println("path found");
-		ArrayList<Point> wrongList = new ArrayList<>();
-		ArrayList<Point> path = new ArrayList<>();
+	public ArrayList<Node> retrunPath(Node current) {
+		ArrayList<Node> wrongList = new ArrayList<>();
+		ArrayList<Node> path = new ArrayList<>();
 		Node api = current;
 		while (api != null) {
-			wrongList.add(api.getId());
+			wrongList.add(api);
 			api = api.getPrev();
 		}
 		for (int i = wrongList.size() - 1; i >= 0; i--) {
@@ -150,11 +97,10 @@ public class PathFinder {
 		return path;
 	}
 
-	public int fromGoalScore(Point goal, Point point) {
-		double dX = Math.abs(goal.getX() - point.getX());
-		double dY = Math.abs(goal.getY() - point.getY());
-		// System.out.println("dX: " + dX);
-		// System.out.println("dY: " + dY);
+	public int fromGoalScore(Node goal, Point point) {
+		double dX = Math.abs(goal.getId().getX() - point.getX());
+		double dY = Math.abs(goal.getId().getY() - point.getY());
+
 		int fromGoalScore;
 		if (dX > 0 && dY > 0) {
 			fromGoalScore = (int) Math.sqrt(Math.pow(dX, 2) + Math.pow(dY, 2));
@@ -163,7 +109,8 @@ public class PathFinder {
 		}
 		return fromGoalScore;
 	}
+
 	public int fromStartScore(Node parent) {
-		return parent.getCostFromStart()+40;
+		return parent.getCostFromStart() + 40;
 	}
 }

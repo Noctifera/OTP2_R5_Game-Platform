@@ -1,7 +1,6 @@
 package modal;
 
 import java.awt.Point;
-import java.util.ArrayList;
 
 public class Node {
 	private Point id;
@@ -10,12 +9,23 @@ public class Node {
 	private int costToTarget; // cost to target
 	private int combinedCost; // combined cost of both
 
+
+
+	public Node(Point id) {
+		this.id = id;
+	}
+
+	public Node(Point id, Node prev) {
+		this.id = id;
+		this.prev = prev;
+	}
+
 	public Node(Point id, Node prev, int costFromStart, int costToTarget) {
 		this.id = id;
 		this.prev = prev;
 		this.costFromStart = costFromStart;
 		this.costToTarget = costToTarget;
-		combinedCost = costFromStart + costToTarget;
+		combinedCost = costFromStart+costToTarget;
 	}
 
 	public Node getPrev() {
@@ -25,7 +35,7 @@ public class Node {
 	public void setPrev(Node prev) {
 		this.prev = prev;
 	}
-
+	
 	public int getCostFromStart() {
 		return costFromStart;
 	}
@@ -46,6 +56,7 @@ public class Node {
 		return combinedCost;
 	}
 
+	@Override
 	public String toString() {
 		return "Node [id=" + id + ", prev=" + prev + ", costFromStart=" + costFromStart + ", costToTarget="
 				+ costToTarget + ", combinedCost=" + combinedCost + "]";

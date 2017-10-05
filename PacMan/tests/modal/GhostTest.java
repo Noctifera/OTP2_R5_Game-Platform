@@ -43,9 +43,9 @@ public class GhostTest {
 	public void testGhostMovement() {
 		map.readMap("Level1-fixed.txt");
 		
-		Point SPoint = new Point(640, 200);
-		Point TPoint = new Point(640, 400);
-		ArrayList<Point> test = gh.path(SPoint,TPoint);
+		Node SPoint = new Node(new Point(640, 200));
+		Node TPoint = new Node(new Point(640, 400));
+		ArrayList<Node> test = gh.path(SPoint,TPoint);
 		assertEquals(TPoint, test.get(test.size()-1));			
 	}
 	
@@ -53,9 +53,9 @@ public class GhostTest {
 	public void testPathSize() {
 		map.readMap("Level1-fixed.txt");
 		
-		Point SPoint = new Point(640, 200);
-		Point TPoint = new Point(640, 400);
-		ArrayList<Point> test = gh.path(SPoint,TPoint);
+		Node SPoint = new Node(new Point(640, 200));
+		Node TPoint = new Node(new Point(640, 400));
+		ArrayList<Node> test = gh.path(SPoint,TPoint);
 		assertEquals(6, test.size());
 	}
 	
@@ -64,9 +64,9 @@ public class GhostTest {
 		map.readMap("testMovementLong.txt");
 
 		
-		Point SPoint = new Point(40, 40);
-		Point TPoint = new Point(640, 400);
-		ArrayList<Point> test = gh.path(SPoint,TPoint);
+		Node SPoint = new Node(new Point(40, 40));
+		Node TPoint = new Node(new Point(640, 400));
+		ArrayList<Node> test = gh.path(SPoint,TPoint);
 		assertEquals(TPoint, test.get(test.size()-1));
 	}
 	
@@ -74,9 +74,9 @@ public class GhostTest {
 	public void testPathSizeLong() {
 		map.readMap("testMovementLong.txt");
 
-		Point SPoint = new Point(40, 40);
-		Point TPoint = new Point(640, 400);
-		ArrayList<Point> test = gh.path(SPoint,TPoint);
+		Node SPoint = new Node(new Point(40, 40));
+		Node TPoint = new Node(new Point(640, 400));
+		ArrayList<Node> test = gh.path(SPoint,TPoint);
 		assertEquals(37, test.size());
 	}
 	
@@ -84,9 +84,9 @@ public class GhostTest {
 	public void testGhostImpossibleMovement() {
 		map.readMap("impossbleMove.txt");
 
-		Point SPoint = new Point(map.getGhostHouse());
-		Point TPoint = new Point(640, 400);
-		ArrayList<Point> test = gh.path(SPoint,TPoint);
+		Node SPoint = new Node(new Point(map.getGhostHouse()));
+		Node TPoint = new Node(new Point(640, 400));
+		ArrayList<Node> test = gh.path(SPoint,TPoint);
 		assertEquals(null, test);
 	}
 	

@@ -37,6 +37,10 @@ public class MovementLogic implements MovementLogic_IF {
 		return new Point((int) point.getX() + blSize, (int) point.getY());
 
 	}
+	public Point[] moves(Point point) {
+		Point[]t = {up(point),down(point),left(point),right(point)};
+		return t;
+	}
 
 	public Point yli(Point newpos) {
 		Point piste = newpos;

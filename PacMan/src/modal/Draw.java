@@ -64,7 +64,7 @@ public class Draw extends Canvas implements Draw_IF {
 	public void drawGhost() {
 		for (int i = 0; i < gh.length; i++) {
 			gc.setFill(gh[i].getColor());
-			gc.fillRect(gh[i].getPos().getX()+5, gh[i].getPos().getY()+5, tileSize-10, tileSize-10);
+			gc.fillRect(gh[i].getPos().getId().getX()+5, gh[i].getPos().getId().getY()+5, tileSize-10, tileSize-10);
 		}
 	}
 	public void draw() {
