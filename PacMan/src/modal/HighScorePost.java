@@ -39,9 +39,9 @@ public class HighScorePost extends JFrame {
 				String input = textfield.getText();
 
 				if (input.length() > 0) {
-					System.out.println("postattiin nimi: " + input + ", paivamaara: " + currentDate() + " ja pisteet: "
+					System.out.println("postattiin nimi: " + input + ", paivamaara: " + hs.currentDate() + " ja pisteet: "
 							+ pl.getScore());
-					hs.post(pl.getScore(), input, currentDate(), "pacmanHighscore");
+					hs.post(pl.getScore(), input, hs.currentDate(), "pacmanHighscore");
 				}
 			}
 		});
@@ -53,9 +53,9 @@ public class HighScorePost extends JFrame {
 				String input = textfield.getText();
 
 				if (input.length() > 0) {
-					System.out.println("postattiin nimi: " + input + ", paivamaara: " + currentDate() + " ja pisteet: "
+					System.out.println("postattiin nimi: " + input + ", paivamaara: " + hs.currentDate() + " ja pisteet: "
 							+ pl.getScore());
-					hs.post(pl.getScore(), input, currentDate(), "pacmanHighscore");
+					hs.post(pl.getScore(), input, hs.currentDate(), "pacmanHighscore");
 				}
 			}
 		});
@@ -64,11 +64,6 @@ public class HighScorePost extends JFrame {
 		setVisible(true);
 	}
 
-	public String currentDate() {
-		java.util.Date date = new java.util.Date();
-		java.text.SimpleDateFormat time = new java.text.SimpleDateFormat("yyyy-MM-dd");
-		String currentDate = time.format(date);
-		return currentDate;
-	}
+
 
 }

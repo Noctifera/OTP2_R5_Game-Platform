@@ -109,5 +109,12 @@ public class HighScore {
 		}
 	}
 
+	
+	public String currentDate() {
+		java.util.Date date = new java.util.Date();
+		java.text.SimpleDateFormat time = new java.text.SimpleDateFormat("yyyy-MM-dd");
+		String currentDate = time.format(date);
+		return currentDate;
+	}
 
 }
