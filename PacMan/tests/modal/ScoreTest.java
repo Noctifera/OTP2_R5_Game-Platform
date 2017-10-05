@@ -27,6 +27,7 @@ public class ScoreTest {
 		gSize = new Point(720, 480);
 		String[] strings = { "Dot", "LargeDot", "Wall", "Empty", "PlayerSpawn", "GhostHouse" };
 		blSize = 40;
+		sounds = new Sounds();
 		map = new Map(strings, gSize, blSize);
 		ml = new MovementLogic(gSize, blSize, map);
 		player = new Player(ml, hs, 0, sounds);

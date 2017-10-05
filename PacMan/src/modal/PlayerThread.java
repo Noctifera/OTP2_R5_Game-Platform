@@ -40,7 +40,7 @@ public class PlayerThread extends Thread {
 		while (!supress) {
 			if (reader < path.size()) {
 				player.setPos(path.get(reader));
-				System.out.println("player pos: " + player.getPos());
+				//System.out.println("player pos: " + player.getPos());
 				player.score(path.get(reader));
 				reader++;
 				con.setLives();
@@ -77,7 +77,7 @@ public class PlayerThread extends Thread {
 					path.clear();
 					reader = 0;
 					path = p;
-					System.out.println("path: "+path);
+					//System.out.println("path: "+path);
 					
 				}
 

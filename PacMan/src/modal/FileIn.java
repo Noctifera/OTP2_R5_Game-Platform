@@ -32,10 +32,10 @@ public class FileIn {
 					
 					switch (i % 2) {
 					case 0:
-						x = Integer.parseInt(strings[i]);
+						y = Integer.parseInt(strings[i]);
 						break;
 					case 1:
-						y = Integer.parseInt(strings[i]);
+						x = Integer.parseInt(strings[i]);
 						break;
 					default:
 						System.out.println("virhe");

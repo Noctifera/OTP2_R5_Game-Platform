@@ -3,8 +3,6 @@ package modal;
 import java.awt.Point;
 import java.util.ArrayList;
 
-import javax.management.remote.rmi.RMIIIOPServerImpl;
-
 import javafx.scene.paint.Color;
 
 public class Ghost extends PathFinder implements Ghost_IF {
@@ -17,51 +15,71 @@ public class Ghost extends PathFinder implements Ghost_IF {
 	// private String vulnerable;
 
 	public Ghost(MovementLogic ml, Player player, FileOut fileOut, FileIn fileIn, String ghost) {
-		super(fileOut,ml);
+		super(fileOut, ml);
 		this.player = player;
 		this.fileIn = fileIn;
 		this.ghost = ghost;
 		this.ml = ml;
 	}
-	public ArrayList<Point> moveRandom(){
-		Point randpoint = ml.randomPoint();
-		return path(pos,randpoint);
-	}
-	public ArrayList<Point> moveToPlayer(){
-		Point point = player.getPos();
-		return path(pos, point);
-	}
+
 
 	public ArrayList<Point> insPath() {
-		ArrayList<ArrayList<Point>> paths = new ArrayList<>();
-		try {
-			paths = fileIn.ghostPathFromFile("path");
-			//System.out.println("All paths: "+paths);
-		} catch (NullPointerException e) {
-			e.printStackTrace();
-			return moveRandom();
-		}
+
 		double rand = Math.random();
 
 		if (rand <= 0.49) {
-			return moveRandom();
-		}else {
-			return moveToPlayer();
+			Point randpoint = ml.randomPoint();
+			if (pathFromFile(randpoint) != null) {
+				return pathFromFile(randpoint);
+			} else {
+				return path(pos, randpoint);
+			}
+		} else {
+			Point point = player.getPos();
+			if (pathFromFile(point) != null) {
+				return pathFromFile(point);
+			} else {
+				return path(pos, point);
+			}
+
 		}
-		
+
+	}
+
+	public ArrayList<Point> pathFromFile(Point target) {
+		System.out.println("in");
+		ArrayList<ArrayList<Point>> paths = new ArrayList<>();
+		try {
+			paths = fileIn.ghostPathFromFile("path");
+
+			for (ArrayList<Point> p : paths) {
+				
+				if (p.get(0).equals(pos) && p.get(p.size() - 1).equals(target)) {
+					System.out.println("from file");
+					System.out.println("path: " + p);
+					return p;
+				}
+			}
+			// System.out.println("All paths: "+paths);
+		} catch (NullPointerException e) {
+			e.printStackTrace();
+
+		}
+		return null;
 	}
 
 	public Point getPos() {
 		return pos;
 	}
+
 	public Color getColor() {
-		if(ghost == "Blinky") {
+		if (ghost == "Blinky") {
 			return Color.RED;
-		}else if(ghost == "Speedy") {
+		} else if (ghost == "Speedy") {
 			return Color.PINK;
-		}else if(ghost == "Bashful") {
+		} else if (ghost == "Bashful") {
 			return Color.AQUAMARINE;
-		}else {
+		} else {
 			return Color.GOLD;
 		}
 	}

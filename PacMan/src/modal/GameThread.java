@@ -50,7 +50,7 @@ public class GameThread extends Thread {
 
 		}
 		for (GhostThread ghost : ghtlist) {
-			// ghost.start();
+			ghost.start();
 
 			try {
 				Thread.sleep(1000);

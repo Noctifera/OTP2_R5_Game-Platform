@@ -116,12 +116,12 @@ public class Player extends Score implements Player_IF {
 
 	public void score(Point pos) {
 		if ((ml.dots()).contains(pos)) {
-			sounds.playSound(sounds.getDot());
+			//sounds.playSound(sounds.getDot());
 			dot();
 			(ml.dots()).remove(pos);
 		}
 		else if (ml.largeDots().contains(pos)) {
-			sounds.playSound(sounds.getLargeDot());
+			//sounds.playSound(sounds.getLargeDot());
 			LargeDot();
 			if (pos != null)
 				ml.largeDots().remove(pos);
