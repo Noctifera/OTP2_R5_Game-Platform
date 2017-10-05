@@ -57,7 +57,8 @@ public class HighScore {
 
 	}
 
-	public void post(int score, String playername, String date, String databasename) {
+	public boolean post(int score, String playername, String date, String databasename) {
+		boolean sucess = false;
 		Connection conn = null;
 		try {
 			conn = getConnection();
@@ -71,10 +72,12 @@ public class HighScore {
 		}
 		try {
 			conn.close();
+			sucess = true;
 		} catch (SQLException e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
 		}
+		return sucess;
 	}
 
 	public void selectFromDatabase(String databasename) {
