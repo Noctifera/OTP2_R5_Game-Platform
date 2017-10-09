@@ -90,6 +90,10 @@ public class Ghost extends PathFinder implements Ghost_IF {
 		}
 	}
 
+	public String vulnerableStatus() {
+		return player.getVulnerable();
+	}
+	
 	public String getGhost() {
 		return ghost;
 	}

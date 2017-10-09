@@ -34,14 +34,26 @@ public class GhostThread extends Thread {
 
 				gh.setPos(path.get(reader));
 				reader++;
-
-				try {
-					Thread.sleep(250);
-					if (wait ==1) house();
-				} catch (InterruptedException e) {
-					e.printStackTrace();
+				if(gh.vulnerableStatus() == "deactive") {
+					try {
+						Thread.sleep(250);
+						if (wait ==1) house();
+					} catch (InterruptedException e) {
+						e.printStackTrace();
+					}
 				}
-			}
+				
+				else if (gh.vulnerableStatus() == "active") {
+					try {
+						Thread.sleep(350);
+						if (wait ==1) house();
+					} catch (InterruptedException e) {
+						// TODO Auto-generated catch block
+						e.printStackTrace();
+					}
+				}
+				}
+				
 			
 			if(reader > 0) {
 				reader = 0;
