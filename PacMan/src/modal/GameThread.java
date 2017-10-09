@@ -3,6 +3,7 @@ package modal;
 import java.awt.Point;
 
 import controller.Controller;
+import javafx.application.Platform;
 import javafx.scene.Scene;
 
 public class GameThread extends Thread {
@@ -16,19 +17,16 @@ public class GameThread extends Thread {
 	private Ghost[] ghlist;
 	private GhostThread[] ghtlist = new GhostThread[ghostAmount];
 	private Sounds sounds;
-	private HighScorePost hsp;
 
 	private int deactiveCount = 0;
 
-	public GameThread(Player p, Controller con, Scene scene, Draw draw, Ghost[] ghlist, Sounds sounds,
-			HighScorePost hsp) {
+	public GameThread(Player p, Controller con, Scene scene, Draw draw, Ghost[] ghlist, Sounds sounds) {
 		this.p = p;
 		this.con = con;
 		this.scene = scene;
 		this.draw = draw;
 		this.ghlist = ghlist;
 		this.sounds = sounds;
-		this.hsp = hsp;
 	}
 
 	public void run() {
@@ -79,8 +77,16 @@ public class GameThread extends Thread {
 				e.printStackTrace();
 			}
 		}
+		Platform.runLater(new Runnable() {
+			
+			@Override
+			public void run() {
+				// TODO Auto-generated method stub
+				con.gameOver();
+			}
+		});
+		
 		suppress();
-		hsp.window();
 
 	}
 

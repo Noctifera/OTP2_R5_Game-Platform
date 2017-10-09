@@ -1,14 +1,19 @@
 package application;
 
+import javafx.scene.control.Button;
 import javafx.scene.control.Label;
+import javafx.scene.control.TextField;
+
 import java.awt.Point;
 import java.util.ArrayList;
 
 import controller.*;
 import modal.*;
 import javafx.application.Application;
+import javafx.event.ActionEvent;
 import javafx.event.EventHandler;
 import javafx.geometry.Insets;
+import javafx.geometry.Pos;
 import javafx.stage.Stage;
 import javafx.stage.WindowEvent;
 import javafx.scene.Scene;
@@ -26,7 +31,6 @@ public class PacMan_gui extends Application implements PacMan_gui_IF {
 	private MovementLogic ml;
 	private HighScore hs;
 	private Sounds sounds;
-	private HighScorePost hsp;
 	
 	private FileOut fileOut;
 	private FileIn fileIn;
@@ -52,9 +56,8 @@ public class PacMan_gui extends Application implements PacMan_gui_IF {
 		map = new Map(strings, gSize, tileSize);
 		ml = new MovementLogic(gSize, tileSize, map);
 		player = new Player(ml, hs, life, sounds);
-		con = new Controller(player, map, hs, this, sounds);
+		con = new Controller(player, map, this, sounds);
 		draw = new Draw((int) gSize.getX(), (int) gSize.getY(), tileSize, player, ghlist, map);
-		hsp = new HighScorePost(player, hs);
 		
 		for (int i = 0; i < ghostAmount; i++) {
 			ghlist[i] = new Ghost(ml, player, fileOut, fileIn,ghosts[i]);
@@ -66,7 +69,7 @@ public class PacMan_gui extends Application implements PacMan_gui_IF {
 		root = new BorderPane();
 
 		scene = new Scene(root, (int) gSize.getX(), (int) gSize.getY() + 200);
-
+		
 		primaryStage.setScene(scene);
 		primaryStage.show();
 
@@ -78,7 +81,9 @@ public class PacMan_gui extends Application implements PacMan_gui_IF {
 
 			}
 		});
-		con.start(scene,draw,ghlist,hsp);
+		
+		
+		con.start(scene,draw,ghlist);
 		combine();
 		
 		
@@ -120,6 +125,7 @@ public class PacMan_gui extends Application implements PacMan_gui_IF {
 	}
 
 	public void combine() {
+		
 		GridPane gd = new GridPane();
 		gd.add(topHorizonatalBox(), 0, 0);
 		gd.add(draw, 0, 1);
@@ -156,6 +162,51 @@ public class PacMan_gui extends Application implements PacMan_gui_IF {
 
 		HBox hb = new HBox(bp);
 		return hb;
+	}
+	public Stage popUpGameOver() {
+	
+		Stage popup = new Stage();
+		
+		
+		GridPane gp = new GridPane();
+		
+		Label label1 = new Label("GAME OVER!");
+		
+		TextField textfield = new TextField();
+		
+		Button button = new Button("Save");
+		button.setOnAction(new EventHandler<ActionEvent>() {
+
+			@Override
+			public void handle(ActionEvent event) {
+				// TODO Auto-generated method stub
+				String input = textfield.getText();
+				
+				if (input.length() > 0) {
+					System.out.println("postattiin nimi: " + input + ", paivamaara: " + hs.currentDate() + " ja pisteet: "
+							+ scores.getText());
+					con.PostToDataBase(input);
+				}
+			}
+		});
+
+		gp.setAlignment(Pos.CENTER);
+		
+		gp.add(label1,0,0);
+		label1.setPadding(new Insets(0, 0, 5, 25));
+		gp.add(textfield, 0, 1);
+		
+		gp.add(button, 0, 2);
+		
+		Scene pop = new Scene(gp,300,200);
+		
+	    popup.setScene(pop);
+	    
+		return popup;
+
+	}
+	public void gameOver() {
+		popUpGameOver().show();
 	}
 
 	public void setLives(int livs) {

@@ -177,5 +177,9 @@ public class Player extends Score implements Player_IF {
 	public ArrayList<String> presentDate() {
 		return hs.getDate();
 	}
+	public void PostHighScoreToDataBase(String playername) {
+		
+		hs.post(score, playername, hs.currentDate(), "pacmanHighscore");
+	}
 
 }

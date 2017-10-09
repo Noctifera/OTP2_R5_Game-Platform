@@ -12,20 +12,20 @@ public class Controller implements Controller_IF {
 	private PacMan_gui pMG;
 	private Sounds sounds;
 
-	public Controller(Player player, Map map, HighScore hs, PacMan_gui pMG,Sounds sounds) {
+	public Controller(Player player, Map map, PacMan_gui pMG,Sounds sounds) {
 		this.map = map;
 		this.player = player;
 		this.pMG = pMG;
 		this.sounds = sounds;
 	}
 
-	public void start(Scene scene, Draw draw, Ghost[] ghlist, HighScorePost hsp) {
+	public void start(Scene scene, Draw draw, Ghost[] ghlist) {
 		map.readMap("Level1-fixed.txt");
 		map.setDots();
 		map.setLargeDots();
 		sounds.playSound(sounds.getBeginning());
 		
-		GameThread gamethread = new GameThread(player,this,scene,draw,ghlist,sounds,hsp);
+		GameThread gamethread = new GameThread(player,this,scene,draw,ghlist,sounds);
 		gamethread.start();
 	}
 	
@@ -45,6 +45,9 @@ public class Controller implements Controller_IF {
 	public void setScore() {
 		pMG.setScore(player.getScore());
 	}
+	public void PostToDataBase(String playername) {
+		player.PostHighScoreToDataBase(playername);
+	}
 
 	public void setHighScore(int score, String playername, String date) {
 		player.setHighScore(score, playername, date);
@@ -60,5 +63,8 @@ public class Controller implements Controller_IF {
 
 	public ArrayList<String> presentDate() {
 		return player.presentDate();
+	}
+	public void gameOver() {
+		pMG.gameOver();
 	}
 }
