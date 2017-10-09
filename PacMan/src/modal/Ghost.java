@@ -22,36 +22,26 @@ public class Ghost extends PathFinder implements Ghost_IF {
 	}
 
 	public ArrayList<Point> insPath() {
-		
-		if(player.getVulnerable().equals("deactive")) {
 
-		double rand = Math.random();
+		if (player.getVulnerable().equals("deactive")) {
 
-		if (rand <= 0.30) {
-			Point randpoint = ml.randomPoint();
-			if (pathFromFile(randpoint) != null) {
-				return pathFromFile(randpoint);
-			} else {
+			double rand = Math.random();
+
+			if (rand <= 0.30) {
+				Point randpoint = ml.randomPoint();
 				return path(pos, randpoint);
-			}
 		} else {
 
 			Point point = player.getPos();
-			if (pathFromFile(point) != null) {
-				return pathFromFile(point);
-			} else {
-				return path(pos, point);
-			}
-		}
+			return path(pos, point);
 
-		}else {
+		}
+		}
+		else{
 			Point randpoint = ml.randomPoint();
 			return path(pos, randpoint);
 		}
-
 	}
-	
-	
 
 	public ArrayList<Point> pathFromFile(Point target) {
 		ArrayList<ArrayList<Point>> paths = new ArrayList<>();
@@ -83,9 +73,9 @@ public class Ghost extends PathFinder implements Ghost_IF {
 			return Color.PINK;
 		} else if (ghost == "Bashful" && player.getVulnerable().equals("deactive")) {
 			return Color.AQUAMARINE;
-		} else if(ghost.equals("Pokey") && player.getVulnerable().equals("deactive")) {
+		} else if (ghost.equals("Pokey") && player.getVulnerable().equals("deactive")) {
 			return Color.GOLD;
-		}else {
+		} else {
 			return Color.BLUEVIOLET;
 		}
 	}
@@ -93,7 +83,7 @@ public class Ghost extends PathFinder implements Ghost_IF {
 	public String vulnerableStatus() {
 		return player.getVulnerable();
 	}
-	
+
 	public String getGhost() {
 		return ghost;
 	}

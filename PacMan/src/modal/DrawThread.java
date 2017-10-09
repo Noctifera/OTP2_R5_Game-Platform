@@ -23,7 +23,7 @@ public class DrawThread extends Thread {
 			});
 
 			try {
-				sleep(1);
+				Thread.sleep(0, 1);
 			} catch (InterruptedException e) {
 				e.printStackTrace();
 			}
