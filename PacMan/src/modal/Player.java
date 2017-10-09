@@ -116,12 +116,12 @@ public class Player extends Score implements Player_IF {
 
 	public void score(Point pos) {
 		if ((ml.dots()).contains(pos)) {
-			sounds.playSound(sounds.getDot());
+			//sounds.playSound(sounds.getDot());
 			dot();
 			(ml.dots()).remove(pos);
 		}
 		else if (ml.largeDots().contains(pos)) {
-			sounds.playSound(sounds.getLargeDot());
+			//sounds.playSound(sounds.getLargeDot());
 			LargeDot();			
 			vulnerable = "active";
 			
@@ -163,8 +163,8 @@ public class Player extends Score implements Player_IF {
 		hs.selectFromDatabase("pacmanHighscore");
 	}
 
-	public void setHighScore(int score, String playername, String date) {
-		hs.post(score, playername, date, "pacmanHighscore");
+	public void setHighScore(String playername) {
+		hs.post(score, playername, "pacmanHighscore");
 	}
 	public ArrayList<String> presentScore() {
 		return hs.getScore();
@@ -176,10 +176,6 @@ public class Player extends Score implements Player_IF {
 	
 	public ArrayList<String> presentDate() {
 		return hs.getDate();
-	}
-	public void PostHighScoreToDataBase(String playername) {
-		
-		hs.post(score, playername, hs.currentDate(), "pacmanHighscore");
 	}
 
 }

@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8" ?>
 <testsuites>
-  <testsuite errors="0" failures="0" hostname="LAPTOP-BNRK150D" id="0" name="GhostTest" package="modal" skipped="0" tests="5" time="0.172" timestamp="2017-09-28T08:46:22">
+  <testsuite errors="0" failures="0" hostname="LAPTOP-BNRK150D" id="0" name="GhostTest" package="modal" skipped="0" tests="5" time="0.833" timestamp="2017-10-09T06:55:32">
       <properties>
           <property name="java.vendor" value="Oracle Corporation" />
 
@@ -162,7 +162,7 @@
 
           <property name="java.class.path" value="C:\Users\marku\git\Game-Platform\PacMan\bin;C:\Users\marku\.p2\pool\plugins\org.eclipse.fx.ide.css.jfx8_3.0.0.201705220750.jar;C:\Users\marku\git\Game-Platform\PacMan\mysql-connector-java-5.1.44\mysql-connector-java-5.1.44\mysql-connector-java-5.1.44-bin.jar;C:\Users\marku\.p2\pool\plugins\org.junit_4.12.0.v201504281640\junit.jar;C:\Users\marku\.p2\pool\plugins\org.hamcrest.core_1.3.0.v201303031735.jar;C:\Users\marku\Downloads\junit-4.12.jar;C:\Users\marku\.p2\pool\plugins\org.apache.ant_1.10.1.v20170504-0840\lib\ant-launcher.jar;C:\Users\marku\.p2\pool\plugins\org.apache.ant_1.10.1.v20170504-0840\lib\ant.jar;C:\Users\marku\.p2\pool\plugins\org.apache.ant_1.10.1.v20170504-0840\lib\ant-junit.jar;C:\Users\marku\.p2\pool\plugins\org.apache.ant_1.10.1.v20170504-0840\lib\ant-junit4.jar" />
 
-          <property name="sun.java.command" value="org.apache.tools.ant.taskdefs.optional.junit.JUnitTestRunner modal.GhostTest skipNonTests=false filtertrace=true haltOnError=false haltOnFailure=false formatter=org.apache.tools.ant.taskdefs.optional.junit.OutErrSummaryJUnitResultFormatter showoutput=false outputtoformatters=true logfailedtests=true threadid=0 logtestlistenerevents=false formatter=org.apache.tools.ant.taskdefs.optional.junit.XMLJUnitResultFormatter,C:\Users\marku\git\Game-Platform\PacMan\junit\TEST-modal.GhostTest.xml crashfile=C:\Users\marku\git\Game-Platform\PacMan\junitvmwatcher488418419868939.properties propsfile=C:\Users\marku\git\Game-Platform\PacMan\junit8919949070654113921.properties" />
+          <property name="sun.java.command" value="org.apache.tools.ant.taskdefs.optional.junit.JUnitTestRunner modal.GhostTest skipNonTests=false filtertrace=true haltOnError=false haltOnFailure=false formatter=org.apache.tools.ant.taskdefs.optional.junit.OutErrSummaryJUnitResultFormatter showoutput=false outputtoformatters=true logfailedtests=true threadid=0 logtestlistenerevents=false formatter=org.apache.tools.ant.taskdefs.optional.junit.XMLJUnitResultFormatter,C:\Users\marku\git\Game-Platform\PacMan\junit\TEST-modal.GhostTest.xml crashfile=C:\Users\marku\git\Game-Platform\PacMan\junitvmwatcher8265414808430151939.properties propsfile=C:\Users\marku\git\Game-Platform\PacMan\junit486425376666938811.properties" />
 
           <property name="java.vm.specification.name" value="Java Virtual Machine Specification" />
 
@@ -180,7 +180,7 @@
 
           <property name="debuglevel" value="source,lines,vars" />
 
-          <property name="env.OneDrive" value="C:\Users\marku\OneDrive" />
+          <property name="env.OneDrive" value="C:\Users\marku\OneDrive - Metropolia Ammattikorkeakoulu Oy" />
 
           <property name="env.ProgramFiles" value="C:\Program Files" />
 
@@ -250,15 +250,15 @@
 
       </properties>
 
-      <testcase classname="modal.GhostTest" name="testGhostImpossibleMovement" time="0.069" />
+      <testcase classname="modal.GhostTest" name="testGhostImpossibleMovement" time="0.078" />
 
-      <testcase classname="modal.GhostTest" name="testGhostMovementLong" time="0.012" />
+      <testcase classname="modal.GhostTest" name="testGhostMovementLong" time="0.301" />
 
-      <testcase classname="modal.GhostTest" name="testGhostMovement" time="0.005" />
+      <testcase classname="modal.GhostTest" name="testGhostMovement" time="0.042" />
 
-      <testcase classname="modal.GhostTest" name="testPathSizeLong" time="0.008" />
+      <testcase classname="modal.GhostTest" name="testPathSizeLong" time="0.291" />
 
-      <testcase classname="modal.GhostTest" name="testPathSize" time="0.005" />
+      <testcase classname="modal.GhostTest" name="testPathSize" time="0.031" />
 
       <system-out><![CDATA[before test
 ]]></system-out>
@@ -266,7 +266,7 @@
       <system-err><![CDATA[]]></system-err>
 
   </testsuite>
-  <testsuite errors="0" failures="0" hostname="LAPTOP-BNRK150D" id="1" name="MapTest" package="modal" skipped="0" tests="7" time="0.133" timestamp="2017-09-28T08:46:22">
+  <testsuite errors="0" failures="0" hostname="LAPTOP-BNRK150D" id="1" name="MapTest" package="modal" skipped="0" tests="7" time="0.164" timestamp="2017-10-09T06:55:33">
       <properties>
           <property name="java.vendor" value="Oracle Corporation" />
 
@@ -428,7 +428,7 @@
 
           <property name="java.class.path" value="C:\Users\marku\git\Game-Platform\PacMan\bin;C:\Users\marku\.p2\pool\plugins\org.eclipse.fx.ide.css.jfx8_3.0.0.201705220750.jar;C:\Users\marku\git\Game-Platform\PacMan\mysql-connector-java-5.1.44\mysql-connector-java-5.1.44\mysql-connector-java-5.1.44-bin.jar;C:\Users\marku\.p2\pool\plugins\org.junit_4.12.0.v201504281640\junit.jar;C:\Users\marku\.p2\pool\plugins\org.hamcrest.core_1.3.0.v201303031735.jar;C:\Users\marku\Downloads\junit-4.12.jar;C:\Users\marku\.p2\pool\plugins\org.apache.ant_1.10.1.v20170504-0840\lib\ant-launcher.jar;C:\Users\marku\.p2\pool\plugins\org.apache.ant_1.10.1.v20170504-0840\lib\ant.jar;C:\Users\marku\.p2\pool\plugins\org.apache.ant_1.10.1.v20170504-0840\lib\ant-junit.jar;C:\Users\marku\.p2\pool\plugins\org.apache.ant_1.10.1.v20170504-0840\lib\ant-junit4.jar" />
 
-          <property name="sun.java.command" value="org.apache.tools.ant.taskdefs.optional.junit.JUnitTestRunner modal.MapTest skipNonTests=false filtertrace=true haltOnError=false haltOnFailure=false formatter=org.apache.tools.ant.taskdefs.optional.junit.OutErrSummaryJUnitResultFormatter showoutput=false outputtoformatters=true logfailedtests=true threadid=0 logtestlistenerevents=false formatter=org.apache.tools.ant.taskdefs.optional.junit.XMLJUnitResultFormatter,C:\Users\marku\git\Game-Platform\PacMan\junit\TEST-modal.MapTest.xml crashfile=C:\Users\marku\git\Game-Platform\PacMan\junitvmwatcher7323303167741133010.properties propsfile=C:\Users\marku\git\Game-Platform\PacMan\junit7986850628135619913.properties" />
+          <property name="sun.java.command" value="org.apache.tools.ant.taskdefs.optional.junit.JUnitTestRunner modal.MapTest skipNonTests=false filtertrace=true haltOnError=false haltOnFailure=false formatter=org.apache.tools.ant.taskdefs.optional.junit.OutErrSummaryJUnitResultFormatter showoutput=false outputtoformatters=true logfailedtests=true threadid=0 logtestlistenerevents=false formatter=org.apache.tools.ant.taskdefs.optional.junit.XMLJUnitResultFormatter,C:\Users\marku\git\Game-Platform\PacMan\junit\TEST-modal.MapTest.xml crashfile=C:\Users\marku\git\Game-Platform\PacMan\junitvmwatcher2488557027888045657.properties propsfile=C:\Users\marku\git\Game-Platform\PacMan\junit8072573415005433700.properties" />
 
           <property name="java.vm.specification.name" value="Java Virtual Machine Specification" />
 
@@ -446,7 +446,7 @@
 
           <property name="debuglevel" value="source,lines,vars" />
 
-          <property name="env.OneDrive" value="C:\Users\marku\OneDrive" />
+          <property name="env.OneDrive" value="C:\Users\marku\OneDrive - Metropolia Ammattikorkeakoulu Oy" />
 
           <property name="env.ProgramFiles" value="C:\Program Files" />
 
@@ -520,11 +520,11 @@
 
       <testcase classname="modal.MapTest" name="dot" time="0.0" />
 
-      <testcase classname="modal.MapTest" name="wall" time="0.001" />
+      <testcase classname="modal.MapTest" name="wall" time="0.0" />
 
-      <testcase classname="modal.MapTest" name="empty" time="0.001" />
+      <testcase classname="modal.MapTest" name="empty" time="0.0" />
 
-      <testcase classname="modal.MapTest" name="ghostHouse" time="0.001" />
+      <testcase classname="modal.MapTest" name="ghostHouse" time="0.0" />
 
       <testcase classname="modal.MapTest" name="playerSpawn" time="0.0" />
 
@@ -535,7 +535,7 @@
       <system-err><![CDATA[]]></system-err>
 
   </testsuite>
-  <testsuite errors="0" failures="0" hostname="LAPTOP-BNRK150D" id="2" name="PlayerMove" package="modal" skipped="0" tests="12" time="0.234" timestamp="2017-09-28T08:46:23">
+  <testsuite errors="0" failures="0" hostname="LAPTOP-BNRK150D" id="2" name="PlayerMove" package="modal" skipped="0" tests="12" time="0.301" timestamp="2017-10-09T06:55:34">
       <properties>
           <property name="java.vendor" value="Oracle Corporation" />
 
@@ -697,7 +697,7 @@
 
           <property name="java.class.path" value="C:\Users\marku\git\Game-Platform\PacMan\bin;C:\Users\marku\.p2\pool\plugins\org.eclipse.fx.ide.css.jfx8_3.0.0.201705220750.jar;C:\Users\marku\git\Game-Platform\PacMan\mysql-connector-java-5.1.44\mysql-connector-java-5.1.44\mysql-connector-java-5.1.44-bin.jar;C:\Users\marku\.p2\pool\plugins\org.junit_4.12.0.v201504281640\junit.jar;C:\Users\marku\.p2\pool\plugins\org.hamcrest.core_1.3.0.v201303031735.jar;C:\Users\marku\Downloads\junit-4.12.jar;C:\Users\marku\.p2\pool\plugins\org.apache.ant_1.10.1.v20170504-0840\lib\ant-launcher.jar;C:\Users\marku\.p2\pool\plugins\org.apache.ant_1.10.1.v20170504-0840\lib\ant.jar;C:\Users\marku\.p2\pool\plugins\org.apache.ant_1.10.1.v20170504-0840\lib\ant-junit.jar;C:\Users\marku\.p2\pool\plugins\org.apache.ant_1.10.1.v20170504-0840\lib\ant-junit4.jar" />
 
-          <property name="sun.java.command" value="org.apache.tools.ant.taskdefs.optional.junit.JUnitTestRunner modal.PlayerMove skipNonTests=false filtertrace=true haltOnError=false haltOnFailure=false formatter=org.apache.tools.ant.taskdefs.optional.junit.OutErrSummaryJUnitResultFormatter showoutput=false outputtoformatters=true logfailedtests=true threadid=0 logtestlistenerevents=false formatter=org.apache.tools.ant.taskdefs.optional.junit.XMLJUnitResultFormatter,C:\Users\marku\git\Game-Platform\PacMan\junit\TEST-modal.PlayerMove.xml crashfile=C:\Users\marku\git\Game-Platform\PacMan\junitvmwatcher5107695253231985513.properties propsfile=C:\Users\marku\git\Game-Platform\PacMan\junit1773355718693849828.properties" />
+          <property name="sun.java.command" value="org.apache.tools.ant.taskdefs.optional.junit.JUnitTestRunner modal.PlayerMove skipNonTests=false filtertrace=true haltOnError=false haltOnFailure=false formatter=org.apache.tools.ant.taskdefs.optional.junit.OutErrSummaryJUnitResultFormatter showoutput=false outputtoformatters=true logfailedtests=true threadid=0 logtestlistenerevents=false formatter=org.apache.tools.ant.taskdefs.optional.junit.XMLJUnitResultFormatter,C:\Users\marku\git\Game-Platform\PacMan\junit\TEST-modal.PlayerMove.xml crashfile=C:\Users\marku\git\Game-Platform\PacMan\junitvmwatcher5274118434968576188.properties propsfile=C:\Users\marku\git\Game-Platform\PacMan\junit973000885806676007.properties" />
 
           <property name="java.vm.specification.name" value="Java Virtual Machine Specification" />
 
@@ -715,7 +715,7 @@
 
           <property name="debuglevel" value="source,lines,vars" />
 
-          <property name="env.OneDrive" value="C:\Users\marku\OneDrive" />
+          <property name="env.OneDrive" value="C:\Users\marku\OneDrive - Metropolia Ammattikorkeakoulu Oy" />
 
           <property name="env.ProgramFiles" value="C:\Program Files" />
 
@@ -785,29 +785,29 @@
 
       </properties>
 
-      <testcase classname="modal.PlayerMove" name="dontMoveDown" time="0.075" />
+      <testcase classname="modal.PlayerMove" name="dontMoveDown" time="0.078" />
 
-      <testcase classname="modal.PlayerMove" name="dontMoveLeft" time="0.008" />
+      <testcase classname="modal.PlayerMove" name="dontMoveLeft" time="0.002" />
 
-      <testcase classname="modal.PlayerMove" name="overTop" time="0.009" />
+      <testcase classname="modal.PlayerMove" name="overTop" time="0.016" />
 
-      <testcase classname="modal.PlayerMove" name="moveUp" time="0.004" />
+      <testcase classname="modal.PlayerMove" name="moveUp" time="0.0" />
 
-      <testcase classname="modal.PlayerMove" name="overRight" time="0.005" />
+      <testcase classname="modal.PlayerMove" name="overRight" time="0.0" />
 
-      <testcase classname="modal.PlayerMove" name="dontMoveUp" time="0.004" />
+      <testcase classname="modal.PlayerMove" name="dontMoveUp" time="0.016" />
 
-      <testcase classname="modal.PlayerMove" name="dontMoveRight" time="0.004" />
+      <testcase classname="modal.PlayerMove" name="dontMoveRight" time="0.0" />
 
-      <testcase classname="modal.PlayerMove" name="moveDown" time="0.004" />
+      <testcase classname="modal.PlayerMove" name="moveDown" time="0.0" />
 
-      <testcase classname="modal.PlayerMove" name="moveLeft" time="0.006" />
+      <testcase classname="modal.PlayerMove" name="moveLeft" time="0.015" />
 
-      <testcase classname="modal.PlayerMove" name="overleft" time="0.005" />
+      <testcase classname="modal.PlayerMove" name="overleft" time="0.0" />
 
-      <testcase classname="modal.PlayerMove" name="moveRight" time="0.004" />
+      <testcase classname="modal.PlayerMove" name="moveRight" time="0.003" />
 
-      <testcase classname="modal.PlayerMove" name="overBottom" time="0.008" />
+      <testcase classname="modal.PlayerMove" name="overBottom" time="0.015" />
 
       <system-out><![CDATA[before test
 ]]></system-out>
@@ -815,7 +815,7 @@
       <system-err><![CDATA[]]></system-err>
 
   </testsuite>
-  <testsuite errors="0" failures="0" hostname="LAPTOP-BNRK150D" id="3" name="ScoreTest" package="modal" skipped="0" tests="3" time="0.161" timestamp="2017-09-28T08:46:24">
+  <testsuite errors="0" failures="0" hostname="LAPTOP-BNRK150D" id="3" name="ScoreTest" package="modal" skipped="0" tests="3" time="0.2" timestamp="2017-10-09T06:55:34">
       <properties>
           <property name="java.vendor" value="Oracle Corporation" />
 
@@ -977,7 +977,7 @@
 
           <property name="java.class.path" value="C:\Users\marku\git\Game-Platform\PacMan\bin;C:\Users\marku\.p2\pool\plugins\org.eclipse.fx.ide.css.jfx8_3.0.0.201705220750.jar;C:\Users\marku\git\Game-Platform\PacMan\mysql-connector-java-5.1.44\mysql-connector-java-5.1.44\mysql-connector-java-5.1.44-bin.jar;C:\Users\marku\.p2\pool\plugins\org.junit_4.12.0.v201504281640\junit.jar;C:\Users\marku\.p2\pool\plugins\org.hamcrest.core_1.3.0.v201303031735.jar;C:\Users\marku\Downloads\junit-4.12.jar;C:\Users\marku\.p2\pool\plugins\org.apache.ant_1.10.1.v20170504-0840\lib\ant-launcher.jar;C:\Users\marku\.p2\pool\plugins\org.apache.ant_1.10.1.v20170504-0840\lib\ant.jar;C:\Users\marku\.p2\pool\plugins\org.apache.ant_1.10.1.v20170504-0840\lib\ant-junit.jar;C:\Users\marku\.p2\pool\plugins\org.apache.ant_1.10.1.v20170504-0840\lib\ant-junit4.jar" />
 
-          <property name="sun.java.command" value="org.apache.tools.ant.taskdefs.optional.junit.JUnitTestRunner modal.ScoreTest skipNonTests=false filtertrace=true haltOnError=false haltOnFailure=false formatter=org.apache.tools.ant.taskdefs.optional.junit.OutErrSummaryJUnitResultFormatter showoutput=false outputtoformatters=true logfailedtests=true threadid=0 logtestlistenerevents=false formatter=org.apache.tools.ant.taskdefs.optional.junit.XMLJUnitResultFormatter,C:\Users\marku\git\Game-Platform\PacMan\junit\TEST-modal.ScoreTest.xml crashfile=C:\Users\marku\git\Game-Platform\PacMan\junitvmwatcher5009015321321408677.properties propsfile=C:\Users\marku\git\Game-Platform\PacMan\junit1973054535917311945.properties" />
+          <property name="sun.java.command" value="org.apache.tools.ant.taskdefs.optional.junit.JUnitTestRunner modal.ScoreTest skipNonTests=false filtertrace=true haltOnError=false haltOnFailure=false formatter=org.apache.tools.ant.taskdefs.optional.junit.OutErrSummaryJUnitResultFormatter showoutput=false outputtoformatters=true logfailedtests=true threadid=0 logtestlistenerevents=false formatter=org.apache.tools.ant.taskdefs.optional.junit.XMLJUnitResultFormatter,C:\Users\marku\git\Game-Platform\PacMan\junit\TEST-modal.ScoreTest.xml crashfile=C:\Users\marku\git\Game-Platform\PacMan\junitvmwatcher4439191662140331426.properties propsfile=C:\Users\marku\git\Game-Platform\PacMan\junit3764836806445417568.properties" />
 
           <property name="java.vm.specification.name" value="Java Virtual Machine Specification" />
 
@@ -995,7 +995,7 @@
 
           <property name="debuglevel" value="source,lines,vars" />
 
-          <property name="env.OneDrive" value="C:\Users\marku\OneDrive" />
+          <property name="env.OneDrive" value="C:\Users\marku\OneDrive - Metropolia Ammattikorkeakoulu Oy" />
 
           <property name="env.ProgramFiles" value="C:\Program Files" />
 
@@ -1065,11 +1065,11 @@
 
       </properties>
 
-      <testcase classname="modal.ScoreTest" name="testDot" time="0.067" />
+      <testcase classname="modal.ScoreTest" name="testDot" time="0.069" />
 
-      <testcase classname="modal.ScoreTest" name="testLargeDot" time="0.008" />
+      <testcase classname="modal.ScoreTest" name="testLargeDot" time="0.0" />
 
-      <testcase classname="modal.ScoreTest" name="score" time="0.013" />
+      <testcase classname="modal.ScoreTest" name="score" time="0.015" />
 
       <system-out><![CDATA[before test
 ]]></system-out>

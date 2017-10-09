@@ -57,7 +57,7 @@ public class HighScore {
 
 	}
 
-	public boolean post(int score, String playername, String date, String databasename) {
+	public boolean post(int score, String playername, String databasename) {
 		boolean sucess = false;
 		Connection conn = null;
 		try {
@@ -65,7 +65,7 @@ public class HighScore {
 
 			java.sql.PreparedStatement query = conn
 					.prepareStatement("INSERT INTO " + databasename + " (score, playername, submission_date) VALUES('"
-							+ score + "', '" + playername + "', '" + date + "')");
+							+ score + "', '" + playername + "', '" + currentDate() + "')");
 			query.executeUpdate();
 		} catch (Exception e) {
 			System.out.println("Error: " + e);

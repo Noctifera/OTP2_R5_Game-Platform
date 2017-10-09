@@ -45,12 +45,9 @@ public class Controller implements Controller_IF {
 	public void setScore() {
 		pMG.setScore(player.getScore());
 	}
-	public void PostToDataBase(String playername) {
-		player.PostHighScoreToDataBase(playername);
-	}
 
-	public void setHighScore(int score, String playername, String date) {
-		player.setHighScore(score, playername, date);
+	public void setHighScore(String playername) {
+		player.setHighScore(playername);
 	}
 
 	public ArrayList<String> presentScore() {

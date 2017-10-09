@@ -17,7 +17,7 @@ public class DatabaseTest {
 	}
 	@Before
 	public void post() {
-		hs.post(10, "matto", hs.currentDate(), "scoreTest");
+		hs.post(10, "matto", "scoreTest");
 		hs.selectFromDatabase("scoreTest");
 	}
 	@Test
@@ -36,7 +36,7 @@ public class DatabaseTest {
 	}
 	@Test
 	public void postToDataBase() {
-		assertEquals(true, hs.post(10, "matto", hs.currentDate(), "scoreTest"));
+		assertEquals(true, hs.post(10, "matto", "scoreTest"));
 	}
 	
 	@AfterClass

@@ -185,7 +185,7 @@ public class PacMan_gui extends Application implements PacMan_gui_IF {
 				if (input.length() > 0) {
 					System.out.println("postattiin nimi: " + input + ", paivamaara: " + hs.currentDate() + " ja pisteet: "
 							+ scores.getText());
-					con.PostToDataBase(input);
+					con.setHighScore(input);
 				}
 			}
 		});
