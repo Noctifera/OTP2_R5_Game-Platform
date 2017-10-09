@@ -84,7 +84,7 @@ public class Map implements Map_IF {
 		ArrayList<Point> points = new ArrayList<>();
 		for (int i = 0; i < gSize.getY();) {
 			for (int j = 0; j < gSize.getX();) {
-				if (!map.get(new Point(j, i)).equals(strings[2])) {
+				if (!map.get(new Point(j, i)).equals(strings[2]) && !map.get(new Point(j, i)).equals(strings[5])) {
 					points.add(new Point(j, i));
 				}
 				j = j + tileSize;

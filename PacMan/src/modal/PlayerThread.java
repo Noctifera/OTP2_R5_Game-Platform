@@ -4,6 +4,7 @@ import java.awt.Point;
 import java.util.ArrayList;
 
 import controller.Controller;
+import javafx.application.Platform;
 import javafx.event.EventHandler;
 import javafx.scene.Scene;
 import javafx.scene.input.KeyCode;
