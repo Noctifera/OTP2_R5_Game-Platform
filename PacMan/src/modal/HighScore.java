@@ -6,9 +6,10 @@ import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.util.ArrayList;
 /**
- * 
  * @author kari-antti
+ * @version 1.0
  *
+ *	HighScore class is used to save and get data from our mysql database
  */
 public class HighScore {
 

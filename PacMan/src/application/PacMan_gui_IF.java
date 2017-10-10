@@ -21,9 +21,9 @@ public interface PacMan_gui_IF {
 	
 	/**
 	 * 
-	 * @param grid
-	 * @param list
-	 * @param text
+	 * @param grid parameter for the GridPane where the text is going to be in
+	 * @param list parameter for the list where the data is taken from
+	 * @param text the Label text for the data
 	 */
 	public void listLooper(GridPane grid, ArrayList<String> list, String text); //bottomDataPane käyttämä funktio
 	
