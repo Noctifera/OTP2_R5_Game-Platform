@@ -4,7 +4,6 @@ import java.awt.Point;
 import java.util.ArrayList;
 
 import controller.Controller;
-import javafx.application.Platform;
 import javafx.event.EventHandler;
 import javafx.scene.Scene;
 import javafx.scene.input.KeyCode;
@@ -48,8 +47,7 @@ public class PlayerThread extends Thread {
 				reader++;
 				try {
 					Thread.sleep(300);
-					if (wait == 1)
-						saty();
+					if (wait == 1)saty();
 				} catch (InterruptedException e) {
 					// TODO Auto-generated catch block
 					e.printStackTrace();

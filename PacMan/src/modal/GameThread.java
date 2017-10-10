@@ -1,7 +1,5 @@
 package modal;
 
-import java.awt.Point;
-
 import controller.Controller;
 import javafx.application.Platform;
 import javafx.scene.Scene;

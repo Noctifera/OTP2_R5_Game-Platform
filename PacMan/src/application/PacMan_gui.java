@@ -22,6 +22,12 @@ import javafx.scene.layout.GridPane;
 import javafx.scene.layout.HBox;
 import javafx.scene.text.Text;
 
+/**
+ *  Main Class 
+ * @author markus
+ * @version 1.0
+ *
+ */
 public class PacMan_gui extends Application implements PacMan_gui_IF {
 
 	private Controller con;

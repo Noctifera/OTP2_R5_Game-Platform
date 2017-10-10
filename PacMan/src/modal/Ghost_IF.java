@@ -18,4 +18,7 @@ public interface Ghost_IF {
 	public void setPos(Point pos); // s‰ikeell‰ p‰ivitet‰‰n haamun sijaintia
 	
 	public Point ghostHouse(); //palautetaan Ghosthousin sijainti;
+	
+	public String vulnerableStatus();
+	
 }
