@@ -2,6 +2,11 @@ package modal;
 
 import java.awt.Point;
 
+/**
+ * Class for pathfinding
+ * @author kari-antti
+ *
+ */
 public class Node {
 	private Point id;
 	private Node prev;

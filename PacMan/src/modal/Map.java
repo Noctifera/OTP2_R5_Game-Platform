@@ -8,6 +8,13 @@ import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.Map.Entry;
 
+
+/**
+ * Implements {@link Map_IF}, class Map creates the PacMan maze.
+ * @author kari-antti
+ *
+ */
+
 public class Map implements Map_IF {
 	private HashMap<Point, String> map = new HashMap<>();
 	private File folder = new File("Maps");

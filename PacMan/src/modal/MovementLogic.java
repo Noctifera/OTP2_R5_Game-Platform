@@ -3,6 +3,12 @@ package modal;
 import java.awt.Point;
 import java.util.ArrayList;
 
+/**
+ * Implements {@link MovementLogic_IF}, handles the movement logic for the player and the ghosts
+ * @author kari-antti
+ *
+ */
+
 public class MovementLogic implements MovementLogic_IF {
 	private Point gSize;
 	private Map map;

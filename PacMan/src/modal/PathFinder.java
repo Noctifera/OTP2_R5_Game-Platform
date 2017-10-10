@@ -3,6 +3,11 @@ package modal;
 import java.awt.Point;
 import java.util.ArrayList;
 
+/**
+ * 
+ * @author palo
+ *
+ */
 public class PathFinder {
 
 	private FileOut fileOut;

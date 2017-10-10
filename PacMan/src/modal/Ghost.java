@@ -4,7 +4,11 @@ import java.awt.Point;
 import java.util.ArrayList;
 
 import javafx.scene.paint.Color;
-
+/**
+ * Extends PathFinder, implements {@link Ghost_IF}. Instantiates path and handles ghosts colors.
+ * @author kari-antti
+ *
+ */
 public class Ghost extends PathFinder implements Ghost_IF {
 	private MovementLogic ml;
 	private Player player;

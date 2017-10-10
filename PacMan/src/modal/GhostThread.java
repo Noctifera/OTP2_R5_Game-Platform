@@ -3,6 +3,11 @@ package modal;
 import java.awt.Point;
 import java.util.ArrayList;
 
+/**
+ * Extends {@link Thread}, GhostThread runs the ghosts
+ * @author kari-antti
+ *
+ */
 public class GhostThread extends Thread {
 	private Ghost gh;
 	private ArrayList<Point> path = new ArrayList<>();

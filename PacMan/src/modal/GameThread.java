@@ -4,6 +4,12 @@ import controller.Controller;
 import javafx.application.Platform;
 import javafx.scene.Scene;
 
+/**
+ * GameThread controls the threads and checks for player status
+ * @author kari-antti
+ * 
+ *
+ */
 public class GameThread extends Thread {
 	private Player p;
 	private PlayerThread playerthread;

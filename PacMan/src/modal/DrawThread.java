@@ -2,6 +2,12 @@ package modal;
 
 import javafx.application.Platform;
 
+/**
+ * Extends Thread, DrawThread runs draw class
+ * @author kari-antti
+ *
+ */
+
 public class DrawThread extends Thread {
 	private Draw draw;
 
