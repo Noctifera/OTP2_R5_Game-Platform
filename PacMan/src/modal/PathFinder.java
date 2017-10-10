@@ -4,11 +4,11 @@ import java.awt.Point;
 import java.util.ArrayList;
 
 /**
- * 
- * @author palo
+ * Searches the shortest path between two points for ghosts
+ * @author kari-antti
  *
  */
-public class PathFinder {
+public class PathFinder implements PathFinder_IF {
 
 	private FileOut fileOut;
 	private MovementLogic ml;
