@@ -37,17 +37,36 @@ public class PacMan_gui extends Application implements PacMan_gui_IF {
 	private MovementLogic ml;
 	private HighScore hs;
 	private Sounds sounds;
-	
 	private FileOut fileOut;
 	private FileIn fileIn;
+	/**
+	 * the amount of ghosts in the game
+	 */
 	private int ghostAmount = 4;
+	/**
+	 * an object list of ghosts;
+	 */
 	private Ghost[] ghlist = new Ghost[ghostAmount];
+	/**
+	 * how big one tile is
+	 */
 	private final int tileSize = 40;
+	/**
+	 * the size of the game
+	 */
 	private final Point gSize = new Point(720, 480);
 	private BorderPane root;
+	/**
+	 * name of all the ghosts
+	 */
 	private String[] ghosts = {"Blinky","Speedy","Bashful","Pokey"};
+	/**
+	 * Strings found in the map 
+	 */
 	private String[] strings = { "Dot", "LargeDot", "Wall", "Empty", "PlayerSpawn", "GhostHouse" };
-
+/**
+ * how many lives to start with
+ */
 	private int life = 3;
 
 	private Scene scene;

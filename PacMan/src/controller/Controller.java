@@ -5,13 +5,18 @@ import java.util.ArrayList;
 import application.PacMan_gui;
 import javafx.scene.Scene;
 import modal.*;
-
+/**
+ * controls data between the application and modal
+ * @author markus
+ * @version 1.0
+ *
+ */
 public class Controller implements Controller_IF {
 	private Player player;
 	private Map map;
 	private PacMan_gui pMG;
 	private Sounds sounds;
-
+	
 	public Controller(Player player, Map map, PacMan_gui pMG,Sounds sounds) {
 		this.map = map;
 		this.player = player;
