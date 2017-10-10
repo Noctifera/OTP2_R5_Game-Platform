@@ -21,6 +21,7 @@ public class MovementLogic implements MovementLogic_IF {
 	public Point playerSpawn() {
 		return map.getPlayerSpawn();
 	}
+
 	public Point up(Point point) {
 		return new Point((int) point.getX(), (int) point.getY() - blSize);
 	}
@@ -37,8 +38,9 @@ public class MovementLogic implements MovementLogic_IF {
 		return new Point((int) point.getX() + blSize, (int) point.getY());
 
 	}
+
 	public Point[] moves(Point point) {
-		Point[]t = {up(point),down(point),left(point),right(point)};
+		Point[] t = { up(point), down(point), left(point), right(point) };
 		return t;
 	}
 
@@ -58,19 +60,23 @@ public class MovementLogic implements MovementLogic_IF {
 		} // yläreuna
 		return piste;
 	}
-	
-	public ArrayList<Point> dots(){
+
+	public ArrayList<Point> dots() {
 		return map.getDots();
 	}
-	public ArrayList<Point> largeDots(){
+
+	public ArrayList<Point> largeDots() {
 		return map.getLargeDots();
 	}
-	public ArrayList<Point> walls(){
+
+	public ArrayList<Point> walls() {
 		return map.getWalls();
 	}
-	public ArrayList<Point> freespaces(){
+
+	public ArrayList<Point> freespaces() {
 		return map.freeSpaces();
 	}
+
 	public Point randomPoint() {
 		Point point;
 		int randX = (int) (Math.random() * gSize.getX() - blSize);
@@ -82,14 +88,15 @@ public class MovementLogic implements MovementLogic_IF {
 			randY = (int) (Math.random() * gSize.getY() - blSize);
 		}
 		point = new Point(randX, randY);
-		// if (ml.avoidWall(point)) {
+
 		if (freespaces().contains(point)) {
-			// System.out.println("rand: " + point);
+
 			return point;
+
 		} else {
+			
 			return randomPoint();
 		}
-		// System.out.println(randX+", "+randY)
 
 	}
 }

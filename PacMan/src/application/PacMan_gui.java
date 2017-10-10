@@ -77,6 +77,7 @@ public class PacMan_gui extends Application implements PacMan_gui_IF {
 		scene = new Scene(root, (int) gSize.getX(), (int) gSize.getY() + 200);
 		
 		primaryStage.setScene(scene);
+		primaryStage.setTitle("PacMan-Game");
 		primaryStage.show();
 
 		primaryStage.setOnCloseRequest(new EventHandler<WindowEvent>() {
@@ -192,6 +193,7 @@ public class PacMan_gui extends Application implements PacMan_gui_IF {
 					System.out.println("postattiin nimi: " + input + ", paivamaara: " + hs.currentDate() + " ja pisteet: "
 							+ scores.getText());
 					con.setHighScore(input);
+					System.exit(0);
 				}
 			}
 		});

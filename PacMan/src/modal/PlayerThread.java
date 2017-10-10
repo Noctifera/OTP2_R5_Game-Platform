@@ -8,7 +8,13 @@ import javafx.event.EventHandler;
 import javafx.scene.Scene;
 import javafx.scene.input.KeyCode;
 import javafx.scene.input.KeyEvent;
-
+/**
+ * Thread that runs the players movement
+ * 
+ * @author markus
+ * @version 1.0
+ *
+ */
 public class PlayerThread extends Thread {
 	private Player player;
 	private Controller con;
