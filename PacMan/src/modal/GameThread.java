@@ -73,6 +73,8 @@ public class GameThread extends Thread {
 					vulnerable();
 				}
 				
+				
+				
 
 			 
 			try {
@@ -96,7 +98,7 @@ public class GameThread extends Thread {
 
 	public boolean play() {
 		boolean apu = false;
-		if (p.getLife() > 0) {
+		if (p.getLife() > 0 && (p.allDots().size() > 0 || p.allLargeDots().size() > 0)) {
 			// System.out.println(p.getLife());
 			apu = true;
 		}
