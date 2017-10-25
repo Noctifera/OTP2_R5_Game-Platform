@@ -2,23 +2,38 @@ package controller;
 
 import java.awt.Point;
 
+import javafx.beans.value.ChangeListener;
+import javafx.beans.value.ObservableValue;
+import javafx.event.ActionEvent;
+import javafx.event.EventHandler;
+import javafx.scene.control.Button;
+import javafx.scene.control.ChoiceBox;
+import javafx.scene.control.ListView;
+import javafx.scene.control.TextField;
 import javafx.scene.input.MouseEvent;
 import modal.Draw;
 import modal.Map;
+import modal.Readers;
 
 public class Controller {
 	private Draw draw;
 	private Map map;
+	private Readers readers;
 
 	private String[] strings;
+	private String event = "";
+	private int tileSize;
 
-	public Controller(Draw draw, Map map, String[] strings) {
+	public Controller(Readers readers,Draw draw, Map map, String[] strings, int tileSize) {
+		this.readers = readers;
 		this.draw = draw;
 		this.map = map;
 		this.strings = strings;
+		this.tileSize = tileSize;
 	}
 
 	public void beginning() {
+		readers.getAllMapsFromDataBase();
 		map.initializeMap();
 		draw.clear();
 		draw.drawGrid();
@@ -29,16 +44,16 @@ public class Controller {
 		int mouseX = (int) e.getX();
 		int mouseY = (int) e.getY();
 
-		while (mouseX % 40 != 0) {
+		while (mouseX % tileSize != 0) {
 			mouseX = mouseX - 1;
-			if (mouseX % 40 == 0) {
+			if (mouseX % tileSize == 0) {
 				break;
 			}
 
 		}
-		while (mouseY % 40 != 0) {
+		while (mouseY % tileSize != 0) {
 			mouseY = mouseY - 1;
-			if (mouseY % 40 == 0) {
+			if (mouseY % tileSize == 0) {
 				break;
 			}
 		}
@@ -46,39 +61,70 @@ public class Controller {
 		//System.out.println(point);
 		if (s.equals(strings[4]) || s.equals(strings[5])) {
 			map.onlyOne(point, s);
+			draw.drawFullMap();
+		}else {
+			map.addToMap(point, s);
+			draw.drawFullMap();
 		}
-		map.addToMap(point, s);
-		draw.drawFullMap();
+		
+		
 	}
 
 	public void saveMap(String fileName) {
-		if (!fileName.equals("")) {
-			if (map.mapContains().equals("")) {
-				map.SaveMapToFile(fileName);
-			}else{
-				System.out.println("Missing items:"+map.mapContains());
-			}
-		} else {
-			System.out.println("No File Name");
-		}
+		if(map.mapContains()) readers.SaveMapToDataBase(fileName);
 
 	}
 
 	public void getMap(String fileName) {
-		map.GetMapFromFile(fileName);
+		readers.readOneMap(fileName);
 		draw.clear();
 		draw.drawGrid();
 		draw.drawFullMap();
 	}
 
 	public String[] readFiles() {
-		String[] fileNames = new String[map.allFiles().length];
-		for (int i = 0; i < map.allFiles().length; i++) {
-			fileNames[i] = map.allFiles()[i].getName();
-		}
-		for (String s : fileNames) {
-			System.out.println(s);
-		}
+		
+		String[] fileNames = readers.allMapNames();
 		return fileNames;
+	}
+	
+	public void handle(Button save,ChoiceBox<String> cb,ListView<String> files,TextField name) {
+		
+		draw.setOnMouseClicked(new EventHandler<MouseEvent>() {
+			public void handle(MouseEvent e) {
+				draw(e, event);
+			}
+
+		});
+		save.setOnAction(new EventHandler<ActionEvent>() {
+
+			@Override
+			public void handle(ActionEvent event) {
+				// TODO Auto-generated method stub
+				saveMap(name.getText());
+				// files.setItems(FXCollections.observableArrayList(con.readFiles()));
+			}
+		});
+		cb.getSelectionModel().selectedItemProperty().addListener(new ChangeListener<Object>() {
+			@Override
+			public void changed(ObservableValue<?> o, Object o1, Object o2) {
+				for (int i = 0; i < strings.length; i++) {
+					if (o2.equals(strings[i])) {
+						event = strings[i];
+					}
+				}
+			}
+		});
+		files.getSelectionModel().selectedItemProperty().addListener(new ChangeListener<String>() {
+
+			@Override
+			public void changed(ObservableValue<? extends String> observable, String oldValue, String newValue) {
+				// TODO Auto-generated method stub
+				getMap(newValue);
+				// System.out.println(newValue);
+			}
+
+		});
+
 	}
 }

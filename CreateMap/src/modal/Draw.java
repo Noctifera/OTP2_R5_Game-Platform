@@ -15,9 +15,9 @@ public class Draw extends Canvas {
 	public Draw(int x, int y, int tileSize, Map map, String[] strings) {
 		super(x, y);
 		this.gc = this.getGraphicsContext2D();
-		this.tileSize = tileSize;
 		this.map = map;
 		this.strings = strings;
+		this.tileSize = tileSize;
 	}
 
 	public void drawOuterBound() {
