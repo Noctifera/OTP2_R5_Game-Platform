@@ -1,7 +1,6 @@
 package modal;
 
 import java.awt.Point;
-import java.io.File;
 import java.util.ArrayList;
 import java.util.HashMap;
 
@@ -12,8 +11,7 @@ public class Map {
 	private int y;
 	private int tileSize;
 	private String[] strings;
-	File folder = new File("C:\\Users\\marku\\git\\Game-Platform\\PacMan\\Maps");
-	// File folder = new File("/Users/Hanne/git/Game-Platform/PacMan/Maps");
+	
 
 	public Map(int x, int y, int tileSize, String[] strings) {
 		this.x = x;
@@ -57,7 +55,7 @@ public class Map {
 		}
 	}
 
-	public boolean mapContains() {
+	public String mapContains() {
 		ArrayList<String> items = new ArrayList<>();
 		String mis = "";
 		for (int i = 0; i < strings.length; i++) {
@@ -68,10 +66,9 @@ public class Map {
 			}
 		}
 		if (items.size() == strings.length) {
-			return true;
+			return "";
 		} else {
-			System.out.println("these are missing for it to be saved" + mis);
-			return false;
+			return "the following are missing for it to be saved " + mis;
 		}
 	}
 

@@ -2,6 +2,7 @@ package controller;
 
 import java.awt.Point;
 
+import application.Main;
 import javafx.beans.value.ChangeListener;
 import javafx.beans.value.ObservableValue;
 import javafx.event.ActionEvent;
@@ -19,19 +20,24 @@ public class Controller {
 	private Draw draw;
 	private Map map;
 	private Readers readers;
+	private Main main;
 
 	private String[] strings;
-	private String event = "";
 	private int tileSize;
+	private String event = "";
 
-	public Controller(Readers readers,Draw draw, Map map, String[] strings, int tileSize) {
+	public Controller(Main main,Readers readers,Draw draw, Map map, String[] strings, int tileSize) {
+		this.main = main;
 		this.readers = readers;
 		this.draw = draw;
 		this.map = map;
 		this.strings = strings;
 		this.tileSize = tileSize;
+		this.event = strings[0];
 	}
-
+	public void popUp(String message) {
+		main.popUp(message);
+	}
 	public void beginning() {
 		readers.getAllMapsFromDataBase();
 		map.initializeMap();
@@ -58,7 +64,7 @@ public class Controller {
 			}
 		}
 		Point point = new Point(mouseX, mouseY);
-		//System.out.println(point);
+		System.out.println(point+s);
 		if (s.equals(strings[4]) || s.equals(strings[5])) {
 			map.onlyOne(point, s);
 			draw.drawFullMap();
@@ -66,13 +72,20 @@ public class Controller {
 			map.addToMap(point, s);
 			draw.drawFullMap();
 		}
-		
-		
+	}
+	public void ClearMap() {
+		map.initializeMap();
+		draw.clear();
+		draw.drawGrid();
+		draw.drawFullMap();
 	}
 
 	public void saveMap(String fileName) {
-		if(map.mapContains()) readers.SaveMapToDataBase(fileName);
-
+		String contains = map.mapContains();
+		if(contains.equals("")) readers.SaveMapToDataBase(fileName);
+		else {
+			popUp(contains);
+		}
 	}
 
 	public void getMap(String fileName) {
@@ -88,10 +101,10 @@ public class Controller {
 		return fileNames;
 	}
 	
-	public void handle(Button save,ChoiceBox<String> cb,ListView<String> files,TextField name) {
-		
+	public void handle(TextField name,Button save,Button newM,ChoiceBox<String> cb,ListView<String> files) {
 		draw.setOnMouseClicked(new EventHandler<MouseEvent>() {
 			public void handle(MouseEvent e) {
+				System.out.println(event);
 				draw(e, event);
 			}
 
@@ -101,7 +114,13 @@ public class Controller {
 			@Override
 			public void handle(ActionEvent event) {
 				// TODO Auto-generated method stub
-				saveMap(name.getText());
+				String mapName = name.getText();
+				if(!mapName.equals("")) {
+					saveMap(mapName);
+				}else{
+					popUp("Name The Map");
+				}
+				
 				// files.setItems(FXCollections.observableArrayList(con.readFiles()));
 			}
 		});
@@ -111,6 +130,7 @@ public class Controller {
 				for (int i = 0; i < strings.length; i++) {
 					if (o2.equals(strings[i])) {
 						event = strings[i];
+						//System.out.println(event);
 					}
 				}
 			}
@@ -125,6 +145,16 @@ public class Controller {
 			}
 
 		});
+		newM.setOnAction(new EventHandler<ActionEvent>() {
+
+			@Override
+			public void handle(ActionEvent event) {
+				// TODO Auto-generated method stub
+				ClearMap();
+			}
+		});
 
 	}
+	
+
 }

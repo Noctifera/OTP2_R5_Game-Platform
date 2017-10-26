@@ -16,24 +16,46 @@ import org.hibernate.boot.registry.StandardServiceRegistryBuilder;
 
 public class Readers {
 	private final File folder = new File("C:\\Users\\marku\\git\\Game-Platform\\PacMan\\Maps");
+	// File folder = new File("/Users/Hanne/git/Game-Platform/PacMan/Maps");
 	private List<MapsTable> mapList = null;
+	
 	private Map map;
 
 	public Readers(Map map) {
 		this.map = map;
 	}
 
-	public void readMapFromFile(String tiedostonNimi) {
+	private Session OpenConnectionToDataBase() {
+		SessionFactory sessFac = null;
+
+		final StandardServiceRegistry registry = new StandardServiceRegistryBuilder().configure().build();
+		System.out.println("Configuration tiedosto ladattu");
+
+		try {
+			sessFac = new MetadataSources(registry).buildMetadata().buildSessionFactory();
+		} catch (Exception e) {
+			System.out.println("istonto virhe");
+			StandardServiceRegistryBuilder.destroy(registry);
+			e.printStackTrace();
+		}
+
+		Session sess = sessFac.openSession();
+		return sess;
+	}
+
+	public HashMap<Point, String> readMapFromFile(String tiedostonNimi) {
 		File file = new File(folder + "//" + tiedostonNimi);
+		HashMap<Point, String> tmp = new HashMap<>();
 		try {
 
 			FileInputStream fileIn = new FileInputStream(file);
 			ObjectInputStream dataIn = new ObjectInputStream(fileIn);
-			map.setMap((HashMap<Point, String>) dataIn.readObject());
+			tmp = (HashMap<Point, String>) dataIn.readObject();
 			dataIn.close();
-
+			return tmp;
 		} catch (Exception e) {
 			e.printStackTrace();
+			return null;
 		}
 
 	}
@@ -49,25 +71,11 @@ public class Readers {
 	}
 
 	public void getAllMapsFromDataBase() {
-		SessionFactory istuntotehdas = null;
-
-		final StandardServiceRegistry registry = new StandardServiceRegistryBuilder().configure().build();
-		System.out.println("Configuration tiedosto ladattu");
-
-		try {
-			istuntotehdas = new MetadataSources(registry).buildMetadata().buildSessionFactory();
-			// istuntotehdas = HibernateUtil.getSessionFactory();
-		} catch (Exception e) {
-			System.out.println("istonto virhe");
-			StandardServiceRegistryBuilder.destroy(registry);
-			e.printStackTrace();
-		}
-
-		Session istunto = istuntotehdas.openSession();
+		Session sess = OpenConnectionToDataBase();
 		Transaction transaktio = null;
 
 		try {
-			mapList = istunto.createQuery("from MapsTable").list();
+			mapList = sess.createQuery("from MapsTable").list();
 			for (MapsTable m : mapList) {
 				System.out.println(m);
 			}
@@ -78,7 +86,7 @@ public class Readers {
 				transaktio.rollback();
 			throw e;
 		} finally {
-			istunto.close();
+			sess.close();
 		}
 	}
 
@@ -90,7 +98,7 @@ public class Readers {
 		return names;
 	}
 
-	public void readOneMap(String mapName) {
+	public HashMap<Point, String> readOneMap(String mapName) {
 		HashMap<Point, String> tmpMap = new HashMap<>();
 		for (MapsTable m : mapList) {
 			if (m.getMapName().equals(mapName)) {
@@ -116,48 +124,34 @@ public class Readers {
 			}
 		}
 		System.out.println(tmpMap);
-		map.setMap(tmpMap);
+		return tmpMap;
 	}
 
-	public void SaveMapToDataBase(String fileName) {
+	public String SaveMapToDataBase(String fileName) {
 		 System.out.println(map.getMap().toString());
 		// System.out.println(map.toString().length());
 		if (doesNotContain(fileName)) {
-			SessionFactory istuntotehdas = null;
 
-			final StandardServiceRegistry registry = new StandardServiceRegistryBuilder().configure().build();
-			System.out.println("Configuration tiedosto ladattu");
-
-			try {
-				istuntotehdas = new MetadataSources(registry).buildMetadata().buildSessionFactory();
-				// istuntotehdas = HibernateUtil.getSessionFactory();
-			} catch (Exception e) {
-				System.out.println("istonto virhe");
-				StandardServiceRegistryBuilder.destroy(registry);
-				e.printStackTrace();
-			}
-
-			Session istunto = istuntotehdas.openSession();
+			Session sess = OpenConnectionToDataBase();
 			Transaction transaktio = null;
 
 			try {
-				transaktio = istunto.beginTransaction();
+				transaktio = sess.beginTransaction();
 				MapsTable hib = new MapsTable(fileName, map.getMap().toString());
 
-				istunto.save(hib);
+				sess.save(hib);
 				transaktio.commit();
-
+				return "map Saved";
 			} catch (Exception e) {
 				System.out.println("transaktio virhe");
 				if (transaktio != null)
 					transaktio.rollback();
 				throw e;
 			} finally {
-				istunto.close();
+				sess.close();
 			}
-			System.out.println("map Saved");
 		}else {
-			System.out.println("Map name already exsits");
+			return "Map name already exsits";
 		}
 	}
 
