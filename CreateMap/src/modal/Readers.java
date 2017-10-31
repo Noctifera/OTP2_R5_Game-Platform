@@ -102,28 +102,9 @@ public class Readers {
 		HashMap<Point, String> tmpMap = new HashMap<>();
 		for (MapsTable m : mapList) {
 			if (m.getMapName().equals(mapName)) {
-				String[] data = m.getMapData().split(", ");
-				for (String s : data) {
-					String[] sub = s.split("]=");
-					Point p = null;
-					for (int i = 0; i < sub.length; i++) {
-						// System.out.println(sub[i]);
-
-						if (i == 0) {
-							String[] strings = sub[i].split("[^0-9]+");
-							p = new Point(Integer.parseInt(strings[1]), Integer.parseInt(strings[2]));
-							// System.out.println(p);
-						}
-						if (i == 1) {
-							tmpMap.put(p, sub[i]);
-							// System.out.println(p);
-						}
-
-					}
-				}
+				return m.getMapData();
 			}
 		}
-		System.out.println(tmpMap);
 		return tmpMap;
 	}
 
@@ -137,7 +118,7 @@ public class Readers {
 
 			try {
 				transaktio = sess.beginTransaction();
-				MapsTable hib = new MapsTable(fileName, map.getMap().toString());
+				MapsTable hib = new MapsTable(fileName, map.getMap());
 
 				sess.save(hib);
 				transaktio.commit();

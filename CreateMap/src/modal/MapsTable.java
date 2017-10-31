@@ -1,8 +1,9 @@
 package modal;
 
-import javax.persistence.*;
+import java.awt.Point;
+import java.util.HashMap;
 
-import org.hibernate.annotations.Type;
+import javax.persistence.*;
 
 @Entity(name ="MapsTable")
 @Table(name = "MapsTable")
@@ -13,11 +14,10 @@ public class MapsTable{
 	private String mapName;
 	
 	@Column(name = "mapData")
-	@Type(type="text")
-	private String mapData;
+	private HashMap<Point, String> mapData;
 	
 
-	public MapsTable(String mapName, String mapData) {
+	public MapsTable(String mapName, HashMap<Point, String> mapData) {
 		this.mapName = mapName;
 		this.mapData = mapData;
 	}
@@ -35,14 +35,15 @@ public class MapsTable{
 	public void setMapName(String mapName) {
 		this.mapName = mapName;
 	}
+	
 
 
-	public String getMapData() {
+	public HashMap<Point, String> getMapData() {
 		return mapData;
 	}
 
 
-	public void setMapData(String mapData) {
+	public void setMapData(HashMap<Point, String> mapData) {
 		this.mapData = mapData;
 	}
 

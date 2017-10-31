@@ -10,7 +10,6 @@ import javafx.event.EventHandler;
 import javafx.scene.control.Button;
 import javafx.scene.control.ChoiceBox;
 import javafx.scene.control.ListView;
-import javafx.scene.control.TextField;
 import javafx.scene.input.MouseEvent;
 import modal.Draw;
 import modal.Map;
@@ -35,8 +34,8 @@ public class Controller {
 		this.tileSize = tileSize;
 		this.event = strings[0];
 	}
-	public void popUp(String message) {
-		main.popUp(message);
+	public void popUp() {
+		main.popUp();
 	}
 	public void beginning() {
 		readers.getAllMapsFromDataBase();
@@ -81,11 +80,10 @@ public class Controller {
 	}
 
 	public void saveMap(String fileName) {
-		String contains = map.mapContains();
-		if(contains.equals("")) readers.SaveMapToDataBase(fileName);
-		else {
-			popUp(contains);
-		}
+		readers.SaveMapToDataBase(fileName);
+	}
+	public String mapContains() {
+		return map.mapContains();
 	}
 
 	public void getMap(String fileName) {
@@ -101,7 +99,7 @@ public class Controller {
 		return fileNames;
 	}
 	
-	public void handle(TextField name,Button save,Button newM,ChoiceBox<String> cb,ListView<String> files) {
+	public void handle(Button save,Button newM,ChoiceBox<String> cb,ListView<String> files) {
 		draw.setOnMouseClicked(new EventHandler<MouseEvent>() {
 			public void handle(MouseEvent e) {
 				System.out.println(event);
@@ -114,12 +112,8 @@ public class Controller {
 			@Override
 			public void handle(ActionEvent event) {
 				// TODO Auto-generated method stub
-				String mapName = name.getText();
-				if(!mapName.equals("")) {
-					saveMap(mapName);
-				}else{
-					popUp("Name The Map");
-				}
+					popUp();
+
 				
 				// files.setItems(FXCollections.observableArrayList(con.readFiles()));
 			}
