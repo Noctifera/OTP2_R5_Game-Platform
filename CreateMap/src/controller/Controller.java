@@ -6,11 +6,13 @@ import java.util.List;
 import application.Main;
 import javafx.beans.value.ChangeListener;
 import javafx.beans.value.ObservableValue;
+import javafx.collections.FXCollections;
 import javafx.event.ActionEvent;
 import javafx.event.EventHandler;
 import javafx.scene.control.Button;
 import javafx.scene.control.ChoiceBox;
 import javafx.scene.control.ListView;
+import javafx.scene.control.RadioButton;
 import javafx.scene.control.TextField;
 import javafx.scene.control.ToggleGroup;
 import javafx.scene.input.MouseEvent;
@@ -145,7 +147,7 @@ public class Controller {
 		});
 		
 	}
-	public void handle(Button ready,Button newM,ChoiceBox<String> cb,ListView<String> files, ToggleGroup gruop ) {
+	public void handle(Button ready,Button newM,ChoiceBox<String> cb,ListView<String> files, ToggleGroup gruop,RadioButton butprivate ,RadioButton butpublic) {
 		draw.setOnMouseClicked(new EventHandler<MouseEvent>() {
 			public void handle(MouseEvent e) {
 				System.out.println(event);
@@ -196,6 +198,22 @@ public class Controller {
 			public void handle(ActionEvent event) {
 				// TODO Auto-generated method stub
 				ClearMap();
+			}
+		});
+		butprivate.setOnAction(new EventHandler<ActionEvent>() {
+
+			@Override
+			public void handle(ActionEvent event) {
+				// TODO Auto-generated method stub
+				files.setItems(FXCollections.observableArrayList(readFiles()));
+			}
+		});
+		butpublic.setOnAction(new EventHandler<ActionEvent>() {
+
+			@Override
+			public void handle(ActionEvent event) {
+				// TODO Auto-generated method stub
+				files.setItems(FXCollections.observableArrayList(namesFromDataBase()));
 			}
 		});
 		

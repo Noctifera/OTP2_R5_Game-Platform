@@ -4,6 +4,7 @@ import controller.Controller;
 import javafx.application.Application;
 import javafx.collections.FXCollections;
 import javafx.event.EventHandler;
+import javafx.stage.Screen;
 import javafx.stage.Stage;
 import javafx.stage.WindowEvent;
 import modal.Draw;
@@ -27,7 +28,6 @@ public class Main extends Application {
 
 	private Stage saveStage;
 	private Stage smallPopUpStage;
-
 	private final int width = 720;
 	private final int height = 480;
 	private final int tileSize = 40;
@@ -116,6 +116,9 @@ public class Main extends Application {
 
 	@Override
 	public void start(Stage primaryStage) {
+		System.out.println(Screen.getPrimary().getVisualBounds().getWidth());
+
+
 
 		try {
 
@@ -163,6 +166,7 @@ public class Main extends Application {
 
 	private VBox rightVerticalBox() {
 		GridPane gd = new GridPane();
+		//gd.setGridLinesVisible(true);
 		gd.setHgap(10);
 		gd.setVgap(5);
 		
@@ -170,7 +174,7 @@ public class Main extends Application {
 		cb.setItems(FXCollections.observableArrayList(strings));
 
 		cb.setValue(strings[0]);
-		gd.add(cb, 0, 0);
+		gd.add(cb, 0, 0,1,1);
 
 		Button newM = new Button("Clear Map");
 		gd.add(newM, 1, 0);
@@ -179,8 +183,8 @@ public class Main extends Application {
 		RadioButton button1 = (RadioButton) tg.getToggles().get(0);
 		RadioButton button2 = (RadioButton) tg.getToggles().get(1);
 
-		gd.add(button1, 0, 1);
-		gd.add(button2, 1, 1);
+		gd.add(button1, 0, 1,2,1);
+		gd.add(button2, 1, 1,2,1);
 
 		ListView<String> files = new ListView<>();
 
@@ -193,7 +197,7 @@ public class Main extends Application {
 
 		VBox vb = new VBox(gd);
 
-		con.handle(ready, newM, cb, files, tg);
+		con.handle(ready, newM, cb, files, tg, button1,button2);
 
 		return vb;
 
