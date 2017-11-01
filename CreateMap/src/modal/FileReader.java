@@ -89,13 +89,4 @@ public class FileReader {
 		}
 		return list;
 	}
-
-	public List<MapsTable> getMapList() {
-		return mapList;
-	}
-
-	public void setMapList(List<MapsTable> mapList) {
-		this.mapList = mapList;
-	}
-
 }

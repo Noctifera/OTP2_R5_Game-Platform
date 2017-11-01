@@ -34,18 +34,19 @@ public class Controller {
 
 	public Controller(Main main, Draw draw, Map map, String[] strings, int tileSize) {
 		this.main = main;
-		
+
 		this.draw = draw;
 		this.map = map;
 		this.strings = strings;
 		this.tileSize = tileSize;
 		this.event = strings[0];
-		this.readers =  new DataBaseReader(map);
+		this.readers = new DataBaseReader(map);
 		this.file = new FileReader(map);
-		
+
 	}
-	public void beginning() {	
-		map.initializeMap();
+
+	public void beginning() {
+		map.setMap(map.initializeMap());
 		draw.clear();
 		draw.drawGrid();
 		draw.drawOuterBound();
@@ -71,28 +72,31 @@ public class Controller {
 			}
 		}
 		Point point = new Point(mouseX, mouseY);
-		System.out.println(point+s);
+		System.out.println(point + s);
 		if (s.equals(strings[4]) || s.equals(strings[5])) {
 			map.onlyOne(point, s);
 			draw.drawFullMap();
-		}else {
+		} else {
 			map.addToMap(point, s);
 			draw.drawFullMap();
 		}
 	}
+
 	public void ClearMap() {
 		map.initializeMap();
 		draw.clear();
 		draw.drawGrid();
-		//draw.drawFullMap();
+		// draw.drawFullMap();
 	}
 
 	public void saveMap(String fileName) {
 		readers.SaveMapToDataBase(fileName);
 	}
+
 	public String mapContains() {
 		return map.mapContains();
 	}
+
 	public void getMapFile(String fileName) {
 		map.setMap(file.getMap(fileName));
 		draw.clear();
@@ -108,19 +112,20 @@ public class Controller {
 	}
 
 	public List<String> readFiles() {
-		
+
 		List<String> fileNames = file.GetMapNamesFromFile();
 		return fileNames;
 	}
-	public List<String> namesFromDataBase(){
+
+	public List<String> namesFromDataBase() {
 
 		List<String> fileNames = readers.allMapNames();
 		return fileNames;
 	}
-	
+
 	public void smallHandle(Button ok) {
 		ok.setOnAction(new EventHandler<ActionEvent>() {
-			
+
 			@Override
 			public void handle(ActionEvent event) {
 				// TODO Auto-generated method stub
@@ -129,25 +134,26 @@ public class Controller {
 			}
 		});
 	}
-	public void handePopUp(Button save,ToggleGroup group,TextField textfield) {
-		
-		
+
+	public void handePopUp(Button save, ToggleGroup group, TextField textfield) {
+
 		save.setOnAction(new EventHandler<ActionEvent>() {
 			@Override
 			public void handle(ActionEvent event) {
 				String fileName = textfield.getText();
-				
-				if(group.getToggles().get(0).isSelected()) {
+
+				if (group.getToggles().get(0).isSelected()) {
 					main.smallPopup(file.saveMapToFile(fileName)).show();
-				}else {
+				} else {
 					main.smallPopup(readers.SaveMapToDataBase(fileName)).show();
 				}
-				
+
 			}
 		});
-		
+
 	}
-	public void handle(Button ready,Button newM,ChoiceBox<String> cb,ListView<String> files, ToggleGroup gruop,RadioButton butprivate ,RadioButton butpublic) {
+
+	public void handle(Button ready, Button newM, ChoiceBox<String> cb, ListView<String> files, ToggleGroup gruop, RadioButton butprivate, RadioButton butpublic) {
 		draw.setOnMouseClicked(new EventHandler<MouseEvent>() {
 			public void handle(MouseEvent e) {
 				System.out.println(event);
@@ -160,7 +166,8 @@ public class Controller {
 			@Override
 			public void handle(ActionEvent event) {
 				// TODO Auto-generated method stub
-					main.SavePopUp().show();;
+				main.SavePopUp().show();
+				;
 			}
 		});
 		cb.getSelectionModel().selectedItemProperty().addListener(new ChangeListener<Object>() {
@@ -169,7 +176,7 @@ public class Controller {
 				for (int i = 0; i < strings.length; i++) {
 					if (o2.equals(strings[i])) {
 						event = strings[i];
-						//System.out.println(event);
+						// System.out.println(event);
 					}
 				}
 			}
@@ -179,16 +186,16 @@ public class Controller {
 			@Override
 			public void changed(ObservableValue<? extends String> observable, String oldValue, String newValue) {
 				// TODO Auto-generated method stub
-				
-				if(gruop.getToggles().get(0).isSelected()) {
-					//private
-					System.out.println("private: "+newValue);
+
+				if (gruop.getToggles().get(0).isSelected()) {
+					// private
+					System.out.println("private: " + newValue);
 					getMapFile(newValue);
-				}else {
-					System.out.println("public: "+newValue);
+				} else {
+					System.out.println("public: " + newValue);
 					getMapDataase(newValue);
 				}
-				// 
+				//
 			}
 
 		});
@@ -216,7 +223,6 @@ public class Controller {
 				files.setItems(FXCollections.observableArrayList(namesFromDataBase()));
 			}
 		});
-		
 
 	}
 }

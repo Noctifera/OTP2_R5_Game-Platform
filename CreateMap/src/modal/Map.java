@@ -20,15 +20,17 @@ public class Map {
 		this.strings = strings;
 	}
 
-	public void initializeMap() {
+	public HashMap<Point, String> initializeMap() {
+		HashMap<Point, String> tmp = new HashMap<>();
 		for (int i = 0; i < x;) {
 			for (int j = 0; j < y;) {
 				Point point = new Point(i, j);
-				map.put(point, strings[3]);
+				tmp.put(point, strings[3]);
 				j = j + tileSize;
 			}
 			i = i + tileSize;
 		}
+		return tmp;
 
 	}
 

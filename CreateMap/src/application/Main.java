@@ -92,19 +92,19 @@ public class Main extends Application {
 	public Stage smallPopup(boolean save) {
 		GridPane gp = new GridPane();
 		Label label = new Label();
-		gp.add(label, 1, 1);
+		gp.add(label, 1, 1,2,1);
 		if (save) {
 			label.setText("Map Saved");
 		} else {
 			label.setText("Map could not be saved");
 		}
 		Button button = new Button("OK");
-		gp.add(button, 1, 2);
+		gp.add(button, 2, 2);
 
 		smallPopUpStage = new Stage();
 		Scene scene = new Scene(gp);
 		smallPopUpStage.setScene(scene);
-		;
+		
 		con.smallHandle(button);
 		return smallPopUpStage;
 
@@ -130,7 +130,7 @@ public class Main extends Application {
 			primaryStage.setScene(scene);
 			primaryStage.show();
 			primaryStage.setResizable(false);
-			primaryStage.setTitle("MapCreator");
+			primaryStage.setTitle("Map Creator");
 			Image image = new Image("file:maxresdefault.jpg");
 			primaryStage.getIcons().add(image);
 
