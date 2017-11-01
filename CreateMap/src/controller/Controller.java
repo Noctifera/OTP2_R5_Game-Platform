@@ -10,39 +10,43 @@ import javafx.event.EventHandler;
 import javafx.scene.control.Button;
 import javafx.scene.control.ChoiceBox;
 import javafx.scene.control.ListView;
+import javafx.scene.control.TextField;
+import javafx.scene.control.ToggleGroup;
 import javafx.scene.input.MouseEvent;
 import modal.Draw;
+import modal.FileReader;
 import modal.Map;
-import modal.Readers;
+import modal.DataBaseReader;
 
 public class Controller {
 	private Draw draw;
 	private Map map;
-	private Readers readers;
+	private DataBaseReader readers;
 	private Main main;
+	private FileReader file;
 
 	private String[] strings;
 	private int tileSize;
 	private String event = "";
 
-	public Controller(Main main,Readers readers,Draw draw, Map map, String[] strings, int tileSize) {
+	public Controller(Main main, Draw draw, Map map, String[] strings, int tileSize) {
 		this.main = main;
-		this.readers = readers;
+		
 		this.draw = draw;
 		this.map = map;
 		this.strings = strings;
 		this.tileSize = tileSize;
 		this.event = strings[0];
+		this.readers =  new DataBaseReader(map);
+		this.file = new FileReader(map);
+		
 	}
-	public void popUp() {
-		main.popUp();
-	}
-	public void beginning() {
-		readers.getAllMapsFromDataBase();
+	public void beginning() {	
 		map.initializeMap();
 		draw.clear();
 		draw.drawGrid();
 		draw.drawOuterBound();
+		readers.getAllMapsFromDataBase();
 	}
 
 	public void draw(MouseEvent e, String s) {
@@ -98,8 +102,36 @@ public class Controller {
 		String[] fileNames = readers.allMapNames();
 		return fileNames;
 	}
-	
-	public void handle(Button save,Button newM,ChoiceBox<String> cb,ListView<String> files) {
+	public void smallHandle(Button ok) {
+		ok.setOnAction(new EventHandler<ActionEvent>() {
+			
+			@Override
+			public void handle(ActionEvent event) {
+				// TODO Auto-generated method stub
+				main.SavePopUpClose();
+				main.smallPopupClose();
+			}
+		});
+	}
+	public void handePopUp(Button save,ToggleGroup group,TextField textfield) {
+		
+		
+		save.setOnAction(new EventHandler<ActionEvent>() {
+			@Override
+			public void handle(ActionEvent event) {
+				String fileName = textfield.getText();
+				
+				if(group.getToggles().get(0).isSelected()) {
+					main.smallPopup(file.saveMapToFile(fileName)).show();
+				}else {
+					main.smallPopup(readers.SaveMapToDataBase(fileName)).show();
+				}
+				
+			}
+		});
+		
+	}
+	public void handle(Button ready,Button newM,ChoiceBox<String> cb,ListView<String> files ) {
 		draw.setOnMouseClicked(new EventHandler<MouseEvent>() {
 			public void handle(MouseEvent e) {
 				System.out.println(event);
@@ -107,15 +139,12 @@ public class Controller {
 			}
 
 		});
-		save.setOnAction(new EventHandler<ActionEvent>() {
+		ready.setOnAction(new EventHandler<ActionEvent>() {
 
 			@Override
 			public void handle(ActionEvent event) {
 				// TODO Auto-generated method stub
-					popUp();
-
-				
-				// files.setItems(FXCollections.observableArrayList(con.readFiles()));
+					main.SavePopUp().show();;
 			}
 		});
 		cb.getSelectionModel().selectedItemProperty().addListener(new ChangeListener<Object>() {
@@ -147,8 +176,7 @@ public class Controller {
 				ClearMap();
 			}
 		});
+		
 
 	}
-	
-
 }

@@ -3,7 +3,11 @@ package modal;
 import java.awt.Point;
 import java.io.File;
 import java.io.FileInputStream;
+import java.io.FileNotFoundException;
+import java.io.FileOutputStream;
+import java.io.IOException;
 import java.io.ObjectInputStream;
+import java.io.ObjectOutputStream;
 import java.util.HashMap;
 import java.util.List;
 
@@ -14,14 +18,13 @@ import org.hibernate.boot.MetadataSources;
 import org.hibernate.boot.registry.StandardServiceRegistry;
 import org.hibernate.boot.registry.StandardServiceRegistryBuilder;
 
-public class Readers {
-	private final File folder = new File("C:\\Users\\marku\\git\\Game-Platform\\PacMan\\Maps");
-	// File folder = new File("/Users/Hanne/git/Game-Platform/PacMan/Maps");
+public class DataBaseReader {
+	
 	private List<MapsTable> mapList = null;
 	
 	private Map map;
 
-	public Readers(Map map) {
+	public DataBaseReader(Map map) {
 		this.map = map;
 	}
 
@@ -42,24 +45,6 @@ public class Readers {
 		Session sess = sessFac.openSession();
 		return sess;
 	}
-
-	public HashMap<Point, String> readMapFromFile(String tiedostonNimi) {
-		File file = new File(folder + "//" + tiedostonNimi);
-		HashMap<Point, String> tmp = new HashMap<>();
-		try {
-
-			FileInputStream fileIn = new FileInputStream(file);
-			ObjectInputStream dataIn = new ObjectInputStream(fileIn);
-			tmp = (HashMap<Point, String>) dataIn.readObject();
-			dataIn.close();
-			return tmp;
-		} catch (Exception e) {
-			e.printStackTrace();
-			return null;
-		}
-
-	}
-
 	private boolean doesNotContain(String mapName) {
 		boolean notContain = true;
 		for (MapsTable m : mapList) {
@@ -108,7 +93,7 @@ public class Readers {
 		return tmpMap;
 	}
 
-	public String SaveMapToDataBase(String fileName) {
+	public boolean SaveMapToDataBase(String fileName) {
 		 System.out.println(map.getMap().toString());
 		// System.out.println(map.toString().length());
 		if (doesNotContain(fileName)) {
@@ -122,7 +107,7 @@ public class Readers {
 
 				sess.save(hib);
 				transaktio.commit();
-				return "map Saved";
+				return true;
 			} catch (Exception e) {
 				System.out.println("transaktio virhe");
 				if (transaktio != null)
@@ -132,7 +117,8 @@ public class Readers {
 				sess.close();
 			}
 		}else {
-			return "Map name already exsits";
+			
+			return false;
 		}
 	}
 

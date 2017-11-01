@@ -21,7 +21,7 @@
    <property name="hibernate.connection.password">
       pacman2017
    </property>
-   <property name ="hbm2ddl.auto">update</property>
+   <property name ="hbm2ddl.auto">create</property>
 	<property name="show_sql">true</property>
 
    <!-- List of XML mapping files -->

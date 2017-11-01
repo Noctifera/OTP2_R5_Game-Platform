@@ -13,7 +13,7 @@ public class MapsTable{
 	@Column(name = "mapName")
 	private String mapName;
 	
-	@Column(name = "mapData")
+	@Column(name = "mapData", columnDefinition="blob")
 	private HashMap<Point, String> mapData;
 	
 
@@ -24,6 +24,7 @@ public class MapsTable{
 
 
 	public MapsTable() {
+		
 	}
 
 
