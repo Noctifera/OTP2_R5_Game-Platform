@@ -123,7 +123,7 @@ public class Main extends Application {
 			root.setHgap(10);
 			root.setVgap(10);
 
-			Scene scene = new Scene(root, width + 260, height + 20);
+			Scene scene = new Scene(root, width + 300, height + 20);
 			primaryStage.setScene(scene);
 			primaryStage.show();
 			primaryStage.setResizable(false);
@@ -151,11 +151,11 @@ public class Main extends Application {
 
 	private ToggleGroup createToggleGroup() {
 		ToggleGroup group = new ToggleGroup();
-		RadioButton button1 = new RadioButton("private");
+		RadioButton button1 = new RadioButton("private (File)");
 		button1.setToggleGroup(group);
 		button1.setId("private");
 		button1.setSelected(true);
-		RadioButton button2 = new RadioButton("public");
+		RadioButton button2 = new RadioButton("public (Database)");
 		button2.setToggleGroup(group);
 		button2.setId("public");
 		return group;
@@ -163,6 +163,9 @@ public class Main extends Application {
 
 	private VBox rightVerticalBox() {
 		GridPane gd = new GridPane();
+		gd.setHgap(10);
+		gd.setVgap(5);
+		
 		ChoiceBox<String> cb = new ChoiceBox<String>();
 		cb.setItems(FXCollections.observableArrayList(strings));
 
