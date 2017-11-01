@@ -1,13 +1,7 @@
 package modal;
 
 import java.awt.Point;
-import java.io.File;
-import java.io.FileInputStream;
-import java.io.FileNotFoundException;
-import java.io.FileOutputStream;
-import java.io.IOException;
-import java.io.ObjectInputStream;
-import java.io.ObjectOutputStream;
+import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 
@@ -75,10 +69,10 @@ public class DataBaseReader {
 		}
 	}
 
-	public String[] allMapNames() {
-		String[] names = new String[mapList.size()];
-		for (int i = 0; i < mapList.size(); i++) {
-			names[i] = mapList.get(i).getMapName();
+	public List<String> allMapNames() {
+		List<String> names = new ArrayList<>();
+		for(MapsTable mt : mapList) {
+			names.add(mt.getMapName());
 		}
 		return names;
 	}
@@ -121,5 +115,6 @@ public class DataBaseReader {
 			return false;
 		}
 	}
+
 
 }

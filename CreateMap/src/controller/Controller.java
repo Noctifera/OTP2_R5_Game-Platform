@@ -1,6 +1,7 @@
 package controller;
 
 import java.awt.Point;
+import java.util.List;
 
 import application.Main;
 import javafx.beans.value.ChangeListener;
@@ -47,6 +48,7 @@ public class Controller {
 		draw.drawGrid();
 		draw.drawOuterBound();
 		readers.getAllMapsFromDataBase();
+		file.getAllMapsFromFile();
 	}
 
 	public void draw(MouseEvent e, String s) {
@@ -80,7 +82,7 @@ public class Controller {
 		map.initializeMap();
 		draw.clear();
 		draw.drawGrid();
-		draw.drawFullMap();
+		//draw.drawFullMap();
 	}
 
 	public void saveMap(String fileName) {
@@ -89,19 +91,31 @@ public class Controller {
 	public String mapContains() {
 		return map.mapContains();
 	}
-
-	public void getMap(String fileName) {
-		readers.readOneMap(fileName);
+	public void getMapFile(String fileName) {
+		map.setMap(file.getMap(fileName));
 		draw.clear();
 		draw.drawGrid();
 		draw.drawFullMap();
 	}
 
-	public String[] readFiles() {
+	public void getMapDataase(String fileName) {
+		map.setMap(readers.readOneMap(fileName));
+		draw.clear();
+		draw.drawGrid();
+		draw.drawFullMap();
+	}
+
+	public List<String> readFiles() {
 		
-		String[] fileNames = readers.allMapNames();
+		List<String> fileNames = file.GetMapNamesFromFile();
 		return fileNames;
 	}
+	public List<String> namesFromDataBase(){
+
+		List<String> fileNames = readers.allMapNames();
+		return fileNames;
+	}
+	
 	public void smallHandle(Button ok) {
 		ok.setOnAction(new EventHandler<ActionEvent>() {
 			
@@ -131,7 +145,7 @@ public class Controller {
 		});
 		
 	}
-	public void handle(Button ready,Button newM,ChoiceBox<String> cb,ListView<String> files ) {
+	public void handle(Button ready,Button newM,ChoiceBox<String> cb,ListView<String> files, ToggleGroup gruop ) {
 		draw.setOnMouseClicked(new EventHandler<MouseEvent>() {
 			public void handle(MouseEvent e) {
 				System.out.println(event);
@@ -163,8 +177,16 @@ public class Controller {
 			@Override
 			public void changed(ObservableValue<? extends String> observable, String oldValue, String newValue) {
 				// TODO Auto-generated method stub
-				getMap(newValue);
-				// System.out.println(newValue);
+				
+				if(gruop.getToggles().get(0).isSelected()) {
+					//private
+					System.out.println("private: "+newValue);
+					getMapFile(newValue);
+				}else {
+					System.out.println("public: "+newValue);
+					getMapDataase(newValue);
+				}
+				// 
 			}
 
 		});
