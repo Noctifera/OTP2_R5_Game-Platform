@@ -39,9 +39,11 @@ public class PacMan_gui extends Application implements PacMan_gui_IF {
 	private Sounds sounds;
 	private FileOut fileOut;
 	private FileIn fileIn;
+	
 	/**
 	 * the amount of ghosts in the game
 	 */
+	
 	private int ghostAmount = 4;
 	/**
 	 * an object list of ghosts;
