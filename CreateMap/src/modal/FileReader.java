@@ -12,23 +12,31 @@ import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 
-public class FileReader {
-	// private final File folder = new
-	// File("C:\\Users\\marku\\git\\Game-Platform\\PacMan\\Maps");
-	private final File folder = new File("Maps");
-	// File folder = new File("/Users/Hanne/git/Game-Platform/PacMan/Maps");
-	private List<MapsTable> mapList = null;
-	private Map map;
+import javax.imageio.ImageIO;
 
-	public FileReader(Map map) {
+import javafx.scene.image.Image;
+
+public class FileReader {
+	
+	private Map map;
+	private Draw draw;
+	
+	private final File folder = new File("Maps");
+	private final File picture = new File("Pictures");
+	
+	private List<MapsTable> mapList = null;
+	
+
+	public FileReader(Map map,Draw draw) {
 		this.map = map;
+		this.draw = draw;
 	}
 
 	public void getAllMapsFromFile() {
 		mapList = new ArrayList<>();
 		File[] files = folder.listFiles();
 		for(File f: files) {
-			mapList.add(new MapsTable(f.getName(),readMapFromFile(f)));
+			mapList.add(new MapsTable(f.getName(),readMapFromFile(f),readImageFromFile(f.getName())));
 		}
 	}
 
@@ -58,6 +66,16 @@ public class FileReader {
 		return null;
 		
 	}
+	private Image readImageFromFile(String mapName) {
+		File f = new File(picture+"//"+mapName+".png");
+	return new Image(f.toURI().toString());	
+	}
+	private void SaveImageToFile(String fileName) {
+		Image image = draw.CreateImage();
+		File file = new File(picture+"//"+fileName);
+		ImageIO.write(image, "PNG", file.toURI().toString());
+	}
+	
 
 	public boolean saveMapToFile(String fileName) {
 		if (!fileName.contains("txt")) {

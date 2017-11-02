@@ -2,8 +2,10 @@ package modal;
 
 import java.awt.Point;
 
+import javafx.scene.SnapshotParameters;
 import javafx.scene.canvas.Canvas;
 import javafx.scene.canvas.GraphicsContext;
+import javafx.scene.image.Image;
 import javafx.scene.paint.Color;
 
 public class Draw extends Canvas {
@@ -55,41 +57,41 @@ public class Draw extends Canvas {
 		gc.stroke();
 	}
 
-	public void clear() {
+	private void clear() {
 		gc.setFill(Color.WHITE);
 		gc.fillRect(0, 0, this.getWidth(), this.getHeight());
 	}
 
-	public void clearTile(Point pos) {
+	private void clearTile(Point pos) {
 		gc.setFill(Color.WHITE);
 		gc.fillRect(pos.getX()+2, pos.getY()+2, tileSize-4, tileSize-4);
 
 	}
 
-	public void drawWall(Point pos) {
+	private void drawWall(Point pos) {
 		gc.setFill(Color.BLUE);
 		gc.fillRect(pos.getX()+2, pos.getY()+2, tileSize-4, tileSize-4);
 	}
 
-	public void drawDot(Point pos) {
+	private void drawDot(Point pos) {
 		gc.setFill(Color.BLACK);
 		int size = tileSize / 4;
 		gc.fillOval(pos.getX() + size + size / 2, pos.getY() + size + size / 2, size, size);
 
 	}
 
-	public void drawLargeDot(Point pos) {
+	private void drawLargeDot(Point pos) {
 		gc.setFill(Color.BLACK);
 		int size = tileSize / 2;
 		gc.fillOval(pos.getX() + size / 2, pos.getY() + size / 2, size, size);
 
 	}
-	public void drawPlayerSpawn(Point pos){
+	private void drawPlayerSpawn(Point pos){
 		gc.setFill(Color.GREEN);
 		gc.fillRect(pos.getX()+2, pos.getY()+2, tileSize-4, tileSize-4);
 
 	}
-	public void drawGhostHouse(Point pos){
+	private void drawGhostHouse(Point pos){
 		gc.setFill(Color.RED);
 		gc.fillRect(pos.getX()+2, pos.getY()+2, tileSize-4, tileSize-4);
 
@@ -126,5 +128,10 @@ public class Draw extends Canvas {
 
 		}
 	}
+	public Image CreateImage() {
+		return this.snapshot(new SnapshotParameters(), null);
+		
+	}
+	
 
 }

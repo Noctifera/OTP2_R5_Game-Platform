@@ -17,9 +17,12 @@ public class DataBaseReader {
 	private List<MapsTable> mapList = null;
 	
 	private Map map;
+	private Session sess;
+	private Draw draw;
 
-	public DataBaseReader(Map map) {
+	public DataBaseReader(Map map,Draw draw) {
 		this.map = map;
+		this.draw = draw;
 	}
 
 	private Session OpenConnectionToDataBase() {
@@ -36,7 +39,7 @@ public class DataBaseReader {
 			e.printStackTrace();
 		}
 
-		Session sess = sessFac.openSession();
+		sess = sessFac.openSession();
 		return sess;
 	}
 	private boolean doesNotContain(String mapName) {
@@ -50,7 +53,10 @@ public class DataBaseReader {
 	}
 
 	public void getAllMapsFromDataBase() {
-		Session sess = OpenConnectionToDataBase();
+		if(sess == null) {
+			sess = OpenConnectionToDataBase();
+		}
+		 
 		Transaction transaktio = null;
 
 		try {
@@ -91,13 +97,15 @@ public class DataBaseReader {
 		 System.out.println(map.getMap().toString());
 		// System.out.println(map.toString().length());
 		if (doesNotContain(fileName)) {
+			if(sess == null) {
+				sess = OpenConnectionToDataBase();
+			}
 
-			Session sess = OpenConnectionToDataBase();
 			Transaction transaktio = null;
 
 			try {
 				transaktio = sess.beginTransaction();
-				MapsTable hib = new MapsTable(fileName, map.getMap());
+				MapsTable hib = new MapsTable(fileName, map.getMap(),draw.CreateImage());
 
 				sess.save(hib);
 				transaktio.commit();
