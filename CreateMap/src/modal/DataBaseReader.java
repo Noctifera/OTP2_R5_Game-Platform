@@ -58,16 +58,13 @@ public class DataBaseReader {
 
 	public void getAllMapsFromDataBase() {
 			sess = OpenConnectionToDataBase();
-
+			
 		 
 		Transaction transaktio = null;
 
 		try {
 			mapList = sess.createQuery("from MapsTable").list();
-			for (MapsTable m : mapList) {
-				System.out.println(m);
-			}
-
+			
 		} catch (Exception e) {
 			System.out.println("transaktio virhe");
 			if (transaktio != null)

@@ -105,10 +105,11 @@ public class FileReader {
 	}
 
 	public boolean saveMapToFile(String fileName) {
+		String newfileName = "";
 		if (!fileName.contains("txt")) {
-			fileName = fileName + ".txt";
+			 newfileName = fileName + ".txt";
 		}
-		File file = new File(folder + "//" + fileName);
+		File file = new File(folder + "//" + newfileName);
 		ObjectOutputStream obj = null;
 
 		try {

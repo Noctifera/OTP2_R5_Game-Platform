@@ -1,13 +1,9 @@
 package modal;
 
 import java.awt.Point;
-import java.awt.image.BufferedImage;
 import java.util.HashMap;
 
 import javax.persistence.*;
-
-import javafx.embed.swing.SwingFXUtils;
-import javafx.scene.image.Image;
 
 @Entity(name ="MapsTable")
 @Table(name = "MapsTable")
