@@ -1,5 +1,8 @@
 package application;
 
+import java.util.Locale;
+import java.util.ResourceBundle;
+
 import controller.Controller;
 import javafx.application.Application;
 import javafx.collections.FXCollections;
@@ -32,6 +35,7 @@ public class Main extends Application {
 	private final int height = 480;
 	private final int tileSize = 40;
 	private String[] strings = { "Dot", "LargeDot", "Wall", "Empty", "PlayerSpawn", "GhostHouse" };
+	private String[] languages = {"English","Southern Sotho","Tsonga","Afrikaans","Tswana","Swati","Zulu","Northern Sotho","Ndebele","Xhosa","Venda","South African English"};
 
 	public void init() {
 		map = new Map(width, height, tileSize, strings);
@@ -195,12 +199,26 @@ public class Main extends Application {
 		Button ready = new Button("Map Ready to be Saved");
 		gd.add(ready, 0, 3);
 
-		VBox vb = new VBox(gd);
+		
 
+		
+		
+		ChoiceBox<String> lang = new ChoiceBox<>();
+		lang.setItems(FXCollections.observableArrayList(languages));
+		lang.setValue(languages[0]);
+		gd.add(lang, 1, 3);
+		
+		VBox vb = new VBox(gd);
+		
 		con.handle(ready, newM, cb, files, tg, button1,button2);
 
 		return vb;
 
+	}
+	public void lang(Locale curret) {
+		ResourceBundle rb = ResourceBundle.getBundle("MessagesBundle",curret);
+		rb.getString("");
+		
 	}
 
 	public static void main(String[] args) {
