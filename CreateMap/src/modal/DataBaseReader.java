@@ -1,6 +1,7 @@
 package modal;
 
 import java.awt.Point;
+import java.io.IOException;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
@@ -11,6 +12,9 @@ import org.hibernate.Transaction;
 import org.hibernate.boot.MetadataSources;
 import org.hibernate.boot.registry.StandardServiceRegistry;
 import org.hibernate.boot.registry.StandardServiceRegistryBuilder;
+
+import javafx.application.Platform;
+import javafx.scene.image.Image;
 
 public class DataBaseReader {
 	
@@ -53,9 +57,8 @@ public class DataBaseReader {
 	}
 
 	public void getAllMapsFromDataBase() {
-		if(sess == null) {
 			sess = OpenConnectionToDataBase();
-		}
+
 		 
 		Transaction transaktio = null;
 
@@ -93,23 +96,22 @@ public class DataBaseReader {
 		return tmpMap;
 	}
 
-	public boolean SaveMapToDataBase(String fileName) {
+	public boolean SaveMapToDataBase(String fileName){
 		 System.out.println(map.getMap().toString());
-		// System.out.println(map.toString().length());
+
 		if (doesNotContain(fileName)) {
-			if(sess == null) {
 				sess = OpenConnectionToDataBase();
-			}
 
 			Transaction transaktio = null;
 
 			try {
 				transaktio = sess.beginTransaction();
-				MapsTable hib = new MapsTable(fileName, map.getMap(),draw.CreateImage());
+				MapsTable hib = new MapsTable(fileName, map.getMap(),draw.getImage());
 
 				sess.save(hib);
 				transaktio.commit();
 				return true;
+				
 			} catch (Exception e) {
 				System.out.println("transaktio virhe");
 				if (transaktio != null)

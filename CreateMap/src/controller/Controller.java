@@ -40,8 +40,8 @@ public class Controller {
 		this.strings = strings;
 		this.tileSize = tileSize;
 		this.event = strings[0];
-		this.readers = new DataBaseReader(map);
-		this.file = new FileReader(map);
+		this.readers = new DataBaseReader(map,draw);
+		this.file = new FileReader(map,draw);
 
 	}
 
@@ -190,12 +190,22 @@ public class Controller {
 				if (gruop.getToggles().get(0).isSelected()) {
 					// private
 					System.out.println("private: " + newValue);
-					getMapFile(newValue);
+					if(newValue != null) {
+						getMapFile(newValue);
+					}else {
+						//ClearMap();
+					}
+					
 				} else {
 					System.out.println("public: " + newValue);
-					getMapDataase(newValue);
+					if(newValue != null) {
+						getMapDataase(newValue);
+					}else {
+						//ClearMap();
+					}
+					
 				}
-				//
+				
 			}
 
 		});
@@ -212,7 +222,10 @@ public class Controller {
 			@Override
 			public void handle(ActionEvent event) {
 				// TODO Auto-generated method stub
+				files.getSelectionModel().clearSelection();
 				files.setItems(FXCollections.observableArrayList(readFiles()));
+				
+				
 			}
 		});
 		butpublic.setOnAction(new EventHandler<ActionEvent>() {
@@ -220,6 +233,7 @@ public class Controller {
 			@Override
 			public void handle(ActionEvent event) {
 				// TODO Auto-generated method stub
+				files.getSelectionModel().clearSelection();
 				files.setItems(FXCollections.observableArrayList(namesFromDataBase()));
 			}
 		});

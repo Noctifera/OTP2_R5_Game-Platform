@@ -1,15 +1,20 @@
 package modal;
 
 import java.awt.Point;
+import java.awt.image.BufferedImage;
+import java.io.ByteArrayOutputStream;
+import java.io.IOException;
 
-import javafx.scene.SnapshotParameters;
+import javax.imageio.ImageIO;
+
+import javafx.embed.swing.SwingFXUtils;
 import javafx.scene.canvas.Canvas;
 import javafx.scene.canvas.GraphicsContext;
 import javafx.scene.image.Image;
 import javafx.scene.paint.Color;
 
 public class Draw extends Canvas {
-	Map map;
+	private Map map;
 	private GraphicsContext gc;
 	private final int tileSize;
 	private String[] strings;
@@ -57,20 +62,20 @@ public class Draw extends Canvas {
 		gc.stroke();
 	}
 
-	private void clear() {
+	public void clear() {
 		gc.setFill(Color.WHITE);
 		gc.fillRect(0, 0, this.getWidth(), this.getHeight());
 	}
 
 	private void clearTile(Point pos) {
 		gc.setFill(Color.WHITE);
-		gc.fillRect(pos.getX()+2, pos.getY()+2, tileSize-4, tileSize-4);
+		gc.fillRect(pos.getX() + 2, pos.getY() + 2, tileSize - 4, tileSize - 4);
 
 	}
 
 	private void drawWall(Point pos) {
 		gc.setFill(Color.BLUE);
-		gc.fillRect(pos.getX()+2, pos.getY()+2, tileSize-4, tileSize-4);
+		gc.fillRect(pos.getX() + 2, pos.getY() + 2, tileSize - 4, tileSize - 4);
 	}
 
 	private void drawDot(Point pos) {
@@ -86,14 +91,16 @@ public class Draw extends Canvas {
 		gc.fillOval(pos.getX() + size / 2, pos.getY() + size / 2, size, size);
 
 	}
-	private void drawPlayerSpawn(Point pos){
+
+	private void drawPlayerSpawn(Point pos) {
 		gc.setFill(Color.GREEN);
-		gc.fillRect(pos.getX()+2, pos.getY()+2, tileSize-4, tileSize-4);
+		gc.fillRect(pos.getX() + 2, pos.getY() + 2, tileSize - 4, tileSize - 4);
 
 	}
-	private void drawGhostHouse(Point pos){
+
+	private void drawGhostHouse(Point pos) {
 		gc.setFill(Color.RED);
-		gc.fillRect(pos.getX()+2, pos.getY()+2, tileSize-4, tileSize-4);
+		gc.fillRect(pos.getX() + 2, pos.getY() + 2, tileSize - 4, tileSize - 4);
 
 	}
 
@@ -103,35 +110,49 @@ public class Draw extends Canvas {
 			for (int j = 0; j < this.getWidth();) {
 				point = new Point(j, i);
 				if (map.getMap().get(point).equals(strings[0])) {
-					//Dot
+					// Dot
 					drawDot(point);
 				} else if (map.getMap().get(point).equals(strings[1])) {
-					//LargeDot
+					// LargeDot
 					drawLargeDot(point);
 				} else if (map.getMap().get(point).equals(strings[2])) {
-					//Wall
+					// Wall
 					drawWall(point);
-				} else if(map.getMap().get(point).equals(strings[3])){
-					//Empty
+				} else if (map.getMap().get(point).equals(strings[3])) {
+					// Empty
 					clearTile(point);
-				}else if(map.getMap().get(point).equals(strings[4])){
-					//PlayerSpawn
+				} else if (map.getMap().get(point).equals(strings[4])) {
+					// PlayerSpawn
 					drawPlayerSpawn(point);
-				}else if(map.getMap().get(point).equals(strings[5])){
+				} else if (map.getMap().get(point).equals(strings[5])) {
 					// GhostHouse
 					drawGhostHouse(point);
 				}
 
-					j = j + tileSize;
+				j = j + tileSize;
 			}
 			i = i + tileSize;
 
 		}
 	}
-	public Image CreateImage() {
-		return this.snapshot(new SnapshotParameters(), null);
-		
+
+	public byte[] getImage(){
+		Image image = this.snapshot(null, null);
+		byte[] data = null;
+		BufferedImage bImage = SwingFXUtils.fromFXImage(image, null);
+		ByteArrayOutputStream baos = new ByteArrayOutputStream();
+
+		try {
+			ImageIO.write(bImage, "PNG", baos);
+			baos.flush();
+			data = baos.toByteArray();
+			baos.close();
+		} catch (IOException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+
+		return data;
 	}
-	
 
 }

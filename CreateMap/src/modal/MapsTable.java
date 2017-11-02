@@ -1,10 +1,12 @@
 package modal;
 
 import java.awt.Point;
+import java.awt.image.BufferedImage;
 import java.util.HashMap;
 
 import javax.persistence.*;
 
+import javafx.embed.swing.SwingFXUtils;
 import javafx.scene.image.Image;
 
 @Entity(name ="MapsTable")
@@ -18,11 +20,12 @@ public class MapsTable{
 	@Column(name = "mapData", columnDefinition="blob")
 	private HashMap<Point, String> mapData;
 	
+	@Lob
 	@Column(name = "mapImage", columnDefinition="blob")
-	private Image mapImage;
+	private byte[] mapImage;
 	
 
-	public MapsTable(String mapName, HashMap<Point, String> mapData,Image mapImage) {
+	public MapsTable(String mapName, HashMap<Point, String> mapData,byte[] mapImage) {
 		this.mapName = mapName;
 		this.mapData = mapData;
 		this.mapImage = mapImage;
@@ -48,11 +51,11 @@ public class MapsTable{
 		this.mapData = mapData;
 	}
 
-	public Image getMapImage() {
+	public byte[] getMapImage() {
 		return mapImage;
 	}
 
-	public void setMapImage(Image mapImage) {
+	public void setMapImage(byte[] mapImage) {
 		this.mapImage = mapImage;
 	}
 
