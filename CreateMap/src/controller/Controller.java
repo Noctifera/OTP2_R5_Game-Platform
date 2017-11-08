@@ -241,7 +241,10 @@ public class Controller {
 			@Override
 			public void changed(ObservableValue<? extends Object> observable, Object oldValue, Object newValue) {
 				// TODO Auto-generated method stub
-				main.lang((int) newValue);
+				if((int)newValue > 0) {
+					main.lang((int) newValue);
+				}
+				
 			}
 
 
