@@ -75,17 +75,22 @@ public class Controller {
 		System.out.println(point + s);
 		if (s.equals(strings[4]) || s.equals(strings[5])) {
 			map.onlyOne(point, s);
+			clear();
 			draw.drawFullMap();
 		} else {
 			map.addToMap(point, s);
+			clear();
 			draw.drawFullMap();
 		}
+	}
+	private void clear() {
+		draw.clear();
+		draw.drawGrid();
 	}
 
 	public void ClearMap() {
 		map.initializeMap();
-		draw.clear();
-		draw.drawGrid();
+		
 	}
 
 	public void saveMap(String fileName) {
