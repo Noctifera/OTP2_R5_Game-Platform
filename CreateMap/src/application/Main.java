@@ -31,9 +31,12 @@ public class Main extends Application {
 	private Stage saveStage;
 	private Stage smallPopUpStage;
 	private Button newM;
+	private Button ready;
 
 	private ChoiceBox<String> types;
 	private ChoiceBox<String> lang;
+	private RadioButton button1;
+	private RadioButton button2;
 	private final int width = 720;
 	private final int height = 480;
 	private final int tileSize = 40;
@@ -155,11 +158,11 @@ public class Main extends Application {
 
 	private ToggleGroup createToggleGroup() {
 		ToggleGroup group = new ToggleGroup();
-		RadioButton button1 = new RadioButton("private (File)");
+		button1 = new RadioButton("private (File)");
 		button1.setToggleGroup(group);
 		button1.setId("private");
 		button1.setSelected(true);
-		RadioButton button2 = new RadioButton("public (Database)");
+		button2 = new RadioButton("public (Database)");
 		button2.setToggleGroup(group);
 		button2.setId("public");
 		return group;
@@ -170,19 +173,18 @@ public class Main extends Application {
 		// gd.setGridLinesVisible(true);
 		gd.setHgap(10);
 		gd.setVgap(5);
-
-		types = new ChoiceBox<String>();
+		types = new ChoiceBox<>();
 		types.setItems(FXCollections.observableArrayList(strings));
 
 		types.setValue(strings[0]);
 		gd.add(types, 0, 0, 1, 1);
 
-		Button newM = new Button("Clear Map");
+		newM = new Button("Clear Map");
 		gd.add(newM, 1, 0, 2, 1);
 
 		ToggleGroup tg = createToggleGroup();
-		RadioButton button1 = (RadioButton) tg.getToggles().get(0);
-		RadioButton button2 = (RadioButton) tg.getToggles().get(1);
+		button1 = (RadioButton) tg.getToggles().get(0);
+		button2 = (RadioButton) tg.getToggles().get(1);
 
 		gd.add(button1, 0, 1, 2, 1);
 		gd.add(button2, 1, 1, 2, 1);
@@ -193,9 +195,9 @@ public class Main extends Application {
 
 		gd.add(files, 0, 2, 3, 1);
 
-		Button ready = new Button("Map Ready to be Saved");
+		ready = new Button("Map Ready to be Saved");
 		gd.add(ready, 0, 3, 2, 1);
-
+		
 		lang = new ChoiceBox<>();
 		lang.setItems(FXCollections.observableArrayList(languages));
 		lang.setValue(languages[0]);
@@ -210,29 +212,32 @@ public class Main extends Application {
 	}
 
 	public void lang(int currentIndex) {
-		System.out.println(currentIndex);
+		//System.out.println(currentIndex);
 		Locale current = locale[currentIndex];
-		System.out.println(current.toString());
+		//System.out.println(current.toString());
 		ResourceBundle rb = ResourceBundle.getBundle("locales/MessagesBundle", current);
 
 		String[] typeList = { rb.getString("TileTypeDot"), rb.getString("TileTypeLargeDot"), rb.getString("TileTypeWall"), rb.getString("TileTypeEmpty"), rb.getString("TileTypePlayerSpawn"),
-				rb.getString("TileTypeGhostHouse") };
+				rb.getString("TileTypeGhostHouse")};
 		for(String s : typeList) {
 			System.out.println(s);
 		}
-		//types.setItems(FXCollections.observableArrayList(typeList));
+		
+		types.setItems(FXCollections.observableArrayList(typeList));
+		types.setValue(typeList[0]);
+		
+		newM.setText( rb.getString("ClearMapButton"));
 
-		rb.getString("ClearMapButton");
+		button1.setText(rb.getString("RadioMapTypePrivate"));
+		button2.setText(rb.getString("RadioMapTypePublic"));
 
-		rb.getString("RadioMapTypePrivate");
-		rb.getString("RadioMapTypePublic");
-
-		rb.getString("MapReadyToSaveButton");
+		ready.setText(rb.getString("MapReadyToSaveButton"));
 
 		String[] langList = { rb.getString("LanguageSelectionEnglish"), rb.getString("LanguageSelectionSouthernSotho"), rb.getString("LanguageSelectionAfrikaans"),
 				rb.getString("LanguageSelectionZulu"), rb.getString("LanguageSelectionXhosa") };
 
 		lang.setItems(FXCollections.observableArrayList(langList));
+		lang.setValue(langList[currentIndex]);
 
 	}
 
