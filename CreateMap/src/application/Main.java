@@ -33,8 +33,6 @@ public class Main extends Application {
 	private Button newM;
 	private Button ready;
 
-	
-	//ihsdfaskdfkasdfasf
 	private ChoiceBox<String> types;
 	private ChoiceBox<String> lang;
 	private RadioButton button1;
