@@ -41,7 +41,7 @@ public class FileReader {
 		mapList = new ArrayList<>();
 		File[] files = folder.listFiles();
 		for (File f : files) {
-			mapList.add(new MapsTable(f.getName(), readMapFromFile(f), readImageFromFile(f.getName())));
+			mapList.add(new MapsTable(f.getName(), readMapFromFile(f), readImageFromFile(f.getName().replaceAll(".txt", ""))));
 		}
 	}
 
@@ -74,6 +74,7 @@ public class FileReader {
 	}
 
 	private byte[] readImageFromFile(String mapName) {
+		System.out.println(mapName);
 		File f = new File(picture + "//" + mapName+".PNG");
 		
 		Image image = new  Image(f.toURI().toString());

@@ -86,7 +86,6 @@ public class Controller {
 		map.initializeMap();
 		draw.clear();
 		draw.drawGrid();
-		// draw.drawFullMap();
 	}
 
 	public void saveMap(String fileName) {

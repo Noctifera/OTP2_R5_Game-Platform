@@ -7,7 +7,6 @@ import controller.Controller;
 import javafx.application.Application;
 import javafx.collections.FXCollections;
 import javafx.event.EventHandler;
-import javafx.stage.Screen;
 import javafx.stage.Stage;
 import javafx.stage.WindowEvent;
 import modal.Draw;
@@ -213,6 +212,7 @@ public class Main extends Application {
 
 	public void lang(int curretIndex) {
 			Locale curret = locale[curretIndex];
+			System.out.println(curret.toString());
 		ResourceBundle rb = ResourceBundle.getBundle("MessagesBundle", curret);
 
 		String[] typeList = { rb.getString("TileTypeDot"), rb.getString("TileTypeLargeDot"), rb.getString("TileTypeWall"), rb.getString("TileTypeEmpty"), rb.getString("TileTypePlayerSpawn"),

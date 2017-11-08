@@ -91,7 +91,9 @@ public class DataBaseReader {
 		}
 		return tmpMap;
 	}
-
+	public void readImageFromDataBase() {
+		
+	}
 	public boolean SaveMapToDataBase(String fileName){
 		 System.out.println(map.getMap().toString());
 
