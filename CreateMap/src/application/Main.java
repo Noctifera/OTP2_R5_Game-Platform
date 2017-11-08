@@ -31,11 +31,17 @@ public class Main extends Application {
 
 	private Stage saveStage;
 	private Stage smallPopUpStage;
+
+	private ChoiceBox<String> types;
+	private ChoiceBox<String> lang;
 	private final int width = 720;
 	private final int height = 480;
 	private final int tileSize = 40;
-	private String[] strings = { "Dot", "LargeDot", "Wall", "Empty", "PlayerSpawn", "GhostHouse" };
-	private String[] languages = {"English","Southern Sotho","Tsonga","Afrikaans","Tswana","Swati","Zulu","Northern Sotho","Ndebele","Xhosa","Venda","South African English"};
+	private final String[] strings = { "Dot", "LargeDot", "Wall", "Empty", "PlayerSpawn", "GhostHouse" };
+	private final String[] languages = { "English", "Southern Sotho", "Tsonga", "afrikaans", "tswana", "swati", " zulu", "ndebele", "xhosa", "venda" };
+
+	private final Locale[] locale = { new Locale("en", "RSA"), new Locale("st", "RSA"), new Locale("ts", "RSA"), new Locale("af", "RSA"), new Locale("tn", "RSA"), new Locale("ss", "RSA"),
+			new Locale("zu", "RSA"), new Locale("nd", "RSA"), new Locale("xh", "RSA"), new Locale("ve", "RSA") };
 
 	public void init() {
 		map = new Map(width, height, tileSize, strings);
@@ -96,7 +102,7 @@ public class Main extends Application {
 	public Stage smallPopup(boolean save) {
 		GridPane gp = new GridPane();
 		Label label = new Label();
-		gp.add(label, 1, 1,2,1);
+		gp.add(label, 1, 1, 2, 1);
 		if (save) {
 			label.setText("Map Saved");
 		} else {
@@ -108,7 +114,7 @@ public class Main extends Application {
 		smallPopUpStage = new Stage();
 		Scene scene = new Scene(gp);
 		smallPopUpStage.setScene(scene);
-		
+
 		con.smallHandle(button);
 		return smallPopUpStage;
 
@@ -120,11 +126,7 @@ public class Main extends Application {
 
 	@Override
 	public void start(Stage primaryStage) {
-		System.out.println(Screen.getPrimary().getVisualBounds().getWidth());
 
-
-
-		try {
 
 			GridPane root = new GridPane();
 			root.setHgap(10);
@@ -151,9 +153,6 @@ public class Main extends Application {
 				}
 			});
 
-		} catch (Exception e) {
-			e.printStackTrace();
-		}
 	}
 
 	private ToggleGroup createToggleGroup() {
@@ -170,55 +169,70 @@ public class Main extends Application {
 
 	private VBox rightVerticalBox() {
 		GridPane gd = new GridPane();
-		//gd.setGridLinesVisible(true);
+		// gd.setGridLinesVisible(true);
 		gd.setHgap(10);
 		gd.setVgap(5);
-		
-		ChoiceBox<String> cb = new ChoiceBox<String>();
-		cb.setItems(FXCollections.observableArrayList(strings));
 
-		cb.setValue(strings[0]);
-		gd.add(cb, 0, 0,1,1);
+		types = new ChoiceBox<String>();
+		types.setItems(FXCollections.observableArrayList(strings));
+
+		types.setValue(strings[0]);
+		gd.add(types, 0, 0, 1, 1);
 
 		Button newM = new Button("Clear Map");
-		gd.add(newM, 1, 0);
+		gd.add(newM, 1, 0, 2, 1);
 
 		ToggleGroup tg = createToggleGroup();
 		RadioButton button1 = (RadioButton) tg.getToggles().get(0);
 		RadioButton button2 = (RadioButton) tg.getToggles().get(1);
 
-		gd.add(button1, 0, 1,2,1);
-		gd.add(button2, 1, 1,2,1);
+		gd.add(button1, 0, 1, 2, 1);
+		gd.add(button2, 1, 1, 2, 1);
 
 		ListView<String> files = new ListView<>();
 
 		files.setItems(FXCollections.observableArrayList(con.readFiles()));
 
-		gd.add(files, 0, 2, 2, 1);
+		gd.add(files, 0, 2, 3, 1);
 
 		Button ready = new Button("Map Ready to be Saved");
-		gd.add(ready, 0, 3);
+		gd.add(ready, 0, 3, 2, 1);
 
-		
-
-		
-		
-		ChoiceBox<String> lang = new ChoiceBox<>();
+		lang = new ChoiceBox<>();
 		lang.setItems(FXCollections.observableArrayList(languages));
 		lang.setValue(languages[0]);
-		gd.add(lang, 1, 3);
-		
+		gd.add(lang, 2, 3);
+
 		VBox vb = new VBox(gd);
-		
-		con.handle(ready, newM, cb, files, tg, button1,button2);
+
+		con.handle(ready, newM, types, files, tg, button1, button2,lang);
 
 		return vb;
 
 	}
-	public void lang(Locale curret) {
-		ResourceBundle rb = ResourceBundle.getBundle("MessagesBundle",curret);
-		rb.getString("");
+
+	public void lang(int curretIndex) {
+			Locale curret = locale[curretIndex];
+		ResourceBundle rb = ResourceBundle.getBundle("MessagesBundle", curret);
+
+		String[] typeList = { rb.getString("TileTypeDot"), rb.getString("TileTypeLargeDot"), rb.getString("TileTypeWall"), rb.getString("TileTypeEmpty"), rb.getString("TileTypePlayerSpawn"),
+				rb.getString("TileTypeGhostHouse") };
+
+		types.setItems(FXCollections.observableArrayList(typeList));
+
+		rb.getString("ClearMapButton");
+
+		rb.getString("RadioMapTypePrivate");
+		rb.getString("RadioMapTypePublic");
+
+		rb.getString("MapReadyToSaveButton");
+
+		String[] langList = { rb.getString("LanguageSelectionEnglish"), rb.getString("LanguageSelectionSouthernSotho"), rb.getString("LanguageSelectionTsonga"),
+				rb.getString("LanguageSelectionAfrikaans"), rb.getString("LanguageSelectionTswana"), rb.getString("LanguageSelectionSwati"), rb.getString("LanguageSelectionZulu"),
+				rb.getString("LanguageSelectionNdebele"), rb.getString("LanguageSelectionXhosa"), rb.getString("LanguageSelectionVenda") };
 		
+		lang.setItems(FXCollections.observableArrayList(langList));
+
 	}
 
 	public static void main(String[] args) {

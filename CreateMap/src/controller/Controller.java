@@ -50,7 +50,7 @@ public class Controller {
 		draw.clear();
 		draw.drawGrid();
 		draw.drawOuterBound();
-		readers.getAllMapsFromDataBase();
+		System.out.println(readers.getAllMapsFromDataBase());
 		file.getAllMapsFromFile();
 	}
 
@@ -153,7 +153,7 @@ public class Controller {
 
 	}
 
-	public void handle(Button ready, Button newM, ChoiceBox<String> cb, ListView<String> files, ToggleGroup gruop, RadioButton butprivate, RadioButton butpublic) {
+	public void handle(Button ready, Button newM, ChoiceBox<String> cb, ListView<String> files, ToggleGroup gruop, RadioButton butprivate, RadioButton butpublic, ChoiceBox<String> lang) {
 		draw.setOnMouseClicked(new EventHandler<MouseEvent>() {
 			public void handle(MouseEvent e) {
 				System.out.println(event);
@@ -236,6 +236,16 @@ public class Controller {
 				files.getSelectionModel().clearSelection();
 				files.setItems(FXCollections.observableArrayList(namesFromDataBase()));
 			}
+		});
+		lang.getSelectionModel().selectedIndexProperty().addListener(new ChangeListener<Object>() {
+
+			@Override
+			public void changed(ObservableValue<? extends Object> observable, Object oldValue, Object newValue) {
+				// TODO Auto-generated method stub
+				main.lang((int) newValue);
+			}
+
+
 		});
 
 	}

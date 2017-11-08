@@ -18,11 +18,10 @@ import javafx.scene.image.Image;
 
 public class DataBaseReader {
 	
-	private List<MapsTable> mapList = null;
-	
 	private Map map;
-	private Session sess;
 	private Draw draw;
+	
+	private List<MapsTable> mapList = null;
 
 	public DataBaseReader(Map map,Draw draw) {
 		this.map = map;
@@ -37,14 +36,14 @@ public class DataBaseReader {
 
 		try {
 			sessFac = new MetadataSources(registry).buildMetadata().buildSessionFactory();
+			Session sess = sessFac.openSession();
+			return sess;
 		} catch (Exception e) {
 			System.out.println("istonto virhe");
 			StandardServiceRegistryBuilder.destroy(registry);
 			e.printStackTrace();
 		}
-
-		sess = sessFac.openSession();
-		return sess;
+		return null;
 	}
 	private boolean doesNotContain(String mapName) {
 		boolean notContain = true;
@@ -56,15 +55,15 @@ public class DataBaseReader {
 		return notContain;
 	}
 
-	public void getAllMapsFromDataBase() {
-			sess = OpenConnectionToDataBase();
+	public boolean getAllMapsFromDataBase() {
+		Session sess = OpenConnectionToDataBase();
 			
 		 
 		Transaction transaktio = null;
 
 		try {
 			mapList = sess.createQuery("from MapsTable").list();
-			
+			return true;
 		} catch (Exception e) {
 			System.out.println("transaktio virhe");
 			if (transaktio != null)
@@ -97,7 +96,7 @@ public class DataBaseReader {
 		 System.out.println(map.getMap().toString());
 
 		if (doesNotContain(fileName)) {
-				sess = OpenConnectionToDataBase();
+				Session sess = OpenConnectionToDataBase();
 
 			Transaction transaktio = null;
 
