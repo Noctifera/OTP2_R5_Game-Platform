@@ -37,10 +37,10 @@ public class Main extends Application {
 	private final int height = 480;
 	private final int tileSize = 40;
 	private final String[] strings = { "Dot", "LargeDot", "Wall", "Empty", "PlayerSpawn", "GhostHouse" };
-	private final String[] languages = { "English", "Southern Sotho", "Tsonga", "afrikaans", "tswana", "swati", " zulu", "ndebele", "xhosa", "venda" };
+	private final String[] languages = { "English", "Southern Sotho", "afrikaans", "zulu", "xhosa"};
 
-	private final Locale[] locale = { new Locale("en", "RSA"), new Locale("st", "RSA"), new Locale("ts", "RSA"), new Locale("af", "RSA"), new Locale("tn", "RSA"), new Locale("ss", "RSA"),
-			new Locale("zu", "RSA"), new Locale("nd", "RSA"), new Locale("xh", "RSA"), new Locale("ve", "RSA") };
+	private final Locale[] locale = { new Locale("en", "RSA"), new Locale("st", "RSA"), new Locale("af", "RSA"),
+			new Locale("zu", "RSA"), new Locale("xh", "RSA") };
 
 	public void init() {
 		map = new Map(width, height, tileSize, strings);
@@ -210,10 +210,10 @@ public class Main extends Application {
 
 	}
 
-	public void lang(int curretIndex) {
-			Locale curret = locale[curretIndex];
-			System.out.println(curret.toString());
-		ResourceBundle rb = ResourceBundle.getBundle("MessagesBundle", curret);
+	public void lang(int currentIndex) {
+			Locale current = locale[currentIndex];
+			System.out.println(current.toString());
+		ResourceBundle rb = ResourceBundle.getBundle("locales/MessagesBundle", current);
 
 		String[] typeList = { rb.getString("TileTypeDot"), rb.getString("TileTypeLargeDot"), rb.getString("TileTypeWall"), rb.getString("TileTypeEmpty"), rb.getString("TileTypePlayerSpawn"),
 				rb.getString("TileTypeGhostHouse") };
