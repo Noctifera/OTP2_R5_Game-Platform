@@ -15,11 +15,7 @@ MapReadyToSaveButton = Map Ready to be Saved
 
 LanguageSelectionEnglish = English
 LanguageSelectionSouthernSotho = Southern Sotho
-LanguageSelectionTsonga = Tsonga
 LanguageSelectionAfrikaans = Afrikaans
-LanguageSelectionTswana = Tswana
-LanguageSelectionSwati = Swati
 LanguageSelectionZulu = Zulu
-LanguageSelectionNdebele = Ndebele
 LanguageSelectionXhosa = Xhosa
-LanguageSelectionVenda = Venda
+

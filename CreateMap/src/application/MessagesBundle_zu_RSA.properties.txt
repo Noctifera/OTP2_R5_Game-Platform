@@ -1,0 +1,21 @@
+Title = uMdali weMephu
+TileTypeDot = i-Dot
+TileTypeLargeDot = I-Dot Enkulu
+TileTypeWall = Udonga
+TileTypeEmpty = Akukho lutho
+TileTypePlayerSpawn = Umdlali I-spawn
+TileTypeGhostHouse = Umoya Indlu
+
+ClearMapButton = Sula Imephu
+
+RadioMapTypePrivate = eyimfihlo (ifayela)
+RadioMapTypePublic = yomphakathi (Idatha)
+
+MapReadyToSaveButton = Imephu Ekulungele Ukulondolozwa
+
+LanguageSelectionEnglish = IsiNgisi
+LanguageSelectionSouthernSotho = iSouth Sotho
+LanguageSelectionAfrikaans = Afrikaans
+LanguageSelectionZulu = Zulu
+LanguageSelectionXhosa = IsiXhosa
+
