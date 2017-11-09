@@ -83,6 +83,7 @@ public class Controller {
 			draw.drawFullMap();
 		}
 	}
+
 	private void clear() {
 		draw.clear();
 		draw.drawGrid();
@@ -90,7 +91,9 @@ public class Controller {
 
 	public void ClearMap() {
 		map.initializeMap();
-		
+		draw.clear();
+		draw.drawGrid();
+
 	}
 
 	public void saveMap(String fileName) {
@@ -116,13 +119,13 @@ public class Controller {
 	}
 
 	public List<String> readFiles() {
-
+		file.getAllMapsFromFile();
 		List<String> fileNames = file.GetMapNamesFromFile();
 		return fileNames;
 	}
 
 	public List<String> namesFromDataBase() {
-
+		readers.getAllMapsFromDataBase();
 		List<String> fileNames = readers.allMapNames();
 		return fileNames;
 	}
@@ -135,6 +138,7 @@ public class Controller {
 				// TODO Auto-generated method stub
 				main.SavePopUpClose();
 				main.smallPopupClose();
+
 			}
 		});
 	}
@@ -245,7 +249,7 @@ public class Controller {
 			@Override
 			public void changed(ObservableValue<? extends Object> observable, Object oldValue, Object newValue) {
 				// TODO Auto-generated method stub
-				if ((int)newValue >= 0) {
+				if ((int) newValue >= 0) {
 					main.lang((int) newValue);
 				}
 

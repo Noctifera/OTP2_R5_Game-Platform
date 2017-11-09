@@ -1,5 +1,6 @@
 package application;
 
+import java.util.List;
 import java.util.Locale;
 import java.util.ResourceBundle;
 
@@ -40,8 +41,8 @@ public class Main extends Application {
 	private final int width = 720;
 	private final int height = 480;
 	private final int tileSize = 40;
-	private final String[] strings = { "Dot", "LargeDot", "Wall", "Empty", "PlayerSpawn", "GhostHouse" };
-	private final String[] languages = { "English", "Southern Sotho", "afrikaans", "zulu", "xhosa" };
+	private String[] strings = { "Dot", "LargeDot", "Wall", "Empty", "PlayerSpawn", "GhostHouse" };
+	private final String[] languages = { "English", "Se Sotho sa Sotho", "Afrikaans", "Zulu", "IsiXhosa" };
 
 	private final Locale[] locale = { new Locale("en", "RSA"), new Locale("st", "RSA"), new Locale("af", "RSA"), new Locale("zu", "RSA"), new Locale("xh", "RSA") };
 
@@ -133,7 +134,7 @@ public class Main extends Application {
 		root.setHgap(10);
 		root.setVgap(10);
 
-		Scene scene = new Scene(root, width + 300, height + 20);
+		Scene scene = new Scene(root, width + 400, height + 20);
 		primaryStage.setScene(scene);
 		primaryStage.show();
 		primaryStage.setResizable(false);
@@ -170,38 +171,51 @@ public class Main extends Application {
 
 	private VBox rightVerticalBox() {
 		GridPane gd = new GridPane();
-		// gd.setGridLinesVisible(true);
+		GridPane top = new GridPane();
+		GridPane bottom = new GridPane();
+		gd.setGridLinesVisible(true);
 		gd.setHgap(10);
 		gd.setVgap(5);
+		
+		top.setHgap(10);
+		top.setVgap(5);
+		
+		bottom.setHgap(10);
+		bottom.setVgap(5);
+
 		types = new ChoiceBox<>();
 		types.setItems(FXCollections.observableArrayList(strings));
 
 		types.setValue(strings[0]);
-		gd.add(types, 0, 0, 1, 1);
+		top.add(types, 0, 0, 1, 1);
 
 		newM = new Button("Clear Map");
-		gd.add(newM, 1, 0, 2, 1);
+		top.add(newM, 1, 0, 1, 1);
 
 		ToggleGroup tg = createToggleGroup();
 		button1 = (RadioButton) tg.getToggles().get(0);
 		button2 = (RadioButton) tg.getToggles().get(1);
 
-		gd.add(button1, 0, 1, 2, 1);
-		gd.add(button2, 1, 1, 2, 1);
+		top.add(button1, 0, 1, 1, 1);
+		top.add(button2, 1, 1, 1, 1);
 
 		ListView<String> files = new ListView<>();
 
 		files.setItems(FXCollections.observableArrayList(con.readFiles()));
 
-		gd.add(files, 0, 2, 3, 1);
+		
 
 		ready = new Button("Map Ready to be Saved");
-		gd.add(ready, 0, 3, 2, 1);
-		
+		bottom.add(ready, 0, 3, 1, 1);
+
 		lang = new ChoiceBox<>();
 		lang.setItems(FXCollections.observableArrayList(languages));
 		lang.setValue(languages[0]);
-		gd.add(lang, 2, 3);
+		bottom.add(lang, 1, 3, 1, 1);
+		
+		gd.add(top, 0, 0);
+		gd.add(files, 0, 1,2,1);
+		gd.add(bottom, 0, 2);
 
 		VBox vb = new VBox(gd);
 
@@ -212,32 +226,28 @@ public class Main extends Application {
 	}
 
 	public void lang(int currentIndex) {
-		//System.out.println(currentIndex);
+		// System.out.println(currentIndex);
 		Locale current = locale[currentIndex];
-		//System.out.println(current.toString());
+		// System.out.println(current.toString());
 		ResourceBundle rb = ResourceBundle.getBundle("locales/MessagesBundle", current);
 
 		String[] typeList = { rb.getString("TileTypeDot"), rb.getString("TileTypeLargeDot"), rb.getString("TileTypeWall"), rb.getString("TileTypeEmpty"), rb.getString("TileTypePlayerSpawn"),
-				rb.getString("TileTypeGhostHouse")};
-		for(String s : typeList) {
+				rb.getString("TileTypeGhostHouse") };
+		for (String s : typeList) {
 			System.out.println(s);
 		}
-		
-		types.setItems(FXCollections.observableArrayList(typeList));
+		strings = typeList;
+		List<String> s = FXCollections.observableArrayList(strings);
+		System.out.println(s);
+		// types.setItems(FXCollections.observableArrayList(strings));
 		types.setValue(typeList[0]);
-		
-		newM.setText( rb.getString("ClearMapButton"));
+
+		newM.setText(rb.getString("ClearMapButton"));
 
 		button1.setText(rb.getString("RadioMapTypePrivate"));
 		button2.setText(rb.getString("RadioMapTypePublic"));
 
 		ready.setText(rb.getString("MapReadyToSaveButton"));
-
-		String[] langList = { rb.getString("LanguageSelectionEnglish"), rb.getString("LanguageSelectionSouthernSotho"), rb.getString("LanguageSelectionAfrikaans"),
-				rb.getString("LanguageSelectionZulu"), rb.getString("LanguageSelectionXhosa") };
-
-		lang.setItems(FXCollections.observableArrayList(langList));
-		lang.setValue(langList[currentIndex]);
 
 	}
 
