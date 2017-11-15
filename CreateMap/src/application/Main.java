@@ -181,7 +181,6 @@ public class Main extends Application {
 		top.setVgap(5);
 		
 		bottom.setHgap(10);
-		bottom.setVgap(5);
 
 		types = new ChoiceBox<>();
 		types.setItems(FXCollections.observableArrayList(strings));
