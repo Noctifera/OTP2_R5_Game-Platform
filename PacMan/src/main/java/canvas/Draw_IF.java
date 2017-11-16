@@ -1,6 +1,7 @@
 package canvas;
 
 import javafx.scene.canvas.Canvas;
+import javafx.scene.canvas.GraphicsContext;
 
 /**
  * Class extends {@link Canvas} and allows items to be drawn onto it
@@ -15,10 +16,5 @@ public interface Draw_IF {
 	 */
 	public void update();
 
-	public void handle(DrawThread dt);
-
-	public void front();
-
-	public void back();
 
 }

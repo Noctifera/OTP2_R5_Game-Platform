@@ -7,9 +7,7 @@ import javafx.scene.control.TextField;
 import java.awt.Point;
 import java.util.ArrayList;
 
-import canvas.Draw;
-import canvas.Draw_IF;
-import canvas.Menu;
+import canvas.ComCanvas;
 import controller.*;
 import ghosts.Ghost;
 import player.Player;
@@ -44,7 +42,7 @@ public class PacMan_gui extends Application implements PacMan_gui_IF {
 	private Player player;
 	private MovementLogic ml;
 	private Sounds sounds;
-	private Draw_IF[] canvasList = new Draw_IF[2];
+	private ComCanvas cc;
 
 	/**
 	 * the amount of ghosts in the game
@@ -89,9 +87,7 @@ public class PacMan_gui extends Application implements PacMan_gui_IF {
 		for (int i = 0; i < ghostAmount; i++) {
 			ghlist[i] = new Ghost(ml, player, ghosts[i]);
 		}
-		canvasList[0] = new Draw(gSize.x, gSize.y, tileSize, player, ghlist, map);
-		canvasList[1] = new Menu(gSize.x, gSize.y);
-		
+		cc = new ComCanvas(player, ghlist, map, gSize.x, gSize.y, tileSize);
 		con = new Controller(player, this);
 
 	}
@@ -115,7 +111,7 @@ public class PacMan_gui extends Application implements PacMan_gui_IF {
 		});
 
 		combine();
-		con.start(ghlist,sounds,map, canvasList);
+		con.start(ghlist,map,cc);
 
 	}
 
@@ -154,8 +150,7 @@ public class PacMan_gui extends Application implements PacMan_gui_IF {
 
 		GridPane gd = new GridPane();
 		gd.add(topHorizonatalBox(), 0, 0);
-		gd.add((Canvas) canvasList[0], 0, 1);
-		gd.add((Canvas) canvasList[1], 0, 1);
+		gd.add(cc, 0, 1);
 		root.getChildren().add(gd);
 		gd.add(bottomDataPane(), 0, 2);
 	}

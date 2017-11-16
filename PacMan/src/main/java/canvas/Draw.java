@@ -30,9 +30,9 @@ public class Draw extends Canvas implements Draw_IF {
 	private GraphicsContext gc;
 	private int tileSize;
 
-	public Draw(int x, int y, int tileSize, Player player, Ghost[] gh, Map map) {
+	public Draw(int x, int y, int tileSize, Player player, Ghost[] gh, Map map, GraphicsContext gc) {
 		super(x, y);
-		this.gc = this.getGraphicsContext2D();
+		this.gc = gc;
 		this.tileSize = tileSize;
 		this.player = player;
 		this.gh = gh;
@@ -41,6 +41,8 @@ public class Draw extends Canvas implements Draw_IF {
 
 	/**
 	 * One function that combines all drawn
+	 * 
+	 * @return
 	 */
 	public void update() {
 		clear();
@@ -125,40 +127,6 @@ public class Draw extends Canvas implements Draw_IF {
 			i = i + 40;
 		}
 
-	}
-
-	@Override
-	public void handle(DrawThread dt) {
-		// TODO Auto-generated method stub
-		//System.out.println("draw handle");
-
-		this.setOnKeyPressed(new EventHandler<KeyEvent>() {
-
-			@Override
-			public void handle(KeyEvent event) {
-				// TODO Auto-generated method stub
-				if (event.getCode() != KeyCode.ESCAPE) {
-					player.path(event.getCode());
-				}else {
-					back();
-					dt.openMenu();
-				}
-			}
-		});
-	}
-
-	@Override
-	public void front() {
-		// TODO Auto-generated method stub
-		this.toFront();
-		this.setFocusTraversable(true);
-	}
-
-	@Override
-	public void back() {
-		// TODO Auto-generated method stub
-		this.toBack();
-		this.setFocusTraversable(false);
 	}
 
 }

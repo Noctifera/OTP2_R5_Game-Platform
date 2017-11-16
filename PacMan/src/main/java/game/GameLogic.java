@@ -2,6 +2,7 @@ package game;
 
 import java.util.List;
 
+import canvas.ComCanvas;
 import canvas.DrawThread;
 import canvas.Draw_IF;
 import controller.Controller;
@@ -20,9 +21,8 @@ public class GameLogic {
 	private DrawThread dt;
 	private Controller con;
 	private Player player;
-	private Sounds sounds;
 	private Map map;
-	private Draw_IF[] cavasList;
+	private ComCanvas cc;
 
 	private int ghostAmount = 4;
 	private Ghost[] ghlist;
@@ -31,13 +31,12 @@ public class GameLogic {
 	private boolean mapl = false;
 	private int deactiveCount = 0;
 
-	public GameLogic(Controller con, Player p, Ghost[] ghlist, Sounds sound, Map map, Draw_IF[] cavasList) {
+	public GameLogic(Controller con, Player p, Ghost[] ghlist, Map map, ComCanvas cc) {
 		this.con = con;
 		this.player = p;
 		this.ghlist = ghlist;
-		this.sounds = sound;
 		this.map = map;
-		this.cavasList = cavasList;
+		this.cc = cc;
 	}
 
 	public List<MapsTable> setMenu() {
@@ -64,8 +63,8 @@ public class GameLogic {
 		for (Ghost g : ghlist) {
 			g.setPos((g.ghostHouse()));
 		}
-
-		dt = new DrawThread(cavasList[0],this);
+		cc.game();
+		dt = new DrawThread(cc,this);
 		dt.start();
 
 		try {
@@ -94,14 +93,11 @@ public class GameLogic {
 	
 	public void openMenu() {
 		suppress();
-		dt = new DrawThread(cavasList[1],this);
-		dt.start();
 	}
 	
 	public void resumegame() {
 		suppress();
-		dt = new DrawThread(cavasList[0],this);
-		dt.start();
+
 		playerthread.start();
 		for (GhostThread ghost : ghtlist) {
 			ghost.start();
@@ -124,7 +120,6 @@ public class GameLogic {
 			switch (player.getVulnerable()) {
 			case "deactive":
 				if (ghlist[i].getPos().equals(player.getPos())) {
-					sounds.playSound(sounds.getDeath());
 					for (int j = 0; j < ghlist.length; j++) {
 						ghtlist[j].returnToHouse();
 					}
@@ -137,7 +132,6 @@ public class GameLogic {
 			case "active":
 
 				if (ghlist[i].getPos().equals(player.getPos())) {
-					sounds.playSound(sounds.getEatghost());
 					ghtlist[i].returnToHouse();
 					player.ghost();
 				}
@@ -167,7 +161,6 @@ public class GameLogic {
 			ghtlist[i].supress();
 		}
 		playerthread.supress();
-		dt.supress();
 	}
 	public void handle() {
 		

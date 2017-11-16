@@ -11,26 +11,25 @@ import javafx.application.Platform;
  */
 
 public class DrawThread extends Thread {
-	private Draw_IF draw;
+	private ComCanvas cc;
 	private GameLogic gl;
 
 	private volatile boolean supress = false;
 
-	public DrawThread(Draw_IF draw,GameLogic gl) {
-		this.draw = draw;
+	public DrawThread(ComCanvas cc,GameLogic gl) {
+		this.cc = cc;
 		this.gl = gl;
 	}
 
 	public void run() {
-		draw.handle(this);
-		draw.front();
+		
 		while (!supress) {
 			Platform.runLater(new Runnable() {
 				
 				@Override
 				public void run() {
 					// TODO Auto-generated method stub
-					draw.update();
+					cc.update();
 				}
 			});
 			
@@ -42,7 +41,6 @@ public class DrawThread extends Thread {
 				e.printStackTrace();
 			}
 		}
-		draw.back();
 	}
 	public void openMenu() {
 		gl.openMenu();

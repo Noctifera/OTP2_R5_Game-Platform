@@ -1,6 +1,7 @@
 package controller;
 
 import application.PacMan_gui;
+import canvas.ComCanvas;
 import canvas.Draw;
 import canvas.Draw_IF;
 import canvas.Menu;
@@ -27,10 +28,10 @@ public class Controller implements Controller_IF {
 		this.pMG = pMG;
 	}
 
-	public void start(Ghost[] ghlist,Sounds sounds,Map map, Draw_IF[] canvasList) {
+	public void start(Ghost[] ghlist,Map map,ComCanvas cc) {
 		DataBaseConnection.getAllMapsFromDataBase();
 		DataBaseConnection.getAllHighScoresFromDataBase();
-		GameThread gt = new GameThread(player, this, ghlist, sounds, map, canvasList);
+		GameThread gt = new GameThread(player, this, ghlist, map, cc);
 		gt.start();
 	}
 

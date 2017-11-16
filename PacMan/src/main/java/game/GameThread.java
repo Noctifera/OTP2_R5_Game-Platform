@@ -1,5 +1,6 @@
 package game;
 
+import canvas.ComCanvas;
 import canvas.Draw;
 import canvas.Draw_IF;
 import canvas.Menu;
@@ -22,22 +23,20 @@ public class GameThread extends Thread {
 	private Player p;
 	private Controller con;
 	private Ghost[] ghlist;
-	private Sounds sounds;
 	private Map map;
-	private Draw_IF[] cavasList;
+	private ComCanvas cc;
 
-	public GameThread(Player p, Controller con,Ghost[] ghlist, Sounds sounds,Map map, Draw_IF[] cavasList) {
+	public GameThread(Player p, Controller con,Ghost[] ghlist, Map map, ComCanvas cc) {
 		this.p = p;
 		this.con = con;
 		this.ghlist = ghlist;
-		this.sounds = sounds;
 		this.map = map;
-		this.cavasList = cavasList;
+		this.cc = cc;
 	}
 
 	public void run() {
 		
-		gl = new GameLogic(con, p, ghlist, sounds, map, cavasList);
+		gl = new GameLogic(con, p, ghlist, map, cc);
 		gl.loadFirstMap();
 		
 		while (true) {

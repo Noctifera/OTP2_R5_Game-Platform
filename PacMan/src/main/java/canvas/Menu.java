@@ -16,9 +16,9 @@ import javafx.scene.text.Font;
 public class Menu extends Canvas implements Draw_IF {
 	private GraphicsContext gc;
 
-	public Menu(int width, int height) {
+	public Menu(int width, int height, GraphicsContext gc) {
 		super(width, height);
-		this.gc = this.getGraphicsContext2D();
+		this.gc = gc;
 	}
 
 	private void drawString(String string, int x, int y, int width, int height, Font f, Image image) {
@@ -52,8 +52,6 @@ public class Menu extends Canvas implements Draw_IF {
 	}
 
 	public void update() {
-		this.toFront();
-		this.setFocusTraversable(true);
 		clear();
 		drawMenu(DataBaseConnection.maplist());
 	}
@@ -70,44 +68,5 @@ public class Menu extends Canvas implements Draw_IF {
 
 	}
 
-	@Override
-	public void handle(DrawThread dt) {
-		// TODO Auto-generated method stub
-		this.setOnMouseMoved(new EventHandler<MouseEvent>() {
-
-			@Override
-			public void handle(MouseEvent me) {
-				// TODO Auto-generated method stub
-				System.out.println(me.getX());
-				System.out.println(me.getY());
-			}
-		});
-		this.setOnKeyPressed(new EventHandler<KeyEvent>() {
-
-			@Override
-			public void handle(KeyEvent event) {
-				// TODO Auto-generated method stub
-				if(event.getCode() == KeyCode.ESCAPE) {
-					toBack();
-					setFocusTraversable(false);
-					dt.runGame();
-				}
-			}
-		});
-	}
-
-	@Override
-	public void front() {
-		// TODO Auto-generated method stub
-		this.toFront();
-		this.setFocusTraversable(true);
-	}
-
-	@Override
-	public void back() {
-		// TODO Auto-generated method stub
-		this.toFront();
-		this.setFocusTraversable(false);
-	}
 
 }
