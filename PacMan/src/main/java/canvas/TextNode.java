@@ -19,8 +19,8 @@ public class TextNode {
 		this.x = x;
 		this.y = y;
 		this.font = font;
-		this.imageWidth = 288;
-		this.imageHeight = 192;
+		this.imageWidth = 115;
+		this.imageHeight = 77;
 		this.image = image;
 		
 	}
@@ -92,6 +92,8 @@ public class TextNode {
 	public void setImage(Image image) {
 		this.image = image;
 	}
+	
+	
 
 	@Override
 	public String toString() {

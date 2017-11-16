@@ -39,11 +39,6 @@ public class GameLogic {
 		this.cc = cc;
 	}
 
-	public List<MapsTable> setMenu() {
-		List<MapsTable> nameList = DataBaseConnection.getMapList();
-		return nameList;
-	}
-
 	public boolean mapLoaded() {
 		return mapl;
 	}

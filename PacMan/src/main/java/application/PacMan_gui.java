@@ -41,7 +41,6 @@ public class PacMan_gui extends Application implements PacMan_gui_IF {
 	private Map map;
 	private Player player;
 	private MovementLogic ml;
-	private Sounds sounds;
 	private ComCanvas cc;
 
 	/**
@@ -79,7 +78,6 @@ public class PacMan_gui extends Application implements PacMan_gui_IF {
 	private Text scores;
 
 	public void init() {
-		sounds = new Sounds();
 		map = new Map(strings, gSize, tileSize);
 		ml = new MovementLogic(gSize, tileSize, map);
 		player = new Player(ml, life);

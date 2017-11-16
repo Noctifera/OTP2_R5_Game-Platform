@@ -14,36 +14,36 @@ public class Sounds {
 	/**
 	 * file path for the music at the start of the game
 	 */
-	private File beginning = new File("Sounds\\pacman_beginning.wav");
+	private final static  File beginning = new File("Sounds\\pacman_beginning.wav");
 	/**
 	 * file path for sound when a dots eaten
 	 */
-	private File dot = new File("Sounds\\wakka_wakka1.wav");
+	private final static File dot = new File("Sounds\\wakka_wakka1.wav");
 	/**
 	 * file path for sound when a large dots eaten
 	 */
-	private File largeDot = new File("Sounds\\pacman_eatfruit.wav");
+	private final static File largeDot = new File("Sounds\\pacman_eatfruit.wav");
 	/**
 	 * file path for sound when player dies
 	 */
-	private File death = new File("Sounds\\pacman_death.wav");
+	private final static File death = new File("Sounds\\pacman_death.wav");
 	/**
 	 * file path for sound when ghost gets eaten
 	 */
-	private File eatghost = new File("Sounds\\pacman_eatghost.wav");
+	private final static File eatghost = new File("Sounds\\pacman_eatghost.wav");
 	/**
 	 * never used
 	 */
-	private File intermission = new File("Sounds\\pacman_intermission.wav");
+	private final static File intermission = new File("Sounds\\pacman_intermission.wav");
 /**
  * the media player used
  */
-	private MediaPlayer mediaplayer;
+	private static MediaPlayer mediaplayer;
 /**
  * 
  * @param name one of the file paths used in this class to play the sound
  */
-	public void playSound(File name) {
+	public static void playSound(File name) {
 		try {
 		mediaplayer.stop();
 		}catch(NullPointerException e) {
@@ -56,31 +56,31 @@ public class Sounds {
 		mediaplayer.setAutoPlay(true);
 	}
 
-	public File getBeginning() {
+	public static File getBeginning() {
 		return beginning;
 	}
 
-	public File getDot() {
+	public static File getDot() {
 		return dot;
 	}
 
-	public File getLargeDot() {
+	public static File getLargeDot() {
 		return largeDot;
 	}
 
-	public File getDeath() {
+	public static File getDeath() {
 		return death;
 	}
 
-	public File getEatghost() {
+	public static File getEatghost() {
 		return eatghost;
 	}
 
-	public File getIntermission() {
+	public static File getIntermission() {
 		return intermission;
 	}
 
-	public MediaPlayer getMediaplayer() {
+	public static MediaPlayer getMediaplayer() {
 		return mediaplayer;
 	}
 	

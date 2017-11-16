@@ -146,27 +146,6 @@ public class DataBaseConnection {
 		}
 		return list;
 	}
-	public static ArrayList<TextNode> maplist(){
-		ArrayList<TextNode> list = new ArrayList<>();
-		int x = 0;
-		int y = 0;
-		for(MapsTable mt : mapList) {
-			try {
-			BufferedImage mi = ImageIO.read(new ByteArrayInputStream(mt.getMapImage()));
-			Image image = SwingFXUtils.toFXImage(mi, null);
-			TextNode tn = new TextNode(mt.getMapName(), x, y, new Font(15),  image);
-			list.add(tn);
-			x = x+tn.getImageWidth()+10;
-			y = y+tn.getImageHeight()+10;
-		}catch(Exception e) {
-			e.printStackTrace();
-		}
-		}
-		
-		
-		return list;
-	}
-	
 
 	public static List<HighScores> getScores() {
 		return scores;

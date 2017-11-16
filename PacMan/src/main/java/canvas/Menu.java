@@ -2,23 +2,20 @@ package canvas;
 
 import java.util.List;
 
-import hibernate.DataBaseConnection;
-import javafx.event.EventHandler;
 import javafx.scene.canvas.Canvas;
 import javafx.scene.canvas.GraphicsContext;
 import javafx.scene.image.Image;
-import javafx.scene.input.KeyCode;
-import javafx.scene.input.KeyEvent;
-import javafx.scene.input.MouseEvent;
 import javafx.scene.paint.Color;
 import javafx.scene.text.Font;
 
 public class Menu extends Canvas implements Draw_IF {
 	private GraphicsContext gc;
+	private ComCanvas cc;
 
-	public Menu(int width, int height, GraphicsContext gc) {
+	public Menu(int width, int height, GraphicsContext gc,ComCanvas cc) {
 		super(width, height);
 		this.gc = gc;
+		this.cc = cc;
 	}
 
 	private void drawString(String string, int x, int y, int width, int height, Font f, Image image) {
@@ -53,7 +50,7 @@ public class Menu extends Canvas implements Draw_IF {
 
 	public void update() {
 		clear();
-		drawMenu(DataBaseConnection.maplist());
+		drawMenu(cc.getMaplist());
 	}
 
 	private void drawMenu(List<TextNode> texts) {
@@ -67,6 +64,9 @@ public class Menu extends Canvas implements Draw_IF {
 		}
 
 	}
+	
+	
+	
 
 
 }
