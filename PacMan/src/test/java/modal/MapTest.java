@@ -28,14 +28,17 @@ public class MapTest {
 	public void readMap() {
 		assertTrue(map.getMap() != null);
 	}
+
 	@Test
 	public void dot() {
 		assertTrue(map.getMap().containsValue(strings[0]));
 	}
+
 	@Test
 	public void Largedot() {
 		assertTrue(map.getMap().containsValue(strings[1]));
 	}
+
 	@Test
 	public void wall() {
 		assertTrue(map.getMap().containsValue(strings[2]));
