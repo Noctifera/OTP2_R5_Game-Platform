@@ -173,7 +173,7 @@ public class Main extends Application {
 		GridPane gd = new GridPane();
 		GridPane top = new GridPane();
 		GridPane bottom = new GridPane();
-		gd.setGridLinesVisible(true);
+		//gd.setGridLinesVisible(true);
 		gd.setHgap(10);
 		gd.setVgap(5);
 		

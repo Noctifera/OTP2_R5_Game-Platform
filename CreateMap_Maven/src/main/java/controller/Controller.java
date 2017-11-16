@@ -90,9 +90,8 @@ public class Controller {
 	}
 
 	public void ClearMap() {
-		map.initializeMap();
-		draw.clear();
-		draw.drawGrid();
+		map.setMap(map.initializeMap());
+		clear();
 
 	}
 
