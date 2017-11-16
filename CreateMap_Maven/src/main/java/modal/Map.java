@@ -5,12 +5,13 @@ import java.util.ArrayList;
 import java.util.HashMap;
 
 public class Map {
-	private HashMap<Point, String> map = new HashMap<Point, String>();
+	private HashMap<Point, String> map = new HashMap<Point, String>();	
 	
 	private int x;
 	private int y;
 	private int tileSize;
 	private String[] strings;
+	
 	
 
 	public Map(int x, int y, int tileSize, String[] strings) {

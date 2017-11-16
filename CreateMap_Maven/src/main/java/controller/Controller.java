@@ -27,6 +27,7 @@ public class Controller {
 	private DataBaseReader readers;
 	private Main main;
 	private FileReader file;
+	private boolean warningB;
 
 	private String[] strings;
 	private int tileSize;
@@ -141,6 +142,8 @@ public class Controller {
 			}
 		});
 	}
+	
+
 
 	public void handePopUp(Button save, ToggleGroup group, TextField textfield) {
 
@@ -150,17 +153,22 @@ public class Controller {
 				String fileName = textfield.getText();
 
 				if (group.getToggles().get(0).isSelected()) {
-					main.smallPopup(file.saveMapToFile(fileName)).show();
+					if (fileName.length() > 0) {
+						main.smallPopup(file.saveMapToFile(fileName)).show();
+					}
+
 				} else {
-					main.smallPopup(readers.SaveMapToDataBase(fileName)).show();
+					if (fileName.length() > 0) {
+						main.smallPopup(readers.SaveMapToDataBase(fileName)).show();
+					}
 				}
 
 			}
 		});
-
 	}
 
-	public void handle(Button ready, Button newM, ChoiceBox<String> cb, ListView<String> files, ToggleGroup gruop, RadioButton butprivate, RadioButton butpublic, ChoiceBox<String> lang) {
+	public void handle(Button ready, Button newM, ChoiceBox<String> cb, ListView<String> files, ToggleGroup gruop,
+			RadioButton butprivate, RadioButton butpublic, ChoiceBox<String> lang) {
 		draw.setOnMouseClicked(new EventHandler<MouseEvent>() {
 			public void handle(MouseEvent e) {
 				System.out.println(event);
@@ -174,7 +182,6 @@ public class Controller {
 			public void handle(ActionEvent event) {
 				// TODO Auto-generated method stub
 				main.SavePopUp().show();
-				;
 			}
 		});
 		cb.getSelectionModel().selectedItemProperty().addListener(new ChangeListener<Object>() {
@@ -198,23 +205,32 @@ public class Controller {
 					// private
 					System.out.println("private: " + newValue);
 					if (newValue != null) {
-						getMapFile(newValue);
+						warningB = false;
+						main.warningPopup();
+						
+
+						
+						if (warningB) {
+							getMapFile(newValue);
+						}
+
 					} else {
 						// ClearMap();
 					}
 
 				} else {
 					System.out.println("public: " + newValue);
-					if (newValue != null) {
-						getMapDataase(newValue);
-					} else {
-						// ClearMap();
+					if (newValue != null) {	
+						warningB = false;
+						main.warningPopup();
+						if (warningB) {
+							getMapDataase(newValue);
+						}
+
 					}
 
 				}
-
 			}
-
 		});
 		newM.setOnAction(new EventHandler<ActionEvent>() {
 
@@ -257,4 +273,25 @@ public class Controller {
 		});
 
 	}
+	
+	public void warningHandle(Button ok, Button cancel) {
+		ok.setOnAction(new EventHandler<ActionEvent>() {
+
+			@Override
+			public void handle(ActionEvent event) {
+				warningB = true;
+				main.warningPopupClose();
+			}
+			
+		});
+		
+		cancel.setOnAction(new EventHandler<ActionEvent>() {
+			
+			public void handle(ActionEvent event) {
+				warningB = false;
+				main.warningPopupClose();
+			}
+		});
+	}
+	
 }

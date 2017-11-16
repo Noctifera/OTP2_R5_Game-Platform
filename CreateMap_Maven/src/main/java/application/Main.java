@@ -7,6 +7,7 @@ import java.util.ResourceBundle;
 import controller.Controller;
 import javafx.application.Application;
 import javafx.collections.FXCollections;
+import javafx.event.ActionEvent;
 import javafx.event.EventHandler;
 import javafx.stage.Stage;
 import javafx.stage.WindowEvent;
@@ -31,6 +32,7 @@ public class Main extends Application {
 
 	private Stage saveStage;
 	private Stage smallPopUpStage;
+	private Stage warningPopup;
 	private Button newM;
 	private Button ready;
 
@@ -83,6 +85,9 @@ public class Main extends Application {
 
 		Button save = new Button("Save Map");
 		gp.add(save, 2, 4);
+		
+		Label warningLabel = new Label();
+		warningLabel.setText("Test");
 
 		if (!s.equals("")) {
 			button1.setDisable(true);
@@ -95,11 +100,38 @@ public class Main extends Application {
 
 		Scene scene = new Scene(gp);
 		saveStage.setScene(scene);
+		saveStage.setResizable(false);
 		return saveStage;
 	}
 
 	public void SavePopUpClose() {
 		saveStage.close();
+	}
+	
+	public Stage warningPopup() {
+		GridPane gp = new GridPane();
+		Label label = new Label("Your progress will not be saved! \n Press Ok to continue.");
+		Button OkButton = new Button("Ok");
+		Button cancelButton = new Button("Cancel");
+		
+		
+		gp.add(label, 1, 1);
+		gp.add(OkButton, 1, 2);
+		gp.add(cancelButton, 2, 2);
+			
+		warningPopup = new Stage();
+		Scene scene = new Scene(gp);
+		warningPopup.setScene(scene);
+		
+		con.warningHandle(OkButton, cancelButton);
+		
+		warningPopup.show();
+		
+		return warningPopup;
+		}
+	
+	public void warningPopupClose() {
+		warningPopup.close();
 	}
 
 	public Stage smallPopup(boolean save) {
