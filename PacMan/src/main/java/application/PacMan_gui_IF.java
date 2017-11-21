@@ -1,8 +1,5 @@
 package application;
 
-import java.util.ArrayList;
-
-import javafx.scene.layout.GridPane;
 import javafx.scene.layout.HBox;
 import javafx.stage.Stage;
 
@@ -18,14 +15,6 @@ public interface PacMan_gui_IF {
 	 * @return HorizontalBox with highScores from DataBase
 	 */
 	public HBox bottomDataPane(); //tietokannan ulos tulo
-	
-	/**
-	 * 
-	 * @param grid parameter for the GridPane where the text is going to be in
-	 * @param list parameter for the list where the data is taken from
-	 * @param text the Label text for the data
-	 */
-	public void listLooper(GridPane grid, ArrayList<String> list, String text); //bottomDataPane käyttämä funktio
 	
 	/**
 	 * 

@@ -1,4 +1,4 @@
-package player;
+package characters;
 
 public class Score {
 	int score;

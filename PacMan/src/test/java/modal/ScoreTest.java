@@ -7,11 +7,11 @@ import org.junit.BeforeClass;
 import static org.junit.Assert.*;
 import org.junit.Test;
 
+import characters.Player;
 import hibernate.DataBaseConnection;
 import javafx.scene.input.KeyCode;
 import map.Map;
 import map.MovementLogic;
-import player.Player;
 import sounds.Sounds;
 
 public class ScoreTest {

@@ -1,13 +1,13 @@
-package ghosts;
+package characters;
 
 import java.awt.Point;
 import java.io.File;
 import java.util.ArrayList;
 
+import ghosts.PathFinder;
 import javafx.scene.image.Image;
 import javafx.scene.paint.Color;
 import map.MovementLogic;
-import player.Player;
 
 /**
  * Extends PathFinder, implements {@link Ghost_IF}. Instantiates path and
@@ -16,9 +16,11 @@ import player.Player;
  * @author kari-antti
  *
  */
-public class Ghost extends PathFinder implements Ghost_IF {
+public class Ghost extends PathFinder implements Character {
 	private MovementLogic ml;
 	private Player player;
+	private ArrayList<Point> path = new ArrayList<>();
+	private int reader = 0;
 
 	private Point pos;
 	private String ghost;
@@ -28,27 +30,6 @@ public class Ghost extends PathFinder implements Ghost_IF {
 		this.player = player;
 		this.ghost = ghost;
 		this.ml = ml;
-	}
-
-	public ArrayList<Point> insPath() {
-
-		if (player.getVulnerable().equals("deactive")) {
-
-			double rand = Math.random();
-
-			if (rand <= 0.30) {
-				Point randpoint = ml.randomPoint();
-				return path(pos, randpoint);
-			} else {
-
-				Point point = player.getPos();
-				return path(pos, point);
-
-			}
-		} else {
-			Point randpoint = ml.randomPoint();
-			return path(pos, randpoint);
-		}
 	}
 
 	public Point getPos() {
@@ -105,7 +86,58 @@ public class Ghost extends PathFinder implements Ghost_IF {
 		this.pos = pos;
 	}
 
-	public Point ghostHouse() {
+	@Override
+	public boolean eaten() {
+		// TODO Auto-generated method stub
+		return false;
+	}
+
+	@Override
+	public Point characterSpawn() {
+		// TODO Auto-generated method stub
 		return ml.ghostHouse();
 	}
+
+	@Override
+	public void getNextPos() {
+		// TODO Auto-generated method stub
+		pos = path.get(reader);
+		reader++;
+	}
+
+	@Override
+	public void findPath() {
+		// TODO Auto-generated method stub
+		reader = 0;
+		if (player.getVulnerable().equals("deactive")) {
+
+			double rand = Math.random();
+
+			if (rand <= 0.30) {
+				Point randpoint = ml.randomPoint();
+				path = route(pos, randpoint);
+			} else {
+
+				Point point = player.getPos();
+				path = route(pos, point);
+
+			}
+		} else {
+			Point randpoint = ml.randomPoint();
+			path =  route(pos, randpoint);
+		}
+	}
+
+	@Override
+	public int pathlength() {
+		// TODO Auto-generated method stub
+		return path.size();
+	}
+
+	@Override
+	public int getReader() {
+		// TODO Auto-generated method stub
+		return reader;
+	}
+
 }

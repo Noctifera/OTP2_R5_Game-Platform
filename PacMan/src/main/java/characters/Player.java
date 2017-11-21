@@ -1,4 +1,4 @@
-package player;
+package characters;
 
 import java.awt.Point;
 import java.util.ArrayList;
@@ -8,13 +8,14 @@ import hibernate.DataBaseConnection;
 import javafx.scene.input.KeyCode;
 import map.MovementLogic;
 
-public class Player extends Score implements Player_IF {
+public class Player extends Score implements Character {
 	private MovementLogic ml;
 
 	private Point pos;
 	private int life;
 	private String vulnerable = "deactive";
 	private List<Point> path = new ArrayList<>();
+	private int reader = 0;
 
 	public Player(MovementLogic ml, int life) {
 		super(0);
@@ -32,6 +33,7 @@ public class Player extends Score implements Player_IF {
 	public void path(KeyCode event) {
 		path = move(event);
 		System.out.println(path);
+		reader = 0;
 	}
 	
 
@@ -42,6 +44,7 @@ public class Player extends Score implements Player_IF {
 	private List<Point> move(KeyCode event) {
 
 		ArrayList<Point> list = new ArrayList<>();
+		
 		switch (event) {
 		case W:
 			// ylös
@@ -151,10 +154,6 @@ public class Player extends Score implements Player_IF {
 		this.vulnerable = vulnerable;
 	}
 
-	public void getEaten() {
-		life--;
-	}
-
 	public int getLife() {
 		return life;
 	}
@@ -164,6 +163,43 @@ public class Player extends Score implements Player_IF {
 	}
 	public void post(String playerName) {
 		DataBaseConnection.post(score, playerName);
+	}
+
+	@Override
+	public boolean eaten() {
+		// TODO Auto-generated method stub
+		return false;
+	}
+
+	@Override
+	public Point characterSpawn() {
+		// TODO Auto-generated method stub
+		return ml.playerSpawn();
+	}
+
+	@Override
+	public void getNextPos() {
+		// TODO Auto-generated method stub
+		pos = path.get(reader);
+		reader++;
+	}
+
+	@Override
+	public void findPath() {
+		// TODO Auto-generated method stub
+		
+	}
+
+	@Override
+	public int pathlength() {
+		// TODO Auto-generated method stub
+		return path.size();
+	}
+
+	@Override
+	public int getReader() {
+		// TODO Auto-generated method stub
+		return reader;
 	}
 
 }

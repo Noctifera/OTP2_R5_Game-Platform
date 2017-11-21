@@ -3,12 +3,12 @@ package canvas;
 import java.awt.Point;
 import java.util.ArrayList;
 
-import ghosts.Ghost;
+import characters.Ghost;
+import characters.Player;
 import javafx.scene.canvas.Canvas;
 import javafx.scene.canvas.GraphicsContext;
 import javafx.scene.paint.Color;
 import map.Map;
-import player.Player;
 
 /**
  * Class extends Canvas and allows items to be drawn onto it
@@ -89,7 +89,15 @@ public class Draw extends Canvas implements Draw_IF {
 		int block = tileSize / 2;
 		gc.fillOval(pos.getX() + block / 2, pos.getY() + block / 2, block, block);
 	}
-
+	private void drawPlayerSpawn(Point point) {
+		gc.setFill(Color.GREEN);
+		gc.fillRect(point.getX() + 1, point.getY() + 1, tileSize - 2, tileSize - 2);
+	}
+	private void drawGhostHouse(Point point) {
+		gc.setFill(Color.RED);
+		gc.fillRect(point.getX() + 1, point.getY() + 1, tileSize - 2, tileSize - 2);
+	}
+	
 	private void drawGhost() {
 		for (int i = 0; i < gh.length; i++) {
 			//System.out.println("ghost: "+i+gh[i].getPos());
@@ -107,20 +115,28 @@ public class Draw extends Canvas implements Draw_IF {
 		// System.out.println(dots);
 		ArrayList<Point> largedots = map.getLargeDots();
 		// System.out.println(largedots);
+		Point ghostHouse = map.getGhostHouse();
+		Point playerSpawn = map.getPlayerSpawn();
 
 		for (int i = 0; i < this.getHeight();) {
 			for (int j = 0; j < this.getWidth();) {
-				if (dots.contains(new Point(j, i))) {
-					drawDot(new Point(j, i));
+				Point point = new Point(j, i);
+				if (dots.contains(point)) {
+					drawDot(point);
 
 				}
-				if (largedots.contains(new Point(j, i))) {
-					drawLargeDot(new Point(j, i));
+				if (largedots.contains(point)) {
+					drawLargeDot(point);
 
 				}
-				if (walls.contains(new Point(j, i))) {
-					drawWall(new Point(j, i));
+				if (walls.contains(point)) {
+					drawWall(point);
+				}if((point).equals(ghostHouse)) {
+					drawGhostHouse(point);
+				}if((point).equals(playerSpawn)) {
+					drawPlayerSpawn(point);
 				}
+				
 				j = j + 40;
 			}
 			i = i + 40;

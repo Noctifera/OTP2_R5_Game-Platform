@@ -1,10 +1,14 @@
 package controller;
 
+
+import java.util.List;
+
 import application.PacMan_gui;
 import canvas.CanvasController;
 import canvas.DrawThread;
+import characters.Player;
 import hibernate.DataBaseConnection;
-import player.Player;
+import hibernate.HighScores;
 
 /**
  * controls data between the application and modal
@@ -43,5 +47,9 @@ public class Controller implements Controller_IF {
 
 	public void gameOver() {
 		pMG.gameOver();
+	}
+	public List<HighScores> getScores(String nString) {
+		return DataBaseConnection.scoreForMap(nString);
+		
 	}
 }

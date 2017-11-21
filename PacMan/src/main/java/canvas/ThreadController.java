@@ -1,41 +1,34 @@
 package canvas;
 
-import ghosts.Ghost;
-import ghosts.GhostThread;
-import player.Player;
-import player.PlayerThread;
+import java.util.ArrayList;
+
+import characters.Character_Thread;
+import characters.Ghost;
+import characters.Player;
 
 public class ThreadController {
-	private Player player;
-	private Ghost[] ghlist;
-	private GhostThread[] ghtList;
-	private PlayerThread pt;
-	
-	public ThreadController(Player player, Ghost[] ghlist) {
-		this.player = player;
-		this.ghlist = ghlist;
-	}
-	
-	public void startThreads() {
-		ghtList = new GhostThread[ghlist.length];
-		
-		for(int i = 0; i< ghtList.length; i++) {
-			GhostThread ght  = new GhostThread(ghlist[i]);
-			ghtList[i] = ght;
-			ght.start();
-			
+
+	private ArrayList<Character_Thread> threads;
+
+	private void inis(Player player, Ghost[] ghlist) {
+		threads = new ArrayList<>();
+		for (int i = 0; i < ghlist.length; i++) {
+			threads.add(new Character_Thread(ghlist[i]));
 		}
-		pt = new PlayerThread(player);
-		pt.start();
+		threads.add(new Character_Thread(player));
 	}
-	
+
+	public void startThreads(Player player, Ghost[] ghlist) {
+		inis(player, ghlist);
+		for (Character_Thread ct : threads) {
+			ct.start();
+		}
+
+	}
+
 	public void suppress() {
-		for(GhostThread gt: ghtList) {
-			gt.supress();
+		for (Character_Thread ct : threads) {
+			ct.suppress();
 		}
-		pt.supress();
 	}
-	
-	
-	
 }

@@ -83,6 +83,16 @@ public class DataBaseConnection {
 			conn.close();
 		}
 	}
+	public static List<HighScores> scoreForMap(String mString){
+		List<HighScores> list = new ArrayList<>();
+		for(HighScores hs: scores) {
+			if(hs.getMapName().getMapName().equals(mString)) {
+				list.add(hs);
+			}
+		}
+		
+		return list;
+	}
 	public static boolean post(int score, String playername) {
 		boolean sucess = false;
 		Session conn = null;

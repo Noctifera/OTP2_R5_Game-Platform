@@ -6,12 +6,14 @@ import javafx.scene.control.TextField;
 
 import java.awt.Point;
 import java.util.ArrayList;
+import java.util.List;
 
 import canvas.CanvasController;
 import canvas.ThreadController;
+import characters.Ghost;
+import characters.Player;
 import controller.*;
-import ghosts.Ghost;
-import player.Player;
+import hibernate.HighScores;
 import javafx.application.Application;
 import javafx.event.ActionEvent;
 import javafx.event.EventHandler;
@@ -86,9 +88,8 @@ public class PacMan_gui extends Application implements PacMan_gui_IF {
 		for (int i = 0; i < ghostAmount; i++) {
 			ghlist[i] = new Ghost(ml, player, ghosts[i]);
 		}
-		ThreadController tc = new ThreadController(player, ghlist);
 		
-		cc = new CanvasController(gSize, tileSize,tc,map,player, ghlist);
+		cc = new CanvasController(gSize, tileSize,map,player, ghlist);
 
 	}
 
@@ -109,9 +110,10 @@ public class PacMan_gui extends Application implements PacMan_gui_IF {
 
 			}
 		});
-
 		combine();
 		con.start(cc);
+		
+		
 
 	}
 
@@ -119,11 +121,15 @@ public class PacMan_gui extends Application implements PacMan_gui_IF {
 		// con.gethighScore();
 		BorderPane bottomPane = new BorderPane();
 
+		
+		GridPane gridLeft = new GridPane();
+		
 		GridPane gridCenter = new GridPane();
 		gridCenter.setPadding(new Insets(0, 20, 0, 20));
-		GridPane gridLeft = new GridPane();
+		
 		GridPane gridRight = new GridPane();
-
+		
+		
 		bottomPane.setCenter(gridCenter);
 		bottomPane.setLeft(gridLeft);
 		bottomPane.setRight(gridRight);
@@ -132,7 +138,7 @@ public class PacMan_gui extends Application implements PacMan_gui_IF {
 		return hbox;
 	}
 
-	public void listLooper(GridPane grid, ArrayList<String> list, String text) {
+	private void listLooper(GridPane grid, ArrayList<String> list, String text) {
 
 		// datarivien title: esim highscore, name, date
 		Label title = new Label(text);

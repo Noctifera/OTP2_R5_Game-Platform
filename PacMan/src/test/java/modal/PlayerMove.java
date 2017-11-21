@@ -8,11 +8,11 @@ import java.util.List;
 import org.junit.BeforeClass;
 import org.junit.Test;
 
+import characters.Player;
 import hibernate.DataBaseConnection;
 import javafx.scene.input.KeyCode;
 import map.Map;
 import map.MovementLogic;
-import player.Player;
 import sounds.Sounds;
 
 public class PlayerMove {

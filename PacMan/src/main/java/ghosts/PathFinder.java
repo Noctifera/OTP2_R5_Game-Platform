@@ -18,7 +18,7 @@ public class PathFinder implements PathFinder_IF {
 		this.ml = ml;
 	}
 
-	public ArrayList<Point> path(Point start, Point goal) {
+	public ArrayList<Point> route(Point start, Point goal) {
 
 		ArrayList<Node> closedSet = new ArrayList<>();
 		ArrayList<Node> openSet = new ArrayList<>();
@@ -51,7 +51,7 @@ public class PathFinder implements PathFinder_IF {
 
 	}
 
-	public ArrayList<Node> neighbors(Node current, Point goal, Point start, ArrayList<Node> closedSet) {
+	private ArrayList<Node> neighbors(Node current, Point goal, Point start, ArrayList<Node> closedSet) {
 		ArrayList<Node> list = new ArrayList<>();
 
 		for (Point p : ml.moves(current.getId())) {
@@ -74,7 +74,7 @@ public class PathFinder implements PathFinder_IF {
 		return list;
 	}
 
-	public Node lowestHcost(ArrayList<Node> list) {
+	private Node lowestHcost(ArrayList<Node> list) {
 		Node cheapest = list.get(0);
 		for (Node n : list) {
 
@@ -85,7 +85,7 @@ public class PathFinder implements PathFinder_IF {
 		return cheapest;
 	}
 
-	public ArrayList<Point> retrunPath(Node current) {
+	private ArrayList<Point> retrunPath(Node current) {
 		ArrayList<Node> wrongList = new ArrayList<>();
 		ArrayList<Point> path = new ArrayList<>();
 		Node api = current;
@@ -99,7 +99,7 @@ public class PathFinder implements PathFinder_IF {
 		return path;
 	}
 
-	public int fromGoalScore(Point goal, Point point) {
+	private int fromGoalScore(Point goal, Point point) {
 		double dX = Math.abs(goal.getX() - point.getX());
 		double dY = Math.abs(goal.getY() - point.getY());
 
@@ -112,7 +112,7 @@ public class PathFinder implements PathFinder_IF {
 		return fromGoalScore;
 	}
 
-	public int fromStartScore(Node parent) {
+	private int fromStartScore(Node parent) {
 		return parent.getCostFromStart() + 40;
 	}
 }

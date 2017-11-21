@@ -7,12 +7,11 @@ import org.junit.BeforeClass;
 import static org.junit.Assert.*;
 import org.junit.Test;
 
-import ghosts.Ghost;
+import characters.Ghost;
+import characters.Player;
 import hibernate.DataBaseConnection;
 import map.Map;
 import map.MovementLogic;
-import player.Player;
-import sounds.Sounds;
 	
 public class GhostTest {
 
@@ -22,7 +21,6 @@ public class GhostTest {
 	private static Point gSize;
 	private static int blSize;
 	private static Ghost gh;
-	private static Sounds sounds;
 	
 	@BeforeClass
 	public static void start() {
@@ -42,41 +40,41 @@ public class GhostTest {
 	
 	@Test
 	public void testGhostMovement() {
-		Point SPoint = new Point(gh.ghostHouse());
+		Point SPoint = new Point(gh.characterSpawn());
 		Point TPoint = new Point(280, 240);
-		ArrayList<Point> test = gh.path(SPoint,TPoint);
+		ArrayList<Point> test = gh.route(SPoint, TPoint);
 		assertEquals(TPoint, test.get(test.size()-1));			
 	}
 	
 	@Test
 	public void testPathSize() {
-		Point SPoint = new Point(gh.ghostHouse());
+		Point SPoint = new Point(gh.characterSpawn());
 		Point TPoint = new Point(280, 240);
-		ArrayList<Point> test = gh.path(SPoint,TPoint);
+		ArrayList<Point> test = gh.route(SPoint, TPoint);
 		assertEquals(12, test.size());
 	}
 	
 	@Test
 	public void testGhostMovementLong() {		
-		Point SPoint = new Point(gh.ghostHouse());
+		Point SPoint = new Point(gh.characterSpawn());
 		Point TPoint = new Point(680, 440);
-		ArrayList<Point> test = gh.path(SPoint,TPoint);
+		ArrayList<Point> test = gh.route(SPoint, TPoint);
 		assertEquals(TPoint, test.get(test.size()-1));
 	}
 	
 	@Test
 	public void testPathSizeLong() {
-		Point SPoint = new Point(gh.ghostHouse());
+		Point SPoint = new Point(gh.characterSpawn());
 		Point TPoint = new Point(680, 440);
-		ArrayList<Point> test = gh.path(SPoint,TPoint);
+		ArrayList<Point> test = gh.route(SPoint, TPoint);
 		assertEquals(69, test.size());
 	}
 	
 	@Test
 	public void testGhostImpossibleMovement() {
-		Point SPoint = new Point(gh.ghostHouse());
+		Point SPoint = new Point(gh.characterSpawn());
 		Point TPoint = new Point(200, 40);
-		ArrayList<Point> test = gh.path(SPoint,TPoint);
+		ArrayList<Point> test = gh.route(SPoint, TPoint);
 		assertEquals(null, test);
 	}
 	

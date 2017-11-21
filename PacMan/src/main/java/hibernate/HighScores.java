@@ -74,4 +74,8 @@ public class HighScores {
 		this.mapName = mapName;
 	}
 
+	public String toString() {
+		return "HighScores [Id=" + Id + ", submission_date=" + submission_date + ", score=" + score + ", playername=" + playername + ", mapName=" + mapName + "]";
+	}
+
 }

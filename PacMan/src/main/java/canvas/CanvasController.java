@@ -7,7 +7,8 @@ import java.util.ArrayList;
 
 import javax.imageio.ImageIO;
 
-import ghosts.Ghost;
+import characters.Ghost;
+import characters.Player;
 import hibernate.DataBaseConnection;
 import hibernate.MapsTable;
 import javafx.embed.swing.SwingFXUtils;
@@ -19,7 +20,6 @@ import javafx.scene.input.KeyEvent;
 import javafx.scene.input.MouseEvent;
 import javafx.scene.text.Font;
 import map.Map;
-import player.Player;
 
 public class CanvasController extends Canvas {
 	
@@ -36,12 +36,12 @@ public class CanvasController extends Canvas {
 	private ArrayList<TextNode> maplist;
 
 
-	public CanvasController(Point point,int tileSize, ThreadController tc, Map map, Player player, Ghost[] ghlist) {
+	public CanvasController(Point point,int tileSize,  Map map, Player player, Ghost[] ghlist) {
 		super(point.x, point.y);
 		this.tileSize = tileSize;
 		this.point = point;
 		this.player = player;
-		this.tc = tc;
+		this.tc = new ThreadController();
 		this.map = map;
 		this.ghlist = ghlist;
 		handle();
@@ -65,17 +65,11 @@ public class CanvasController extends Canvas {
 	}
 
 	public void game() {
-		spawn();
-		tc.startThreads();
+		
+		tc.startThreads(player,ghlist);
 		
 		canvas = new Draw(point.x, point.y, tileSize, player, ghlist, map, this.getGraphicsContext2D());
 
-	}
-	private void spawn() {
-		player.setPos(map.getPlayerSpawn());
-		for(Ghost g: ghlist) {
-			g.setPos(map.getGhostHouse());
-		}
 	}
 	protected void maplist() {
 		ArrayList<TextNode> list = new ArrayList<>();
