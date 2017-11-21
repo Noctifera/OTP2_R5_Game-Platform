@@ -7,11 +7,11 @@ import javafx.scene.control.TextField;
 import java.awt.Point;
 import java.util.ArrayList;
 
-import canvas.ComCanvas;
+import canvas.CanvasController;
+import canvas.ThreadController;
 import controller.*;
 import ghosts.Ghost;
 import player.Player;
-import sounds.Sounds;
 import javafx.application.Application;
 import javafx.event.ActionEvent;
 import javafx.event.EventHandler;
@@ -22,7 +22,6 @@ import javafx.stage.WindowEvent;
 import map.Map;
 import map.MovementLogic;
 import javafx.scene.Scene;
-import javafx.scene.canvas.Canvas;
 import javafx.scene.layout.BorderPane;
 import javafx.scene.layout.GridPane;
 import javafx.scene.layout.HBox;
@@ -38,10 +37,7 @@ import javafx.scene.text.Text;
 public class PacMan_gui extends Application implements PacMan_gui_IF {
 
 	private Controller con;
-	private Map map;
-	private Player player;
-	private MovementLogic ml;
-	private ComCanvas cc;
+	private CanvasController cc;
 
 	/**
 	 * the amount of ghosts in the game
@@ -78,15 +74,21 @@ public class PacMan_gui extends Application implements PacMan_gui_IF {
 	private Text scores;
 
 	public void init() {
-		map = new Map(strings, gSize, tileSize);
-		ml = new MovementLogic(gSize, tileSize, map);
-		player = new Player(ml, life);
+		Map map = new Map(strings, gSize, tileSize);
+		
+		MovementLogic ml = new MovementLogic(gSize, tileSize, map);
+		
+		Player player = new Player(ml, life);
+		
+		
+		con = new Controller(this,player);
 
 		for (int i = 0; i < ghostAmount; i++) {
 			ghlist[i] = new Ghost(ml, player, ghosts[i]);
 		}
-		cc = new ComCanvas(player, ghlist, map, gSize.x, gSize.y, tileSize);
-		con = new Controller(player, this);
+		ThreadController tc = new ThreadController(player, ghlist);
+		
+		cc = new CanvasController(gSize, tileSize,tc,map,player, ghlist);
 
 	}
 
@@ -109,7 +111,7 @@ public class PacMan_gui extends Application implements PacMan_gui_IF {
 		});
 
 		combine();
-		con.start(ghlist,map,cc);
+		con.start(cc);
 
 	}
 
@@ -148,6 +150,7 @@ public class PacMan_gui extends Application implements PacMan_gui_IF {
 
 		GridPane gd = new GridPane();
 		gd.add(topHorizonatalBox(), 0, 0);
+		
 		gd.add(cc, 0, 1);
 		root.getChildren().add(gd);
 		gd.add(bottomDataPane(), 0, 2);
@@ -163,7 +166,6 @@ public class PacMan_gui extends Application implements PacMan_gui_IF {
 		life.setText("Lives left: ");
 
 		lives = new Text();
-		con.setLives();
 		lives.setMouseTransparent(true);
 		lives.setFocusTraversable(false);
 
@@ -175,7 +177,6 @@ public class PacMan_gui extends Application implements PacMan_gui_IF {
 
 		right.add(score, 0, 0);
 		right.add(scores, 1, 0);
-		con.setScore();
 
 		bp.setLeft(left);
 		bp.setRight(right);
@@ -191,6 +192,7 @@ public class PacMan_gui extends Application implements PacMan_gui_IF {
 		Label label1 = new Label("GAME OVER!");
 		TextField textfield = new TextField();
 		Button button = new Button("Save");
+		
 
 		button.setOnAction(new EventHandler<ActionEvent>() {
 

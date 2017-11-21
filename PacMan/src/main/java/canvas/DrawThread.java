@@ -1,6 +1,5 @@
 package canvas;
 
-import game.GameLogic;
 import javafx.application.Platform;
 
 /**
@@ -11,14 +10,12 @@ import javafx.application.Platform;
  */
 
 public class DrawThread extends Thread {
-	private ComCanvas cc;
-	private GameLogic gl;
+	private CanvasController cc;
 
 	private volatile boolean supress = false;
 
-	public DrawThread(ComCanvas cc,GameLogic gl) {
+	public DrawThread(CanvasController cc) {
 		this.cc = cc;
-		this.gl = gl;
 	}
 
 	public void run() {
@@ -35,20 +32,13 @@ public class DrawThread extends Thread {
 			
 			
 			try {
-				Thread.sleep(10);
+				Thread.sleep(200);
 			} catch (InterruptedException e) {
 				// TODO Auto-generated catch block
 				e.printStackTrace();
 			}
 		}
 	}
-	public void openMenu() {
-		gl.openMenu();
-	}
-	public void runGame() {
-		gl.resumegame();
-	}
-
 	public void supress() {
 		supress = true;
 	}

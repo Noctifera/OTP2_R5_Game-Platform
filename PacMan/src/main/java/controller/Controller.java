@@ -1,16 +1,10 @@
 package controller;
 
 import application.PacMan_gui;
-import canvas.ComCanvas;
-import canvas.Draw;
-import canvas.Draw_IF;
-import canvas.Menu;
-import game.*;
-import ghosts.Ghost;
+import canvas.CanvasController;
+import canvas.DrawThread;
 import hibernate.DataBaseConnection;
-import map.Map;
 import player.Player;
-import sounds.Sounds;
 
 /**
  * controls data between the application and modal
@@ -20,27 +14,27 @@ import sounds.Sounds;
  *
  */
 public class Controller implements Controller_IF {
-	private Player player;
 	private PacMan_gui pMG;
+	private Player player;
 
-	public Controller(Player player, PacMan_gui pMG) {
-		this.player = player;
+	public Controller(PacMan_gui pMG,Player player) {
 		this.pMG = pMG;
+		this.player = player;
 	}
-
-	public void start(Ghost[] ghlist,Map map,ComCanvas cc) {
+	public void start(CanvasController cc) {
 		DataBaseConnection.getAllMapsFromDataBase();
 		DataBaseConnection.getAllHighScoresFromDataBase();
-		GameThread gt = new GameThread(player, this, ghlist, map, cc);
-		gt.start();
+		cc.menu();
+		DrawThread dt = new DrawThread(cc);
+		dt.start();
 	}
 
-	public void setLives() {
-		pMG.setLives(player.getLife());
+	public void setLives(int lives) {
+		pMG.setLives(lives);
 	}
 
-	public void setScore() {
-		pMG.setScore(player.getScore());
+	public void setScore(int score) {
+		pMG.setScore(score);
 	}
 
 	public void setHighScore(String playername) {

@@ -4,11 +4,8 @@ import java.awt.Point;
 import java.util.ArrayList;
 
 import ghosts.Ghost;
-import javafx.event.EventHandler;
 import javafx.scene.canvas.Canvas;
 import javafx.scene.canvas.GraphicsContext;
-import javafx.scene.input.KeyCode;
-import javafx.scene.input.KeyEvent;
 import javafx.scene.paint.Color;
 import map.Map;
 import player.Player;
@@ -57,6 +54,7 @@ public class Draw extends Canvas implements Draw_IF {
 
 	private void move() {
 		gc.setFill(Color.ORANGE);
+		//System.out.println("player: "+ player.getPos());
 		gc.fillOval(player.getPos().getX() + 5, player.getPos().getY() + 5, tileSize - 10, tileSize - 10);
 	}
 
@@ -94,6 +92,7 @@ public class Draw extends Canvas implements Draw_IF {
 
 	private void drawGhost() {
 		for (int i = 0; i < gh.length; i++) {
+			//System.out.println("ghost: "+i+gh[i].getPos());
 			gc.setFill(gh[i].getColor());
 			gc.fillRect(gh[i].getPos().getX() + 5, gh[i].getPos().getY() + 5, tileSize - 10, tileSize - 10);
 			// gc.drawImage(gh[i].getImage(),gh[i].getPos().getX(),gh[i].getPos().getY(),tileSize-10,

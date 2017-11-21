@@ -10,9 +10,9 @@ import javafx.scene.text.Font;
 
 public class Menu extends Canvas implements Draw_IF {
 	private GraphicsContext gc;
-	private ComCanvas cc;
+	private CanvasController cc;
 
-	public Menu(int width, int height, GraphicsContext gc,ComCanvas cc) {
+	public Menu(int width, int height, GraphicsContext gc,CanvasController cc) {
 		super(width, height);
 		this.gc = gc;
 		this.cc = cc;

@@ -4,7 +4,6 @@ import java.awt.Point;
 import java.io.File;
 import java.util.ArrayList;
 
-import game.*;
 import javafx.scene.image.Image;
 import javafx.scene.paint.Color;
 import map.MovementLogic;

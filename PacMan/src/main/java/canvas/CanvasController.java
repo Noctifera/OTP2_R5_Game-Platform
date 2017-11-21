@@ -1,5 +1,6 @@
 package canvas;
 
+import java.awt.Point;
 import java.awt.image.BufferedImage;
 import java.io.ByteArrayInputStream;
 import java.util.ArrayList;
@@ -20,26 +21,29 @@ import javafx.scene.text.Font;
 import map.Map;
 import player.Player;
 
-public class ComCanvas extends Canvas {
+public class CanvasController extends Canvas {
+	
 	private Draw_IF canvas;
 	private Player player;
-	private Ghost[] gh;
+	
 	private Map map;
+	private ThreadController tc;
+	
 
-	private int width;
-	private int height;
+	private Point point;
 	private int tileSize;
+	private Ghost[] ghlist;
 	private ArrayList<TextNode> maplist;
 
-	public ComCanvas(Player player, Ghost[] gh, Map map, int width, int height, int tileSize) {
-		super(width, height);
-		this.player = player;
-		this.gh = gh;
-		this.map = map;
-		this.width = width;
-		this.height = height;
-		this.tileSize = tileSize;
 
+	public CanvasController(Point point,int tileSize, ThreadController tc, Map map, Player player, Ghost[] ghlist) {
+		super(point.x, point.y);
+		this.tileSize = tileSize;
+		this.point = point;
+		this.player = player;
+		this.tc = tc;
+		this.map = map;
+		this.ghlist = ghlist;
 		handle();
 	}
 
@@ -49,25 +53,43 @@ public class ComCanvas extends Canvas {
 
 	public void menu() {
 		maplist();
-		canvas = new Menu(width, height, this.getGraphicsContext2D(), this);
+		
+		try {
+			Thread.sleep(10);
+		} catch (InterruptedException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+		canvas = new Menu(point.x, point.y, this.getGraphicsContext2D(), this);
+
 	}
 
 	public void game() {
-		canvas = new Draw(width, height, tileSize, player, gh, map, this.getGraphicsContext2D());
-	}
+		spawn();
+		tc.startThreads();
+		
+		canvas = new Draw(point.x, point.y, tileSize, player, ghlist, map, this.getGraphicsContext2D());
 
+	}
+	private void spawn() {
+		player.setPos(map.getPlayerSpawn());
+		for(Ghost g: ghlist) {
+			g.setPos(map.getGhostHouse());
+		}
+	}
 	protected void maplist() {
 		ArrayList<TextNode> list = new ArrayList<>();
 		int x = 0;
 		int y = 0;
+		//DataBaseConnection.getAllMapsFromDataBase();
 		for (MapsTable mt : DataBaseConnection.getMapList()) {
 			try {
 				BufferedImage mi = ImageIO.read(new ByteArrayInputStream(mt.getMapImage()));
 				Image image = SwingFXUtils.toFXImage(mi, null);
 				TextNode tn = new TextNode(mt.getMapName(), x, y, new Font(15), image);
 				list.add(tn);
-				//System.out.println("image width" + (x + tn.getImageWidth()));
-				//System.out.println("width" + this.getWidth());
+				// System.out.println("image width" + (x + tn.getImageWidth()));
+				// System.out.println("width" + this.getWidth());
 				if ((x + tn.getImageWidth() * 2) >= this.getWidth()) {
 					x = 0;
 					y = y + tn.getImageHeight() + 20;
@@ -123,7 +145,11 @@ public class ComCanvas extends Canvas {
 						if ((me.getX() > tn.getX()) && (me.getX() < (tn.getX() + tn.getImageWidth()))) {
 							if (me.getY() > tn.getY() && (me.getY() < (tn.getY() + tn.getImageHeight()))) {
 								System.out.println(tn.getText());
-								DataBaseConnection.readOneMap(tn.getText());
+
+								map.setMap(DataBaseConnection.readOneMap(tn.getText()));
+
+								
+								game();
 							}
 
 						}
@@ -144,7 +170,15 @@ public class ComCanvas extends Canvas {
 					}
 				} else {
 					if (canvas instanceof Draw) {
+						tc.suppress();
+						try {
+							Thread.sleep(10);
+						} catch (InterruptedException e) {
+							// TODO Auto-generated catch block
+							e.printStackTrace();
+						}
 						menu();
+						
 					} else if (canvas instanceof Menu) {
 						game();
 					}

@@ -7,7 +7,6 @@ import java.util.List;
 import hibernate.DataBaseConnection;
 import javafx.scene.input.KeyCode;
 import map.MovementLogic;
-import sounds.Sounds;
 
 public class Player extends Score implements Player_IF {
 	private MovementLogic ml;
