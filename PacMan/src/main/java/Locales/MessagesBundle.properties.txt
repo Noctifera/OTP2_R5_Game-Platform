@@ -1,0 +1,13 @@
+Lives_Left = Lives Left
+Score = Score
+Name = Name
+Date = Date
+Highscore = High Score
+Game_Over = Game Over
+Save = Save
+
+LanguageSelectionEnglish = English
+LanguageSelectionSouthernSotho = Suid-Sotho
+LanguageSelectionAfrikaans = Afrikaans
+LanguageSelectionZulu = Zulu
+LanguageSelectionXhosa = Xhosa

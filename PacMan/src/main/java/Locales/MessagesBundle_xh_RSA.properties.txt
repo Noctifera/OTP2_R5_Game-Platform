@@ -1,0 +1,13 @@
+Lives_Left = Bomi Seleyo
+Score = Inqaku
+Name = Igama
+Date = Umhla
+Highscore = Umgangatho Ophezulu
+Game_Over = Umdlalo Udlulile
+Save = Gcina
+
+LanguageSelectionEnglish = English
+LanguageSelectionSouthernSotho = Suid-Sotho
+LanguageSelectionAfrikaans = Afrikaans
+LanguageSelectionZulu = Zulu
+LanguageSelectionXhosa = Xhosa
