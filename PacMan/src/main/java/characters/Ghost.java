@@ -88,11 +88,13 @@ public class Ghost extends PathFinder implements Character {
 
 	@Override
 	public boolean eaten() {
-		// TODO Auto-generated method stub
-		if(player.getVulnerable()) {
-			
+		
+		if(player.getVulnerable() && player.getPos().equals(pos)) {
+			return true;
+		}else {
+			return false;
 		}
-		return false;
+		
 	}
 
 	@Override
@@ -112,6 +114,7 @@ public class Ghost extends PathFinder implements Character {
 	public void findPath() {
 		// TODO Auto-generated method stub
 		reader = 0;
+		path.clear();
 		if (!player.getVulnerable()) {
 
 			double rand = Math.random();

@@ -169,6 +169,7 @@ public class Player extends Score implements Character {
 	public boolean eaten() {
 		// TODO Auto-generated method stub
 		return false;
+		
 	}
 
 	@Override

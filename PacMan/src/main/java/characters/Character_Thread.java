@@ -17,6 +17,9 @@ public class Character_Thread extends Thread {
 		while (!suppress) {
 			if (character.getReader() < character.pathlength()) {
 				character.getNextPos();
+				if(character.eaten()) {
+					spawn();
+				}
 			} else {
 				character.findPath();
 			}
@@ -46,8 +49,16 @@ public class Character_Thread extends Thread {
 
 	private void spawn() {
 		character.setPos(character.characterSpawn());
+		
 		try {
 			Thread.sleep(10);
+		} catch (InterruptedException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+		character.findPath();
+		try {
+			Thread.sleep(500);
 		} catch (InterruptedException e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
