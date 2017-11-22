@@ -284,6 +284,5 @@ public class PacMan_gui extends Application implements PacMan_gui_IF {
 	public static void main(String[] args) {
 		launch(args);
 	}
-	
-	
+		
 }
