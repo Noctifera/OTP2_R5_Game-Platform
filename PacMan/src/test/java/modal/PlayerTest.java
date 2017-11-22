@@ -15,7 +15,7 @@ import map.Map;
 import map.MovementLogic;
 import sounds.Sounds;
 
-public class PlayerMove {
+public class PlayerTest {
 	private static MovementLogic ml;
 	private static Map map;
 	private static Player player;

@@ -13,7 +13,7 @@ public class Player extends Score implements Character {
 
 	private Point pos;
 	private int life;
-	private String vulnerable = "deactive";
+	private boolean vulnerable = false;
 	private List<Point> path = new ArrayList<>();
 	private int reader = 0;
 
@@ -130,7 +130,7 @@ public class Player extends Score implements Character {
 		}
 		else if (ml.largeDots().contains(pos)) {
 			LargeDot();			
-			vulnerable = "active";
+			vulnerable = true;
 			
 			if (pos != null)
 				ml.largeDots().remove(pos);
@@ -146,11 +146,11 @@ public class Player extends Score implements Character {
 		return ml.largeDots();
 	}
 
-	public String getVulnerable() {
+	public boolean getVulnerable() {
 		return vulnerable;
 	}
 
-	public void setVulnerable(String vulnerable) {
+	public void setVulnerable(boolean vulnerable) {
 		this.vulnerable = vulnerable;
 	}
 
@@ -181,13 +181,14 @@ public class Player extends Score implements Character {
 	public void getNextPos() {
 		// TODO Auto-generated method stub
 		pos = path.get(reader);
+		score(pos);
 		reader++;
 	}
 
 	@Override
 	public void findPath() {
 		// TODO Auto-generated method stub
-		
+		path.clear();
 	}
 
 	@Override

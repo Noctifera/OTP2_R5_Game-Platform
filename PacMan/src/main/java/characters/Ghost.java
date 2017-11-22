@@ -37,19 +37,19 @@ public class Ghost extends PathFinder implements Character {
 	}
 
 	public Image getImage() {
-		if(ghost == "Blinky" && player.getVulnerable().equals("deactive")) {
+		if(ghost == "Blinky" && !player.getVulnerable()) {
 			File f = new File("Picture\\Pacman-red-blinky.png");
 			Image img = new Image(f.toURI().toString(),false);
 			return img;
-		}else if(ghost == "Speedy" && player.getVulnerable().equals("deactive")) {
+		}else if(ghost == "Speedy" && !player.getVulnerable()) {
 			File f = new File("Picture\\Pacman-pink-pinky.png");
 			Image img = new Image(f.toURI().toString(),false);
 			return img;
-		}else if(ghost == "Bashful" && player.getVulnerable().equals("deactive")) {
+		}else if(ghost == "Bashful" && !player.getVulnerable()) {
 			File f = new File("Picture\\Pacman-light-blue-inky.png");
 			Image img = new Image(f.toURI().toString(),false);
 			return img;
-		}else if(ghost.equals("Pokey") && player.getVulnerable().equals("deactive")) {
+		}else if(ghost.equals("Pokey") && !player.getVulnerable()) {
 			File f = new File("Picture\\Pacman-orange-clyde.png");
 			Image img = new Image(f.toURI().toString(),false);
 			return img;
@@ -61,20 +61,20 @@ public class Ghost extends PathFinder implements Character {
 	}
 
 	public Color getColor() {
-		if (ghost == "Blinky" && player.getVulnerable().equals("deactive")) {
+		if (ghost == "Blinky" && !player.getVulnerable()) {
 			return Color.RED;
-		} else if (ghost == "Speedy" && player.getVulnerable().equals("deactive")) {
+		} else if (ghost == "Speedy" && !player.getVulnerable()) {
 			return Color.PINK;
-		} else if (ghost == "Bashful" && player.getVulnerable().equals("deactive")) {
+		} else if (ghost == "Bashful" && !player.getVulnerable()) {
 			return Color.AQUAMARINE;
-		} else if (ghost.equals("Pokey") && player.getVulnerable().equals("deactive")) {
+		} else if (ghost.equals("Pokey") && !player.getVulnerable()) {
 			return Color.GOLD;
 		} else {
 			return Color.BLUEVIOLET;
 		}
 	}
 
-	public String vulnerableStatus() {
+	public boolean vulnerableStatus() {
 		return player.getVulnerable();
 	}
 
@@ -89,6 +89,9 @@ public class Ghost extends PathFinder implements Character {
 	@Override
 	public boolean eaten() {
 		// TODO Auto-generated method stub
+		if(player.getVulnerable()) {
+			
+		}
 		return false;
 	}
 
@@ -109,17 +112,24 @@ public class Ghost extends PathFinder implements Character {
 	public void findPath() {
 		// TODO Auto-generated method stub
 		reader = 0;
-		if (player.getVulnerable().equals("deactive")) {
+		if (!player.getVulnerable()) {
 
 			double rand = Math.random();
 
 			if (rand <= 0.30) {
 				Point randpoint = ml.randomPoint();
 				path = route(pos, randpoint);
+				System.out.println(path);
+				
 			} else {
-
-				Point point = player.getPos();
+				Point point = null;
+				if(ml.freespaces().contains(player.getPos())) {
+					point = player.getPos();
+				}else {
+					point = ml.randomPoint();
+				}
 				path = route(pos, point);
+				System.out.println(path);
 
 			}
 		} else {

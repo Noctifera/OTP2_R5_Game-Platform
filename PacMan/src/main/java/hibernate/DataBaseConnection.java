@@ -42,7 +42,9 @@ public class DataBaseConnection {
 		String currentDate = time.format(date);
 		return currentDate;
 	}
-	
+	public static void setFirstMap() {
+		readOneMap(mapList.get(0).getMapName());
+	}
 	private static Session OpenConnectionToDataBase() {
 		SessionFactory sessFac = null;
 
@@ -163,6 +165,9 @@ public class DataBaseConnection {
 
 	public static List<MapsTable> getMapList() {
 		return mapList;
+	}
+	public static MapsTable getUsedMap() {
+		return usedMap;
 	}
 
 }

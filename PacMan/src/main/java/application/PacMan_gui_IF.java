@@ -1,5 +1,8 @@
 package application;
 
+import java.util.List;
+
+import hibernate.HighScores;
 import javafx.scene.layout.HBox;
 import javafx.stage.Stage;
 
@@ -14,10 +17,10 @@ public interface PacMan_gui_IF {
 	 * Gets all HighScores from DataBase and shows them
 	 * @return HorizontalBox with highScores from DataBase
 	 */
-	public HBox bottomDataPane(); //tietokannan ulos tulo
+	public void bottomDataPane(List<HighScores> list); //tietokannan ulos tulo
 	
 	/**
-	 * 
+	 *
 	 * @return HorizontalBox with the lives and score
 	 */
 	public HBox topHorizonatalBox(); //elkit ja score 

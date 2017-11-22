@@ -9,7 +9,6 @@ import java.util.ArrayList;
 import java.util.List;
 
 import canvas.CanvasController;
-import canvas.ThreadController;
 import characters.Ghost;
 import characters.Player;
 import controller.*;
@@ -83,7 +82,7 @@ public class PacMan_gui extends Application implements PacMan_gui_IF {
 		Player player = new Player(ml, life);
 		
 		
-		con = new Controller(this,player);
+		con = new Controller(this,player,map);
 
 		for (int i = 0; i < ghostAmount; i++) {
 			ghlist[i] = new Ghost(ml, player, ghosts[i]);
@@ -117,10 +116,9 @@ public class PacMan_gui extends Application implements PacMan_gui_IF {
 
 	}
 
-	public HBox bottomDataPane() {
-		// con.gethighScore();
+	public void bottomDataPane(List<HighScores> list) {
+		System.out.println(list);
 		BorderPane bottomPane = new BorderPane();
-
 		
 		GridPane gridLeft = new GridPane();
 		
@@ -135,7 +133,6 @@ public class PacMan_gui extends Application implements PacMan_gui_IF {
 		bottomPane.setRight(gridRight);
 
 		HBox hbox = new HBox(bottomPane);
-		return hbox;
 	}
 
 	private void listLooper(GridPane grid, ArrayList<String> list, String text) {
@@ -159,7 +156,6 @@ public class PacMan_gui extends Application implements PacMan_gui_IF {
 		
 		gd.add(cc, 0, 1);
 		root.getChildren().add(gd);
-		gd.add(bottomDataPane(), 0, 2);
 	}
 
 	public HBox topHorizonatalBox() {
