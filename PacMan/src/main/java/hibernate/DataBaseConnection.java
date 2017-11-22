@@ -15,6 +15,9 @@ import org.hibernate.Transaction;
 import org.hibernate.boot.MetadataSources;
 import org.hibernate.boot.registry.StandardServiceRegistry;
 import org.hibernate.boot.registry.StandardServiceRegistryBuilder;
+import org.hibernate.cfg.Configuration;
+
+import com.fasterxml.classmate.AnnotationConfiguration;
 
 import canvas.TextNode;
 import javafx.embed.swing.SwingFXUtils;
@@ -48,17 +51,24 @@ public class DataBaseConnection {
 	private static Session OpenConnectionToDataBase() {
 		SessionFactory sessFac = null;
 
-		final StandardServiceRegistry registry = new StandardServiceRegistryBuilder().configure().build();
+		 StandardServiceRegistry registry = new StandardServiceRegistryBuilder().configure("hibernate_localhost.cfg.xml").build();
 		System.out.println("Configuration tiedosto ladattu");
 
 		try {
 			sessFac = new MetadataSources(registry).buildMetadata().buildSessionFactory();
 		} catch (Exception e) {
 			System.out.println("istonto virhe");
-			StandardServiceRegistryBuilder.destroy(registry);
-			e.printStackTrace();
+			try {
+				registry = new StandardServiceRegistryBuilder().configure("hibernate_jenkins.cfg.xml").build();
+				sessFac = new MetadataSources(registry).buildMetadata().buildSessionFactory();
+				
+			}catch(Exception x) {
+				StandardServiceRegistryBuilder.destroy(registry);
+				x.printStackTrace();
+			}
+			
+			
 		}
-
 		Session sess = sessFac.openSession();
 		return sess;
 	}
