@@ -16,7 +16,7 @@
      jdbc:mysql://195.148.80.216/Pacman?createDatabaseIfNotExist=true
    </property>
    <property name="hibernate.connection.username">
-     markusjp
+     jenkins
    </property>
    <property name="hibernate.connection.password">
       pacman2017
