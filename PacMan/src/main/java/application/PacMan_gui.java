@@ -1,12 +1,15 @@
 package application;
 
 import javafx.scene.control.Button;
+import javafx.scene.control.ChoiceBox;
 import javafx.scene.control.Label;
 import javafx.scene.control.TextField;
 
 import java.awt.Point;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Locale;
+import java.util.ResourceBundle;
 
 import canvas.CanvasController;
 import characters.Ghost;
@@ -14,6 +17,9 @@ import characters.Player;
 import controller.*;
 import hibernate.HighScores;
 import javafx.application.Application;
+import javafx.beans.value.ChangeListener;
+import javafx.beans.value.ObservableValue;
+import javafx.collections.FXCollections;
 import javafx.event.ActionEvent;
 import javafx.event.EventHandler;
 import javafx.geometry.Insets;
@@ -39,7 +45,13 @@ public class PacMan_gui extends Application implements PacMan_gui_IF {
 
 	private Controller con;
 	private CanvasController cc;
-
+	private ChoiceBox<String> lang;
+	private Label label1;
+	private Button button;
+	private Text score;
+	private final String[] languages = { "English", "Se Sotho sa Sotho", "Afrikaans", "Zulu", "IsiXhosa" };
+	private final Locale[] locale = { new Locale("en", "RSA"), new Locale("st", "RSA"), new Locale("af", "RSA"), new Locale("zu", "RSA"), new Locale("xh", "RSA") };
+	
 	/**
 	 * the amount of ghosts in the game
 	 */
@@ -133,6 +145,7 @@ public class PacMan_gui extends Application implements PacMan_gui_IF {
 		bottomPane.setRight(gridRight);
 
 		HBox hbox = new HBox(bottomPane);
+		
 	}
 
 	private void listLooper(GridPane grid, ArrayList<String> list, String text) {
@@ -155,7 +168,25 @@ public class PacMan_gui extends Application implements PacMan_gui_IF {
 		gd.add(topHorizonatalBox(), 0, 0);
 		
 		gd.add(cc, 0, 1);
+		
+		//locale valinta
+		lang = new ChoiceBox<>();
+		lang.setItems(FXCollections.observableArrayList(languages));
+		lang.setValue(languages[0]);
+		gd.add(lang, 0, 2);
+		
 		root.getChildren().add(gd);
+		
+		lang.getSelectionModel().selectedIndexProperty().addListener(new ChangeListener<Object>() {
+
+			@Override
+			public void changed(ObservableValue<? extends Object> observable, Object oldValue, Object newValue) {
+				if ((int) newValue >= 0) {
+					lang((int) newValue);
+				}
+				
+			}
+		});
 	}
 
 	public HBox topHorizonatalBox() {
@@ -171,7 +202,7 @@ public class PacMan_gui extends Application implements PacMan_gui_IF {
 		lives.setMouseTransparent(true);
 		lives.setFocusTraversable(false);
 
-		Text score = new Text("Score: ");
+		score = new Text("Score: ");
 		scores = new Text();
 
 		left.add(life, 0, 0);
@@ -186,14 +217,26 @@ public class PacMan_gui extends Application implements PacMan_gui_IF {
 		HBox hb = new HBox(bp);
 		return hb;
 	}
+	
+	public void lang(int currentIndex) {
+		
+		Locale current = locale[currentIndex];		
+		ResourceBundle rb = ResourceBundle.getBundle("Locales/MessagesBundle", current);
+		label1.setText(rb.getString("Game_Over"));
+		button.setText(rb.getString("Save"));
+		lives.setText(rb.getString("Lives_Left"));
+		score.setText(rb.getString("Score"));
+
+	}
+
 
 	public Stage popUpGameOver() {
 
 		Stage popup = new Stage();
 		GridPane gp = new GridPane();
-		Label label1 = new Label("GAME OVER!");
+		label1 = new Label("GAME OVER!");
 		TextField textfield = new TextField();
-		Button button = new Button("Save");
+		button = new Button("Save");
 		
 
 		button.setOnAction(new EventHandler<ActionEvent>() {
