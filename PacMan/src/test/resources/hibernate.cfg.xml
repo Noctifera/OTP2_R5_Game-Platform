@@ -13,10 +13,10 @@
 
    <!-- Assume test is the database name -->
    <property name="hibernate.connection.url">
-     jdbc:mysql://localhost:2280/Pacman?createDatabaseIfNotExist=true
+     jdbc:mysql://10.114.32.46/Pacman?createDatabaseIfNotExist=true
    </property>
    <property name="hibernate.connection.username">
-     markusjp
+     jenkins
    </property>
    <property name="hibernate.connection.password">
       pacman2017
