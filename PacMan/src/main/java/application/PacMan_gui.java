@@ -4,6 +4,8 @@ import javafx.scene.control.Button;
 import javafx.scene.control.ChoiceBox;
 import javafx.scene.control.Label;
 import javafx.scene.control.TextField;
+import javafx.scene.input.KeyCode;
+import javafx.scene.input.KeyEvent;
 
 import java.awt.Point;
 import java.util.ArrayList;
@@ -11,7 +13,8 @@ import java.util.List;
 import java.util.Locale;
 import java.util.ResourceBundle;
 
-import canvas.CanvasController;
+import canvas.DrawThread;
+import canvas.Game;
 import characters.Ghost;
 import characters.Player;
 import controller.*;
@@ -44,18 +47,30 @@ import javafx.scene.text.Text;
 public class PacMan_gui extends Application implements PacMan_gui_IF {
 
 	private Controller con;
-	private CanvasController cc;
-	private ChoiceBox<String> lang;
-	private Label label1;
-	private Button button;
-	private Text score;
-	private final String[] languages = { "English", "Se Sotho sa Sotho", "Afrikaans", "Zulu", "IsiXhosa" };
-	private final Locale[] locale = { new Locale("en", "RSA"), new Locale("st", "RSA"), new Locale("af", "RSA"), new Locale("zu", "RSA"), new Locale("xh", "RSA") };
-	
+	private Map map;
+	private Player player;
+
+	private int life = 3;
 	/**
 	 * the amount of ghosts in the game
 	 */
 	private int ghostAmount = 4;
+	private ChoiceBox<String> lang;
+	private final String[] languages = { "English", "Se Sotho sa Sotho", "Afrikaans", "Zulu", "IsiXhosa" };
+	private final Locale[] locale = { new Locale("en", "RSA"), new Locale("st", "RSA"), new Locale("af", "RSA"), new Locale("zu", "RSA"), new Locale("xh", "RSA") };
+	/**
+	 * name of all the ghosts
+	 */
+	private String[] ghosts = { "Blinky", "Speedy", "Bashful", "Pokey" };
+	/**
+	 * Strings found in the map [0] = Dot,[1] = LargeDot,[2] = Wall
+	 * 
+	 */
+	private String[] strings = { "Dot", "LargeDot", "Wall", "Empty", "PlayerSpawn", "GhostHouse", "Player", ghosts[0], ghosts[1], ghosts[2], ghosts[3] };
+
+	private ArrayList<Game> tileList;
+	private ArrayList<DrawThread> drawThreadList;
+
 	/**
 	 * an object list of ghosts;
 	 */
@@ -69,39 +84,51 @@ public class PacMan_gui extends Application implements PacMan_gui_IF {
 	 */
 	private final Point gSize = new Point(720, 480);
 	private BorderPane root;
-	/**
-	 * name of all the ghosts
-	 */
-	private String[] ghosts = { "Blinky", "Speedy", "Bashful", "Pokey" };
-	/**
-	 * Strings found in the map
-	 */
-	private String[] strings = { "Dot", "LargeDot", "Wall", "Empty", "PlayerSpawn", "GhostHouse" };
+
 	/**
 	 * how many lives to start with
 	 */
-	private int life = 3;
 
+	private String Game_Over = "Game_Over!";
+	private String save = "Save";
+	private Label label1;
+	private Button button;
+	private Text score;
 	private Scene scene;
-	private Text lives;
+	private Text lifes;
+	private Text livs;
 	private Text scores;
 
 	public void init() {
-		Map map = new Map(strings, gSize, tileSize);
-		
+		map = new Map(strings, gSize, tileSize);
+
 		MovementLogic ml = new MovementLogic(gSize, tileSize, map);
-		
-		Player player = new Player(ml, life);
-		
-		
-		con = new Controller(this,player,map);
+
+		player = new Player(ml, life);
+
+		con = new Controller(this, player, map);
 
 		for (int i = 0; i < ghostAmount; i++) {
 			ghlist[i] = new Ghost(ml, player, ghosts[i]);
 		}
-		
-		cc = new CanvasController(gSize, tileSize,map,player, ghlist);
 
+		tileList = new ArrayList<>();
+
+		for (int y = 0; y < (gSize.y / tileSize); y++) {
+
+			for (int x = 0; x < (gSize.x / tileSize); x++) {
+
+				Game dc = new Game(tileSize, map, new Point(x * tileSize, y * tileSize), strings);
+				tileList.add(dc);
+			}
+		}
+		drawThreadList = new ArrayList<>();
+
+		for (Game dc : tileList) {
+			DrawThread dt = new DrawThread(dc);
+			drawThreadList.add(dt);
+		}
+		handle();
 	}
 
 	public void start(Stage primaryStage) {
@@ -122,30 +149,27 @@ public class PacMan_gui extends Application implements PacMan_gui_IF {
 			}
 		});
 		combine();
-		con.start(cc);
-		
-		
+		con.start(drawThreadList, ghlist, player);
 
 	}
 
 	public void bottomDataPane(List<HighScores> list) {
 		System.out.println(list);
 		BorderPane bottomPane = new BorderPane();
-		
+
 		GridPane gridLeft = new GridPane();
-		
+
 		GridPane gridCenter = new GridPane();
 		gridCenter.setPadding(new Insets(0, 20, 0, 20));
-		
+
 		GridPane gridRight = new GridPane();
-		
-		
+
 		bottomPane.setCenter(gridCenter);
 		bottomPane.setLeft(gridLeft);
 		bottomPane.setRight(gridRight);
 
 		HBox hbox = new HBox(bottomPane);
-		
+
 	}
 
 	private void listLooper(GridPane grid, ArrayList<String> list, String text) {
@@ -165,28 +189,32 @@ public class PacMan_gui extends Application implements PacMan_gui_IF {
 	public void combine() {
 
 		GridPane gd = new GridPane();
-		gd.add(topHorizonatalBox(), 0, 0);
-		
-		gd.add(cc, 0, 1);
-		
-		//locale valinta
+		gd.add(topHorizonatalBox(), 0, 0, gSize.x / tileSize, 1);
+
+		for (int i = 0; i < tileList.size(); i++) {
+			gd.add(tileList.get(i), tileList.get(i).getPoint().x / tileSize, tileList.get(i).getPoint().y / tileSize);
+		}
+
+		// locale valinta
 		lang = new ChoiceBox<>();
 		lang.setItems(FXCollections.observableArrayList(languages));
 		lang.setValue(languages[0]);
-		gd.add(lang, 0, 2);
-		
+		gd.add(lang, 0, (gSize.y / tileSize) + 1, 4, 1);
+
 		root.getChildren().add(gd);
-		
+
 		lang.getSelectionModel().selectedIndexProperty().addListener(new ChangeListener<Object>() {
 
 			@Override
 			public void changed(ObservableValue<? extends Object> observable, Object oldValue, Object newValue) {
+				// TODO Auto-generated method stub
 				if ((int) newValue >= 0) {
 					lang((int) newValue);
 				}
-				
 			}
 		});
+		lang.setFocusTraversable(false);
+
 	}
 
 	public HBox topHorizonatalBox() {
@@ -195,18 +223,18 @@ public class PacMan_gui extends Application implements PacMan_gui_IF {
 		GridPane left = new GridPane();
 		GridPane right = new GridPane();
 
-		Text life = new Text();
-		life.setText("Lives left: ");
+		lifes = new Text();
+		lifes.setText("Lives left: ");
 
-		lives = new Text();
-		lives.setMouseTransparent(true);
-		lives.setFocusTraversable(false);
+		livs = new Text();
+		livs.setMouseTransparent(true);
+		livs.setFocusTraversable(false);
 
 		score = new Text("Score: ");
 		scores = new Text();
 
-		left.add(life, 0, 0);
-		left.add(lives, 1, 0);
+		left.add(lifes, 0, 0);
+		left.add(livs, 1, 0);
 
 		right.add(score, 0, 0);
 		right.add(scores, 1, 0);
@@ -217,27 +245,25 @@ public class PacMan_gui extends Application implements PacMan_gui_IF {
 		HBox hb = new HBox(bp);
 		return hb;
 	}
-	
+
 	public void lang(int currentIndex) {
-		
-		Locale current = locale[currentIndex];		
+
+		Locale current = locale[currentIndex];
 		ResourceBundle rb = ResourceBundle.getBundle("Locales/MessagesBundle", current);
-		label1.setText(rb.getString("Game_Over"));
-		button.setText(rb.getString("Save"));
-		lives.setText(rb.getString("Lives_Left"));
+		Game_Over = rb.getString("Game_Over");
+		save = rb.getString("Save");
+		lifes.setText(rb.getString("Lives_Left"));
 		score.setText(rb.getString("Score"));
 
 	}
-
 
 	public Stage popUpGameOver() {
 
 		Stage popup = new Stage();
 		GridPane gp = new GridPane();
-		label1 = new Label("GAME OVER!");
+		label1 = new Label(Game_Over);
 		TextField textfield = new TextField();
-		button = new Button("Save");
-		
+		button = new Button(save);
 
 		button.setOnAction(new EventHandler<ActionEvent>() {
 
@@ -273,17 +299,31 @@ public class PacMan_gui extends Application implements PacMan_gui_IF {
 		popUpGameOver().show();
 	}
 
-	public void setLives(int livs) {
-		lives.setText("" + livs);
+	public void setLives(String livs1) {
+		livs.setText(livs1);
 	}
 
-	public void setScore(int score) {
-		scores.setText("" + score);
+	public void setScore(String score) {
+		scores.setText(score);
 	}
 
 	public static void main(String[] args) {
 		launch(args);
 	}
-
 	
+	private void handle() {
+		tileList.get(0).setFocusTraversable(true);
+		tileList.get(0).setOnKeyPressed(new EventHandler<KeyEvent>() {
+
+			@Override
+			public void handle(KeyEvent event) {
+				// TODO Auto-generated method stub
+				//System.out.println(event.getCode());
+				if(event.getCode().equals(KeyCode.ESCAPE)) {
+					System.exit(0);
+				}
+				player.path(event.getCode());
+			}
+		});
+	}
 }

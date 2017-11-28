@@ -4,10 +4,10 @@ import java.awt.Point;
 import java.io.File;
 import java.util.ArrayList;
 
-import ghosts.PathFinder;
 import javafx.scene.image.Image;
 import javafx.scene.paint.Color;
 import map.MovementLogic;
+import pathfinding.PathFinder;
 
 /**
  * Extends PathFinder, implements {@link Ghost_IF}. Instantiates path and
@@ -59,22 +59,9 @@ public class Ghost extends PathFinder implements Character {
 			return img;
 		}
 	}
-
-	public Color getColor() {
-		if (ghost == "Blinky" && !player.getVulnerable()) {
-			return Color.RED;
-		} else if (ghost == "Speedy" && !player.getVulnerable()) {
-			return Color.PINK;
-		} else if (ghost == "Bashful" && !player.getVulnerable()) {
-			return Color.AQUAMARINE;
-		} else if (ghost.equals("Pokey") && !player.getVulnerable()) {
-			return Color.GOLD;
-		} else {
-			return Color.BLUEVIOLET;
-		}
-	}
-
-	public boolean vulnerableStatus() {
+	
+	@Override
+	public boolean getVulnerable() {
 		return player.getVulnerable();
 	}
 
@@ -88,9 +75,14 @@ public class Ghost extends PathFinder implements Character {
 
 	@Override
 	public boolean eaten() {
-		
-		if(player.getVulnerable() && player.getPos().equals(pos)) {
-			return true;
+		if(getVulnerable()) {
+			System.out.println("player: "+player.getPos()+" Ghost: "+ghost+": "+pos);
+			if(player.getPos().equals(pos)) {
+				System.out.println("true");
+				return true;
+		}else {
+			return false;
+		}
 		}else {
 			return false;
 		}
@@ -106,8 +98,13 @@ public class Ghost extends PathFinder implements Character {
 	@Override
 	public void getNextPos() {
 		// TODO Auto-generated method stub
+		if(pos != characterSpawn()) {
+			ml.returnToNormal(pos);
+		}
+		
 		pos = path.get(reader);
 		reader++;
+		ml.setToMap(pos, ghost);
 	}
 
 	@Override
@@ -122,7 +119,7 @@ public class Ghost extends PathFinder implements Character {
 			if (rand <= 0.30) {
 				Point randpoint = ml.randomPoint();
 				path = route(pos, randpoint);
-				System.out.println(path);
+				//System.out.println(path);
 				
 			} else {
 				Point point = null;
@@ -132,7 +129,7 @@ public class Ghost extends PathFinder implements Character {
 					point = ml.randomPoint();
 				}
 				path = route(pos, point);
-				System.out.println(path);
+				//System.out.println(path);
 
 			}
 		} else {

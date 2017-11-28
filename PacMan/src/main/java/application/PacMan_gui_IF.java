@@ -34,13 +34,13 @@ public interface PacMan_gui_IF {
 	 * Updates TopHorizontal boxes shown lives
 	 * @param livs players lives
 	 */
-	public void setLives(int livs); // päivitetään elkit
+	public void setLives(String livs); // päivitetään elkit
 	
 	/**
 	 * updates TopHorizontal boxes shown score
 	 * @param score players score
 	 */
-	public void setScore(int score); // päivitetän pisteet
+	public void setScore(String score); // päivitetän pisteet
 	
 	/**
 	 * Gives the player to add score to HighScore Database

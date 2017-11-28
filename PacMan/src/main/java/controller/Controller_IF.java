@@ -11,12 +11,7 @@ public interface Controller_IF {
 	/**
 	 * 
 	 */
-	public void setLives(int lives);
-
-	/**
-	 * 
-	 */
-	public void setScore(int score);
+	public void setTopData();
 
 	/**
 	 * 

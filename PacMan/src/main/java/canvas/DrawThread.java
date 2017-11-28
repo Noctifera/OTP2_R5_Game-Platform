@@ -10,12 +10,12 @@ import javafx.application.Platform;
  */
 
 public class DrawThread extends Thread {
-	private CanvasController cc;
+	private Game dc;
 
 	private volatile boolean supress = false;
 
-	public DrawThread(CanvasController cc) {
-		this.cc = cc;
+	public DrawThread(Game dc) {
+		this.dc = dc;
 	}
 
 	public void run() {
@@ -26,13 +26,13 @@ public class DrawThread extends Thread {
 				@Override
 				public void run() {
 					// TODO Auto-generated method stub
-					cc.update();
+					dc.update();
 				}
 			});
 			
 			
 			try {
-				Thread.sleep(200);
+				Thread.sleep(10);
 			} catch (InterruptedException e) {
 				// TODO Auto-generated catch block
 				e.printStackTrace();

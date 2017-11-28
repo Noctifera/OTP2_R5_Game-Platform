@@ -30,6 +30,7 @@ public class ScoreTest {
 		map = new Map(strings, gSize, blSize);
 		ml = new MovementLogic(gSize, blSize, map);
 		player = new Player(ml, 0);
+	
 		DataBaseConnection.getAllMapsFromDataBase();
 
 	}
@@ -71,6 +72,14 @@ public class ScoreTest {
 		map.setLargeDots();
 		player.score(new Point(160, 280));
 		assertEquals(20, player.getScore());
+	}
+	@Test
+	public void postTest() {
+		map.setMap(DataBaseConnection.readOneMap("PlayerTestMap"));
+		
+		player.setScore(100);
+		assertEquals(true, player.post("Testplayer"));
+		
 	}
 
 }

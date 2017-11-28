@@ -1,4 +1,4 @@
-package ghosts;
+package pathfinding;
 
 import java.awt.Point;
 import java.util.ArrayList;

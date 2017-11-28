@@ -3,23 +3,25 @@ package characters;
 import java.awt.Point;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Observable;
 
 import hibernate.DataBaseConnection;
 import javafx.scene.input.KeyCode;
 import map.MovementLogic;
 
-public class Player extends Score implements Character {
+public class Player extends Observable implements Character {
+	
 	private MovementLogic ml;
-
 	private Point pos;
+	private Score s;
 	private int life;
 	private boolean vulnerable = false;
 	private List<Point> path = new ArrayList<>();
 	private int reader = 0;
 
 	public Player(MovementLogic ml, int life) {
-		super(0);
 		this.ml = ml;
+		this.s = new Score(0);
 		this.life = life;
 	}
 
@@ -32,7 +34,7 @@ public class Player extends Score implements Character {
 	}
 	public void path(KeyCode event) {
 		path = move(event);
-		System.out.println(path);
+		//System.out.println(path);
 		reader = 0;
 	}
 	
@@ -125,11 +127,11 @@ public class Player extends Score implements Character {
 
 	public void score(Point pos) {
 		if ((ml.dots()).contains(pos)) {
-			dot();
+			s.dot();
 			(ml.dots()).remove(pos);
 		}
 		else if (ml.largeDots().contains(pos)) {
-			LargeDot();			
+			s.LargeDot();			
 			vulnerable = true;
 			
 			if (pos != null)
@@ -161,8 +163,8 @@ public class Player extends Score implements Character {
 	public Point playerSpawn() {
 		return ml.playerSpawn();
 	}
-	public void post(String playerName) {
-		DataBaseConnection.post(score, playerName);
+	public boolean post(String playerName) {
+		return DataBaseConnection.post(s.score, playerName);
 	}
 
 	@Override
@@ -181,9 +183,13 @@ public class Player extends Score implements Character {
 	@Override
 	public void getNextPos() {
 		// TODO Auto-generated method stub
+		ml.playersetTMap(pos, "Empty");
 		pos = path.get(reader);
 		score(pos);
 		reader++;
+		ml.playersetTMap(pos, "Player");
+		setChanged();
+		notifyObservers(life+","+s.score);
 	}
 
 	@Override

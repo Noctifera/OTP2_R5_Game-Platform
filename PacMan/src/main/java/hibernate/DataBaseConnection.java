@@ -19,7 +19,6 @@ import org.hibernate.cfg.Configuration;
 
 import com.fasterxml.classmate.AnnotationConfiguration;
 
-import canvas.TextNode;
 import javafx.embed.swing.SwingFXUtils;
 import javafx.scene.image.Image;
 import javafx.scene.text.Font;

@@ -46,8 +46,20 @@ public class MovementLogic implements MovementLogic_IF {
 	}
 
 	public Point[] moves(Point point) {
-		Point[] t = { up(point), down(point), left(point), right(point) };
-		return t;
+		Point[] t = {up(point), down(point), left(point), right(point) };
+		return t;	
+	}
+	public void playersetTMap(Point point, String item) {
+		map.getMap().replace(point, item);
+	}
+	public synchronized void setToMap(Point point, String item){
+		String origItem = map.getMap().get(point);
+		map.getMap().replace(point, item+","+origItem);
+	}
+	public synchronized void returnToNormal(Point pos) {
+		String item = map.getMap().get(pos);
+		String[] itemList = item.split(",");
+		map.getMap().replace(pos, itemList[itemList.length-1]);
 	}
 
 	public Point yli(Point newpos) {

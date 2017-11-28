@@ -1,6 +1,7 @@
 package canvas;
 
 import javafx.scene.canvas.Canvas;
+import javafx.scene.canvas.GraphicsContext;
 
 /**
  * Class extends {@link Canvas} and allows items to be drawn onto it

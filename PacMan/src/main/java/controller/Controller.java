@@ -1,8 +1,13 @@
 package controller;
 
+import java.util.ArrayList;
+import java.util.Observable;
+import java.util.Observer;
+
 import application.PacMan_gui;
-import canvas.CanvasController;
 import canvas.DrawThread;
+import canvas.ThreadController;
+import characters.Ghost;
 import characters.Player;
 import hibernate.DataBaseConnection;
 import map.Map;
@@ -24,23 +29,34 @@ public class Controller implements Controller_IF {
 		this.player = player;
 		this.map = map;
 	}
-	public void start(CanvasController cc) {
+	public void start(ArrayList<DrawThread> drawThreadList, Ghost[] ghlist, Player player) {
 		DataBaseConnection.getAllMapsFromDataBase();
 		DataBaseConnection.getAllHighScoresFromDataBase();
 		DataBaseConnection.setFirstMap();
 		map.setMap(DataBaseConnection.getUsedMap().getMapData());
 		getScores(DataBaseConnection.getUsedMap().getMapName());
-		cc.menu();
-		DrawThread dt = new DrawThread(cc);
-		dt.start();
+		for(DrawThread dt: drawThreadList) {
+			dt.start();
+		}
+		ThreadController tc = new ThreadController();
+		tc.startThreads(player, ghlist);
+		setTopData();
 	}
 
-	public void setLives(int lives) {
-		pMG.setLives(lives);
-	}
-
-	public void setScore(int score) {
-		pMG.setScore(score);
+	public void setTopData() {
+		player.addObserver(new Observer() {
+			
+			@Override
+			public void update(Observable o, Object arg) {
+				// TODO Auto-generated method stub
+				String s = (String) arg;
+				
+				String[] sL = s.split(",");
+				pMG.setLives(sL[0]);
+				pMG.setScore(sL[1]);
+				
+			}
+		});
 	}
 
 	public void setHighScore(String playername) {

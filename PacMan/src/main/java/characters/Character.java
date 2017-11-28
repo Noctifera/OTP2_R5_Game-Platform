@@ -21,6 +21,8 @@ public interface Character {
 	
 	public int getReader();
 	
+	public boolean getVulnerable();
+	
 	
 	
 	
