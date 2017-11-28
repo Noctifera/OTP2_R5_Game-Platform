@@ -8,6 +8,7 @@ import static org.junit.Assert.*;
 import org.junit.Test;
 
 import characters.Player;
+import characters.Score;
 import hibernate.DataBaseConnection;
 import javafx.scene.input.KeyCode;
 import map.Map;
@@ -30,7 +31,6 @@ public class ScoreTest {
 		map = new Map(strings, gSize, blSize);
 		ml = new MovementLogic(gSize, blSize, map);
 		player = new Player(ml, 0);
-	
 		DataBaseConnection.getAllMapsFromDataBase();
 
 	}
@@ -40,13 +40,12 @@ public class ScoreTest {
 		
 		map.setMap(DataBaseConnection.readOneMap("PlayerTestMap"));
 
-		player.setScore(0);
 		player.setPos(player.playerSpawn());
 		KeyCode right = KeyCode.S;
 		player.path(right);
 		List<Point> list = player.getPath();
 				
-
+		player.setScore(0);
 		for (int i = 0; i < list.size(); i++) {
 			player.score(list.get(i));
 		}
@@ -59,7 +58,6 @@ public class ScoreTest {
 	public void testDot() {
 		map.setMap(DataBaseConnection.readOneMap("PlayerTestMap"));
 
-		player.setScore(0);
 		player.score(new Point(160, 240));
 		assertEquals(10, player.getScore());
 	}
@@ -67,9 +65,8 @@ public class ScoreTest {
 	@Test
 	public void testLargeDot() {
 		map.setMap(DataBaseConnection.readOneMap("PlayerTestMap"));
-
+		
 		player.setScore(0);
-		map.setLargeDots();
 		player.score(new Point(160, 280));
 		assertEquals(20, player.getScore());
 	}

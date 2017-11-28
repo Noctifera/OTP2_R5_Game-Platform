@@ -210,4 +210,11 @@ public class Player extends Observable implements Character {
 		return reader;
 	}
 
+	public int getScore() {
+		return s.getScore();
+	}
+	public void setScore(int score) {
+		s.setScore(score);
+	}
+
 }
