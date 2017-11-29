@@ -206,13 +206,13 @@ public class Controller {
 					System.out.println("private: " + newValue);
 					if (newValue != null) {
 						warningB = false;
-						main.warningPopup();
+					//	main.warningPopup();
 						
-
+						getMapFile(newValue);
 						
-						if (warningB) {
-							getMapFile(newValue);
-						}
+						//if (warningB) {
+							
+						//}
 
 					} else {
 						// ClearMap();
@@ -222,10 +222,11 @@ public class Controller {
 					System.out.println("public: " + newValue);
 					if (newValue != null) {	
 						warningB = false;
-						main.warningPopup();
-						if (warningB) {
-							getMapDataase(newValue);
-						}
+				//		main.warningPopup();
+						getMapDataase(newValue);
+						//if (warningB) {
+							
+						//}
 
 					}
 
@@ -274,6 +275,7 @@ public class Controller {
 
 	}
 	
+	/*
 	public void warningHandle(Button ok, Button cancel) {
 		ok.setOnAction(new EventHandler<ActionEvent>() {
 
@@ -293,5 +295,7 @@ public class Controller {
 			}
 		});
 	}
+	
+	*/
 	
 }
