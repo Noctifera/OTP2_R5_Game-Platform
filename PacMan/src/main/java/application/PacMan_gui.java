@@ -285,6 +285,9 @@ public class PacMan_gui extends Application implements PacMan_gui_IF {
 		save = rb.getString("Save");
 		lifes.setText(rb.getString("Lives_Left"));
 		score.setText(rb.getString("Score"));
+		button1.setText(rb.getString("Private"));
+		button2.setText(rb.getString("Public"));
+		play.setText(rb.getString("Play"));
 
 	}
 
