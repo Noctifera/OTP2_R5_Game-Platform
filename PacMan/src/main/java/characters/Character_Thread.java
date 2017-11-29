@@ -45,7 +45,7 @@ public class Character_Thread extends Thread {
 			} else if (character instanceof Player) {
 				if(character.getVulnerable()) {
 					vulnerableCount++;
-					if(vulnerableCount >35) {
+					if(vulnerableCount >30) {
 						((Player) character).setVulnerable(false);
 						vulnerableCount = 0;
 					}

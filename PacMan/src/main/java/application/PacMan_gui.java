@@ -93,6 +93,7 @@ public class PacMan_gui extends Application implements PacMan_gui_IF {
 	private String Game_Over = "Game_Over!";
 	private String save = "Save";
 	private Label label1;
+	private ListView<String> files;
 	private RadioButton button1;
 	private RadioButton button2;
 	private Button button;
@@ -112,7 +113,7 @@ public class PacMan_gui extends Application implements PacMan_gui_IF {
 
 		player = new Player(ml, life);
 
-		con = new Controller(this, player, map);
+		
 
 		for (int i = 0; i < ghostAmount; i++) {
 			ghlist[i] = new Ghost(ml, player, ghosts[i]);
@@ -120,13 +121,13 @@ public class PacMan_gui extends Application implements PacMan_gui_IF {
 		game = new Game(tileSize, map, gSize, strings);
 		dt = new DrawThread(game);
 
-		handle();
+		con = new Controller(this, player, map, ghlist);
 	}
 
 	public void start(Stage primaryStage) {
 		root = new BorderPane();
 
-		scene = new Scene(root, (int) gSize.getX() + 250, (int) gSize.getY() + 200);
+		scene = new Scene(root, (int) gSize.getX() + 300, (int) gSize.getY() + 200);
 
 		primaryStage.setScene(scene);
 		primaryStage.setTitle("PacMan-Game");
@@ -140,14 +141,15 @@ public class PacMan_gui extends Application implements PacMan_gui_IF {
 
 			}
 		});
-		con.start(dt, ghlist, player);
+		con.start(dt);
 		combine();
+		handle();
 
 	}
 
 	public void combine() {
 		BorderPane bp = new BorderPane();
-
+		BorderPane.setMargin(game, new Insets(10));
 		bp.setTop(topHorizonatalBox());
 		bp.setCenter(game);
 		bp.setRight(rightVerticalBox());
@@ -190,7 +192,7 @@ public class PacMan_gui extends Application implements PacMan_gui_IF {
 	private VBox rightVerticalBox() {
 		GridPane gd = new GridPane();
 
-		gd.setGridLinesVisible(true);
+		//gd.setGridLinesVisible(true);
 		gd.setHgap(10);
 		gd.setVgap(5);
 
@@ -202,7 +204,7 @@ public class PacMan_gui extends Application implements PacMan_gui_IF {
 		topHbox.getChildren().addAll(button1, button2);
 		gd.add(topHbox, 0, 0);
 
-		ListView<String> files = new ListView<>();
+		files = new ListView<>();
 
 		files.setItems(FXCollections.observableArrayList(con.readFiles()));
 
@@ -214,16 +216,7 @@ public class PacMan_gui extends Application implements PacMan_gui_IF {
 		lang.setItems(FXCollections.observableArrayList(languages));
 		lang.setValue(languages[0]);
 
-		lang.getSelectionModel().selectedIndexProperty().addListener(new ChangeListener<Object>() {
-
-			@Override
-			public void changed(ObservableValue<? extends Object> observable, Object oldValue, Object newValue) {
-				// TODO Auto-generated method stub
-				if ((int) newValue >= 0) {
-					lang((int) newValue);
-				}
-			}
-		});
+		
 		lang.setFocusTraversable(false);
 		bottomHbox.getChildren().addAll(play,lang);
 		
@@ -347,6 +340,10 @@ public class PacMan_gui extends Application implements PacMan_gui_IF {
 
 	private void handle() {
 		game.setFocusTraversable(true);
+		lang.setFocusTraversable(false);
+		play.setFocusTraversable(false);
+		files.setFocusTraversable(false);
+		
 		game.setOnKeyPressed(new EventHandler<KeyEvent>() {
 
 			@Override
@@ -356,6 +353,42 @@ public class PacMan_gui extends Application implements PacMan_gui_IF {
 					System.exit(0);
 				}
 				player.path(event.getCode());
+			}
+		});
+		lang.getSelectionModel().selectedIndexProperty().addListener(new ChangeListener<Object>() {
+
+			@Override
+			public void changed(ObservableValue<? extends Object> observable, Object oldValue, Object newValue) {
+				// TODO Auto-generated method stub
+				if ((int) newValue >= 0) {
+					lang((int) newValue);
+				}
+				
+				
+			}
+		});
+		play.setOnAction(new EventHandler<ActionEvent>() {
+
+			@Override
+			public void handle(ActionEvent event) {
+				// TODO Auto-generated method stub
+				if(!con.ThreadActive()) {
+					con.startThreads();
+				}
+				
+				
+			}
+		});
+		files.getSelectionModel().selectedItemProperty().addListener(new ChangeListener<String>() {
+
+			@Override
+			public void changed(ObservableValue<? extends String> observable, String oldValue, String newValue) {
+				// TODO Auto-generated method stub
+				if(con.ThreadActive()) {
+					con.ThreadsSuppress();
+				}
+				
+				con.readMap(newValue);
 			}
 		});
 	}

@@ -16,6 +16,7 @@ public class Player extends Observable implements Character {
 	private Score s;
 	private int life;
 	private boolean vulnerable = false;
+	private boolean gameEnd = false;
 	private List<Point> path = new ArrayList<>();
 	private int reader = 0;
 

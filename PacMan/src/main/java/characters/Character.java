@@ -19,6 +19,8 @@ public interface Character {
 	
 	public boolean eaten();
 	
+	public boolean isGameEnd();
+	
 	public int getReader();
 	
 	public boolean getVulnerable();

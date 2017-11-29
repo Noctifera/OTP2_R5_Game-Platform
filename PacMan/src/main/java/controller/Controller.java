@@ -24,13 +24,15 @@ public class Controller implements Controller_IF {
 	private PacMan_gui pMG;
 	private Player player;
 	private Map map;
+	private ThreadController tc;
 
-	public Controller(PacMan_gui pMG,Player player, Map map) {
+	public Controller(PacMan_gui pMG,Player player, Map map,Ghost[] ghlist) {
 		this.pMG = pMG;
 		this.player = player;
 		this.map = map;
+		tc = new ThreadController(player, ghlist);
 	}
-	public void start(DrawThread dt, Ghost[] ghlist, Player player) {
+	public void start(DrawThread dt) {
 		DataBaseConnection.getAllMapsFromDataBase();
 		DataBaseConnection.getAllHighScoresFromDataBase();
 		DataBaseConnection.setFirstMap();
@@ -39,8 +41,7 @@ public class Controller implements Controller_IF {
 
 		dt.start();
 		
-		ThreadController tc = new ThreadController();
-		tc.startThreads(player, ghlist);
+		
 		setTopData();
 	}
 
@@ -59,13 +60,25 @@ public class Controller implements Controller_IF {
 			}
 		});
 	}
-
+	public void startThreads() {
+		tc.startThreads();
+	}
+	public void ThreadsSuppress() {
+		tc.suppress();
+	}
+	public boolean ThreadActive() {
+		return tc.isActive();
+	}
 	public void setHighScore(String playername) {
 		player.post(playername);
 	}
 
 	public void gameOver() {
 		pMG.gameOver();
+	}
+	public void readMap(String s) {
+		map.setMap(DataBaseConnection.readOneMap(s));
+		pMG.bottomDataPane(DataBaseConnection.scoreForMap(s));
 	}
 	public void getScores(String nString) {
 		pMG.bottomDataPane(DataBaseConnection.scoreForMap(nString));
