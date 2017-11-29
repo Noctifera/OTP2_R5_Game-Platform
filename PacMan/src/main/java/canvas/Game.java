@@ -2,6 +2,9 @@ package canvas;
 
 import java.awt.Point;
 import java.io.File;
+import java.util.ArrayList;
+
+import org.hibernate.query.criteria.internal.predicate.NegatedPredicateWrapper;
 
 import com.google.common.base.Strings;
 
@@ -23,22 +26,24 @@ import map.Map;
 public class Game extends Canvas implements Draw_IF {
 
 	private Map map;
-	private Point point;
 
 	private String[] strings;
 	private GraphicsContext gc;
+	private Point gSize;
 
 	private int tileSize;
+
 	private Image blinky;
 	private Image bashful;
 	private Image speedy;
 	private Image pokey;
 	private Image player;
+	private Image vulnerable;
 
-	public Game(int tileSize, Map map, Point point, String[] strings) {
-		super(tileSize, tileSize);
+	public Game(int tileSize, Map map, Point gSize, String[] strings) {
+		super(gSize.x, gSize.y);
 		this.tileSize = tileSize;
-		this.point = point;
+		this.gSize = gSize;
 		this.gc = this.getGraphicsContext2D();
 		this.map = map;
 		this.strings = strings;
@@ -47,13 +52,15 @@ public class Game extends Canvas implements Draw_IF {
 		bashful = getImage("/Pictures/Pacman-inky-bashful.png");
 		pokey = getImage("/Pictures/Pacman-orange-pokey.png");
 		player = getImage("/Pictures/Pacman-pacman-player.png");
-		
+		vulnerable = getImage("/Pictures/Pacman-blue-vulnerable.png");
 	}
+
 	private Image getImage(String s) {
 		File f = new File(getClass().getResource(s).getFile());
 		Image image = new Image(f.toURI().toString());
 		return image;
 	}
+
 	/**
 	 * One function that combines all drawn
 	 * 
@@ -68,8 +75,8 @@ public class Game extends Canvas implements Draw_IF {
 	 * Gets Players position and draws an orange circle
 	 */
 
-	private void drawplayer() {
-		gc.drawImage(player, 0, 0,this.getWidth(),this.getHeight());
+	private void drawplayer(Point point) {
+		gc.drawImage(player, point.x, point.y, tileSize, tileSize);
 	}
 
 	/**
@@ -81,78 +88,99 @@ public class Game extends Canvas implements Draw_IF {
 		gc.fillRect(0, 0, this.getWidth(), this.getHeight());
 	}
 
-	public Point getPoint() {
-		return point;
-	}
-
 	/**
 	 * Draws a wall to the given point
 	 * 
 	 * @param point
 	 *            The Point where The wall is Drawn
 	 */
-	private void drawWall() {
+	private void drawWall(Point point) {
 		gc.setFill(Color.BLUE);
-		gc.fillRect(1, 1, tileSize - 2, tileSize - 2);
+		gc.fillRect(point.x, point.y, tileSize - 2, tileSize - 2);
 	}
 
-	private void drawDot() {
+	private void drawDot(Point point) {
 		gc.setFill(Color.WHITE);
 		int block = tileSize / 4;
-		gc.fillOval(0 + block + block / 2, 0 + block + block / 2, block, block);
+		gc.fillOval(point.x + block + block / 2, point.y + block + block / 2, block, block);
 	}
 
-	private void drawLargeDot() {
+	private void drawLargeDot(Point point) {
 		gc.setFill(Color.WHITE);
 		int block = tileSize / 2;
-		gc.fillOval(0 + block / 2, 0 + block / 2, block, block);
+		gc.fillOval(point.x + block / 2, point.y + block / 2, block, block);
 	}
 
-	private void drawPlayerSpawn() {
+	private void drawPlayerSpawn(Point point) {
 		gc.setFill(Color.GREEN);
-		gc.fillRect(1, 1, tileSize - 2, tileSize - 2);
+		gc.fillRect(point.x, point.y, tileSize - 2, tileSize - 2);
 	}
 
-	private void drawGhostHouse() {
+	private void drawGhostHouse(Point point) {
 		gc.setFill(Color.RED);
-		gc.fillRect(1, 1, tileSize - 2, tileSize - 2);
+		gc.fillRect(point.x, point.y, tileSize - 2, tileSize - 2);
 	}
 
-	private void drawGhost(Image image) {
-		gc.drawImage(image, 0, 0, this.getWidth(), this.getHeight());
+	private void drawGhost(Image image, Point point) {
+		gc.drawImage(image, point.x, point.y, tileSize, tileSize);
 	}
 
 	private void draw() {
-		String item = map.getMap().get(point);
-		//System.out.println(item);
+		for (int y = 0; y < gSize.y;) {
+			for (int x = 0; x < gSize.x;) {
+				Point point = new Point(x, y);
+				String item = map.getMap().get(point);
+				
+				if (item.equals(strings[0])) {
+					drawDot(point);
+				} else if (item.equals(strings[1])) {
+					drawLargeDot(point);
+				} else if (item.equals(strings[2])) {
+					drawWall(point);
+				} else if (item.equals(strings[4])) {
+					drawPlayerSpawn(point);
+				} else if (item.equals(strings[5])) {
+					drawGhostHouse(point);
+				} else if (item.contains(strings[6])) {
+					drawplayer(point);
+				} else if (item.contains(strings[8])) {
 
+					if (item.contains("true")) {
+						drawGhost(vulnerable, point);
+					} else if (item.contains("false")) {
+						drawGhost(blinky, point);
+					}
 
-		if (item.equals(strings[0])) {
-			drawDot();
-		} else if (item.equals(strings[1])) {
-			drawLargeDot();
-		} else if (item.equals(strings[2])) {
-			drawWall();
-		} else if (item.equals(strings[3])) {
-			clear();
-		} else if (item.equals(strings[4])) {
-			drawPlayerSpawn();
-		} else if (item.equals(strings[5])) {
-			drawGhostHouse();
-		} else if (item.contains(strings[6])) {
-			drawplayer();
-		} else if (item.contains(strings[7])) {
-			//blinky
-			drawGhost(blinky);
-		} else if (item.contains(strings[8])) {
-			//speedy
-			drawGhost(speedy);
-		}else if (item.contains(strings[9])) {
-			//bashful
-			drawGhost(bashful);
-		}else if (item.contains(strings[10])) {
-			//pokey
-			drawGhost(pokey);
+				} else if (item.contains(strings[9])) {
+
+					if (item.contains("true")) {
+						drawGhost(vulnerable, point);
+					} else if (item.contains("false")) {
+						drawGhost(speedy, point);
+					}
+
+				} else if (item.contains(strings[10])) {
+
+					if (item.contains("true")) {
+						drawGhost(vulnerable, point);
+					} else if (item.contains("false")) {
+						drawGhost(bashful, point);
+					}
+
+				} else if (item.contains(strings[11])) {
+
+					if (item.contains("true")) {
+						drawGhost(vulnerable, point);
+					} else if (item.contains("false")) {
+						drawGhost(pokey, point);
+					}
+
+				}
+
+				x = x + tileSize;
+			}
+			y = y + tileSize;
 		}
+
 	}
 }

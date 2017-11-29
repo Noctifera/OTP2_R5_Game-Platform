@@ -35,30 +35,6 @@ public class Ghost extends PathFinder implements Character {
 	public Point getPos() {
 		return pos;
 	}
-
-	public Image getImage() {
-		if(ghost == "Blinky" && !player.getVulnerable()) {
-			File f = new File("Picture\\Pacman-red-blinky.png");
-			Image img = new Image(f.toURI().toString(),false);
-			return img;
-		}else if(ghost == "Speedy" && !player.getVulnerable()) {
-			File f = new File("Picture\\Pacman-pink-pinky.png");
-			Image img = new Image(f.toURI().toString(),false);
-			return img;
-		}else if(ghost == "Bashful" && !player.getVulnerable()) {
-			File f = new File("Picture\\Pacman-light-blue-inky.png");
-			Image img = new Image(f.toURI().toString(),false);
-			return img;
-		}else if(ghost.equals("Pokey") && !player.getVulnerable()) {
-			File f = new File("Picture\\Pacman-orange-clyde.png");
-			Image img = new Image(f.toURI().toString(),false);
-			return img;
-		}else {
-			 File f = new File("Picture\\Pacman-red-blinky.png");
-			Image img = new Image(f.toURI().toString(),false);
-			return img;
-		}
-	}
 	
 	@Override
 	public boolean getVulnerable() {
@@ -104,7 +80,7 @@ public class Ghost extends PathFinder implements Character {
 		
 		pos = path.get(reader);
 		reader++;
-		ml.setToMap(pos, ghost);
+		ml.setToMap(pos, getVulnerable()+","+ghost);
 	}
 
 	@Override

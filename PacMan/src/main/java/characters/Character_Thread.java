@@ -5,6 +5,7 @@ public class Character_Thread extends Thread {
 	private Character character;
 
 	private volatile boolean suppress = false;
+	private int vulnerableCount = 0;
 
 	public Character_Thread(Character character) {
 		this.character = character;
@@ -42,6 +43,13 @@ public class Character_Thread extends Thread {
 				}
 
 			} else if (character instanceof Player) {
+				if(character.getVulnerable()) {
+					vulnerableCount++;
+					if(vulnerableCount >35) {
+						((Player) character).setVulnerable(false);
+						vulnerableCount = 0;
+					}
+				}
 				try {
 					Thread.sleep(300);
 				} catch (InterruptedException e) {

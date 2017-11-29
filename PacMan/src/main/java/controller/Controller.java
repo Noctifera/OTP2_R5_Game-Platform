@@ -29,15 +29,15 @@ public class Controller implements Controller_IF {
 		this.player = player;
 		this.map = map;
 	}
-	public void start(ArrayList<DrawThread> drawThreadList, Ghost[] ghlist, Player player) {
+	public void start(DrawThread dt, Ghost[] ghlist, Player player) {
 		DataBaseConnection.getAllMapsFromDataBase();
 		DataBaseConnection.getAllHighScoresFromDataBase();
 		DataBaseConnection.setFirstMap();
 		map.setMap(DataBaseConnection.getUsedMap().getMapData());
 		getScores(DataBaseConnection.getUsedMap().getMapName());
-		for(DrawThread dt: drawThreadList) {
-			dt.start();
-		}
+
+		dt.start();
+		
 		ThreadController tc = new ThreadController();
 		tc.startThreads(player, ghlist);
 		setTopData();

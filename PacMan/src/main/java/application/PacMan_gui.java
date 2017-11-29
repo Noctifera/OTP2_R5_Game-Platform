@@ -66,10 +66,7 @@ public class PacMan_gui extends Application implements PacMan_gui_IF {
 	 * Strings found in the map [0] = Dot,[1] = LargeDot,[2] = Wall
 	 * 
 	 */
-	private String[] strings = { "Dot", "LargeDot", "Wall", "Empty", "PlayerSpawn", "GhostHouse", "Player", ghosts[0], ghosts[1], ghosts[2], ghosts[3] };
-
-	private ArrayList<Game> tileList;
-	private ArrayList<DrawThread> drawThreadList;
+	private String[] strings = { "Dot", "LargeDot", "Wall", "Empty", "PlayerSpawn", "GhostHouse", "Player","vulnerable" ,ghosts[0], ghosts[1], ghosts[2], ghosts[3] };
 
 	/**
 	 * an object list of ghosts;
@@ -98,6 +95,8 @@ public class PacMan_gui extends Application implements PacMan_gui_IF {
 	private Text lifes;
 	private Text livs;
 	private Text scores;
+	private Game game;
+	private DrawThread dt;
 
 	public void init() {
 		map = new Map(strings, gSize, tileSize);
@@ -111,23 +110,9 @@ public class PacMan_gui extends Application implements PacMan_gui_IF {
 		for (int i = 0; i < ghostAmount; i++) {
 			ghlist[i] = new Ghost(ml, player, ghosts[i]);
 		}
-
-		tileList = new ArrayList<>();
-
-		for (int y = 0; y < (gSize.y / tileSize); y++) {
-
-			for (int x = 0; x < (gSize.x / tileSize); x++) {
-
-				Game dc = new Game(tileSize, map, new Point(x * tileSize, y * tileSize), strings);
-				tileList.add(dc);
-			}
-		}
-		drawThreadList = new ArrayList<>();
-
-		for (Game dc : tileList) {
-			DrawThread dt = new DrawThread(dc);
-			drawThreadList.add(dt);
-		}
+		game = new Game(tileSize, map, gSize, strings);
+		dt = new DrawThread(game);
+		
 		handle();
 	}
 
@@ -149,7 +134,7 @@ public class PacMan_gui extends Application implements PacMan_gui_IF {
 			}
 		});
 		combine();
-		con.start(drawThreadList, ghlist, player);
+		con.start(dt, ghlist, player);
 
 	}
 
@@ -191,15 +176,14 @@ public class PacMan_gui extends Application implements PacMan_gui_IF {
 		GridPane gd = new GridPane();
 		gd.add(topHorizonatalBox(), 0, 0, gSize.x / tileSize, 1);
 
-		for (int i = 0; i < tileList.size(); i++) {
-			gd.add(tileList.get(i), tileList.get(i).getPoint().x / tileSize, tileList.get(i).getPoint().y / tileSize);
-		}
+		gd.add(game, 0, 1);
+
 
 		// locale valinta
 		lang = new ChoiceBox<>();
 		lang.setItems(FXCollections.observableArrayList(languages));
 		lang.setValue(languages[0]);
-		gd.add(lang, 0, (gSize.y / tileSize) + 1, 4, 1);
+		gd.add(lang, 0, 2, 1, 1);
 
 		root.getChildren().add(gd);
 
@@ -313,13 +297,12 @@ public class PacMan_gui extends Application implements PacMan_gui_IF {
 
 	
 	private void handle() {
-		tileList.get(0).setFocusTraversable(true);
-		tileList.get(0).setOnKeyPressed(new EventHandler<KeyEvent>() {
+		game.setFocusTraversable(true);
+		game.setOnKeyPressed(new EventHandler<KeyEvent>() {
 
 			@Override
 			public void handle(KeyEvent event) {
-				// TODO Auto-generated method stub
-				//System.out.println(event.getCode());
+				
 				if(event.getCode().equals(KeyCode.ESCAPE)) {
 					System.exit(0);
 				}
