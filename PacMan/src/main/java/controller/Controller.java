@@ -1,6 +1,7 @@
 package controller;
 
 import java.util.ArrayList;
+import java.util.List;
 import java.util.Observable;
 import java.util.Observer;
 
@@ -69,5 +70,8 @@ public class Controller implements Controller_IF {
 	public void getScores(String nString) {
 		pMG.bottomDataPane(DataBaseConnection.scoreForMap(nString));
 		
+	}
+	public List<String> readFiles(){
+		return DataBaseConnection.getMapNames();
 	}
 }

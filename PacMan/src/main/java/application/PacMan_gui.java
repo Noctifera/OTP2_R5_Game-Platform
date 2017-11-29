@@ -3,7 +3,10 @@ package application;
 import javafx.scene.control.Button;
 import javafx.scene.control.ChoiceBox;
 import javafx.scene.control.Label;
+import javafx.scene.control.ListView;
+import javafx.scene.control.RadioButton;
 import javafx.scene.control.TextField;
+import javafx.scene.control.ToggleGroup;
 import javafx.scene.input.KeyCode;
 import javafx.scene.input.KeyEvent;
 
@@ -35,6 +38,7 @@ import javafx.scene.Scene;
 import javafx.scene.layout.BorderPane;
 import javafx.scene.layout.GridPane;
 import javafx.scene.layout.HBox;
+import javafx.scene.layout.VBox;
 import javafx.scene.text.Text;
 
 /**
@@ -66,7 +70,7 @@ public class PacMan_gui extends Application implements PacMan_gui_IF {
 	 * Strings found in the map [0] = Dot,[1] = LargeDot,[2] = Wall
 	 * 
 	 */
-	private String[] strings = { "Dot", "LargeDot", "Wall", "Empty", "PlayerSpawn", "GhostHouse", "Player","vulnerable" ,ghosts[0], ghosts[1], ghosts[2], ghosts[3] };
+	private String[] strings = { "Dot", "LargeDot", "Wall", "Empty", "PlayerSpawn", "GhostHouse", "Player", "vulnerable", ghosts[0], ghosts[1], ghosts[2], ghosts[3] };
 
 	/**
 	 * an object list of ghosts;
@@ -89,7 +93,10 @@ public class PacMan_gui extends Application implements PacMan_gui_IF {
 	private String Game_Over = "Game_Over!";
 	private String save = "Save";
 	private Label label1;
+	private RadioButton button1;
+	private RadioButton button2;
 	private Button button;
+	private Button play;
 	private Text score;
 	private Scene scene;
 	private Text lifes;
@@ -112,14 +119,14 @@ public class PacMan_gui extends Application implements PacMan_gui_IF {
 		}
 		game = new Game(tileSize, map, gSize, strings);
 		dt = new DrawThread(game);
-		
+
 		handle();
 	}
 
 	public void start(Stage primaryStage) {
 		root = new BorderPane();
 
-		scene = new Scene(root, (int) gSize.getX(), (int) gSize.getY() + 200);
+		scene = new Scene(root, (int) gSize.getX() + 250, (int) gSize.getY() + 200);
 
 		primaryStage.setScene(scene);
 		primaryStage.setTitle("PacMan-Game");
@@ -133,8 +140,19 @@ public class PacMan_gui extends Application implements PacMan_gui_IF {
 
 			}
 		});
-		combine();
 		con.start(dt, ghlist, player);
+		combine();
+
+	}
+
+	public void combine() {
+		BorderPane bp = new BorderPane();
+
+		bp.setTop(topHorizonatalBox());
+		bp.setCenter(game);
+		bp.setRight(rightVerticalBox());
+
+		root.getChildren().add(bp);
 
 	}
 
@@ -157,35 +175,44 @@ public class PacMan_gui extends Application implements PacMan_gui_IF {
 
 	}
 
-	private void listLooper(GridPane grid, ArrayList<String> list, String text) {
-
-		// datarivien title: esim highscore, name, date
-		Label title = new Label(text);
-		grid.add(title, 0, 0);
-
-		for (int i = 0; i < list.size(); i++) {
-			String labelText = list.get(i);
-			Label insertedText = new Label(labelText);
-
-			grid.add(insertedText, 0, i + 1);
-		}
+	private ToggleGroup createToggleGroup() {
+		ToggleGroup group = new ToggleGroup();
+		RadioButton button1 = new RadioButton("private (File)");
+		button1.setToggleGroup(group);
+		button1.setId("private");
+		button1.setSelected(true);
+		RadioButton button2 = new RadioButton("public (Database)");
+		button2.setToggleGroup(group);
+		button2.setId("public");
+		return group;
 	}
 
-	public void combine() {
-
+	private VBox rightVerticalBox() {
 		GridPane gd = new GridPane();
-		gd.add(topHorizonatalBox(), 0, 0, gSize.x / tileSize, 1);
 
-		gd.add(game, 0, 1);
+		gd.setGridLinesVisible(true);
+		gd.setHgap(10);
+		gd.setVgap(5);
 
+		ToggleGroup tg = createToggleGroup();
+		button1 = (RadioButton) tg.getToggles().get(0);
+		button2 = (RadioButton) tg.getToggles().get(1);
 
-		// locale valinta
+		HBox topHbox = new HBox(20);
+		topHbox.getChildren().addAll(button1, button2);
+		gd.add(topHbox, 0, 0);
+
+		ListView<String> files = new ListView<>();
+
+		files.setItems(FXCollections.observableArrayList(con.readFiles()));
+
+		gd.add(files,0,1);
+		HBox bottomHbox = new HBox(20);
+		play = new Button("Play");
+
 		lang = new ChoiceBox<>();
 		lang.setItems(FXCollections.observableArrayList(languages));
 		lang.setValue(languages[0]);
-		gd.add(lang, 0, 2, 1, 1);
-
-		root.getChildren().add(gd);
 
 		lang.getSelectionModel().selectedIndexProperty().addListener(new ChangeListener<Object>() {
 
@@ -198,7 +225,27 @@ public class PacMan_gui extends Application implements PacMan_gui_IF {
 			}
 		});
 		lang.setFocusTraversable(false);
+		bottomHbox.getChildren().addAll(play,lang);
+		
+		gd.add(bottomHbox,0,2);
 
+		VBox vb = new VBox(gd);
+		return vb;
+
+	}
+
+	private void listLooper(GridPane grid, ArrayList<String> list, String text) {
+
+		// datarivien title: esim highscore, name, date
+		Label title = new Label(text);
+		grid.add(title, 0, 0);
+
+		for (int i = 0; i < list.size(); i++) {
+			String labelText = list.get(i);
+			Label insertedText = new Label(labelText);
+
+			grid.add(insertedText, 0, i + 1);
+		}
 	}
 
 	public HBox topHorizonatalBox() {
@@ -295,15 +342,14 @@ public class PacMan_gui extends Application implements PacMan_gui_IF {
 		launch(args);
 	}
 
-	
 	private void handle() {
 		game.setFocusTraversable(true);
 		game.setOnKeyPressed(new EventHandler<KeyEvent>() {
 
 			@Override
 			public void handle(KeyEvent event) {
-				
-				if(event.getCode().equals(KeyCode.ESCAPE)) {
+
+				if (event.getCode().equals(KeyCode.ESCAPE)) {
 					System.exit(0);
 				}
 				player.path(event.getCode());
