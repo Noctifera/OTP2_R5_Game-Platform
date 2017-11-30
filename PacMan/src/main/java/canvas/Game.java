@@ -122,36 +122,49 @@ public class Game extends Canvas implements Draw_IF {
 		for (int y = 0; y < gSize.y;) {
 			for (int x = 0; x < gSize.x;) {
 				Point point = new Point(x, y);
-				String item = map.getMap().get(point);
-				
-				
-				
-				if (item.contains(strings[0])) {
-					
+
+				if (map.getDots().contains(point)) {
+
 					drawDot(point);
-					
-				} if (item.contains(strings[1])) {
-					
+
+				}
+				if (map.getLargeDots().contains(point)) {
+
 					drawLargeDot(point);
-					
-				} if (item.contains(strings[2])) {
-					
+
+				}
+
+				x = x + tileSize;
+			}
+			y = y + tileSize;
+		}
+		for (int y = 0; y < gSize.y;) {
+			for (int x = 0; x < gSize.x;) {
+				Point point = new Point(x, y);
+				String item = map.getMap().get(point);
+
+				if (item.contains(strings[2])) {
+
 					drawWall(point);
-					
-				} if (item.contains(strings[4])) {
-					
+
+				}
+				if (item.contains(strings[4])) {
+
 					drawPlayerSpawn(point);
-					
-				} if (item.contains(strings[5])) {
-					
-					//System.out.println(item);
+
+				}
+				if (item.contains(strings[5])) {
+
+					// System.out.println(item);
 					drawGhostHouse(point);
-					
-				} if (item.contains(strings[6])) {
-					
+
+				}
+				if (item.contains(strings[6])) {
+
 					drawplayer(point);
-					
-				} if (item.contains(strings[8])) {
+
+				}
+				if (item.contains(strings[8])) {
 
 					if (item.contains("true")) {
 						drawGhost(vulnerable, point);
@@ -159,7 +172,8 @@ public class Game extends Canvas implements Draw_IF {
 						drawGhost(blinky, point);
 					}
 
-				} if (item.contains(strings[9])) {
+				}
+				if (item.contains(strings[9])) {
 
 					if (item.contains("true")) {
 						drawGhost(vulnerable, point);
@@ -167,7 +181,8 @@ public class Game extends Canvas implements Draw_IF {
 						drawGhost(speedy, point);
 					}
 
-				} if (item.contains(strings[10])) {
+				}
+				if (item.contains(strings[10])) {
 
 					if (item.contains("true")) {
 						drawGhost(vulnerable, point);
@@ -175,10 +190,9 @@ public class Game extends Canvas implements Draw_IF {
 						drawGhost(bashful, point);
 					}
 
-				} if (item.contains(strings[11])) {
+				}
+				if (item.contains(strings[11])) {
 
-					
-					
 					if (item.contains("true")) {
 						drawGhost(vulnerable, point);
 					} else if (item.contains("false")) {

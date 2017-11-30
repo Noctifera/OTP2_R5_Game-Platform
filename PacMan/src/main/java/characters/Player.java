@@ -204,14 +204,15 @@ public class Player extends Observable implements Character_IF {
 		}if(life <= 0) {
 			gameEnd = true;
 		}
-		
-		pos = path.get(reader);
-		
 		if(pos.equals(characterSpawn())) {
 			ml.returnToNormal(pos);
 		}else {
 			ml.playersetTMap(pos, "Empty");
 		}
+		
+		pos = path.get(reader);
+		
+		
 		score(pos);
 		reader++;
 		ml.setToMap(pos, "Pacman");
