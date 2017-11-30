@@ -7,6 +7,7 @@ import java.io.File;
 import java.io.FileInputStream;
 import java.io.FileNotFoundException;
 import java.io.FileOutputStream;
+import java.io.FilenameFilter;
 import java.io.IOException;
 import java.io.ObjectInputStream;
 import java.io.ObjectOutputStream;
@@ -26,7 +27,6 @@ public class FileReader {
 	private Draw draw;
 
 	private final File folder = new File("Maps");
-	private final File picture = new File("Pictures");
 
 	private List<MapsTable> mapList = null;
 
@@ -37,7 +37,14 @@ public class FileReader {
 
 	public void getAllMapsFromFile() {
 		mapList = new ArrayList<>();
-		File[] files = folder.listFiles();
+		File[] files = folder.listFiles(new FilenameFilter() {
+			
+			@Override
+			public boolean accept(File dir, String name) {
+				// TODO Auto-generated method stub
+				return name.contains(".txt");
+			}
+		});
 		for (File f : files) {
 			mapList.add(new MapsTable(f.getName(), readMapFromFile(f), readImageFromFile(f.getName().replaceAll(".txt", ""))));
 		}
@@ -74,7 +81,7 @@ public class FileReader {
 
 	private byte[] readImageFromFile(String mapName) {
 		System.out.println(mapName);
-		File f = new File(picture + "//" + mapName+".PNG");
+		File f = new File(folder + "//" + mapName+".PNG");
 		
 		Image image = new  Image(f.toURI().toString());
 		
@@ -95,7 +102,7 @@ public class FileReader {
 	}
 
 	private void SaveImageToFile(String fileName) throws IOException {
-		File file = new File(picture + "//" + fileName+".PNG");
+		File file = new File(folder + "//" + fileName+".PNG");
 		byte[] image = draw.getImage();
 		FileOutputStream fos = new FileOutputStream(file);
 		fos.write(image);
