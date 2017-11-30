@@ -89,12 +89,14 @@ public class PacMan_gui extends Application implements PacMan_gui_IF {
 	 * how many lives to start with
 	 */
 
-	private String Game_Over = "Game_Over!";
+	private String Game_Over = "Game Over!";
 	private String save = "Save";
+	private String cancel = "Cancel";
 	private Label label1;
 	private ListView<String> files;
 	private RadioButton button1;
 	private RadioButton button2;
+	private Button cancelButton;
 	private Button button;
 	private Button play;
 	private Text score;
@@ -152,6 +154,7 @@ public class PacMan_gui extends Application implements PacMan_gui_IF {
 
 	public void combine() {
 		BorderPane.setMargin(game, new Insets(10));
+		BorderPane.setMargin(rightVerticalBox(), new Insets(10));
 		bp.setTop(topHorizonatalBox());
 		bp.setCenter(game);
 		bp.setRight(rightVerticalBox());
@@ -278,6 +281,7 @@ public class PacMan_gui extends Application implements PacMan_gui_IF {
 		ResourceBundle rb = ResourceBundle.getBundle("Locales/MessagesBundle", current);
 		Game_Over = rb.getString("Game_Over");
 		save = rb.getString("Save");
+		cancel = rb.getString("Cancel");
 		lifes.setText(rb.getString("Lives_Left"));
 		score.setText(rb.getString("Score"));
 		DatabaseScore.setText(rb.getString("Score"));
@@ -286,6 +290,7 @@ public class PacMan_gui extends Application implements PacMan_gui_IF {
 		button1.setText(rb.getString("Private"));
 		button2.setText(rb.getString("Public"));
 		play.setText(rb.getString("Play"));
+		
 
 	}
 
@@ -296,6 +301,16 @@ public class PacMan_gui extends Application implements PacMan_gui_IF {
 		label1 = new Label(Game_Over);
 		TextField textfield = new TextField();
 		button = new Button(save);
+		cancelButton = new Button(cancel);
+		
+		cancelButton.setOnAction(new EventHandler<ActionEvent>() {
+
+			@Override
+			public void handle(ActionEvent event) {
+				// TODO Auto-generated method stub
+				popup.close();
+			}
+		});
 
 		button.setOnAction(new EventHandler<ActionEvent>() {
 
@@ -306,7 +321,7 @@ public class PacMan_gui extends Application implements PacMan_gui_IF {
 
 				if (input.length() > 0) {
 					con.setHighScore(input);
-					System.exit(0);
+					popup.close();
 				}
 			}
 		});
@@ -315,9 +330,10 @@ public class PacMan_gui extends Application implements PacMan_gui_IF {
 
 		gp.add(label1, 0, 0);
 		label1.setPadding(new Insets(0, 0, 5, 25));
-		gp.add(textfield, 0, 1);
+		gp.add(textfield, 0, 1, 2, 1);
 
 		gp.add(button, 0, 2);
+		gp.add(cancelButton, 1, 2);
 
 		Scene pop = new Scene(gp, 300, 200);
 

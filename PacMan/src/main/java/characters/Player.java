@@ -27,6 +27,14 @@ public class Player extends Observable implements Character_IF {
 		this.s = new Score(0);
 		this.life = life;
 	}
+	
+	
+
+	public void setGameEnd(boolean gameEnd) {
+		this.gameEnd = gameEnd;
+	}
+
+
 
 	public Point getPos() {
 		return pos;
