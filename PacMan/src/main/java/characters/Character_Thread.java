@@ -5,7 +5,6 @@ public class Character_Thread extends Thread {
 	private Character_IF character;
 
 	private volatile boolean suppress = false;
-	private int vulnerableCount = 0;
 
 	public Character_Thread(Character_IF character) {
 		this.character = character;
@@ -18,8 +17,8 @@ public class Character_Thread extends Thread {
 		while (!suppress) {
 			if (character.getReader() < character.pathlength()) {
 				character.getNextPos();
-				
-				if (character.iseaten()) {	
+
+				if (character.iseaten()) {
 					character.eaten();
 					spawn();
 				}
@@ -45,12 +44,12 @@ public class Character_Thread extends Thread {
 				}
 
 			} else if (character instanceof Player) {
-				
-				if(character.getVulnerable()) {
-					vulnerableCount++;
-					if(vulnerableCount >30) {
+
+				if (character.getVulnerable()) {
+					((Player) character).increseVulnerableCount();
+					if (((Player) character).getVulnerableCount() > 30) {
 						((Player) character).setVulnerable(false);
-						vulnerableCount = 0;
+						((Player) character).setVulnerableCount(0);
 					}
 				}
 				try {
@@ -69,8 +68,8 @@ public class Character_Thread extends Thread {
 
 	private void spawn() {
 		character.setPos(character.characterSpawn());
-		//System.out.println("character spawn: "+character.characterSpawn());
-		//System.out.println("character pos: "+character.getPos());
+		// System.out.println("character spawn: "+character.characterSpawn());
+		// System.out.println("character pos: "+character.getPos());
 		character.setEaten(false);
 
 		try {
@@ -79,9 +78,9 @@ public class Character_Thread extends Thread {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
 		}
-		
+
 		character.findPath();
-		 
+
 	}
-	
+
 }

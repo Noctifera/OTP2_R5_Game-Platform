@@ -129,7 +129,7 @@ public class Ghost implements Character_IF {
 	@Override
 	public void eaten() {
 		// TODO Auto-generated method stub
-		player.getS().ghost();
+		player.eatghost();
 	}
 
 }

@@ -20,6 +20,7 @@ public class Player extends Observable implements Character_IF {
 	private boolean gameEnd = false;
 	private List<Point> path = new ArrayList<>();
 	private int reader = 0;
+	private int vulnerableCount = 0;
 
 	public Player(MovementLogic ml, int life) {
 		this.ml = ml;
@@ -147,6 +148,7 @@ public class Player extends Observable implements Character_IF {
 		} else if (ml.largeDots().contains(pos)) {
 			s.LargeDot();
 			vulnerable = true;
+			vulnerableCount = 0;
 			ml.largeDots().remove(pos);
 
 		}
@@ -258,8 +260,49 @@ public class Player extends Observable implements Character_IF {
 		this.eaten = eaten;
 	}
 
-	public Score getS() {
-		return s;
+	public void eatghost() {
+		s.ghost();
+	}
+	
+	public int getVulnerableCount() {
+		return vulnerableCount;
+	}
+	public void increseVulnerableCount() {
+		vulnerableCount++;
+	}
+	public void setVulnerableCount(int vulnerableCount) {
+		this.vulnerableCount = vulnerableCount;
 	}
 
+
+
+
+
+	private class Score {
+		int score;
+
+		public Score(int score) {
+			this.score = score;
+		}
+
+		public int getScore() {
+			return score;
+		}
+		public void dot(){
+			score = score +10;
+
+		}
+		public void LargeDot(){
+			score = score + 20;
+		}
+		public void ghost(){
+			score = score +100;
+		}
+
+		public void setScore(int score) {
+			this.score = score;
+		}
+
+
+	}
 }
