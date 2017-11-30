@@ -41,6 +41,10 @@ public class GhostTest {
 		
 	}
 	
+	/*
+	 * Testataan Ghostien liikkuminen
+	 */
+	
 	@Test
 	public void testGhostMovement() {
 		Point SPoint = new Point(gh.characterSpawn());
@@ -49,6 +53,10 @@ public class GhostTest {
 		assertEquals(TPoint, test.get(test.size()-1));			
 	}
 	
+	/*
+	 * Testataan polun pituus
+	 */
+	
 	@Test
 	public void testPathSize() {
 		Point SPoint = new Point(gh.characterSpawn());
@@ -56,6 +64,10 @@ public class GhostTest {
 		ArrayList<Point> test = pf.route(SPoint, TPoint);
 		assertEquals(12, test.size());
 	}
+	
+	/*
+	 * Testataan Ghostien logiikka
+	 */
 	
 	@Test
 	public void testGhostMovementLong() {		
@@ -72,6 +84,10 @@ public class GhostTest {
 		ArrayList<Point> test = pf.route(SPoint, TPoint);
 		assertEquals(69, test.size());
 	}
+	
+	/*
+	 * Testataan, etteivät Ghostit mene seinien läpi
+	 */
 	
 	@Test
 	public void testGhostImpossibleMovement() {

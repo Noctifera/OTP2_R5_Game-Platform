@@ -51,7 +51,9 @@ public class ScoreTest {
 		assertEquals(30, player.getScore());
 
 	}
-
+	/*
+	 * Testataan, että doteista saa 10 pistettä
+	 */
 	@Test
 	public void testDot() {
 		map.setMap(DataBaseConnection.readOneMap("PlayerTestMap"));
@@ -59,7 +61,9 @@ public class ScoreTest {
 		player.score(new Point(160, 240));
 		assertEquals(10, player.getScore());
 	}
-
+	/*
+	 * Testataan, että large doteista saa 20 pistettä
+	 */
 	@Test
 	public void testLargeDot() {
 		map.setMap(DataBaseConnection.readOneMap("PlayerTestMap"));

@@ -24,33 +24,55 @@ public class MapTest {
 		
 	}
 
+	/*
+	 * Testataan, että ohjelma lukee kartan
+	 */
 	@Test
 	public void readMap() {
 		assertTrue(map.getMap() != null);
 	}
 
+	/*
+	 * Testataan dotit
+	 */
 	@Test
 	public void dot() {
 		assertTrue(map.getMap().containsValue(strings[0]));
 	}
 
+	/*
+	 * Testataan large dotit
+	 */
 	@Test
 	public void Largedot() {
 		assertTrue(map.getMap().containsValue(strings[1]));
 	}
 
+	/*
+	 * Testataan seinät
+	 */
 	@Test
 	public void wall() {
 		assertTrue(map.getMap().containsValue(strings[2]));
 	}
+	
+	/*
+	 * Testataan tyhjät ruudut
+	 */
 	@Test
 	public void empty() {
 		assertTrue(map.getMap().containsValue(strings[3]));
 	}
+	/*
+	 * Testataan pelaajan spawnpoint
+	 */
 	@Test
 	public void playerSpawn() {
 		assertTrue(map.getMap().containsValue(strings[4]));
 	}
+	/*
+	 * Testataan ghostien spawnpoint
+	 */
 	@Test
 	public void ghostHouse() {
 		assertTrue(map.getMap().containsValue(strings[5]));
