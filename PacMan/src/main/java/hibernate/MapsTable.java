@@ -1,13 +1,14 @@
 package hibernate;
 
 import java.awt.Point;
+import java.io.Serializable;
 import java.util.HashMap;
 
 import javax.persistence.*;
 
 @Entity(name ="MapsTable")
 @Table(name = "MapsTable")
-public class MapsTable{
+public class MapsTable implements Serializable{
 	
 	@Id
 	@Column(name = "mapName")

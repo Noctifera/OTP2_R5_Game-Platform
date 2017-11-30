@@ -36,10 +36,12 @@ public class Controller implements Controller_IF {
 
 	public void start(DrawThread dt) {
 		FileReader.getAllMapsFromFile();
+		map.setMap(FileReader.setFirstMap());
+		FileReader.getAllHighScoresFromFile();
+		getScoresPrivate(FileReader.getUsedMap().getMapName());
 		DataBaseConnection.getAllMapsFromDataBase();
 		DataBaseConnection.getAllHighScoresFromDataBase();
-		map.setMap(FileReader.setFirstMap());
-
+		
 		dt.start();
 
 		setTopData();
@@ -90,15 +92,21 @@ public class Controller implements Controller_IF {
 
 	public void readMapPublic(String s) {
 		map.setMap(DataBaseConnection.readOneMap(s));
-		getScores(s);
+		getScoresPublic(s);
 	}
 	public void readMapPrivate(String s) {
 		map.setMap(FileReader.getMap(s));
+		getScoresPrivate(s);
+		
+		
 	}
 
-	public void getScores(String nString) {
+	public void getScoresPublic(String nString) {
 		pMG.bottomDataPane(DataBaseConnection.scoreForMap(nString));
 
+	}
+	public void getScoresPrivate(String s) {
+		pMG.bottomDataPane(FileReader.scoreForMap(s));
 	}
 
 	public List<String> readFilesDataBase() {

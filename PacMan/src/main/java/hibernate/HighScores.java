@@ -1,10 +1,12 @@
 package hibernate;
 
+import java.io.Serializable;
+
 import javax.persistence.*;
 
 @Entity
 @Table(name = "HighScores")
-public class HighScores {
+public class HighScores implements Serializable {
 
 	@Id
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
