@@ -107,6 +107,7 @@ public class Main extends Application {
 		saveStage.close();
 	}
 	
+/*	
 	public Stage warningPopup() {
 		GridPane gp = new GridPane();
 		Label label = new Label("Your progress will not be saved! \n Press Ok to continue.");
@@ -128,11 +129,12 @@ public class Main extends Application {
 		
 		return warningPopup;
 		}
-	
+
 	public void warningPopupClose() {
 		warningPopup.close();
 	}
-
+*/	
+	
 	public Stage smallPopup(boolean save) {
 		GridPane gp = new GridPane();
 		Label label = new Label();

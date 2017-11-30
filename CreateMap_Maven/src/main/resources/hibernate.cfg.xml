@@ -25,7 +25,7 @@
 	<property name="show_sql">true</property>
 
    <!-- List of XML mapping files -->
-   <mapping class="modal.MapsTable"/>
+   <mapping class="hibernate.MapsTable"/>
 
 </session-factory>
 </hibernate-configuration>

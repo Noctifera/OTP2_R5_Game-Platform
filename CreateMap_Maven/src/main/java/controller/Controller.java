@@ -27,6 +27,7 @@ public class Controller {
 	private DataBaseReader readers;
 	private Main main;
 	private FileReader file;
+	private boolean warningB;
 
 	private String[] strings;
 	private int tileSize;
@@ -203,11 +204,21 @@ public class Controller {
 					// private
 					System.out.println("private: " + newValue);
 					if (newValue != null) {
+
 						// warningB = false;
 						// main.warningPopup();
 
 						// if (warningB) {
 						getMapFile(newValue);
+						// }
+
+						warningB = false;
+						// main.warningPopup();
+
+						getMapFile(newValue);
+
+						// if (warningB) {
+
 						// }
 
 					} else {
@@ -216,6 +227,7 @@ public class Controller {
 
 				} else {
 					System.out.println("public: " + newValue);
+
 					if (newValue != null) {
 						// warningB = false;
 						// main.warningPopup();
@@ -223,11 +235,21 @@ public class Controller {
 						getMapDataase(newValue);
 						// }
 
-					}
+						if (newValue != null) {
+							warningB = false;
+							// main.warningPopup();
+							getMapDataase(newValue);
+							// if (warningB) {
 
+							// }
+
+						}
+
+					}
 				}
 			}
 		});
+
 		newM.setOnAction(new EventHandler<ActionEvent>() {
 
 			@Override
@@ -267,7 +289,24 @@ public class Controller {
 			}
 
 		});
-
 	}
 
+	public void warningHandle(Button ok, Button cancel) {
+		ok.setOnAction(new EventHandler<ActionEvent>() {
+			@Override
+			public void handle(ActionEvent event) {
+				warningB = true;
+				// main.warningPopupClose();
+			}
+
+		});
+
+		cancel.setOnAction(new EventHandler<ActionEvent>() {
+
+			public void handle(ActionEvent event) {
+				warningB = false;
+				// main.warningPopupClose();
+			}
+		});
+	}
 }
