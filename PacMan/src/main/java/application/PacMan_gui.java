@@ -116,8 +116,6 @@ public class PacMan_gui extends Application implements PacMan_gui_IF {
 
 		player = new Player(ml, life);
 
-		
-
 		for (int i = 0; i < ghostAmount; i++) {
 			ghlist[i] = new Ghost(ml, player, ghosts[i]);
 		}
@@ -131,7 +129,6 @@ public class PacMan_gui extends Application implements PacMan_gui_IF {
 		root = new BorderPane();
 
 		scene = new Scene(root, (int) gSize.getX() + 350, (int) gSize.getY() + 200);
-		
 
 		primaryStage.setScene(scene);
 		primaryStage.setTitle("PacMan-Game");
@@ -146,7 +143,7 @@ public class PacMan_gui extends Application implements PacMan_gui_IF {
 
 			}
 		});
-		
+
 		con.start(dt);
 		combine();
 		handle();
@@ -172,25 +169,23 @@ public class PacMan_gui extends Application implements PacMan_gui_IF {
 		DatabaseScore = new Text("Score");
 		DatabaseName = new Text("Name");
 		DatabaseDate = new Text("Date");
-		
+
 		gp.add(DatabaseScore, 0, 0);
 		gp.add(DatabaseName, 1, 0);
 		gp.add(DatabaseDate, 2, 0);
-		
-		for(int i = 0; i<list.size(); i++) {
-			
-			
-			Text score = new Text(list.get(i).getScore()+"");
-			gp.add(score, 0, i+1);
-			
+
+		for (int i = 0; i < list.size(); i++) {
+
+			Text score = new Text(list.get(i).getScore() + "");
+			gp.add(score, 0, i + 1);
+
 			Text name = new Text(list.get(i).getPlayername());
-			gp.add(name, 1, i+1);
-			
+			gp.add(name, 1, i + 1);
+
 			Text date = new Text(list.get(i).getSubmission_date());
-			gp.add(date, 2, i+1);
-			
+			gp.add(date, 2, i + 1);
+
 		}
-		
 
 		HBox hbox = new HBox(gp);
 		bp.setBottom(hbox);
@@ -211,17 +206,15 @@ public class PacMan_gui extends Application implements PacMan_gui_IF {
 	private VBox rightVerticalBox() {
 		GridPane gd = new GridPane();
 
-		//gd.setGridLinesVisible(true);
+		// gd.setGridLinesVisible(true);
 		gd.setHgap(10);
 		gd.setVgap(5);
 
 		ToggleGroup tg = createToggleGroup();
 		button1 = (RadioButton) tg.getToggles().get(0);
 		button2 = (RadioButton) tg.getToggles().get(1);
-		
-		button1.setDisable(true);
-		button2.setDisable(true);
-		button2.setSelected(true);
+
+		button1.setSelected(true);
 
 		HBox topHbox = new HBox(20);
 		topHbox.getChildren().addAll(button1, button2);
@@ -229,9 +222,9 @@ public class PacMan_gui extends Application implements PacMan_gui_IF {
 
 		files = new ListView<>();
 
-		files.setItems(FXCollections.observableArrayList(con.readFiles()));
+		files.setItems(FXCollections.observableArrayList(con.readFilesPrivate()));
 
-		gd.add(files,0,1);
+		gd.add(files, 0, 1);
 		HBox bottomHbox = new HBox(20);
 		play = new Button("Play");
 
@@ -239,18 +232,15 @@ public class PacMan_gui extends Application implements PacMan_gui_IF {
 		lang.setItems(FXCollections.observableArrayList(languages));
 		lang.setValue(languages[0]);
 
-		
 		lang.setFocusTraversable(false);
-		bottomHbox.getChildren().addAll(play,lang);
-		
-		gd.add(bottomHbox,0,2);
+		bottomHbox.getChildren().addAll(play, lang);
+
+		gd.add(bottomHbox, 0, 2);
 
 		VBox vb = new VBox(gd);
 		return vb;
 
 	}
-
-	
 
 	public HBox topHorizonatalBox() {
 		BorderPane bp = new BorderPane();
@@ -263,20 +253,18 @@ public class PacMan_gui extends Application implements PacMan_gui_IF {
 		livs = new Text();
 		livs.setMouseTransparent(true);
 		livs.setFocusTraversable(false);
-		
+
 		left.getChildren().add(lifes);
 		left.getChildren().add(livs);
-		
 
 		HBox right = new HBox(10);
-		
+
 		score = new Text("Score: ");
 		scores = new Text();
-		
 
 		right.getChildren().add(score);
 		right.getChildren().add(scores);
-		
+
 		bp.setLeft(left);
 		bp.setRight(right);
 
@@ -360,7 +348,9 @@ public class PacMan_gui extends Application implements PacMan_gui_IF {
 		lang.setFocusTraversable(false);
 		play.setFocusTraversable(false);
 		files.setFocusTraversable(false);
-		
+		button1.setFocusTraversable(false);
+		button2.setFocusTraversable(false);
+
 		game.setOnKeyPressed(new EventHandler<KeyEvent>() {
 
 			@Override
@@ -372,6 +362,22 @@ public class PacMan_gui extends Application implements PacMan_gui_IF {
 				player.path(event.getCode());
 			}
 		});
+		button1.setOnAction(new EventHandler<ActionEvent>() {
+
+			@Override
+			public void handle(ActionEvent event) {
+				// TODO Auto-generated method stub
+				files.setItems(FXCollections.observableArrayList(con.readFilesPrivate()));
+			}
+		});
+		button2.setOnAction(new EventHandler<ActionEvent>() {
+
+			@Override
+			public void handle(ActionEvent event) {
+				// TODO Auto-generated method stub
+				files.setItems(FXCollections.observableArrayList(con.readFilesDataBase()));
+			}
+		});
 		lang.getSelectionModel().selectedIndexProperty().addListener(new ChangeListener<Object>() {
 
 			@Override
@@ -380,8 +386,7 @@ public class PacMan_gui extends Application implements PacMan_gui_IF {
 				if ((int) newValue >= 0) {
 					lang((int) newValue);
 				}
-				
-				
+
 			}
 		});
 		play.setOnAction(new EventHandler<ActionEvent>() {
@@ -389,11 +394,10 @@ public class PacMan_gui extends Application implements PacMan_gui_IF {
 			@Override
 			public void handle(ActionEvent event) {
 				// TODO Auto-generated method stub
-				if(!con.ThreadActive()) {
+				if (!con.ThreadActive()) {
 					con.startThreads();
 				}
-				
-				
+
 			}
 		});
 		files.getSelectionModel().selectedItemProperty().addListener(new ChangeListener<String>() {
@@ -401,11 +405,18 @@ public class PacMan_gui extends Application implements PacMan_gui_IF {
 			@Override
 			public void changed(ObservableValue<? extends String> observable, String oldValue, String newValue) {
 				// TODO Auto-generated method stub
-				if(con.ThreadActive()) {
-					con.ThreadsSuppress();
+				if (newValue != null) {
+					if (con.ThreadActive()) {
+						con.ThreadsSuppress();
+					}
+					System.out.println(newValue);
+					if (button1.isSelected()) {
+						con.readMapPrivate(newValue);
+
+					} else if (button2.isSelected()) {
+						con.readMapPublic(newValue);
+					}
 				}
-				
-				con.readMap(newValue);
 			}
 		});
 	}

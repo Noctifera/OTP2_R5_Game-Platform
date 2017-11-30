@@ -38,8 +38,7 @@ public class Controller implements Controller_IF {
 		FileReader.getAllMapsFromFile();
 		DataBaseConnection.getAllMapsFromDataBase();
 		DataBaseConnection.getAllHighScoresFromDataBase();
-		map.setMap(DataBaseConnection.setFirstMap());
-		getScores(DataBaseConnection.getUsedMap().getMapName());
+		map.setMap(FileReader.setFirstMap());
 
 		dt.start();
 
@@ -89,9 +88,12 @@ public class Controller implements Controller_IF {
 
 	}
 
-	public void readMap(String s) {
+	public void readMapPublic(String s) {
 		map.setMap(DataBaseConnection.readOneMap(s));
 		getScores(s);
+	}
+	public void readMapPrivate(String s) {
+		map.setMap(FileReader.getMap(s));
 	}
 
 	public void getScores(String nString) {
@@ -99,8 +101,11 @@ public class Controller implements Controller_IF {
 
 	}
 
-	public List<String> readFiles() {
+	public List<String> readFilesDataBase() {
 		return DataBaseConnection.getMapNames();
+	}
+	public List<String> readFilesPrivate(){
+		return FileReader.GetMapNamesFromFile();
 	}
 
 	private void gameEndCheck() {

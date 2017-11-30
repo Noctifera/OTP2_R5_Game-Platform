@@ -20,8 +20,11 @@ public class FileReader {
 
 	private static final File folder = new File("Maps");
 	private static final File picture = new File("Pictures");
-
+	
+	private static List<HighScores> scores = null;
 	private static List<MapsTable> mapList = null;
+	private static MapsTable usedMap = null;
+	
 
 	public static void getAllMapsFromFile() {
 		mapList = new ArrayList<>();
@@ -30,6 +33,13 @@ public class FileReader {
 			mapList.add(new MapsTable(f.getName(), readMapFromFile(f), readImageFromFile(f.getName().replaceAll(".txt", ""))));
 		}
 	}
+	private static String currentDate() {
+		java.util.Date date = new java.util.Date();
+		java.text.SimpleDateFormat time = new java.text.SimpleDateFormat("yyyy-MM-dd");
+		String currentDate = time.format(date);
+		return currentDate;
+	}
+	
 
 	private static HashMap<Point, String> readMapFromFile(File fileName) {
 
@@ -47,7 +57,9 @@ public class FileReader {
 		}
 
 	}
-
+	public static HashMap<Point, String> setFirstMap(){
+		return mapList.get(0).getMapData();
+	}
 	public static HashMap<Point, String> getMap(String mapName) {
 		for (MapsTable m : mapList) {
 			if (m.getMapName().equals(mapName)) {
