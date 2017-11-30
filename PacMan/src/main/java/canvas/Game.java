@@ -159,11 +159,7 @@ public class Game extends Canvas implements Draw_IF {
 					drawGhostHouse(point);
 
 				}
-				if (item.contains(strings[6])) {
 
-					drawplayer(point);
-
-				}
 				if (item.contains(strings[8])) {
 
 					if (item.contains("true")) {
@@ -198,6 +194,12 @@ public class Game extends Canvas implements Draw_IF {
 					} else if (item.contains("false")) {
 						drawGhost(pokey, point);
 					}
+
+				}
+				
+				if (item.contains(strings[6])) {
+
+					drawplayer(point);
 
 				}
 
