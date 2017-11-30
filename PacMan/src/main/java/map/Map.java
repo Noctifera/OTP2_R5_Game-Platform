@@ -1,9 +1,6 @@
 package map;
 
 import java.awt.Point;
-import java.io.File;
-import java.io.FileInputStream;
-import java.io.ObjectInputStream;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.Map.Entry;
@@ -39,7 +36,7 @@ public class Map implements Map_IF {
 		Point spawn = null;
 
 		for (Entry<Point, String> e : map.entrySet()) {
-			if (map.get(e.getKey()).equals(strings[4])) {
+			if (map.get(e.getKey()).contains(strings[4])) {
 				spawn = e.getKey();
 			}
 		}
@@ -50,7 +47,7 @@ public class Map implements Map_IF {
 	public Point getGhostHouse() {
 		Point house = null;
 		for (Entry<Point, String> e : map.entrySet()) {
-			if (map.get(e.getKey()).equals(strings[5])) {
+			if (map.get(e.getKey()).contains(strings[5])) {
 				house = e.getKey();
 			}
 

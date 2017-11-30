@@ -1,13 +1,9 @@
 package hibernate;
 
 import java.awt.Point;
-import java.awt.image.BufferedImage;
-import java.io.ByteArrayInputStream;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
-
-import javax.imageio.ImageIO;
 
 import org.hibernate.Session;
 import org.hibernate.SessionFactory;
@@ -15,13 +11,6 @@ import org.hibernate.Transaction;
 import org.hibernate.boot.MetadataSources;
 import org.hibernate.boot.registry.StandardServiceRegistry;
 import org.hibernate.boot.registry.StandardServiceRegistryBuilder;
-import org.hibernate.cfg.Configuration;
-
-import com.fasterxml.classmate.AnnotationConfiguration;
-
-import javafx.embed.swing.SwingFXUtils;
-import javafx.scene.image.Image;
-import javafx.scene.text.Font;
 
 /**
  * Used to save and get data from our mysql database
@@ -78,6 +67,7 @@ public class DataBaseConnection {
 	 * @param databasename selects the database to choose data from
 	 */
 
+	@SuppressWarnings("unchecked")
 	public static void getAllHighScoresFromDataBase() {
 		Session conn = null;
 		try {
@@ -123,6 +113,7 @@ public class DataBaseConnection {
 		return sucess;
 	}
 	
+	@SuppressWarnings({ "unchecked", "unused" })
 	public static void getAllMapsFromDataBase() {
 		Session sess = OpenConnectionToDataBase();
 		Transaction transaktio = null;

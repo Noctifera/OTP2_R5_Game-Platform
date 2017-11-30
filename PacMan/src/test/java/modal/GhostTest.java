@@ -12,6 +12,7 @@ import characters.Player;
 import hibernate.DataBaseConnection;
 import map.Map;
 import map.MovementLogic;
+import pathfinding.PathFinder;
 	
 public class GhostTest {
 
@@ -21,6 +22,7 @@ public class GhostTest {
 	private static Point gSize;
 	private static int blSize;
 	private static Ghost gh;
+	private static PathFinder pf;
 	
 	@BeforeClass
 	public static void start() {
@@ -32,6 +34,7 @@ public class GhostTest {
 		ml = new MovementLogic(gSize, blSize, map);
 		player = new Player(ml,0);
 		gh = new Ghost(ml, player,ghosts[0]);
+		pf = new PathFinder(ml);
 		
 		DataBaseConnection.getAllMapsFromDataBase();
 		map.setMap(DataBaseConnection.readOneMap("GhostTestMap"));
@@ -42,7 +45,7 @@ public class GhostTest {
 	public void testGhostMovement() {
 		Point SPoint = new Point(gh.characterSpawn());
 		Point TPoint = new Point(280, 240);
-		ArrayList<Point> test = gh.route(SPoint, TPoint);
+		ArrayList<Point> test = pf.route(SPoint, TPoint);
 		assertEquals(TPoint, test.get(test.size()-1));			
 	}
 	
@@ -50,7 +53,7 @@ public class GhostTest {
 	public void testPathSize() {
 		Point SPoint = new Point(gh.characterSpawn());
 		Point TPoint = new Point(280, 240);
-		ArrayList<Point> test = gh.route(SPoint, TPoint);
+		ArrayList<Point> test = pf.route(SPoint, TPoint);
 		assertEquals(12, test.size());
 	}
 	
@@ -58,7 +61,7 @@ public class GhostTest {
 	public void testGhostMovementLong() {		
 		Point SPoint = new Point(gh.characterSpawn());
 		Point TPoint = new Point(680, 440);
-		ArrayList<Point> test = gh.route(SPoint, TPoint);
+		ArrayList<Point> test = pf.route(SPoint, TPoint);
 		assertEquals(TPoint, test.get(test.size()-1));
 	}
 	
@@ -66,7 +69,7 @@ public class GhostTest {
 	public void testPathSizeLong() {
 		Point SPoint = new Point(gh.characterSpawn());
 		Point TPoint = new Point(680, 440);
-		ArrayList<Point> test = gh.route(SPoint, TPoint);
+		ArrayList<Point> test = pf.route(SPoint, TPoint);
 		assertEquals(69, test.size());
 	}
 	
@@ -74,7 +77,7 @@ public class GhostTest {
 	public void testGhostImpossibleMovement() {
 		Point SPoint = new Point(gh.characterSpawn());
 		Point TPoint = new Point(200, 40);
-		ArrayList<Point> test = gh.route(SPoint, TPoint);
+		ArrayList<Point> test = pf.route(SPoint, TPoint);
 		assertEquals(null, test);
 	}
 	

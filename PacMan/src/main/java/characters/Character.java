@@ -17,7 +17,9 @@ public interface Character {
 	
 	public void setPos(Point pos);
 	
-	public boolean eaten();
+	public boolean iseaten();
+	
+	public void setEaten(boolean eaten);
 	
 	public boolean isGameEnd();
 	

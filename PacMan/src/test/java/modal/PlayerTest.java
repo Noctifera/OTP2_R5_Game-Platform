@@ -13,7 +13,6 @@ import hibernate.DataBaseConnection;
 import javafx.scene.input.KeyCode;
 import map.Map;
 import map.MovementLogic;
-import sounds.Sounds;
 
 public class PlayerTest {
 	private static MovementLogic ml;
@@ -21,7 +20,6 @@ public class PlayerTest {
 	private static Player player;
 	private static Point gSize;
 	private static int blSize;
-	private static Sounds sounds;
 	
 	@BeforeClass
 	public static void start() {

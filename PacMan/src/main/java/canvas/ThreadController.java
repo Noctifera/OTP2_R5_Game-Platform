@@ -34,6 +34,13 @@ public class ThreadController {
 		for (Character_Thread ct : threads) {
 			ct.start();
 		}
+		try {
+			Thread.sleep(10);
+		} catch (InterruptedException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+		new Thread(new eaten(player, ghlist)).start();
 		active = true;
 	}
 
@@ -48,5 +55,51 @@ public class ThreadController {
 		return active;
 	}
 	
+	private class eaten implements Runnable {
+
+		private Player player;
+		private Ghost[] ghlist;
+
+		public eaten(Player player, Ghost[] ghlist) {
+			this.player = player;
+			this.ghlist = ghlist;
+		}
+
+		@Override
+		public void run() {
+			
+			while (isActive()) {
+				
+				for (Ghost gh : ghlist) {
+					
+					if (player.getVulnerable()) {
+						if (player.getPos().equals(gh.getPos())) {
+							//System.out.println("eaten: true");
+							gh.setEaten(true);
+							//System.out.println("ghost: "+gh.iseaten());
+
+						}
+					} else if (!player.getVulnerable()) {
+						//System.out.println("player: " + player.getPos() + " Ghost: " + gh.getGhost() + ": " + gh.getPos());
+						if (player.getPos().equals(gh.getPos())) {
+							//System.out.println("eaten: true");
+							player.eaten();
+							player.setEaten(true);
+							
+							//System.out.println("player: "+player.iseaten());
+						}
+					}
+				}
+				
+				try {
+					Thread.sleep(10);
+				} catch (InterruptedException e) {
+					// TODO Auto-generated catch block
+					e.printStackTrace();
+				}
+
+			}
+		}
+	}
 
 }

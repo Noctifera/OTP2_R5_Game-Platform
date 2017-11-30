@@ -1,11 +1,7 @@
 package characters;
 
 import java.awt.Point;
-import java.io.File;
 import java.util.ArrayList;
-
-import javafx.scene.image.Image;
-import javafx.scene.paint.Color;
 import map.MovementLogic;
 import pathfinding.PathFinder;
 
@@ -16,17 +12,19 @@ import pathfinding.PathFinder;
  * @author kari-antti
  *
  */
-public class Ghost extends PathFinder implements Character {
+public class Ghost implements Character {
 	private MovementLogic ml;
+	private PathFinder pf;
 	private Player player;
+	private boolean eaten = false;
 	private ArrayList<Point> path = new ArrayList<>();
 	private int reader = 0;
 
-	private Point pos;
+	private Point pos = new Point();
 	private String ghost;
 
 	public Ghost(MovementLogic ml, Player player, String ghost) {
-		super(ml);
+		pf = new PathFinder(ml);
 		this.player = player;
 		this.ghost = ghost;
 		this.ml = ml;
@@ -35,7 +33,7 @@ public class Ghost extends PathFinder implements Character {
 	public Point getPos() {
 		return pos;
 	}
-	
+
 	@Override
 	public boolean getVulnerable() {
 		return player.getVulnerable();
@@ -46,46 +44,32 @@ public class Ghost extends PathFinder implements Character {
 	}
 
 	public void setPos(Point pos) {
+		if (!this.pos.equals(null)) {
+			ml.returnToNormal(this.pos);
+		}
+
 		this.pos = pos;
 	}
 
 	@Override
-	public boolean eaten() {
-		if(getVulnerable()) {
-			System.out.println("player: "+player.getPos()+" Ghost: "+ghost+": "+pos);
-			if(player.getPos().equals(pos)) {
-				System.out.println("true");
-				return true;
-		}else {
-			return false;
-		}
-		}else {
-			return false;
-		}
-		
-	}
-
-	@Override
 	public Point characterSpawn() {
-		// TODO Auto-generated method stub
+
 		return ml.ghostHouse();
 	}
 
 	@Override
 	public void getNextPos() {
-		// TODO Auto-generated method stub
-		if(pos != characterSpawn()) {
-			ml.returnToNormal(pos);
-		}
-		
+
+		ml.returnToNormal(pos);
+
 		pos = path.get(reader);
 		reader++;
-		ml.setToMap(pos, getVulnerable()+","+ghost);
+		ml.setToMap(pos, getVulnerable() + "," + ghost);
 	}
 
 	@Override
 	public void findPath() {
-		// TODO Auto-generated method stub
+
 		reader = 0;
 		path.clear();
 		if (!player.getVulnerable()) {
@@ -94,36 +78,52 @@ public class Ghost extends PathFinder implements Character {
 
 			if (rand <= 0.30) {
 				Point randpoint = ml.randomPoint();
-				path = route(pos, randpoint);
-				//System.out.println(path);
-				
+				path = pf.route(pos, randpoint);
+
 			} else {
 				Point point = null;
-				if(ml.freespaces().contains(player.getPos())) {
+				if (ml.freespaces().contains(player.getPos())) {
 					point = player.getPos();
-				}else {
+				} else {
 					point = ml.randomPoint();
 				}
-				path = route(pos, point);
-				//System.out.println(path);
+				path = pf.route(pos, point);
 
 			}
 		} else {
 			Point randpoint = ml.randomPoint();
-			path =  route(pos, randpoint);
+			path = pf.route(pos, randpoint);
 		}
 	}
 
 	@Override
 	public int pathlength() {
-		// TODO Auto-generated method stub
+
 		return path.size();
 	}
 
 	@Override
 	public int getReader() {
-		// TODO Auto-generated method stub
+
 		return reader;
+	}
+
+	@Override
+	public boolean isGameEnd() {
+
+		return player.isGameEnd();
+	}
+
+	@Override
+	public boolean iseaten() {
+		// TODO Auto-generated method stub
+		return eaten;
+	}
+
+	@Override
+	public void setEaten(boolean eaten) {
+		// TODO Auto-generated method stub
+		this.eaten = eaten;
 	}
 
 }

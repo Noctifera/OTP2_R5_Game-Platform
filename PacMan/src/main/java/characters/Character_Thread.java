@@ -18,7 +18,9 @@ public class Character_Thread extends Thread {
 		while (!suppress) {
 			if (character.getReader() < character.pathlength()) {
 				character.getNextPos();
-				if (character.eaten()) {
+				
+				if (character.iseaten()) {	
+					
 					spawn();
 				}
 			} else {
@@ -43,6 +45,7 @@ public class Character_Thread extends Thread {
 				}
 
 			} else if (character instanceof Player) {
+				
 				if(character.getVulnerable()) {
 					vulnerableCount++;
 					if(vulnerableCount >30) {
@@ -57,7 +60,6 @@ public class Character_Thread extends Thread {
 					e.printStackTrace();
 				}
 			}
-
 		}
 	}
 
@@ -67,6 +69,9 @@ public class Character_Thread extends Thread {
 
 	private void spawn() {
 		character.setPos(character.characterSpawn());
+		//System.out.println("character spawn: "+character.characterSpawn());
+		//System.out.println("character pos: "+character.getPos());
+		character.setEaten(false);
 
 		try {
 			Thread.sleep(3000);
@@ -74,7 +79,9 @@ public class Character_Thread extends Thread {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
 		}
+		
 		character.findPath();
-		// System.out.println(character.getPos());
+		 
 	}
+	
 }

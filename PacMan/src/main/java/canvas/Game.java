@@ -2,17 +2,10 @@ package canvas;
 
 import java.awt.Point;
 import java.io.File;
-import java.util.ArrayList;
 
-import org.hibernate.query.criteria.internal.predicate.NegatedPredicateWrapper;
-
-import com.google.common.base.Strings;
-
-import javafx.event.EventHandler;
 import javafx.scene.canvas.Canvas;
 import javafx.scene.canvas.GraphicsContext;
 import javafx.scene.image.Image;
-import javafx.scene.input.KeyEvent;
 import javafx.scene.paint.Color;
 import map.Map;
 
@@ -131,19 +124,34 @@ public class Game extends Canvas implements Draw_IF {
 				Point point = new Point(x, y);
 				String item = map.getMap().get(point);
 				
-				if (item.equals(strings[0])) {
+				
+				
+				if (item.contains(strings[0])) {
+					
 					drawDot(point);
-				} else if (item.equals(strings[1])) {
+					
+				} if (item.contains(strings[1])) {
+					
 					drawLargeDot(point);
-				} else if (item.equals(strings[2])) {
+					
+				} if (item.contains(strings[2])) {
+					
 					drawWall(point);
-				} else if (item.equals(strings[4])) {
+					
+				} if (item.contains(strings[4])) {
+					
 					drawPlayerSpawn(point);
-				} else if (item.equals(strings[5])) {
+					
+				} if (item.contains(strings[5])) {
+					
+					//System.out.println(item);
 					drawGhostHouse(point);
-				} else if (item.contains(strings[6])) {
+					
+				} if (item.contains(strings[6])) {
+					
 					drawplayer(point);
-				} else if (item.contains(strings[8])) {
+					
+				} if (item.contains(strings[8])) {
 
 					if (item.contains("true")) {
 						drawGhost(vulnerable, point);
@@ -151,7 +159,7 @@ public class Game extends Canvas implements Draw_IF {
 						drawGhost(blinky, point);
 					}
 
-				} else if (item.contains(strings[9])) {
+				} if (item.contains(strings[9])) {
 
 					if (item.contains("true")) {
 						drawGhost(vulnerable, point);
@@ -159,7 +167,7 @@ public class Game extends Canvas implements Draw_IF {
 						drawGhost(speedy, point);
 					}
 
-				} else if (item.contains(strings[10])) {
+				} if (item.contains(strings[10])) {
 
 					if (item.contains("true")) {
 						drawGhost(vulnerable, point);
@@ -167,8 +175,10 @@ public class Game extends Canvas implements Draw_IF {
 						drawGhost(bashful, point);
 					}
 
-				} else if (item.contains(strings[11])) {
+				} if (item.contains(strings[11])) {
 
+					
+					
 					if (item.contains("true")) {
 						drawGhost(vulnerable, point);
 					} else if (item.contains("false")) {

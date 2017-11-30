@@ -11,7 +11,6 @@ import javafx.scene.input.KeyCode;
 import javafx.scene.input.KeyEvent;
 
 import java.awt.Point;
-import java.util.ArrayList;
 import java.util.List;
 import java.util.Locale;
 import java.util.ResourceBundle;
@@ -70,7 +69,7 @@ public class PacMan_gui extends Application implements PacMan_gui_IF {
 	 * Strings found in the map [0] = Dot,[1] = LargeDot,[2] = Wall
 	 * 
 	 */
-	private String[] strings = { "Dot", "LargeDot", "Wall", "Empty", "PlayerSpawn", "GhostHouse", "Player", "vulnerable", ghosts[0], ghosts[1], ghosts[2], ghosts[3] };
+	private String[] strings = { "Dot", "LargeDot", "Wall", "Empty", "PlayerSpawn", "GhostHouse", "Pacman", "vulnerable", ghosts[0], ghosts[1], ghosts[2], ghosts[3] };
 
 	/**
 	 * an object list of ghosts;
@@ -103,8 +102,12 @@ public class PacMan_gui extends Application implements PacMan_gui_IF {
 	private Text lifes;
 	private Text livs;
 	private Text scores;
+	private Text DatabaseScore;
+	private Text DatabaseName;
+	private Text DatabaseDate;
 	private Game game;
 	private DrawThread dt;
+	private BorderPane bp = new BorderPane();
 
 	public void init() {
 		map = new Map(strings, gSize, tileSize);
@@ -127,10 +130,12 @@ public class PacMan_gui extends Application implements PacMan_gui_IF {
 	public void start(Stage primaryStage) {
 		root = new BorderPane();
 
-		scene = new Scene(root, (int) gSize.getX() + 300, (int) gSize.getY() + 200);
+		scene = new Scene(root, (int) gSize.getX() + 350, (int) gSize.getY() + 200);
+		
 
 		primaryStage.setScene(scene);
 		primaryStage.setTitle("PacMan-Game");
+		primaryStage.setResizable(false);
 		primaryStage.show();
 
 		primaryStage.setOnCloseRequest(new EventHandler<WindowEvent>() {
@@ -141,6 +146,7 @@ public class PacMan_gui extends Application implements PacMan_gui_IF {
 
 			}
 		});
+		
 		con.start(dt);
 		combine();
 		handle();
@@ -148,7 +154,6 @@ public class PacMan_gui extends Application implements PacMan_gui_IF {
 	}
 
 	public void combine() {
-		BorderPane bp = new BorderPane();
 		BorderPane.setMargin(game, new Insets(10));
 		bp.setTop(topHorizonatalBox());
 		bp.setCenter(game);
@@ -160,21 +165,35 @@ public class PacMan_gui extends Application implements PacMan_gui_IF {
 
 	public void bottomDataPane(List<HighScores> list) {
 		System.out.println(list);
-		BorderPane bottomPane = new BorderPane();
 
-		GridPane gridLeft = new GridPane();
+		GridPane gp = new GridPane();
+		gp.setVgap(20);
+		gp.setHgap(20);
+		DatabaseScore = new Text("Score");
+		DatabaseName = new Text("Name");
+		DatabaseDate = new Text("Date");
+		
+		gp.add(DatabaseScore, 0, 0);
+		gp.add(DatabaseName, 1, 0);
+		gp.add(DatabaseDate, 2, 0);
+		
+		for(int i = 0; i<list.size(); i++) {
+			
+			
+			Text score = new Text(list.get(i).getScore()+"");
+			gp.add(score, 0, i+1);
+			
+			Text name = new Text(list.get(i).getPlayername());
+			gp.add(name, 1, i+1);
+			
+			Text date = new Text(list.get(i).getSubmission_date());
+			gp.add(date, 2, i+1);
+			
+		}
+		
 
-		GridPane gridCenter = new GridPane();
-		gridCenter.setPadding(new Insets(0, 20, 0, 20));
-
-		GridPane gridRight = new GridPane();
-
-		bottomPane.setCenter(gridCenter);
-		bottomPane.setLeft(gridLeft);
-		bottomPane.setRight(gridRight);
-
-		HBox hbox = new HBox(bottomPane);
-
+		HBox hbox = new HBox(gp);
+		bp.setBottom(hbox);
 	}
 
 	private ToggleGroup createToggleGroup() {
@@ -199,6 +218,10 @@ public class PacMan_gui extends Application implements PacMan_gui_IF {
 		ToggleGroup tg = createToggleGroup();
 		button1 = (RadioButton) tg.getToggles().get(0);
 		button2 = (RadioButton) tg.getToggles().get(1);
+		
+		button1.setDisable(true);
+		button2.setDisable(true);
+		button2.setSelected(true);
 
 		HBox topHbox = new HBox(20);
 		topHbox.getChildren().addAll(button1, button2);
@@ -227,25 +250,12 @@ public class PacMan_gui extends Application implements PacMan_gui_IF {
 
 	}
 
-	private void listLooper(GridPane grid, ArrayList<String> list, String text) {
-
-		// datarivien title: esim highscore, name, date
-		Label title = new Label(text);
-		grid.add(title, 0, 0);
-
-		for (int i = 0; i < list.size(); i++) {
-			String labelText = list.get(i);
-			Label insertedText = new Label(labelText);
-
-			grid.add(insertedText, 0, i + 1);
-		}
-	}
+	
 
 	public HBox topHorizonatalBox() {
 		BorderPane bp = new BorderPane();
-		bp.setMinWidth(gSize.getX());
-		GridPane left = new GridPane();
-		GridPane right = new GridPane();
+		bp.setMinWidth(gSize.x);
+		HBox left = new HBox(10);
 
 		lifes = new Text();
 		lifes.setText("Lives left: ");
@@ -253,16 +263,20 @@ public class PacMan_gui extends Application implements PacMan_gui_IF {
 		livs = new Text();
 		livs.setMouseTransparent(true);
 		livs.setFocusTraversable(false);
+		
+		left.getChildren().add(lifes);
+		left.getChildren().add(livs);
+		
 
+		HBox right = new HBox(10);
+		
 		score = new Text("Score: ");
 		scores = new Text();
+		
 
-		left.add(lifes, 0, 0);
-		left.add(livs, 1, 0);
-
-		right.add(score, 0, 0);
-		right.add(scores, 1, 0);
-
+		right.getChildren().add(score);
+		right.getChildren().add(scores);
+		
 		bp.setLeft(left);
 		bp.setRight(right);
 
@@ -278,6 +292,9 @@ public class PacMan_gui extends Application implements PacMan_gui_IF {
 		save = rb.getString("Save");
 		lifes.setText(rb.getString("Lives_Left"));
 		score.setText(rb.getString("Score"));
+		DatabaseScore.setText(rb.getString("Score"));
+		DatabaseName.setText(rb.getString("Name"));
+		DatabaseDate.setText(rb.getString("Date"));
 		button1.setText(rb.getString("Private"));
 		button2.setText(rb.getString("Public"));
 		play.setText(rb.getString("Play"));

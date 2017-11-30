@@ -10,12 +10,13 @@ import javafx.scene.input.KeyCode;
 import map.MovementLogic;
 
 public class Player extends Observable implements Character {
-	
+
 	private MovementLogic ml;
-	private Point pos;
+	private Point pos = new Point();
 	private Score s;
 	private int life;
 	private boolean vulnerable = false;
+	private boolean eaten = false;
 	private boolean gameEnd = false;
 	private List<Point> path = new ArrayList<>();
 	private int reader = 0;
@@ -31,14 +32,17 @@ public class Player extends Observable implements Character {
 	}
 
 	public void setPos(Point pos) {
+		if (!this.pos.equals(null)) {
+			ml.returnToNormal(this.pos);
+		}
 		this.pos = pos;
 	}
+
 	public void path(KeyCode event) {
 		path = move(event);
-		//System.out.println(path);
+		// System.out.println(path);
 		reader = 0;
 	}
-	
 
 	public List<Point> getPath() {
 		return path;
@@ -47,16 +51,24 @@ public class Player extends Observable implements Character {
 	private List<Point> move(KeyCode event) {
 
 		ArrayList<Point> list = new ArrayList<>();
-		
+		if(event.equals(KeyCode.W)){
+			event = KeyCode.UP;
+		}else if(event.equals(KeyCode.S)) {
+			event = KeyCode.DOWN;
+		}else if(event.equals(KeyCode.A)) {
+			event = KeyCode.LEFT;
+		}else if(event.equals(KeyCode.D)) {
+			event = KeyCode.RIGHT;
+		}
 		switch (event) {
-		case W:
+		case UP:
 			// ylös
 
 			Point up = ml.up(pos);
 			up = ml.yli(up);
 			while (ml.freespaces().contains(up)) {
 				list.add(up);
-				//System.out.println(up);
+				// System.out.println(up);
 				up = ml.up(list.get(list.size() - 1));
 				up = ml.yli(up);
 
@@ -66,7 +78,7 @@ public class Player extends Observable implements Character {
 
 			}
 			return list;
-		case S:
+		case DOWN:
 			// alas
 			Point down = ml.down(pos);
 			down = ml.yli(down);
@@ -83,7 +95,7 @@ public class Player extends Observable implements Character {
 
 			}
 			return list;
-		case A:
+		case LEFT:
 			// vasemalle
 			Point left = ml.left(pos);
 			left = ml.yli(left);
@@ -100,7 +112,7 @@ public class Player extends Observable implements Character {
 
 			}
 			return list;
-		case D:
+		case RIGHT:
 			// oikealle
 			Point right = ml.right(pos);
 			right = ml.yli(right);
@@ -127,25 +139,25 @@ public class Player extends Observable implements Character {
 	}
 
 	public void score(Point pos) {
-		if ((ml.dots()).contains(pos)) {
+		if (ml.dots().contains(pos)) {
 			s.dot();
-			(ml.dots()).remove(pos);
-		}
-		else if (ml.largeDots().contains(pos)) {
-			s.LargeDot();			
+			ml.dots().remove(pos);
+			ml.playersetTMap(pos, "Empty");
+		} else if (ml.largeDots().contains(pos)) {
+			s.LargeDot();
 			vulnerable = true;
-			
-			if (pos != null)
-				ml.largeDots().remove(pos);
-		}
-		
+			ml.largeDots().remove(pos);
+			ml.playersetTMap(pos, "Empty");
 
+		}
 
 	}
-	public ArrayList<Point> allDots(){
+
+	public ArrayList<Point> allDots() {
 		return ml.dots();
 	}
-	public ArrayList<Point> allLargeDots(){
+
+	public ArrayList<Point> allLargeDots() {
 		return ml.largeDots();
 	}
 
@@ -164,41 +176,49 @@ public class Player extends Observable implements Character {
 	public Point playerSpawn() {
 		return ml.playerSpawn();
 	}
+
 	public boolean post(String playerName) {
 		return DataBaseConnection.post(s.score, playerName);
 	}
 
 	@Override
-	public boolean eaten() {
-		// TODO Auto-generated method stub
-		return false;
-		
+	public boolean iseaten() {
+		return eaten;
+
 	}
 
 	@Override
 	public Point characterSpawn() {
-		// TODO Auto-generated method stub
+
 		return ml.playerSpawn();
 	}
 
 	@Override
 	public void getNextPos() {
-		// TODO Auto-generated method stub
-		ml.playersetTMap(pos, "Empty");
+
+		if (ml.dots().size() == 0 && ml.largeDots().size() == 0) {
+			gameEnd = true;
+		}if(life <= 0) {
+			gameEnd = true;
+		}
+		ml.returnToNormal(pos);
 		pos = path.get(reader);
 		score(pos);
 		reader++;
-		ml.playersetTMap(pos, "Player");
+		ml.setToMap(pos, "Pacman");
 		setChanged();
-		notifyObservers(life+","+s.score);
+		notifyObservers(life + "," + s.score);
 	}
 
 	@Override
 	public void findPath() {
 		// TODO Auto-generated method stub
 		path.clear();
+		reader = 0;
 	}
-
+	public void eaten() {
+		life--;
+	}
 	@Override
 	public int pathlength() {
 		// TODO Auto-generated method stub
@@ -214,8 +234,21 @@ public class Player extends Observable implements Character {
 	public int getScore() {
 		return s.getScore();
 	}
+
 	public void setScore(int score) {
 		s.setScore(score);
+	}
+
+	@Override
+	public boolean isGameEnd() {
+		// TODO Auto-generated method stub
+		return gameEnd;
+	}
+
+	@Override
+	public void setEaten(boolean eaten) {
+		// TODO Auto-generated method stub
+		this.eaten = eaten;
 	}
 
 }
