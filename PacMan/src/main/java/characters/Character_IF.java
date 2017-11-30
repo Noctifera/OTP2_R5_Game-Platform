@@ -2,7 +2,7 @@ package characters;
 
 import java.awt.Point;
 
-public interface Character {
+public interface Character_IF {
 	
 	
 	public Point getPos();

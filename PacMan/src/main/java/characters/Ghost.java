@@ -12,7 +12,7 @@ import pathfinding.PathFinder;
  * @author kari-antti
  *
  */
-public class Ghost implements Character {
+public class Ghost implements Character_IF {
 	private MovementLogic ml;
 	private PathFinder pf;
 	private Player player;

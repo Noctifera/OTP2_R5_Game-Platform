@@ -33,9 +33,10 @@ public class DataBaseConnection {
 		String currentDate = time.format(date);
 		return currentDate;
 	}
-	public static void setFirstMap() {
-		readOneMap(mapList.get(0).getMapName());
+	public static HashMap<Point, String> setFirstMap() {
+		return readOneMap(mapList.get(0).getMapName());
 	}
+	
 	private static Session OpenConnectionToDataBase() {
 		SessionFactory sessFac = null;
 
@@ -73,7 +74,7 @@ public class DataBaseConnection {
 		try {
 			conn = OpenConnectionToDataBase();
 		
-			scores = conn.createQuery("from HighScores").list();
+			scores = conn.createQuery("from HighScores order by Score desc").list();
 			for(HighScores h: scores) {
 				System.out.println(h);
 			}

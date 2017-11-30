@@ -10,6 +10,7 @@ import canvas.ThreadController;
 import characters.Ghost;
 import characters.Player;
 import hibernate.DataBaseConnection;
+import hibernate.FileReader;
 import javafx.application.Platform;
 import map.Map;
 
@@ -34,10 +35,10 @@ public class Controller implements Controller_IF {
 	}
 
 	public void start(DrawThread dt) {
+		FileReader.getAllMapsFromFile();
 		DataBaseConnection.getAllMapsFromDataBase();
 		DataBaseConnection.getAllHighScoresFromDataBase();
-		DataBaseConnection.setFirstMap();
-		map.setMap(DataBaseConnection.getUsedMap().getMapData());
+		map.setMap(DataBaseConnection.setFirstMap());
 		getScores(DataBaseConnection.getUsedMap().getMapName());
 
 		dt.start();

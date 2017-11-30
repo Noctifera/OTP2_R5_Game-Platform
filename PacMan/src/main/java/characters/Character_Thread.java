@@ -2,12 +2,12 @@ package characters;
 
 public class Character_Thread extends Thread {
 
-	private Character character;
+	private Character_IF character;
 
 	private volatile boolean suppress = false;
 	private int vulnerableCount = 0;
 
-	public Character_Thread(Character character) {
+	public Character_Thread(Character_IF character) {
 		this.character = character;
 	}
 

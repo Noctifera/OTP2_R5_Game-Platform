@@ -9,7 +9,7 @@ import hibernate.DataBaseConnection;
 import javafx.scene.input.KeyCode;
 import map.MovementLogic;
 
-public class Player extends Observable implements Character {
+public class Player extends Observable implements Character_IF {
 
 	private MovementLogic ml;
 	private Point pos = new Point();
@@ -194,6 +194,7 @@ public class Player extends Observable implements Character {
 
 	@Override
 	public void getNextPos() {
+		
 		if(pos.equals(characterSpawn())) {
 			ml.returnToNormal(pos);
 		}else {
@@ -210,6 +211,7 @@ public class Player extends Observable implements Character {
 		score(pos);
 		reader++;
 		ml.setToMap(pos, "Pacman");
+		
 		setChanged();
 		notifyObservers(life + "," + s.score);
 	}

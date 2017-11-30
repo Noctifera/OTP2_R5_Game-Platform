@@ -167,7 +167,7 @@ public class PacMan_gui extends Application implements PacMan_gui_IF {
 		System.out.println(list);
 
 		GridPane gp = new GridPane();
-		gp.setVgap(20);
+		gp.setVgap(5);
 		gp.setHgap(20);
 		DatabaseScore = new Text("Score");
 		DatabaseName = new Text("Name");
