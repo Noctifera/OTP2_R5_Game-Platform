@@ -82,11 +82,13 @@ public class Map implements Map_IF {
 	}
 
 	public void setDots() {
+		ArrayList<Point> points = new ArrayList<>();
 		for (Entry<Point, String> e : map.entrySet()) {
 			if (map.get(e.getKey()).equals(strings[0])) {
-				dots.add(e.getKey());
+				points.add(e.getKey());
 			}
 		}
+		dots = points;
 	}
 
 	public ArrayList<Point> getDots() {
@@ -94,11 +96,13 @@ public class Map implements Map_IF {
 	}
 
 	public void setLargeDots() {
+		ArrayList<Point> points = new ArrayList<>();
 		for (Entry<Point, String> e : map.entrySet()) {
 			if (map.get(e.getKey()).equals(strings[1])) {
-				largedots.add(e.getKey());
+				points.add(e.getKey());
 			}
 		}
+		largedots = points;
 	}
 
 	public ArrayList<Point> getLargeDots() {
@@ -108,7 +112,10 @@ public class Map implements Map_IF {
 	public void setMap(HashMap<Point, String> map) {
 		this.map = map;
 		setDots();
+		
 		setLargeDots();
+		System.out.println("dots: "+dots.size());
+		System.out.println("largedots: "+largedots.size() );
 	}
 
 }

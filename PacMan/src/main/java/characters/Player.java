@@ -142,15 +142,14 @@ public class Player extends Observable implements Character {
 		if (ml.dots().contains(pos)) {
 			s.dot();
 			ml.dots().remove(pos);
-			ml.playersetTMap(pos, "Empty");
+			
+			
 		} else if (ml.largeDots().contains(pos)) {
 			s.LargeDot();
 			vulnerable = true;
 			ml.largeDots().remove(pos);
-			ml.playersetTMap(pos, "Empty");
 
 		}
-
 	}
 
 	public ArrayList<Point> allDots() {
@@ -195,13 +194,18 @@ public class Player extends Observable implements Character {
 
 	@Override
 	public void getNextPos() {
+		if(pos.equals(characterSpawn())) {
+			ml.returnToNormal(pos);
+		}else {
+			ml.playersetTMap(pos, "Empty");
+		}
 
 		if (ml.dots().size() == 0 && ml.largeDots().size() == 0) {
 			gameEnd = true;
 		}if(life <= 0) {
 			gameEnd = true;
 		}
-		ml.returnToNormal(pos);
+		
 		pos = path.get(reader);
 		score(pos);
 		reader++;
@@ -250,6 +254,10 @@ public class Player extends Observable implements Character {
 	public void setEaten(boolean eaten) {
 		// TODO Auto-generated method stub
 		this.eaten = eaten;
+	}
+
+	public Score getS() {
+		return s;
 	}
 
 }

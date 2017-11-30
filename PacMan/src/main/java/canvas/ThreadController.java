@@ -85,6 +85,11 @@ public class ThreadController {
 							//System.out.println("eaten: true");
 							
 							player.setEaten(true);
+							for(Ghost gh1: ghlist) {
+								gh1.setEaten(true);
+								
+							}
+							break;
 							
 							//System.out.println("player: "+player.iseaten());
 						}
