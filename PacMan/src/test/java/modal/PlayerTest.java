@@ -33,6 +33,9 @@ public class PlayerTest {
 		map.setMap(DataBaseConnection.readOneMap("PlayerTestMap"));
 		
 	}
+	/*
+	 * Testataan pelaajan liikkumminen ylös
+	 */
 	@Test
 	public void moveUp() {
 		player.setPos(player.playerSpawn());
@@ -42,6 +45,9 @@ public class PlayerTest {
 		
 		assertEquals(new Point(160,120), list.get(list.size()-1));
 	}
+	/*
+	 * Testataan pelaajan liikkuminen vasemmalle
+	 */
 	@Test
 	public void moveLeft() {
 		player.setPos(player.playerSpawn());
@@ -51,6 +57,9 @@ public class PlayerTest {
 		assertEquals(new Point(80,200), list.get(list.size()-1));
 		
 	}
+	/*
+	 * Testataan pelaajan liikkuminen oikealle
+	 */
 	@Test
 	public void moveRight() {
 		player.setPos(player.playerSpawn());
@@ -60,6 +69,9 @@ public class PlayerTest {
 		assertEquals(new Point(280,200), list.get(list.size()-1));
 		
 	}
+	/*
+	 * Testataan pelaajan liikkuminen alas
+	 */
 	@Test
 	public void moveDown() {
 		player.setPos(player.playerSpawn());
@@ -69,6 +81,9 @@ public class PlayerTest {
 		assertEquals(new Point(160,320),list.get(list.size()-1));
 		
 	}
+	/*
+	 * Testataan, ettei pelaaja liiku ylöspäin, jos seinä
+	 */
 	@Test
 	public void dontMoveUp() {
 		player.setPos(new Point(80, 120));
@@ -78,6 +93,9 @@ public class PlayerTest {
 		assertEquals(0,list.size());
 		
 	}
+	/*
+	 * Testataan, ettei pelaaja liiku alaspäin, jos seinä
+	 */
 	@Test
 	public void dontMoveDown() {
 		player.setPos(new Point(80, 120));
@@ -87,6 +105,9 @@ public class PlayerTest {
 		assertEquals(0, list.size());
 		
 	}
+	/*
+	 * Testataan, ettei pelaaja liiku vasemmalle, jos seinä
+	 */
 	@Test
 	public void dontMoveLeft() {
 		player.setPos(new Point(80, 120));
@@ -96,6 +117,9 @@ public class PlayerTest {
 		assertEquals(0, list.size());
 		
 	}
+	/*
+	 * Testataan, ettei pelaaja liiku oikealle, jos seinä
+	 */
 	@Test
 	public void dontMoveRight() {
 		player.setPos(new Point(80, 120));
@@ -105,6 +129,9 @@ public class PlayerTest {
 		assertEquals(0, list.size());
 		
 	}
+	/*
+	 * Testataan pelaajan teleporttaaminen kartan vasemmasta laidasta oikeaan laitaan
+	 */
 	@Test
 	public void overleft() {
 		player.setPos(new Point(0,0));
@@ -113,6 +140,9 @@ public class PlayerTest {
 		 List<Point> list = player.getPath();
 		assertEquals(new Point(0, 0), list.get(list.size()-1));
 	}
+	/*
+	 * Testataan pelaajan teleporttaaminen kartan oikeasta laidasta vasempaan laitaan
+	 */
 	@Test
 	public void overRight() {
 		Point p = new Point((int)gSize.getX()-blSize,0);
@@ -123,6 +153,9 @@ public class PlayerTest {
 		assertEquals(p, list.get(list.size()-1));
 		
 	}
+	/*
+	 * Testataan pelaajan teleporttaaminen kartan ylälaidasta alalaitaan
+	 */
 	@Test
 	public void overTop() {
 		Point p = new Point(0,0);
@@ -133,6 +166,9 @@ public class PlayerTest {
 		assertEquals(p, list.get(list.size()-1));
 		
 	}
+	/*
+	 * Testataan pelaajan teleporttaaminen kartan alalaidasta ylälaitaan
+	 */
 	@Test
 	public void overBottom() {
 		Point p = new Point(0,(int)gSize.getY()-blSize);
