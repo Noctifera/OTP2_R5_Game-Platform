@@ -1,7 +1,6 @@
 package modal;
 
 import java.awt.Point;
-import java.io.IOException;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
@@ -13,8 +12,7 @@ import org.hibernate.boot.MetadataSources;
 import org.hibernate.boot.registry.StandardServiceRegistry;
 import org.hibernate.boot.registry.StandardServiceRegistryBuilder;
 
-import javafx.application.Platform;
-import javafx.scene.image.Image;
+import hibernate.MapsTable;
 
 public class DataBaseReader {
 	
@@ -55,6 +53,7 @@ public class DataBaseReader {
 		return notContain;
 	}
 
+	@SuppressWarnings({ "unchecked", "unused" })
 	public boolean getAllMapsFromDataBase() {
 		Session sess = OpenConnectionToDataBase();
 			

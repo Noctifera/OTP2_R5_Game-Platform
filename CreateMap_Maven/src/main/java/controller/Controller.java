@@ -27,7 +27,6 @@ public class Controller {
 	private DataBaseReader readers;
 	private Main main;
 	private FileReader file;
-	private boolean warningB;
 
 	private String[] strings;
 	private int tileSize;
@@ -142,8 +141,6 @@ public class Controller {
 			}
 		});
 	}
-	
-
 
 	public void handePopUp(Button save, ToggleGroup group, TextField textfield) {
 
@@ -167,9 +164,10 @@ public class Controller {
 		});
 	}
 
-	public void handle(Button ready, Button newM, ChoiceBox<String> cb, ListView<String> files, ToggleGroup gruop,
-			RadioButton butprivate, RadioButton butpublic, ChoiceBox<String> lang) {
+	public void handle(Button ready, Button newM, ChoiceBox<String> cb, ListView<String> files, ToggleGroup gruop, RadioButton butprivate, RadioButton butpublic, ChoiceBox<String> lang) {
 		draw.setOnMouseClicked(new EventHandler<MouseEvent>() {
+
+			@Override
 			public void handle(MouseEvent e) {
 				System.out.println(event);
 				draw(e, event);
@@ -205,14 +203,12 @@ public class Controller {
 					// private
 					System.out.println("private: " + newValue);
 					if (newValue != null) {
-						warningB = false;
-						main.warningPopup();
-						
+						// warningB = false;
+						// main.warningPopup();
 
-						
-						if (warningB) {
-							getMapFile(newValue);
-						}
+						// if (warningB) {
+						getMapFile(newValue);
+						// }
 
 					} else {
 						// ClearMap();
@@ -220,12 +216,12 @@ public class Controller {
 
 				} else {
 					System.out.println("public: " + newValue);
-					if (newValue != null) {	
-						warningB = false;
-						main.warningPopup();
-						if (warningB) {
-							getMapDataase(newValue);
-						}
+					if (newValue != null) {
+						// warningB = false;
+						// main.warningPopup();
+						// if (warningB) {
+						getMapDataase(newValue);
+						// }
 
 					}
 
@@ -273,25 +269,5 @@ public class Controller {
 		});
 
 	}
-	
-	public void warningHandle(Button ok, Button cancel) {
-		ok.setOnAction(new EventHandler<ActionEvent>() {
 
-			@Override
-			public void handle(ActionEvent event) {
-				warningB = true;
-				main.warningPopupClose();
-			}
-			
-		});
-		
-		cancel.setOnAction(new EventHandler<ActionEvent>() {
-			
-			public void handle(ActionEvent event) {
-				warningB = false;
-				main.warningPopupClose();
-			}
-		});
-	}
-	
 }

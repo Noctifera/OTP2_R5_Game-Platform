@@ -7,7 +7,6 @@ import java.util.ResourceBundle;
 import controller.Controller;
 import javafx.application.Application;
 import javafx.collections.FXCollections;
-import javafx.event.ActionEvent;
 import javafx.event.EventHandler;
 import javafx.stage.Stage;
 import javafx.stage.WindowEvent;
@@ -123,7 +122,7 @@ public class Main extends Application {
 		Scene scene = new Scene(gp);
 		warningPopup.setScene(scene);
 		
-		con.warningHandle(OkButton, cancelButton);
+		//con.warningHandle(OkButton, cancelButton);
 		
 		warningPopup.show();
 		
@@ -237,12 +236,12 @@ public class Main extends Application {
 		
 
 		ready = new Button("Map Ready to be Saved");
-		bottom.add(ready, 0, 3, 1, 1);
+		bottom.add(ready, 0, 0, 1, 1);
 
 		lang = new ChoiceBox<>();
 		lang.setItems(FXCollections.observableArrayList(languages));
 		lang.setValue(languages[0]);
-		bottom.add(lang, 1, 3, 1, 1);
+		bottom.add(lang, 1, 0, 1, 1);
 		
 		gd.add(top, 0, 0);
 		gd.add(files, 0, 1,2,1);

@@ -1,4 +1,4 @@
-package modal;
+package hibernate;
 
 import java.awt.Point;
 import java.util.HashMap;

@@ -2,8 +2,6 @@ package modal;
 
 import java.awt.Point;
 import java.awt.image.BufferedImage;
-import java.awt.image.RenderedImage;
-import java.awt.image.renderable.RenderableImage;
 import java.io.ByteArrayOutputStream;
 import java.io.File;
 import java.io.FileInputStream;
@@ -17,8 +15,8 @@ import java.util.HashMap;
 import java.util.List;
 
 import javax.imageio.ImageIO;
-import javax.imageio.stream.ImageOutputStream;
 
+import hibernate.MapsTable;
 import javafx.embed.swing.SwingFXUtils;
 import javafx.scene.image.Image;
 
@@ -45,6 +43,7 @@ public class FileReader {
 		}
 	}
 
+	@SuppressWarnings("unchecked")
 	private HashMap<Point, String> readMapFromFile(File fileName) {
 
 		HashMap<Point, String> tmp = new HashMap<>();
@@ -89,7 +88,6 @@ public class FileReader {
 			data = baos.toByteArray();
 			baos.close();
 		} catch (IOException e) {
-			// TODO Auto-generated catch block
 			e.printStackTrace();
 		}
 
@@ -121,10 +119,8 @@ public class FileReader {
 			obj.close();
 			return true;
 		} catch (FileNotFoundException e) {
-			// TODO Auto-generated catch block
 			e.printStackTrace();
 		} catch (IOException e) {
-			// TODO Auto-generated catch block
 			e.printStackTrace();
 		}
 		return false;
