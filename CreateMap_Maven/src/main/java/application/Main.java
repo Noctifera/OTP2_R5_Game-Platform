@@ -1,5 +1,6 @@
 package application;
 
+import java.util.ArrayList;
 import java.util.List;
 import java.util.Locale;
 import java.util.ResourceBundle;
@@ -107,8 +108,8 @@ public class Main extends Application {
 		saveStage.close();
 	}
 	
-/*	
-	public Stage warningPopup() {
+	
+	public List<Button> warningPopup() {
 		GridPane gp = new GridPane();
 		Label label = new Label("Your progress will not be saved! \n Press Ok to continue.");
 		Button OkButton = new Button("Ok");
@@ -123,17 +124,20 @@ public class Main extends Application {
 		Scene scene = new Scene(gp);
 		warningPopup.setScene(scene);
 		
-		//con.warningHandle(OkButton, cancelButton);
 		
 		warningPopup.show();
 		
-		return warningPopup;
+		List<Button> buttonList = new ArrayList<Button>();
+		buttonList.add(OkButton);
+		buttonList.add(cancelButton);
+		
+		return buttonList;
 		}
 
 	public void warningPopupClose() {
 		warningPopup.close();
 	}
-*/	
+	
 	
 	public Stage smallPopup(boolean save) {
 		GridPane gp = new GridPane();

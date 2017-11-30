@@ -27,7 +27,6 @@ public class Controller {
 	private DataBaseReader readers;
 	private Main main;
 	private FileReader file;
-	private boolean warningB;
 
 	private String[] strings;
 	private int tileSize;
@@ -53,6 +52,10 @@ public class Controller {
 		draw.drawOuterBound();
 		System.out.println(readers.getAllMapsFromDataBase());
 		file.getAllMapsFromFile();
+	}
+
+	private void changeMap() {
+
 	}
 
 	public void draw(MouseEvent e, String s) {
@@ -165,10 +168,9 @@ public class Controller {
 		});
 	}
 
-	public void handle(Button ready, Button newM, ChoiceBox<String> cb, ListView<String> files, ToggleGroup gruop, RadioButton butprivate, RadioButton butpublic, ChoiceBox<String> lang) {
+	public void handle(Button ready, Button newM, ChoiceBox<String> cb, ListView<String> files, ToggleGroup gruop,
+			RadioButton butprivate, RadioButton butpublic, ChoiceBox<String> lang) {
 		draw.setOnMouseClicked(new EventHandler<MouseEvent>() {
-
-			@Override
 			public void handle(MouseEvent e) {
 				System.out.println(event);
 				draw(e, event);
@@ -205,56 +207,87 @@ public class Controller {
 					System.out.println("private: " + newValue);
 					if (newValue != null) {
 
-						// warningB = false;
-						// main.warningPopup();
+						List<Button> buttonList = main.warningPopup();
+						buttonList.get(0).setOnAction(new EventHandler<ActionEvent>() {
 
-						// if (warningB) {
-						getMapFile(newValue);
-						// }
+							@Override
+							public void handle(ActionEvent arg0) {
+								getMapFile(newValue);
+								main.warningPopupClose();
+							}
 
-						warningB = false;
-						// main.warningPopup();
+						});
+						
+						
+						buttonList.get(1).setOnAction(new EventHandler<ActionEvent>() {
 
-						getMapFile(newValue);
+							@Override
+							public void handle(ActionEvent event) {
+								main.warningPopupClose();
+								
+							}
+						});
 
-						// if (warningB) {
-
-						// }
-
-					} else {
-						// ClearMap();
 					}
 
 				} else {
 					System.out.println("public: " + newValue);
-
 					if (newValue != null) {
-						// warningB = false;
-						// main.warningPopup();
-						// if (warningB) {
-						getMapDataase(newValue);
-						// }
+						List<Button> buttonList = main.warningPopup();
+						buttonList.get(0).setOnAction(new EventHandler<ActionEvent>() {
 
-						if (newValue != null) {
-							warningB = false;
-							// main.warningPopup();
-							getMapDataase(newValue);
-							// if (warningB) {
+							@Override
+							public void handle(ActionEvent arg0) {
+								getMapDataase(newValue);
+								main.warningPopupClose();
+							}
 
-							// }
+						});
+						
+						
+						buttonList.get(1).setOnAction(new EventHandler<ActionEvent>() {
 
-						}
+							@Override
+							public void handle(ActionEvent event) {
+								main.warningPopupClose();
+								
+							}
+						});
 
 					}
+
 				}
 			}
 		});
-
 		newM.setOnAction(new EventHandler<ActionEvent>() {
 
 			@Override
 			public void handle(ActionEvent event) {
 				// TODO Auto-generated method stub
+				
+				List<Button> buttonList = main.warningPopup();
+				buttonList.get(0).setOnAction(new EventHandler<ActionEvent>() {
+
+					@Override
+					public void handle(ActionEvent arg0) {
+						
+						main.warningPopupClose();
+					}
+
+				});
+				
+				
+				buttonList.get(1).setOnAction(new EventHandler<ActionEvent>() {
+
+					@Override
+					public void handle(ActionEvent event) {
+						main.warningPopupClose();
+						
+					}
+				});
+				
+				
+				
 				ClearMap();
 			}
 		});
@@ -289,24 +322,8 @@ public class Controller {
 			}
 
 		});
+
 	}
 
-	public void warningHandle(Button ok, Button cancel) {
-		ok.setOnAction(new EventHandler<ActionEvent>() {
-			@Override
-			public void handle(ActionEvent event) {
-				warningB = true;
-				// main.warningPopupClose();
-			}
 
-		});
-
-		cancel.setOnAction(new EventHandler<ActionEvent>() {
-
-			public void handle(ActionEvent event) {
-				warningB = false;
-				// main.warningPopupClose();
-			}
-		});
-	}
 }
