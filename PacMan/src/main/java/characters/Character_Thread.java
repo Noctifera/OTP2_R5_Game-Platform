@@ -20,7 +20,7 @@ public class Character_Thread extends Thread {
 				character.getNextPos();
 				
 				if (character.iseaten()) {	
-					
+					character.eaten();
 					spawn();
 				}
 			} else {

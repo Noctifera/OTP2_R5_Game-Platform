@@ -216,6 +216,7 @@ public class Player extends Observable implements Character {
 		path.clear();
 		reader = 0;
 	}
+	@Override
 	public void eaten() {
 		life--;
 	}

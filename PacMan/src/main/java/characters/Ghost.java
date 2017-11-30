@@ -126,4 +126,10 @@ public class Ghost implements Character {
 		this.eaten = eaten;
 	}
 
+	@Override
+	public void eaten() {
+		// TODO Auto-generated method stub
+		
+	}
+
 }

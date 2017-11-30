@@ -83,7 +83,7 @@ public class ThreadController {
 						//System.out.println("player: " + player.getPos() + " Ghost: " + gh.getGhost() + ": " + gh.getPos());
 						if (player.getPos().equals(gh.getPos())) {
 							//System.out.println("eaten: true");
-							player.eaten();
+							
 							player.setEaten(true);
 							
 							//System.out.println("player: "+player.iseaten());

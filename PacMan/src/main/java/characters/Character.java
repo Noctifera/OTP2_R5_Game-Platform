@@ -21,6 +21,8 @@ public interface Character {
 	
 	public void setEaten(boolean eaten);
 	
+	public void eaten();
+	
 	public boolean isGameEnd();
 	
 	public int getReader();
