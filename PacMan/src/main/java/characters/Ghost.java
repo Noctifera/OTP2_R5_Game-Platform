@@ -129,7 +129,7 @@ public class Ghost implements Character {
 	@Override
 	public void eaten() {
 		// TODO Auto-generated method stub
-		
+		player.getS().ghost();
 	}
 
 }
