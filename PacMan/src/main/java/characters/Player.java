@@ -197,11 +197,7 @@ public class Player extends Observable implements Character_IF {
 	@Override
 	public void getNextPos() {
 		
-		if(pos.equals(characterSpawn())) {
-			ml.returnToNormal(pos);
-		}else {
-			ml.playersetTMap(pos, "Empty");
-		}
+		
 
 		if (ml.dots().size() == 0 && ml.largeDots().size() == 0) {
 			gameEnd = true;
@@ -210,6 +206,12 @@ public class Player extends Observable implements Character_IF {
 		}
 		
 		pos = path.get(reader);
+		
+		if(pos.equals(characterSpawn())) {
+			ml.returnToNormal(pos);
+		}else {
+			ml.playersetTMap(pos, "Empty");
+		}
 		score(pos);
 		reader++;
 		ml.setToMap(pos, "Pacman");
