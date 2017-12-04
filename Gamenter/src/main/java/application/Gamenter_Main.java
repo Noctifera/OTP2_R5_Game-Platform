@@ -9,6 +9,7 @@ import javafx.scene.Scene;
 import javafx.scene.control.Button;
 import javafx.scene.layout.GridPane;
 import javafx.stage.Stage;
+import javafx.stage.WindowEvent;
 
 public class Gamenter_Main extends Application {
 
@@ -19,7 +20,8 @@ public class Gamenter_Main extends Application {
 	@Override
 	public void start(Stage primaryStage) throws Exception {
 		
-		Stage stage = new Stage();
+		Stage game = new Stage();
+		Stage creator = new Stage();
 		
 		GridPane gp = new GridPane();
 		Button button1 = new Button("Pac Man");
@@ -31,7 +33,7 @@ public class Gamenter_Main extends Application {
 				
 				PacMan_gui pg = new PacMan_gui();
 				pg.init();
-				pg.start(stage);
+				pg.start(game);
 	}
 		});
 
@@ -44,7 +46,7 @@ public class Gamenter_Main extends Application {
 			public void handle(ActionEvent event) {
 				Main main = new Main();
 				main.init();
-				main.start(stage);
+				main.start(creator);
 			}
 		});
 
@@ -53,6 +55,16 @@ public class Gamenter_Main extends Application {
 		Scene scene = new Scene(gp, 100, 100);
 		primaryStage.setScene(scene);
 		primaryStage.show();
+		
+		
+		primaryStage.setOnCloseRequest(new EventHandler<WindowEvent>() {
+
+			@Override
+			public void handle(WindowEvent event) {
+				// TODO Auto-generated method stub
+				System.exit(0);
+			}
+		});
 	}
 
 }
