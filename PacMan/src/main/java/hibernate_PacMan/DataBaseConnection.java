@@ -45,25 +45,16 @@ public class DataBaseConnection {
 		
 		try {
 			sessFac = new MetadataSources(registry).buildMetadata().buildSessionFactory();
-			/*
-		} catch (Exception e) {
 			
-		}
+		} catch (NullPointerException e) {
 			System.out.println("istonto virhe");
+			registry = new StandardServiceRegistryBuilder().configure("hibernate_jenkins.cfg.xml").build();
+			sessFac = new MetadataSources(registry).buildMetadata().buildSessionFactory();
+		}catch(Exception x) {
 			StandardServiceRegistryBuilder.destroy(registry);
+			x.printStackTrace();
+		}
 			
-			try {
-				registry = new StandardServiceRegistryBuilder().configure("hibernate_jenkins.cfg.xml").build();
-				sessFac = new MetadataSources(registry).buildMetadata().buildSessionFactory();
-			
-				*/
-			}catch(Exception x) {
-				StandardServiceRegistryBuilder.destroy(registry);
-				x.printStackTrace();
-			}
-			
-			
-		//}
 		Session sess = sessFac.openSession();
 		return sess;
 	}
