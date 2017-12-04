@@ -11,6 +11,7 @@ import org.hibernate.Transaction;
 import org.hibernate.boot.MetadataSources;
 import org.hibernate.boot.registry.StandardServiceRegistry;
 import org.hibernate.boot.registry.StandardServiceRegistryBuilder;
+import org.hibernate.exception.JDBCConnectionException;
 
 /**
  * Used to save and get data from our mysql database
@@ -46,13 +47,18 @@ public class DataBaseConnection {
 		try {
 			sessFac = new MetadataSources(registry).buildMetadata().buildSessionFactory();
 			
-		} catch (NullPointerException e) {
+		} catch (JDBCConnectionException je) {
 			System.out.println("istonto virhe");
 			registry = new StandardServiceRegistryBuilder().configure("hibernate_jenkins.cfg.xml").build();
+			try {
 			sessFac = new MetadataSources(registry).buildMetadata().buildSessionFactory();
-		}catch(Exception x) {
+			}catch (Exception e1) {
+				// TODO: handle exception
+				
+			}
+		}catch (Exception e) {
 			StandardServiceRegistryBuilder.destroy(registry);
-			x.printStackTrace();
+			e.printStackTrace();
 		}
 			
 		Session sess = sessFac.openSession();

@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="UTF-8" ?>
-<testsuite tests="1" failures="0" name="modal.GhostTest" time="2.097" errors="1" skipped="0">
+<testsuite tests="5" failures="0" name="modal.GhostTest" time="0.109" errors="0" skipped="0">
   <properties>
     <property name="java.runtime.name" value="Java(TM) SE Runtime Environment"/>
     <property name="sun.boot.library.path" value="C:\Program Files\Java\jdk1.8.0_152\jre\bin"/>
@@ -27,7 +27,7 @@
     <property name="java.vm.specification.vendor" value="Oracle Corporation"/>
     <property name="user.variant" value=""/>
     <property name="os.name" value="Windows 10"/>
-    <property name="classworlds.conf" value="C:\Users\marku\eclipse-workspace\.metadata\.plugins\org.eclipse.m2e.launching\launches\m2conf4700579888057956157.tmp"/>
+    <property name="classworlds.conf" value="C:\Users\marku\eclipse-workspace\.metadata\.plugins\org.eclipse.m2e.launching\launches\m2conf6727578468542375946.tmp"/>
     <property name="sun.jnu.encoding" value="Cp1252"/>
     <property name="java.library.path" value="C:\Program Files\Java\jdk1.8.0_152\bin;C:\WINDOWS\Sun\Java\bin;C:\WINDOWS\system32;C:\WINDOWS;C:\Program Files (x86)\Lenovo\FusionEngine;C:\WINDOWS\system32;C:\WINDOWS;C:\WINDOWS\System32\Wbem;C:\WINDOWS\System32\WindowsPowerShell\v1.0\;C:\Program Files (x86)\Skype\Phone\;C:\Program Files\Microsoft SQL Server\130\Tools\Binn\;C:\Program Files (x86)\nodejs\;C:\Program Files (x86)\GtkSharp\2.12\bin;C:\Program Files\Microsoft\Web Platform Installer\;C:\Program Files (x86)\Xoreax\IncrediBuild;C:\Program Files\leJOS EV3\bin;C:\Program Files\PuTTY\;;C:\Users\marku\AppData\Roaming\npm;C:\Users\marku\AppData\Local\Microsoft\WindowsApps;."/>
     <property name="java.specification.name" value="Java Platform API Specification"/>
@@ -61,156 +61,9 @@
     <property name="sun.desktop" value="windows"/>
     <property name="sun.cpu.isalist" value="amd64"/>
   </properties>
-  <testcase classname="modal.GhostTest" name="modal.GhostTest" time="2.097">
-    <error message="Unknown service requested [org.hibernate.engine.jdbc.connections.spi.ConnectionProvider]" type="org.hibernate.service.UnknownServiceException">org.hibernate.service.UnknownServiceException: Unknown service requested [org.hibernate.engine.jdbc.connections.spi.ConnectionProvider]
-	at org.hibernate.service.internal.AbstractServiceRegistryImpl.getService(AbstractServiceRegistryImpl.java:206)
-	at org.hibernate.service.internal.SessionFactoryServiceRegistryImpl.getService(SessionFactoryServiceRegistryImpl.java:80)
-	at org.hibernate.internal.AbstractSharedSessionContract.getJdbcConnectionAccess(AbstractSharedSessionContract.java:451)
-	at org.hibernate.engine.jdbc.internal.JdbcCoordinatorImpl.&lt;init&gt;(JdbcCoordinatorImpl.java:107)
-	at org.hibernate.internal.AbstractSharedSessionContract.&lt;init&gt;(AbstractSharedSessionContract.java:200)
-	at org.hibernate.internal.AbstractSessionImpl.&lt;init&gt;(AbstractSessionImpl.java:29)
-	at org.hibernate.internal.SessionImpl.&lt;init&gt;(SessionImpl.java:252)
-	at org.hibernate.internal.SessionFactoryImpl$SessionBuilderImpl.openSession(SessionFactoryImpl.java:1218)
-	at org.hibernate.internal.SessionFactoryImpl.openSession(SessionFactoryImpl.java:450)
-	at hibernate_PacMan.DataBaseConnection.OpenConnectionToDataBase(DataBaseConnection.java:67)
-	at hibernate_PacMan.DataBaseConnection.getAllMapsFromDataBase(DataBaseConnection.java:125)
-	at modal.GhostTest.start(GhostTest.java:39)
-	at sun.reflect.NativeMethodAccessorImpl.invoke0(Native Method)
-	at sun.reflect.NativeMethodAccessorImpl.invoke(NativeMethodAccessorImpl.java:62)
-	at sun.reflect.DelegatingMethodAccessorImpl.invoke(DelegatingMethodAccessorImpl.java:43)
-	at java.lang.reflect.Method.invoke(Method.java:498)
-	at org.junit.runners.model.FrameworkMethod$1.runReflectiveCall(FrameworkMethod.java:50)
-	at org.junit.internal.runners.model.ReflectiveCallable.run(ReflectiveCallable.java:12)
-	at org.junit.runners.model.FrameworkMethod.invokeExplosively(FrameworkMethod.java:47)
-	at org.junit.internal.runners.statements.RunBefores.evaluate(RunBefores.java:24)
-	at org.junit.runners.ParentRunner.run(ParentRunner.java:363)
-	at org.apache.maven.surefire.junit4.JUnit4Provider.execute(JUnit4Provider.java:252)
-	at org.apache.maven.surefire.junit4.JUnit4Provider.executeTestSet(JUnit4Provider.java:141)
-	at org.apache.maven.surefire.junit4.JUnit4Provider.invoke(JUnit4Provider.java:112)
-	at sun.reflect.NativeMethodAccessorImpl.invoke0(Native Method)
-	at sun.reflect.NativeMethodAccessorImpl.invoke(NativeMethodAccessorImpl.java:62)
-	at sun.reflect.DelegatingMethodAccessorImpl.invoke(DelegatingMethodAccessorImpl.java:43)
-	at java.lang.reflect.Method.invoke(Method.java:498)
-	at org.apache.maven.surefire.util.ReflectionUtils.invokeMethodWithArray(ReflectionUtils.java:189)
-	at org.apache.maven.surefire.booter.ProviderFactory$ProviderProxy.invoke(ProviderFactory.java:165)
-	at org.apache.maven.surefire.booter.ProviderFactory.invokeProvider(ProviderFactory.java:85)
-	at org.apache.maven.surefire.booter.ForkedBooter.runSuitesInProcess(ForkedBooter.java:115)
-	at org.apache.maven.surefire.booter.ForkedBooter.main(ForkedBooter.java:75)
-</error>
-    <system-out>Configuration tiedosto ladattu
-Hibernate: alter table HighScores add constraint FKol1e7bs596sqygphxnj8t3i3n foreign key (mapName) references MapsTable (mapName)
-istonto virhe
-</system-out>
-    <system-err>joulukuuta 04, 2017 1:09:36 IP. org.hibernate.Version logVersion
-INFO: HHH000412: Hibernate Core {5.2.12.Final}
-joulukuuta 04, 2017 1:09:36 IP. org.hibernate.cfg.Environment &lt;clinit&gt;
-INFO: HHH000206: hibernate.properties not found
-joulukuuta 04, 2017 1:09:36 IP. org.hibernate.annotations.common.reflection.java.JavaReflectionManager &lt;clinit&gt;
-INFO: HCANN000001: Hibernate Commons Annotations {5.0.1.Final}
-joulukuuta 04, 2017 1:09:36 IP. org.hibernate.engine.jdbc.connections.internal.DriverManagerConnectionProviderImpl configure
-WARN: HHH10001002: Using Hibernate built-in connection pool (not for production use!)
-joulukuuta 04, 2017 1:09:36 IP. org.hibernate.engine.jdbc.connections.internal.DriverManagerConnectionProviderImpl buildCreator
-INFO: HHH10001005: using driver [com.mysql.jdbc.Driver] at URL [jdbc:mysql://localhost:2280/TESTI?createDatabaseIfNotExist=true]
-joulukuuta 04, 2017 1:09:36 IP. org.hibernate.engine.jdbc.connections.internal.DriverManagerConnectionProviderImpl buildCreator
-INFO: HHH10001001: Connection properties: {user=markusjp, password=****}
-joulukuuta 04, 2017 1:09:36 IP. org.hibernate.engine.jdbc.connections.internal.DriverManagerConnectionProviderImpl buildCreator
-INFO: HHH10001003: Autocommit mode: false
-joulukuuta 04, 2017 1:09:36 IP. org.hibernate.engine.jdbc.connections.internal.PooledConnections &lt;init&gt;
-INFO: HHH000115: Hibernate connection pool size: 20 (min=1)
-joulukuuta 04, 2017 1:09:37 IP. org.hibernate.dialect.Dialect &lt;init&gt;
-INFO: HHH000400: Using dialect: org.hibernate.dialect.MySQL5Dialect
-joulukuuta 04, 2017 1:09:37 IP. org.hibernate.engine.jdbc.env.internal.LobCreatorBuilderImpl useContextualLobCreation
-INFO: HHH000423: Disabling contextual LOB creation as JDBC driver reported JDBC version [3] less than 4
-joulukuuta 04, 2017 1:09:37 IP. org.hibernate.resource.transaction.backend.jdbc.internal.DdlTransactionIsolatorNonJtaImpl getIsolatedConnection
-INFO: HHH10001501: Connection obtained from JdbcConnectionAccess [org.hibernate.engine.jdbc.env.internal.JdbcEnvironmentInitiator$ConnectionProviderJdbcConnectionAccess@85e6769] for (non-JTA) DDL execution was not in auto-commit mode; the Connection &apos;local transaction&apos; will be committed and the Connection will be set into auto-commit mode.
-joulukuuta 04, 2017 1:09:38 IP. org.hibernate.engine.jdbc.connections.internal.DriverManagerConnectionProviderImpl stop
-INFO: HHH10001008: Cleaning up connection pool [jdbc:mysql://localhost:2280/TESTI?createDatabaseIfNotExist=true]
-joulukuuta 04, 2017 1:09:38 IP. org.hibernate.engine.jdbc.connections.internal.DriverManagerConnectionProviderImpl configure
-WARN: HHH10001002: Using Hibernate built-in connection pool (not for production use!)
-joulukuuta 04, 2017 1:09:38 IP. org.hibernate.engine.jdbc.connections.internal.DriverManagerConnectionProviderImpl buildCreator
-INFO: HHH10001005: using driver [com.mysql.jdbc.Driver] at URL [jdbc:mysql://10.114.32.46/TESTI?createDatabaseIfNotExist=true]
-joulukuuta 04, 2017 1:09:38 IP. org.hibernate.engine.jdbc.connections.internal.DriverManagerConnectionProviderImpl buildCreator
-INFO: HHH10001001: Connection properties: {user=jenkins, password=****}
-joulukuuta 04, 2017 1:09:38 IP. org.hibernate.engine.jdbc.connections.internal.DriverManagerConnectionProviderImpl buildCreator
-INFO: HHH10001003: Autocommit mode: false
-joulukuuta 04, 2017 1:09:38 IP. org.hibernate.engine.jdbc.connections.internal.PooledConnections &lt;init&gt;
-INFO: HHH000115: Hibernate connection pool size: 20 (min=1)
-joulukuuta 04, 2017 1:09:38 IP. org.hibernate.service.internal.AbstractServiceRegistryImpl stopService
-INFO: HHH000369: Error stopping service [class org.hibernate.engine.jdbc.connections.internal.DriverManagerConnectionProviderImpl] : java.lang.NullPointerException
-org.hibernate.service.spi.ServiceException: Unable to create requested service [org.hibernate.engine.jdbc.env.spi.JdbcEnvironment]
-	at org.hibernate.service.internal.AbstractServiceRegistryImpl.createService(AbstractServiceRegistryImpl.java:271)
-	at org.hibernate.service.internal.AbstractServiceRegistryImpl.initializeService(AbstractServiceRegistryImpl.java:233)
-	at org.hibernate.service.internal.AbstractServiceRegistryImpl.getService(AbstractServiceRegistryImpl.java:210)
-	at org.hibernate.engine.jdbc.internal.JdbcServicesImpl.configure(JdbcServicesImpl.java:51)
-	at org.hibernate.boot.registry.internal.StandardServiceRegistryImpl.configureService(StandardServiceRegistryImpl.java:94)
-	at org.hibernate.service.internal.AbstractServiceRegistryImpl.initializeService(AbstractServiceRegistryImpl.java:242)
-	at org.hibernate.service.internal.AbstractServiceRegistryImpl.getService(AbstractServiceRegistryImpl.java:210)
-	at org.hibernate.boot.model.process.spi.MetadataBuildingProcess.handleTypes(MetadataBuildingProcess.java:352)
-	at org.hibernate.boot.model.process.spi.MetadataBuildingProcess.complete(MetadataBuildingProcess.java:111)
-	at org.hibernate.boot.model.process.spi.MetadataBuildingProcess.build(MetadataBuildingProcess.java:83)
-	at org.hibernate.boot.internal.MetadataBuilderImpl.build(MetadataBuilderImpl.java:418)
-	at org.hibernate.boot.internal.MetadataBuilderImpl.build(MetadataBuilderImpl.java:87)
-	at org.hibernate.boot.MetadataSources.buildMetadata(MetadataSources.java:179)
-	at hibernate_PacMan.DataBaseConnection.OpenConnectionToDataBase(DataBaseConnection.java:57)
-	at hibernate_PacMan.DataBaseConnection.getAllMapsFromDataBase(DataBaseConnection.java:125)
-	at modal.GhostTest.start(GhostTest.java:39)
-	at sun.reflect.NativeMethodAccessorImpl.invoke0(Native Method)
-	at sun.reflect.NativeMethodAccessorImpl.invoke(NativeMethodAccessorImpl.java:62)
-	at sun.reflect.DelegatingMethodAccessorImpl.invoke(DelegatingMethodAccessorImpl.java:43)
-	at java.lang.reflect.Method.invoke(Method.java:498)
-	at org.junit.runners.model.FrameworkMethod$1.runReflectiveCall(FrameworkMethod.java:50)
-	at org.junit.internal.runners.model.ReflectiveCallable.run(ReflectiveCallable.java:12)
-	at org.junit.runners.model.FrameworkMethod.invokeExplosively(FrameworkMethod.java:47)
-	at org.junit.internal.runners.statements.RunBefores.evaluate(RunBefores.java:24)
-	at org.junit.runners.ParentRunner.run(ParentRunner.java:363)
-	at org.apache.maven.surefire.junit4.JUnit4Provider.execute(JUnit4Provider.java:252)
-	at org.apache.maven.surefire.junit4.JUnit4Provider.executeTestSet(JUnit4Provider.java:141)
-	at org.apache.maven.surefire.junit4.JUnit4Provider.invoke(JUnit4Provider.java:112)
-	at sun.reflect.NativeMethodAccessorImpl.invoke0(Native Method)
-	at sun.reflect.NativeMethodAccessorImpl.invoke(NativeMethodAccessorImpl.java:62)
-	at sun.reflect.DelegatingMethodAccessorImpl.invoke(DelegatingMethodAccessorImpl.java:43)
-	at java.lang.reflect.Method.invoke(Method.java:498)
-	at org.apache.maven.surefire.util.ReflectionUtils.invokeMethodWithArray(ReflectionUtils.java:189)
-	at org.apache.maven.surefire.booter.ProviderFactory$ProviderProxy.invoke(ProviderFactory.java:165)
-	at org.apache.maven.surefire.booter.ProviderFactory.invokeProvider(ProviderFactory.java:85)
-	at org.apache.maven.surefire.booter.ForkedBooter.runSuitesInProcess(ForkedBooter.java:115)
-	at org.apache.maven.surefire.booter.ForkedBooter.main(ForkedBooter.java:75)
-Caused by: org.hibernate.exception.JDBCConnectionException: Error calling Driver#connect
-	at org.hibernate.engine.jdbc.connections.internal.BasicConnectionCreator$1$1.convert(BasicConnectionCreator.java:105)
-	at org.hibernate.engine.jdbc.connections.internal.BasicConnectionCreator.convertSqlException(BasicConnectionCreator.java:123)
-	at org.hibernate.engine.jdbc.connections.internal.DriverConnectionCreator.makeConnection(DriverConnectionCreator.java:41)
-	at org.hibernate.engine.jdbc.connections.internal.BasicConnectionCreator.createConnection(BasicConnectionCreator.java:58)
-	at org.hibernate.engine.jdbc.connections.internal.PooledConnections.addConnections(PooledConnections.java:123)
-	at org.hibernate.engine.jdbc.connections.internal.PooledConnections.&lt;init&gt;(PooledConnections.java:42)
-	at org.hibernate.engine.jdbc.connections.internal.PooledConnections.&lt;init&gt;(PooledConnections.java:20)
-	at org.hibernate.engine.jdbc.connections.internal.PooledConnections$Builder.build(PooledConnections.java:161)
-	at org.hibernate.engine.jdbc.connections.internal.DriverManagerConnectionProviderImpl.buildPool(DriverManagerConnectionProviderImpl.java:109)
-	at org.hibernate.engine.jdbc.connections.internal.DriverManagerConnectionProviderImpl.configure(DriverManagerConnectionProviderImpl.java:72)
-	at org.hibernate.boot.registry.internal.StandardServiceRegistryImpl.configureService(StandardServiceRegistryImpl.java:94)
-	at org.hibernate.service.internal.AbstractServiceRegistryImpl.initializeService(AbstractServiceRegistryImpl.java:242)
-	at org.hibernate.service.internal.AbstractServiceRegistryImpl.getService(AbstractServiceRegistryImpl.java:210)
-	at org.hibernate.engine.jdbc.env.internal.JdbcEnvironmentInitiator.buildJdbcConnectionAccess(JdbcEnvironmentInitiator.java:145)
-	at org.hibernate.engine.jdbc.env.internal.JdbcEnvironmentInitiator.initiateService(JdbcEnvironmentInitiator.java:66)
-	at org.hibernate.engine.jdbc.env.internal.JdbcEnvironmentInitiator.initiateService(JdbcEnvironmentInitiator.java:35)
-	at org.hibernate.boot.registry.internal.StandardServiceRegistryImpl.initiateService(StandardServiceRegistryImpl.java:88)
-	at org.hibernate.service.internal.AbstractServiceRegistryImpl.createService(AbstractServiceRegistryImpl.java:259)
-	... 36 more
-Caused by: java.sql.SQLException: null,  message from server: &quot;Host &apos;10.112.205.86&apos; is not allowed to connect to this MariaDB server&quot;
-	at com.mysql.jdbc.SQLError.createSQLException(SQLError.java:1055)
-	at com.mysql.jdbc.SQLError.createSQLException(SQLError.java:956)
-	at com.mysql.jdbc.MysqlIO.doHandshake(MysqlIO.java:1095)
-	at com.mysql.jdbc.ConnectionImpl.createNewIO(ConnectionImpl.java:2031)
-	at com.mysql.jdbc.ConnectionImpl.&lt;init&gt;(ConnectionImpl.java:718)
-	at com.mysql.jdbc.JDBC4Connection.&lt;init&gt;(JDBC4Connection.java:46)
-	at sun.reflect.NativeConstructorAccessorImpl.newInstance0(Native Method)
-	at sun.reflect.NativeConstructorAccessorImpl.newInstance(NativeConstructorAccessorImpl.java:62)
-	at sun.reflect.DelegatingConstructorAccessorImpl.newInstance(DelegatingConstructorAccessorImpl.java:45)
-	at java.lang.reflect.Constructor.newInstance(Constructor.java:423)
-	at com.mysql.jdbc.Util.handleNewInstance(Util.java:406)
-	at com.mysql.jdbc.ConnectionImpl.getInstance(ConnectionImpl.java:302)
-	at com.mysql.jdbc.NonRegisteringDriver.connect(NonRegisteringDriver.java:282)
-	at org.hibernate.engine.jdbc.connections.internal.DriverConnectionCreator.makeConnection(DriverConnectionCreator.java:38)
-	... 51 more
-</system-err>
-  </testcase>
+  <testcase classname="modal.GhostTest" name="testGhostImpossibleMovement" time="0.046"/>
+  <testcase classname="modal.GhostTest" name="testGhostMovementLong" time="0.032"/>
+  <testcase classname="modal.GhostTest" name="testGhostMovement" time="0"/>
+  <testcase classname="modal.GhostTest" name="testPathSizeLong" time="0.031"/>
+  <testcase classname="modal.GhostTest" name="testPathSize" time="0"/>
 </testsuite>
