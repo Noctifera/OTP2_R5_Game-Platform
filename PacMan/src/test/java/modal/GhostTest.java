@@ -43,8 +43,7 @@ public class GhostTest {
 	
 	/*
 	 * Testataan Ghostien liikkuminen
-	 */
-	
+	 */	
 	@Test
 	public void testGhostMovement() {
 		Point SPoint = new Point(gh.characterSpawn());
