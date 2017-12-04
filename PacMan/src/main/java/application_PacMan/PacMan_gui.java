@@ -237,7 +237,7 @@ public class PacMan_gui extends Application implements PacMan_gui_IF {
 	public HBox topHorizonatalBox() {
 		BorderPane bp = new BorderPane();
 		bp.setMinWidth(gSize.x);
-		HBox left = new HBox(10);
+		HBox left = new HBox(5);
 
 		lifes = new Text();
 		lifes.setText("Lives left: ");
@@ -249,13 +249,14 @@ public class PacMan_gui extends Application implements PacMan_gui_IF {
 		left.getChildren().add(lifes);
 		left.getChildren().add(livs);
 
-		HBox right = new HBox(10);
+		HBox right = new HBox(5);
 
 		score = new Text("Score: ");
 		scores = new Text();
 
 		right.getChildren().add(score);
 		right.getChildren().add(scores);
+		right.setPrefWidth(100);
 
 		bp.setLeft(left);
 		bp.setRight(right);

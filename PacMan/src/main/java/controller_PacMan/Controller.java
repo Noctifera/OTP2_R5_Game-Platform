@@ -4,8 +4,6 @@ import java.util.List;
 import java.util.Observable;
 import java.util.Observer;
 
-import org.hibernate.internal.util.config.ConfigurationException;
-
 import application_PacMan.PacMan_gui;
 import canvas_PacMan.DrawThread;
 import canvas_PacMan.ThreadController;
@@ -41,14 +39,9 @@ public class Controller implements Controller_IF {
 		FileReader.getAllMapsFromFile();
 		FileReader.getAllHighScoresFromFile();
 
-		try {
-			DataBaseConnection.getAllMapsFromDataBase();
-			DataBaseConnection.getAllHighScoresFromDataBase();
-		} catch (ConfigurationException e) {
-
-		} catch (NullPointerException e) {
-
-		}
+		DataBaseConnection.getAllMapsFromDataBase();
+		DataBaseConnection.getAllHighScoresFromDataBase();
+		
 		try {
 			map.setMap(FileReader.setFirstMap());
 
