@@ -1,4 +1,4 @@
-package modal;
+package modal_CreateMap;
 
 import java.awt.Point;
 import java.awt.image.BufferedImage;
@@ -17,7 +17,7 @@ import java.util.List;
 
 import javax.imageio.ImageIO;
 
-import hibernate.MapsTable;
+import hibernate_CreateMap.MapsTable;
 import javafx.embed.swing.SwingFXUtils;
 import javafx.scene.image.Image;
 

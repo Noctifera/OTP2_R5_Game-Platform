@@ -1,4 +1,4 @@
-package hibernate;
+package hibernate_CreateMap;
 
 import java.awt.Point;
 import java.util.HashMap;

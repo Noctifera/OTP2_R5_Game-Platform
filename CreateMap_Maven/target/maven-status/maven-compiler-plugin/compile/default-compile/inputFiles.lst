@@ -1,7 +1,7 @@
-C:\Users\marku\git\OTP2_R5_Game-Platform\CreateMap\CreateMap_Maven\src\main\java\application\Main.java
-C:\Users\marku\git\OTP2_R5_Game-Platform\CreateMap\CreateMap_Maven\src\main\java\controller\Controller.java
-C:\Users\marku\git\OTP2_R5_Game-Platform\CreateMap\CreateMap_Maven\src\main\java\modal\Map.java
-C:\Users\marku\git\OTP2_R5_Game-Platform\CreateMap\CreateMap_Maven\src\main\java\modal\FileReader.java
-C:\Users\marku\git\OTP2_R5_Game-Platform\CreateMap\CreateMap_Maven\src\main\java\hibernate\MapsTable.java
-C:\Users\marku\git\OTP2_R5_Game-Platform\CreateMap\CreateMap_Maven\src\main\java\modal\DataBaseReader.java
-C:\Users\marku\git\OTP2_R5_Game-Platform\CreateMap\CreateMap_Maven\src\main\java\modal\Draw.java
+C:\Users\marku\git\OTP2_R5_Game-Platform\CreateMap\CreateMap_Maven\src\main\java\modal_CreateMap\DataBaseReader.java
+C:\Users\marku\git\OTP2_R5_Game-Platform\CreateMap\CreateMap_Maven\src\main\java\controller_CreateMap\Controller.java
+C:\Users\marku\git\OTP2_R5_Game-Platform\CreateMap\CreateMap_Maven\src\main\java\modal_CreateMap\FileReader.java
+C:\Users\marku\git\OTP2_R5_Game-Platform\CreateMap\CreateMap_Maven\src\main\java\modal_CreateMap\Map.java
+C:\Users\marku\git\OTP2_R5_Game-Platform\CreateMap\CreateMap_Maven\src\main\java\modal_CreateMap\Draw.java
+C:\Users\marku\git\OTP2_R5_Game-Platform\CreateMap\CreateMap_Maven\src\main\java\application_CreateMap\Main.java
+C:\Users\marku\git\OTP2_R5_Game-Platform\CreateMap\CreateMap_Maven\src\main\java\hibernate_CreateMap\MapsTable.java

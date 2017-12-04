@@ -1,18 +1,18 @@
-package application;
+package application_CreateMap;
 
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Locale;
 import java.util.ResourceBundle;
 
-import controller.Controller;
+import controller_CreateMap.Controller;
 import javafx.application.Application;
 import javafx.collections.FXCollections;
 import javafx.event.EventHandler;
 import javafx.stage.Stage;
 import javafx.stage.WindowEvent;
-import modal.Draw;
-import modal.Map;
+import modal_CreateMap.Draw;
+import modal_CreateMap.Map;
 import javafx.scene.Scene;
 import javafx.scene.control.Button;
 import javafx.scene.control.ChoiceBox;
@@ -183,14 +183,6 @@ public class Main extends Application {
 		root.add(draw, 1, 1);
 		root.add(rightVerticalBox(), 2, 1);
 
-		primaryStage.setOnCloseRequest(new EventHandler<WindowEvent>() {
-
-			@Override
-			public void handle(WindowEvent event) {
-				System.exit(0);
-
-			}
-		});
 
 	}
 

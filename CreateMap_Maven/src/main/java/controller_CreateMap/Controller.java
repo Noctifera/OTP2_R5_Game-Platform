@@ -1,9 +1,9 @@
-package controller;
+package controller_CreateMap;
 
 import java.awt.Point;
 import java.util.List;
 
-import application.Main;
+import application_CreateMap.Main;
 import javafx.beans.value.ChangeListener;
 import javafx.beans.value.ObservableValue;
 import javafx.collections.FXCollections;
@@ -16,10 +16,10 @@ import javafx.scene.control.RadioButton;
 import javafx.scene.control.TextField;
 import javafx.scene.control.ToggleGroup;
 import javafx.scene.input.MouseEvent;
-import modal.Draw;
-import modal.FileReader;
-import modal.Map;
-import modal.DataBaseReader;
+import modal_CreateMap.DataBaseReader;
+import modal_CreateMap.Draw;
+import modal_CreateMap.FileReader;
+import modal_CreateMap.Map;
 
 public class Controller {
 	private Draw draw;

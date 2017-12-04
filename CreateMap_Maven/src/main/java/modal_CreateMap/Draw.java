@@ -1,4 +1,4 @@
-package modal;
+package modal_CreateMap;
 
 import java.awt.Point;
 import java.awt.image.BufferedImage;

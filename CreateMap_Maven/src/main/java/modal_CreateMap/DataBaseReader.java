@@ -1,4 +1,4 @@
-package modal;
+package modal_CreateMap;
 
 import java.awt.Point;
 import java.util.ArrayList;
@@ -12,7 +12,7 @@ import org.hibernate.boot.MetadataSources;
 import org.hibernate.boot.registry.StandardServiceRegistry;
 import org.hibernate.boot.registry.StandardServiceRegistryBuilder;
 
-import hibernate.MapsTable;
+import hibernate_CreateMap.MapsTable;
 
 public class DataBaseReader {
 	
