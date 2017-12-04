@@ -25,8 +25,8 @@
 	<property name="show_sql">true</property>
 
    <!-- List of XML mapping files -->
-   <mapping class="hibernate.MapsTable"/>
-   <mapping class="hibernate.HighScores"/>
+   <mapping class="hibernate_PacMan.MapsTable"/>
+   <mapping class="hibernate_PacMan.HighScores"/>
 
 </session-factory>
 </hibernate-configuration>

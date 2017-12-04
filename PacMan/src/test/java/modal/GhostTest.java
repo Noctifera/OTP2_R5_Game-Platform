@@ -7,12 +7,12 @@ import org.junit.BeforeClass;
 import static org.junit.Assert.*;
 import org.junit.Test;
 
-import characters.Ghost;
-import characters.Player;
-import hibernate.DataBaseConnection;
-import map.Map;
-import map.MovementLogic;
-import pathfinding.PathFinder;
+import characters_PacMan.Ghost;
+import characters_PacMan.Player;
+import hibernate_PacMan.DataBaseConnection;
+import map_PacMan.Map;
+import map_PacMan.MovementLogic;
+import pathfinding_PacMan.PathFinder;
 	
 public class GhostTest {
 

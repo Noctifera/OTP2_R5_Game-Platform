@@ -7,8 +7,8 @@ import java.awt.Point;
 import org.junit.BeforeClass;
 import org.junit.Test;
 
-import hibernate.DataBaseConnection;
-import map.Map;
+import hibernate_PacMan.DataBaseConnection;
+import map_PacMan.Map;
 
 public class MapTest {
 	private static Map map;
