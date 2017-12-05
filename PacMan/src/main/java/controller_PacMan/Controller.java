@@ -143,7 +143,7 @@ public class Controller implements Controller_IF {
 					ThreadsSuppress();
 					gameOver();
 					o.deleteObserver(this);
-					gc.suppress = true;
+					gc.suppress();
 				}
 			}
 		});
@@ -159,6 +159,7 @@ public class Controller implements Controller_IF {
 		}
 
 		public void run() {
+			player.setGameEnd(false);
 			while (!suppress) {
 				setChanged();
 				notifyObservers(player.isGameEnd());
@@ -169,6 +170,9 @@ public class Controller implements Controller_IF {
 					e.printStackTrace();
 				}
 			}
+		}
+		public void suppress() {
+			suppress = true;
 		}
 
 	}

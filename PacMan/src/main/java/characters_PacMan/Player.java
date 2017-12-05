@@ -53,13 +53,13 @@ public class Player extends Observable implements Character_IF {
 	private List<Point> move(KeyCode event) {
 
 		ArrayList<Point> list = new ArrayList<>();
-		if(event.equals(KeyCode.W)){
+		if (event.equals(KeyCode.W)) {
 			event = KeyCode.UP;
-		}else if(event.equals(KeyCode.S)) {
+		} else if (event.equals(KeyCode.S)) {
 			event = KeyCode.DOWN;
-		}else if(event.equals(KeyCode.A)) {
+		} else if (event.equals(KeyCode.A)) {
 			event = KeyCode.LEFT;
-		}else if(event.equals(KeyCode.D)) {
+		} else if (event.equals(KeyCode.D)) {
 			event = KeyCode.RIGHT;
 		}
 		switch (event) {
@@ -101,7 +101,7 @@ public class Player extends Observable implements Character_IF {
 		case LEFT:
 			// vasemalle
 			way = KeyCode.LEFT.toString();
-			System.out.println(way);
+			
 			Point left = ml.left(pos);
 			left = ml.yli(left);
 
@@ -148,8 +148,7 @@ public class Player extends Observable implements Character_IF {
 		if (ml.dots().contains(pos)) {
 			s.dot();
 			ml.dots().remove(pos);
-			
-			
+
 		} else if (ml.largeDots().contains(pos)) {
 			s.LargeDot();
 			vulnerable = true;
@@ -201,27 +200,25 @@ public class Player extends Observable implements Character_IF {
 
 	@Override
 	public void getNextPos() {
-		
-		
 
 		if (ml.dots().size() == 0 && ml.largeDots().size() == 0) {
 			gameEnd = true;
-		}if(life <= 0) {
+		}
+		if (life <= 0) {
 			gameEnd = true;
 		}
-		if(pos.equals(characterSpawn())) {
+		if (pos.equals(characterSpawn())) {
 			ml.returnToNormal(pos);
-		}else {
+		} else {
 			ml.playersetTMap(pos, "Empty");
 		}
-		
+
 		pos = path.get(reader);
-		
-		
+
 		score(pos);
 		reader++;
-		ml.setToMap(pos, "Pacman_"+way);
-		
+		ml.setToMap(pos, "Pacman_" + way);
+
 		setChanged();
 		notifyObservers(life + "," + s.score);
 	}
@@ -232,10 +229,12 @@ public class Player extends Observable implements Character_IF {
 		path.clear();
 		reader = 0;
 	}
+
 	@Override
 	public void eaten() {
 		life--;
 	}
+
 	@Override
 	public int pathlength() {
 		// TODO Auto-generated method stub
@@ -256,6 +255,10 @@ public class Player extends Observable implements Character_IF {
 		s.setScore(score);
 	}
 
+	public void setGameEnd(boolean gameEnd) {
+		this.gameEnd = gameEnd;
+	}
+
 	@Override
 	public boolean isGameEnd() {
 		// TODO Auto-generated method stub
@@ -271,20 +274,18 @@ public class Player extends Observable implements Character_IF {
 	public void eatghost() {
 		s.ghost();
 	}
-	
+
 	public int getVulnerableCount() {
 		return vulnerableCount;
 	}
+
 	public void increseVulnerableCount() {
 		vulnerableCount++;
 	}
+
 	public void setVulnerableCount(int vulnerableCount) {
 		this.vulnerableCount = vulnerableCount;
 	}
-
-
-
-
 
 	private class Score {
 		int score;
@@ -296,21 +297,23 @@ public class Player extends Observable implements Character_IF {
 		public int getScore() {
 			return score;
 		}
-		public void dot(){
-			score = score +10;
+
+		public void dot() {
+			score = score + 10;
 
 		}
-		public void LargeDot(){
+
+		public void LargeDot() {
 			score = score + 20;
 		}
-		public void ghost(){
-			score = score +100;
+
+		public void ghost() {
+			score = score + 100;
 		}
 
 		public void setScore(int score) {
 			this.score = score;
 		}
-
 
 	}
 }

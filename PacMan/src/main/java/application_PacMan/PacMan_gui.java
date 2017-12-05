@@ -5,13 +5,12 @@ import javafx.scene.control.ChoiceBox;
 import javafx.scene.control.Label;
 import javafx.scene.control.ListView;
 import javafx.scene.control.RadioButton;
-import javafx.scene.control.ScrollBar;
 import javafx.scene.control.TextField;
 import javafx.scene.control.ToggleGroup;
-import javafx.scene.input.KeyCode;
 import javafx.scene.input.KeyEvent;
 
 import java.awt.Point;
+import java.util.ArrayList;
 import java.util.List;
 import java.util.Locale;
 import java.util.ResourceBundle;
@@ -29,10 +28,8 @@ import javafx.collections.FXCollections;
 import javafx.event.ActionEvent;
 import javafx.event.EventHandler;
 import javafx.geometry.Insets;
-import javafx.geometry.Orientation;
 import javafx.geometry.Pos;
 import javafx.stage.Stage;
-import javafx.stage.WindowEvent;
 import map_PacMan.Map;
 import map_PacMan.MovementLogic;
 import javafx.scene.Scene;
@@ -155,7 +152,19 @@ public class PacMan_gui extends Application implements PacMan_gui_IF {
 
 	public void bottomDataPane(List<HighScores> list) {
 		System.out.println(list);
-		
+		ArrayList<HighScores> list1 = new ArrayList<>();
+		int size = 7;
+
+		if (list.size() < size) {
+			for (int i = 0; i < list.size(); i++) {
+				list1.add(list.get(i));
+			}
+		} else {
+			for (int i = 0; i < size; i++) {
+				list1.add(list.get(i));
+			}
+		}
+
 		GridPane gp = new GridPane();
 		gp.setVgap(5);
 		gp.setHgap(20);
@@ -167,15 +176,15 @@ public class PacMan_gui extends Application implements PacMan_gui_IF {
 		gp.add(DatabaseName, 2, 0);
 		gp.add(DatabaseDate, 3, 0);
 
-		for (int i = 0; i < list.size(); i++) {
+		for (int i = 0; i < list1.size(); i++) {
 
-			Text score = new Text(list.get(i).getScore() + "");
+			Text score = new Text(list1.get(i).getScore() + "");
 			gp.add(score, 1, i + 1);
 
-			Text name = new Text(list.get(i).getPlayername());
+			Text name = new Text(list1.get(i).getPlayername());
 			gp.add(name, 2, i + 1);
 
-			Text date = new Text(list.get(i).getSubmission_date());
+			Text date = new Text(list1.get(i).getSubmission_date());
 			gp.add(date, 3, i + 1);
 
 		}
