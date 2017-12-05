@@ -6,6 +6,7 @@ import java.io.File;
 import javafx.scene.canvas.Canvas;
 import javafx.scene.canvas.GraphicsContext;
 import javafx.scene.image.Image;
+import javafx.scene.input.KeyCode;
 import javafx.scene.paint.Color;
 import map_PacMan.Map;
 
@@ -30,7 +31,10 @@ public class Game extends Canvas implements Draw_IF {
 	private Image bashful;
 	private Image speedy;
 	private Image pokey;
-	private Image player;
+	private Image player_Left;
+	private Image player_Up;
+	private Image player_Down;
+	private Image player_Right;
 	private Image vulnerable;
 
 	public Game(int tileSize, Map map, Point gSize, String[] strings) {
@@ -44,7 +48,10 @@ public class Game extends Canvas implements Draw_IF {
 		speedy = getImage("/Pictures/Pacman-pink-speedy.png");
 		bashful = getImage("/Pictures/Pacman-inky-bashful.png");
 		pokey = getImage("/Pictures/Pacman-orange-pokey.png");
-		player = getImage("/Pictures/Pacman-pacman-player.png");
+		player_Left = getImage("/Pictures/Pacman-pacman-player_Left.png");
+		player_Right = getImage("/Pictures/Pacman-pacman-player_Right.png");
+		player_Up = getImage("/Pictures/Pacman-pacman-player_Up.png");
+		player_Down = getImage("/Pictures/Pacman-pacman-player_Down.png");
 		vulnerable = getImage("/Pictures/Pacman-blue-vulnerable.png");
 	}
 
@@ -68,8 +75,18 @@ public class Game extends Canvas implements Draw_IF {
 	 * Gets Players position and draws an orange circle
 	 */
 
-	private void drawplayer(Point point) {
-		gc.drawImage(player, point.x, point.y, tileSize, tileSize);
+	private void drawplayer(String item, Point point) {
+		if(item.contains(KeyCode.LEFT.toString())) {
+			gc.drawImage(player_Left, point.x, point.y, tileSize, tileSize);
+		}else if(item.contains(KeyCode.RIGHT.toString())){
+			gc.drawImage(player_Right, point.x, point.y, tileSize, tileSize);
+		}else if(item.contains(KeyCode.UP.toString())) {
+			gc.drawImage(player_Up, point.x, point.y, tileSize, tileSize);
+		}else if(item.contains(KeyCode.DOWN.toString())) {
+			gc.drawImage(player_Down, point.x, point.y, tileSize, tileSize);
+		}
+		
+
 	}
 
 	/**
@@ -142,7 +159,7 @@ public class Game extends Canvas implements Draw_IF {
 			for (int x = 0; x < gSize.x;) {
 				Point point = new Point(x, y);
 				String item = map.getMap().get(point);
-
+				System.out.println(item);
 				if (item.contains(strings[2])) {
 
 					drawWall(point);
@@ -196,10 +213,10 @@ public class Game extends Canvas implements Draw_IF {
 					}
 
 				}
-				
+
 				if (item.contains(strings[6])) {
 
-					drawplayer(point);
+					drawplayer(item, point);
 
 				}
 

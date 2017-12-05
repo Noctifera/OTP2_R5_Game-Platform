@@ -13,6 +13,7 @@ public class Player extends Observable implements Character_IF {
 
 	private MovementLogic ml;
 	private Point pos = new Point();
+	private String way = "";
 	private Score s;
 	private int life;
 	private boolean vulnerable = false;
@@ -64,7 +65,7 @@ public class Player extends Observable implements Character_IF {
 		switch (event) {
 		case UP:
 			// ylös
-
+			way = KeyCode.UP.toString();
 			Point up = ml.up(pos);
 			up = ml.yli(up);
 			while (ml.freespaces().contains(up)) {
@@ -81,6 +82,7 @@ public class Player extends Observable implements Character_IF {
 			return list;
 		case DOWN:
 			// alas
+			way = KeyCode.DOWN.toString();
 			Point down = ml.down(pos);
 			down = ml.yli(down);
 
@@ -98,6 +100,8 @@ public class Player extends Observable implements Character_IF {
 			return list;
 		case LEFT:
 			// vasemalle
+			way = KeyCode.LEFT.toString();
+			System.out.println(way);
 			Point left = ml.left(pos);
 			left = ml.yli(left);
 
@@ -115,6 +119,7 @@ public class Player extends Observable implements Character_IF {
 			return list;
 		case RIGHT:
 			// oikealle
+			way = KeyCode.RIGHT.toString();
 			Point right = ml.right(pos);
 			right = ml.yli(right);
 
@@ -215,7 +220,7 @@ public class Player extends Observable implements Character_IF {
 		
 		score(pos);
 		reader++;
-		ml.setToMap(pos, "Pacman");
+		ml.setToMap(pos, "Pacman_"+way);
 		
 		setChanged();
 		notifyObservers(life + "," + s.score);
