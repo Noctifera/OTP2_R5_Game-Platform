@@ -91,6 +91,7 @@ public class PathFinder implements PathFinder_IF {
 		Node api = current;
 		while (api != null) {
 			wrongList.add(api);
+			
 			api = api.getPrev();
 		}
 		for (int i = wrongList.size() - 1; i >= 0; i--) {

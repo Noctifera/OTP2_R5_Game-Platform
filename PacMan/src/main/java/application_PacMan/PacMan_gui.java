@@ -299,7 +299,7 @@ public class PacMan_gui extends Application implements PacMan_gui_IF {
 
 				if (input.length() > 0) {
 					con.setHighScore(input);
-					System.exit(0);
+					popup.close();
 				}
 			}
 		});
@@ -348,10 +348,6 @@ public class PacMan_gui extends Application implements PacMan_gui_IF {
 
 			@Override
 			public void handle(KeyEvent event) {
-
-				if (event.getCode().equals(KeyCode.ESCAPE)) {
-					System.exit(0);
-				}
 				player.path(event.getCode());
 			}
 		});

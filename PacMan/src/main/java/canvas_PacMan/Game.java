@@ -159,7 +159,6 @@ public class Game extends Canvas implements Draw_IF {
 			for (int x = 0; x < gSize.x;) {
 				Point point = new Point(x, y);
 				String item = map.getMap().get(point);
-				System.out.println(item);
 				if (item.contains(strings[2])) {
 
 					drawWall(point);
