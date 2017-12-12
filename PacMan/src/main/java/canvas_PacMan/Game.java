@@ -2,6 +2,9 @@ package canvas_PacMan;
 
 import java.awt.Point;
 import java.io.File;
+import java.util.HashMap;
+import java.util.Iterator;
+import java.util.Map.Entry;
 
 import javafx.scene.canvas.Canvas;
 import javafx.scene.canvas.GraphicsContext;
@@ -157,10 +160,14 @@ public class Game extends Canvas implements Draw_IF {
 			}
 			y = y + tileSize;
 		}
-		for (int y = 0; y < gSize.y;) {
-			for (int x = 0; x < gSize.x;) {
-				Point point = new Point(x, y);
-				String item = map.getMap().get(point);
+		
+		Iterator<Entry<Point, String>> mapIte = map.getMap().entrySet().iterator();
+		
+		while(mapIte.hasNext()) {
+				HashMap.Entry<Point,String> entry =(HashMap.Entry<Point,String>) mapIte.next();
+				
+				String item = (String) entry.getValue();
+				Point point = (Point) entry.getKey();
 				if (item.contains(strings[2])) {
 
 					drawWall(point);
@@ -220,10 +227,6 @@ public class Game extends Canvas implements Draw_IF {
 					drawplayer(item, point);
 
 				}
-
-				x = x + tileSize;
-			}
-			y = y + tileSize;
 		}
 
 	}

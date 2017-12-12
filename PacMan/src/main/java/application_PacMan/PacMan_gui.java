@@ -7,9 +7,11 @@ import javafx.scene.control.ListView;
 import javafx.scene.control.RadioButton;
 import javafx.scene.control.TextField;
 import javafx.scene.control.ToggleGroup;
+import javafx.scene.image.Image;
 import javafx.scene.input.KeyEvent;
 
 import java.awt.Point;
+import java.io.File;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Locale;
@@ -126,6 +128,8 @@ public class PacMan_gui extends Application implements PacMan_gui_IF {
 
 	public void start(Stage primaryStage) {
 		root = new BorderPane();
+		File file = new File(getClass().getResource("/Pictures/Pacman-pacman-player_Right.png").getFile());
+		primaryStage.getIcons().add(new Image(file.toURI().toString()));
 
 		scene = new Scene(root, (int) gSize.getX() + 350, (int) gSize.getY() + 200);
 
