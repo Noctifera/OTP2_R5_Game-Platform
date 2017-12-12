@@ -36,6 +36,8 @@ public class Game extends Canvas implements Draw_IF {
 	private Image player_Down;
 	private Image player_Right;
 	private Image vulnerable;
+	private Image ghostHouse;
+	private Image playerSpawn;
 
 	public Game(int tileSize, Map map, Point gSize, String[] strings) {
 		super(gSize.x, gSize.y);
@@ -53,6 +55,8 @@ public class Game extends Canvas implements Draw_IF {
 		player_Up = getImage("/Pictures/Pacman-pacman-player_Up.png");
 		player_Down = getImage("/Pictures/Pacman-pacman-player_Down.png");
 		vulnerable = getImage("/Pictures/Pacman-blue-vulnerable.png");
+		ghostHouse = getImage("/Pictures/Pacman-GhostHouse.png");
+		playerSpawn = getImage("/Pictures/Pacman-Playerspawn.png");
 	}
 
 	private Image getImage(String s) {
@@ -122,13 +126,11 @@ public class Game extends Canvas implements Draw_IF {
 	}
 
 	private void drawPlayerSpawn(Point point) {
-		gc.setFill(Color.GREEN);
-		gc.fillRect(point.x, point.y, tileSize - 2, tileSize - 2);
+		gc.drawImage(playerSpawn, point.x, point.y, tileSize,tileSize);
 	}
 
 	private void drawGhostHouse(Point point) {
-		gc.setFill(Color.RED);
-		gc.fillRect(point.x, point.y, tileSize - 2, tileSize - 2);
+		gc.drawImage(ghostHouse, point.x, point.y, tileSize,tileSize);
 	}
 
 	private void drawGhost(Image image, Point point) {
