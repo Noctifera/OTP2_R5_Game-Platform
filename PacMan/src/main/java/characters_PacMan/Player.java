@@ -6,6 +6,7 @@ import java.util.List;
 import java.util.Observable;
 
 import hibernate_PacMan.DataBaseConnection;
+import hibernate_PacMan.FileReader;
 import javafx.scene.input.KeyCode;
 import map_PacMan.MovementLogic;
 
@@ -184,6 +185,9 @@ public class Player extends Observable implements Character_IF {
 
 	public boolean post(String playerName) {
 		return DataBaseConnection.post(s.score, playerName);
+	}
+	public boolean saveScore(String plName) {
+		return FileReader.post(s.score, plName);
 	}
 
 	@Override

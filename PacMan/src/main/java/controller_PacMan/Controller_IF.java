@@ -18,7 +18,7 @@ public interface Controller_IF {
 	 * @param playername
 	 *            the name which is saved to database
 	 */
-	public void setHighScore(String playername);
+	public void setHighScoreDataBase(String playername);
 
 	/**
 	 * runs Mains GameOver

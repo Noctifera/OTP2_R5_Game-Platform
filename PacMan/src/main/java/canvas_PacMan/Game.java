@@ -49,21 +49,21 @@ public class Game extends Canvas implements Draw_IF {
 		this.gc = this.getGraphicsContext2D();
 		this.map = map;
 		this.strings = strings;
-		blinky = getImage("/Pictures/Pacman-red-blinky.png");
-		speedy = getImage("/Pictures/Pacman-pink-speedy.png");
-		bashful = getImage("/Pictures/Pacman-inky-bashful.png");
-		pokey = getImage("/Pictures/Pacman-orange-pokey.png");
-		player_Left = getImage("/Pictures/Pacman-pacman-player_Left.png");
-		player_Right = getImage("/Pictures/Pacman-pacman-player_Right.png");
-		player_Up = getImage("/Pictures/Pacman-pacman-player_Up.png");
-		player_Down = getImage("/Pictures/Pacman-pacman-player_Down.png");
-		vulnerable = getImage("/Pictures/Pacman-blue-vulnerable.png");
-		ghostHouse = getImage("/Pictures/Pacman-GhostHouse.png");
-		playerSpawn = getImage("/Pictures/Pacman-Playerspawn.png");
+		blinky = getImage("Pacman-red-blinky.png");
+		speedy = getImage("Pacman-pink-speedy.png");
+		bashful = getImage("Pacman-inky-bashful.png");
+		pokey = getImage("Pacman-orange-pokey.png");
+		player_Left = getImage("Pacman-pacman-player_Left.png");
+		player_Right = getImage("Pacman-pacman-player_Right.png");
+		player_Up = getImage("Pacman-pacman-player_Up.png");
+		player_Down = getImage("Pacman-pacman-player_Down.png");
+		vulnerable = getImage("Pacman-blue-vulnerable.png");
+		ghostHouse = getImage("Pacman-GhostHouse.png");
+		playerSpawn = getImage("Pacman-Playerspawn.png");
 	}
 
 	private Image getImage(String s) {
-		File f = new File(getClass().getResource(s).getFile());
+		File f = new File(getClass().getResource("/Pictures/"+s).getFile());
 		Image image = new Image(f.toURI().toString());
 		return image;
 	}

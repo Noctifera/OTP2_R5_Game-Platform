@@ -88,8 +88,11 @@ public class Controller implements Controller_IF {
 		return tc.isActive();
 	}
 
-	public void setHighScore(String playername) {
+	public void setHighScoreDataBase(String playername) {
 		player.post(playername);
+	}
+	public void setHighScorePrivate(String plName) {
+		player.saveScore(plName);
 	}
 
 	public void gameOver() {

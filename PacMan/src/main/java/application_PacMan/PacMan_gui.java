@@ -311,7 +311,12 @@ public class PacMan_gui extends Application implements PacMan_gui_IF {
 				String input = textfield.getText();
 
 				if (input.length() > 0) {
-					con.setHighScore(input);
+					if(button1.isSelected()) {
+						con.setHighScorePrivate(input);
+					}else {
+						con.setHighScoreDataBase(input);
+					}
+					
 					popup.close();
 				}
 			}
